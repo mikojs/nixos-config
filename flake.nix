@@ -7,6 +7,7 @@
   };
 
   outputs = { self, nixpkgs, nixos-wsl, ... }@inputs: {
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nixosConfigurations.core = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
