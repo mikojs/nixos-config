@@ -15,19 +15,15 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, ... }@inputs: {
-    nixosConfigurations.core = nixpkgs.lib.nixosSystem {
+  outputs = { nixpkgs, ... }@inputs: let
+    makeSystem = import ./lib/make-system.nix {
+      inherit nixpkgs inputs;
+      stateVersion = "24.05";
+    };
+  in {
+    nixosConfigurations.wsl = makeSystem {
       system = "x86_64-linux";
-      modules = [
-        nixos-wsl.nixosModules.default
-        {
-          system.stateVersion = "24.05";
-          wsl.enable = true;
-        }
-        {
-          nix.settings.experimental-features = [ "nix-command" "flakes" ];
-        }
-      ];
+      wsl = true;
     };
   };
 }
