@@ -13,10 +13,16 @@ with inputs; nixpkgs.lib.nixosSystem rec {
   modules = [
     (if isWSL then nixos-wsl.nixosModules.default else { })
 
-    {
+    ({ pkgs, ... }: {
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
       system.stateVersion = stateVersion;
       wsl.enable = isWSL;
-    }
+
+      environment.systemPackages = with pkgs; [
+        git
+        vim
+      ];
+      environment.variables.EDITOR = "vim";
+    })
   ];
 }
