@@ -18,8 +18,11 @@ with inputs; nixpkgs.lib.nixosSystem rec {
       system.stateVersion = stateVersion;
       wsl.enable = isWSL;
 
+      programs.git = {
+        enable = true;
+      };
+
       environment.systemPackages = with pkgs; [
-        git
         vim
       ];
       environment.variables.EDITOR = "vim";
