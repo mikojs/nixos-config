@@ -22,10 +22,10 @@ with inputs; nixpkgs.lib.nixosSystem rec {
         enable = true;
       };
 
-      environment.systemPackages = with pkgs; [
-        vim
-      ];
-      environment.variables.EDITOR = "vim";
+      programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+      };
     })
   ];
 }
