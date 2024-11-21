@@ -11,18 +11,16 @@
   };
 
   outputs = { nixpkgs, ... }@inputs:
-    let
-      makeSystem = import ./lib/make-system.nix {
-        inherit nixpkgs inputs;
-        stateVersion = "24.05";
-      };
-    in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
 
-      nixosConfigurations.wsl = makeSystem {
+      nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        wsl = true;
+	modules = [
+	  nixos-wsl.nixosModules.default
+	  wsl.enable = true
+	  ./nixos
+	]
       };
     };
 }
