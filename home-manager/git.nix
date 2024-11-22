@@ -1,9 +1,17 @@
 { pkgs
 , ...
 }: {
-  home.packages = with pkgs; [
-    cz-cli
-  ];
+  home = {
+    packages = with pkgs; [
+      cz-cli
+    ];
+
+    file.".czrc".text = ''
+{
+  "path": "cz-conventional-changelog"
+}
+    '';
+  };
 
   programs.git = {
     enable = true;
