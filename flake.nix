@@ -24,6 +24,7 @@
         specialArgs = {
           inherit inputs;
           isWSL = true;
+          stateVersion = "24.05";
         };
         modules = [
           ./nixos

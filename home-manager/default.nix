@@ -1,6 +1,6 @@
-{
-  inputs,
-  ...
+{ inputs
+, stateVersion
+, ...
 }: with inputs; {
   imports = [
     home-manager.nixosModules.home-manager
@@ -12,7 +12,7 @@
         imports = [
           ./git.nix
         ];
-        home.stateVersion = "24.05";
+        home.stateVersion = stateVersion;
       };
     }
   ];
