@@ -11,6 +11,7 @@
       home-manager.users.nixos = {
         imports = [
           ./git.nix
+          ./neovim.nix
         ];
         home.stateVersion = stateVersion;
       };

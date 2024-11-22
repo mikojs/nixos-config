@@ -11,8 +11,5 @@
       system.stateVersion = stateVersion;
       wsl.enable = isWSL;
     }
-
-    ./git.nix
-    ./neovim.nix
   ];
 }

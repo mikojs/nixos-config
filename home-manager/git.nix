@@ -1,4 +1,9 @@
-{
+{ pkgs
+, ...
+}: {
+  home.packages = with pkgs; [
+    cz-cli
+  ];
   programs.git = {
     enable = true;
     aliases = {
