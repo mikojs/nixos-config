@@ -7,9 +7,9 @@
     ];
 
     file.".czrc".text = ''
-{
-  "path": "cz-conventional-changelog"
-}
+      {
+        "path": "cz-conventional-changelog"
+      }
     '';
   };
 
