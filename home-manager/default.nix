@@ -8,9 +8,12 @@
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.users.nixos = [
-        ./git.nix
-      ]
+      home-manager.users.nixos = {
+        imports = [
+          ./git.nix
+        ];
+        home.stateVersion = "24.05";
+      };
     }
   ];
 }
