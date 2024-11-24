@@ -15,6 +15,7 @@
             ./git.nix
             ./neovim.nix
             ./tree.nix
+            ./gh.nix
           ];
           home.stateVersion = stateVersion;
         };
