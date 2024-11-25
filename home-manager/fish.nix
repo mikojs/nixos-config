@@ -9,15 +9,7 @@
     '';
 
     plugins = [
-      {
-        name = "agnoster";
-        src = pkgs.fetchFromGitHub {
-          owner = "oh-my-fish";
-          repo = "theme-agnoster";
-          rev = "master";
-          sha256 = "OFESuesnfqhXM0aij+79kdxjp4xgCt28YwTrcwQhFMU=";
-        };
-      }
+      { name = "tide"; src = pkgs.fishPlugins.tide.src; }
     ];
   };
 }
