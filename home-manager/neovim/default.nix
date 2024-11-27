@@ -1,7 +1,15 @@
 {
+  pkgs,
+  ...
+}: {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+
+    plugins = with pkgs.vimPlugins; [
+      nvim-cmp
+    ];
+
     extraConfig = ''
       set encoding=utf-8
       set nu
