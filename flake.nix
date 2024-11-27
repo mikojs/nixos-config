@@ -27,7 +27,6 @@
           stateVersion = "24.05";
         };
         modules = [
-          ./overlays
           ./nixos
           ./home-manager
         ];
