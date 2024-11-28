@@ -5,7 +5,8 @@
     enable = true;
     defaultEditor = true;
 
-    plugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.awesomeNeovimPlugins; [
+      nvim-cmp
     ];
 
     extraConfig = ''
