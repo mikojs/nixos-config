@@ -5,17 +5,24 @@ let
   nvim-cmp = import ./nvim-cmp.nix { inherit pkgs; };
 in
 {
+  home.packages = with pkgs; [
+    nil
+  ];
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
 
     plugins = with pkgs.vimPlugins; [
       /* cmp */
-      cmp-nvim-lsp
-      cmp-vsnip
       vim-vsnip
+      cmp-vsnip
+
       nvim-lspconfig
+      cmp-nvim-lsp
+
       nvim-cmp
+      /* cmp */
     ];
 
     extraConfig = ''
