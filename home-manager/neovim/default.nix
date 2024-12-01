@@ -21,6 +21,10 @@ in
       nvim-lspconfig
       cmp-nvim-lsp
 
+      cmp-buffer
+      cmp-path
+      cmp-cmdline
+
       nvim-cmp
       /* cmp */
     ];
