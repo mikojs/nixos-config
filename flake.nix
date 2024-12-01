@@ -13,9 +13,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    flake-utils.url = "github:numtide/flake-utils";
-    awesome-neovim-plugins.url = "github:m15a/flake-awesome-neovim-plugins";
   };
 
   outputs = { nixpkgs, ... }@inputs:
@@ -30,7 +27,6 @@
           stateVersion = "24.05";
         };
         modules = [
-          ./overlays
           ./nixos
           ./home-manager
         ];
