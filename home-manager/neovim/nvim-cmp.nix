@@ -1,24 +1,12 @@
 { pkgs
 , ...
-}: with pkgs.vimPlugins; ''
-  {
-    dir = "${nvim-cmp}",
-    name = "nvim-cmp",
-    event = { "InsertEnter", "CmdlineEnter" },
-    dependencies = {
-      { dir = "${cmp-nvim-lsp}", name = "cmp-nvim-lsp" },
-      { dir = "${cmp-path}", name = "cmp-path" },
-      { dir = "${cmp-buffer}", name = "cmp-buffer" },
-      { dir = "${cmp-cmdline}", name = "cmp-cmdline" },
-    },
-    config = function ()
-      local cmp = require('cmp')
+}: with pkgs.vimPlugins; {
+  plugin = nvim-cmp;
+  config = ''
+    lua <<EOF
+      local cmp = require'cmp'
 
       cmp.setup({
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'path' },
-        }),
         snippet = {
           expand = function(args)
             vim.fn["vsnip#anonymous"](args.body)
@@ -28,7 +16,19 @@
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
-        mapping = cmp.mapping.preset.insert({}),
+        mapping = cmp.mapping.preset.insert({
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'vsnip' },
+        }, {
+          { name = 'buffer' },
+        })
       })
 
       cmp.setup.cmdline({ '/', '?' }, {
@@ -47,6 +47,11 @@
         }),
         matching = { disallow_symbol_nonprefix_matching = false }
       })
-    end,
-  },
-''
+
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      require('lspconfig').nil_ls.setup {
+        capabilities = capabilities
+      }
+    EOF
+  '';
+}

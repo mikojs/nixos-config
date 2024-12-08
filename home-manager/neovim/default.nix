@@ -1,12 +1,32 @@
 { pkgs
 , ...
-}: {
+}:
+let
+  nvim-cmp = import ./nvim-cmp.nix { inherit pkgs; };
+in
+{
+  home.packages = with pkgs; [
+    nil
+  ];
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
 
     plugins = with pkgs.vimPlugins; [
-      lazy-nvim
+      /* cmp */
+      vim-vsnip
+      cmp-vsnip
+
+      nvim-lspconfig
+      cmp-nvim-lsp
+
+      cmp-buffer
+      cmp-path
+      cmp-cmdline
+
+      nvim-cmp
+      /* cmp */
     ];
 
     extraConfig = ''
@@ -25,21 +45,5 @@
 
       set nocompatible
     '';
-
-    extraLuaConfig = with pkgs.vimPlugins;
-      # Lua
-      ''
-        require("lazy").setup({
-          -- disable all update / install features
-          -- this is handled by nix
-          rocks = { enabled = false },
-          pkg = { enabled = false },
-          install = { missing = false },
-          change_detection = { enabled = false },
-          spec = {
-            ${(import ./nvim-cmp.nix { inherit pkgs; })}
-          },
-        })
-      '';
   };
 }
