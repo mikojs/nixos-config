@@ -24,7 +24,6 @@ in
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-
     plugins = getConfig ([ "programs" "neovim" "plugins" ]);
 
     extraConfig = ''
