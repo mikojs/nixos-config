@@ -1,10 +1,6 @@
 { pkgs
 , ...
-}:
-let
-  nvim-cmp = import ./nvim-cmp.nix { inherit pkgs; };
-in
-{
+}: {
   home.packages = with pkgs; [
     nil
   ];
@@ -13,21 +9,9 @@ in
     enable = true;
     defaultEditor = true;
 
-    plugins = with pkgs.vimPlugins; [
-      /* cmp */
-      vim-vsnip
-      cmp-vsnip
-
-      nvim-lspconfig
-      cmp-nvim-lsp
-
-      cmp-buffer
-      cmp-path
-      cmp-cmdline
-
-      nvim-cmp
-      /* cmp */
-    ];
+    plugins = (builtins.foldl' (result: plugins: result ++ (import ./${plugins}.nix { inherit pkgs; })) [ ] [
+      "nvim-cmp"
+    ]);
 
     extraConfig = ''
       set encoding=utf-8
