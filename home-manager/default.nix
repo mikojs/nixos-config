@@ -1,5 +1,4 @@
 { inputs
-, nixpkgs
 , stateVersion
 , pkgs
 , ...
@@ -14,10 +13,6 @@
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-
-        extraSpecialArgs = {
-          inherit nixpkgs;
-        };
 
         users.nixos = {
           imports = [

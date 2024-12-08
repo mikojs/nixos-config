@@ -1,5 +1,4 @@
-{ nixpkgs
-, pkgs
+{ pkgs
 , ...
 }: {
   programs.neovim = {
@@ -38,9 +37,7 @@
           install = { missing = false },
           change_detection = { enabled = false },
           spec = {
-            ${nixpkgs.lib.concatStrings (map(m: import ./${m}.nix { inherit pkgs; }) [
-              "nvim-cmp"
-            ])}
+            ${(import ./nvim-cmp.nix { inherit pkgs; })}
           },
         })
       '';
