@@ -1,11 +1,11 @@
 { pkgs
 , ...
 }: {
-  packages = with pkgs; [
+  home.packages = with pkgs; [
     nil
   ];
 
-  plugins = with pkgs.vimPlugins; [
+  programs.neovim.plugins = with pkgs.vimPlugins; [
     vim-vsnip
     cmp-vsnip
 
