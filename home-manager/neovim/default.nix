@@ -1,17 +1,21 @@
 { pkgs
 , ...
-}: {
-  home.packages = with pkgs; [
-    nil
-  ];
+}:
+let
+  getConfig = (key: (builtins.foldl' (result: config: if builtins.hasAttr "${key}" config then result ++ config."${key}" else result) [ ] (
+    map (m: import ./${m}.nix { inherit pkgs; }) ([
+      "nvim-cmp"
+    ])
+  )));
+in
+{
+  home.packages = getConfig ("packages");
 
   programs.neovim = {
     enable = true;
     defaultEditor = true;
 
-    plugins = (builtins.foldl' (result: plugins: result ++ (import ./${plugins}.nix { inherit pkgs; })) [ ] [
-      "nvim-cmp"
-    ]);
+    plugins = getConfig ("plugins");
 
     extraConfig = ''
       set encoding=utf-8
