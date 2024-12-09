@@ -15,8 +15,8 @@ let
           inherit pkgs languages;
         })
         ([
-          "nvim-cmp"
           "nvim-treesitter"
+          "nvim-cmp"
         ])
     )));
 in

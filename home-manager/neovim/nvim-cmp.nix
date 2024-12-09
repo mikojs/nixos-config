@@ -26,6 +26,7 @@
             sources = cmp.config.sources({
               { name = 'nvim_lsp' },
               { name = 'path' },
+              { name = 'nvim_treesitter' },
             }),
             snippet = {
               expand = function(args)
