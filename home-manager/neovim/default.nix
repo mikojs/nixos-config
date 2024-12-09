@@ -15,6 +15,7 @@ let
         })
         ([
           "nvim-cmp"
+          "nvim-treesitter"
         ])
     )));
 in
