@@ -1,4 +1,5 @@
 { pkgs
+, languages
 , ...
 }:
 let
@@ -11,7 +12,7 @@ let
     (
       map
         (m: import ./${m}.nix {
-          inherit pkgs;
+          inherit pkgs languages;
         })
         ([
           "nvim-cmp"
