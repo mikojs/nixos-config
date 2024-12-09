@@ -3,10 +3,10 @@
 , ...
 }:
 let
-  getConfig = (keys: (builtins.foldl'
+  getConfig = with builtins; (keys: (foldl'
     (result: config:
       let
-        data = (builtins.foldl' (result: key: if result != null && builtins.hasAttr "${key}" result then result."${key}" else null) config keys);
+        data = (foldl' (result: key: if result != null && hasAttr "${key}" result then result."${key}" else null) config keys);
       in
       if data != null then result ++ data else result) [ ]
     (
