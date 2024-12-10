@@ -42,7 +42,7 @@
       set -g fish_pager_color_description $comment
       set -g fish_pager_color_selected_background --background=$selection
 
-      # load custom env
+      # Load Custom Env
       test -f ~/init.fish && source ~/init.fish 2> /dev/null
     '';
 
