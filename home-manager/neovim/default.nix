@@ -17,6 +17,7 @@ let
         ([
           "nvim-treesitter"
           "nvim-cmp"
+          "tokyonight-nvim"
         ])
     )));
 in
