@@ -138,13 +138,12 @@
           })
 
           local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      '' +
-      (if elem "nix" languages then ''
-        require('lspconfig').nil_ls.setup {
-          capabilities = capabilities
-        }
-      '' else "") +
-      ''
+
+          ${(if elem "nix" languages then ''
+            require('lspconfig').nil_ls.setup {
+              capabilities = capabilities
+            }
+          '' else "")}
         EOF
       '';
     }
