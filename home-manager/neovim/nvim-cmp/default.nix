@@ -3,14 +3,14 @@
 , ...
 }:
 let
-  languagesPackages = with builtins; map
+  langaugesConfig = with builtins; map
     (l: import ./${l}.nix {
       inherit pkgs;
     })
     (filter (l: pathExists ./${l}.nix) languages);
 in
 {
-  home.packages = with builtins; foldl' (result: l: result ++ l.packages) [ ] languagesPackages;
+  home.packages = with builtins; foldl' (result: l: result ++ l.packages) [ ] langaugesConfig;
 
   programs.neovim.plugins = with pkgs.vimPlugins; with builtins; [
     vim-vsnip
@@ -147,7 +147,7 @@ in
 
           local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-          ${(with builtins; foldl' (result: l: result + l.config) "" languagesPackages)}
+          ${(with builtins; foldl' (result: l: result + l.config) "" langaugesConfig)}
         EOF
       '';
     }
