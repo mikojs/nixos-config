@@ -1,8 +1,16 @@
 { pkgs
 , languages
 , ...
-}: {
-  home.packages = with pkgs; with builtins; [ ] ++ (if elem "nix" languages then [ nil ] else [ ]);
+}:
+let
+  languagesPackages = with builtins; map
+    (l: import ./${l}.nix {
+      inherit pkgs;
+    })
+    (filter (l: pathExists ./${l}.nix) languages);
+in
+{
+  home.packages = with builtins; foldl' (result: l: result ++ l.packages) [ ] languagesPackages;
 
   programs.neovim.plugins = with pkgs.vimPlugins; with builtins; [
     vim-vsnip
@@ -139,11 +147,7 @@
 
           local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-          ${(if elem "nix" languages then ''
-            require('lspconfig').nil_ls.setup {
-              capabilities = capabilities
-            }
-          '' else "")}
+          ${(with builtins; foldl' (result: l: result + l.config) "" languagesPackages)}
         EOF
       '';
     }
