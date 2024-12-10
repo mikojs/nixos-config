@@ -2,8 +2,6 @@
 , languages
 , ...
 }: {
-  home.packages = with pkgs; with builtins; [ ] ++ (if elem "c" languages then [ libgccjit ] else [ ]);
-
   programs.neovim.plugins = with pkgs.vimPlugins; [
     (nvim-treesitter.withPlugins (p: map (language: p."${language}") languages))
 

@@ -23,6 +23,7 @@
             ./neovim
             ./tree.nix
             ./fish.nix
+            ./languages.nix
           ];
           home.stateVersion = stateVersion;
         };
