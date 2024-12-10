@@ -25,7 +25,7 @@
           inherit inputs;
           isWSL = true;
           stateVersion = "24.05";
-          languages = [ "c" "lua" "vimdoc" "nix" ];
+          languages = [ "nix" ];
         };
         modules = [
           ./nixos
