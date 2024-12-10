@@ -11,13 +11,13 @@ let
       if data != null then result ++ data else result) [ ]
     (
       map
-        (m: import ./${m}.nix {
+        (m: import ./${m} {
           inherit pkgs languages;
         })
         ([
-          "nvim-treesitter"
+          "nvim-treesitter.nix"
           "nvim-cmp"
-          "tokyonight-nvim"
+          "tokyonight-nvim.nix"
         ])
     )));
 in
