@@ -1,7 +1,36 @@
+{ pkgs
+, ...
+}:
+let
+  configs = map
+    (m: import ./${m} {
+      inherit pkgs;
+    })
+    ([
+      "tokyonight-nvim.nix"
+    ]);
+
+  getConfig = with builtins; (keys: (foldl'
+    (result: config:
+      let
+        data = (foldl'
+          (result: key: if result != null && hasAttr "${key}" result then result."${key}" else null)
+          config
+          keys
+        );
+      in
+      if data != null then result ++ data else result) [ ]
+    configs
+  ));
+in
 {
+  home.packages = getConfig ([ "home" "packages" ]);
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
+    plugins = getConfig ([ "programs" "neovim" "plugins" ]);
+
     extraConfig = ''
       set encoding=utf-8
       set nu
