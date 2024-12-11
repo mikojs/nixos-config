@@ -8,6 +8,8 @@ let
       inherit pkgs languages;
     })
     ([
+      "nvim-treesitter.nix"
+      "nvim-cmp"
       "tokyonight-nvim.nix"
     ]);
 
