@@ -4,7 +4,12 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      set fish_greeting # Disable greeting
+      # Disable Greeting
+      set fish_greeting
+
+      ${(import ./neovim/tokyonight-nvim.nix { inherit pkgs; }).programs.fish.interactiveShellInit}
+
+      # Load Custom Env
       test -f ~/init.fish && source ~/init.fish 2> /dev/null
     '';
 
