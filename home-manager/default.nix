@@ -1,6 +1,6 @@
-{ inputs
+{ pkgs
+, inputs
 , stateVersion
-, pkgs
 , languages
 , ...
 }: with inputs; {

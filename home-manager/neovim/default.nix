@@ -3,23 +3,26 @@
 , ...
 }:
 let
+  configs = map
+    (m: import ./${m} {
+      inherit pkgs languages;
+    })
+    ([
+      "tokyonight-nvim.nix"
+    ]);
+
   getConfig = with builtins; (keys: (foldl'
     (result: config:
       let
-        data = (foldl' (result: key: if result != null && hasAttr "${key}" result then result."${key}" else null) config keys);
+        data = (foldl'
+          (result: key: if result != null && hasAttr "${key}" result then result."${key}" else null)
+          config
+          keys
+        );
       in
       if data != null then result ++ data else result) [ ]
-    (
-      map
-        (m: import ./${m} {
-          inherit pkgs languages;
-        })
-        ([
-          "nvim-treesitter.nix"
-          "nvim-cmp"
-          "tokyonight-nvim.nix"
-        ])
-    )));
+    configs
+  ));
 in
 {
   home.packages = getConfig ([ "home" "packages" ]);
