@@ -17,14 +17,17 @@
         extraSpecialArgs = { inherit languages; };
 
         users.nixos = {
-          imports = [
+          imports = with builtins; [
             ./git.nix
             ./gh.nix
             ./neovim
             ./tree.nix
             ./fish.nix
-            ./languages.nix
-          ];
+          ] ++ (
+            map
+              (l: ./languages/${l}.nix)
+              (filter (l: pathExists ./languages/${l}.nix) languages)
+          );
           home.stateVersion = stateVersion;
         };
       };
