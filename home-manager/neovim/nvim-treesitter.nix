@@ -20,10 +20,6 @@
             auto_install = false,
             highlight = {
               enable = true,
-              disable = { 'comment' },
-            },
-            indent = {
-              enable = true,
             },
           }
         END
