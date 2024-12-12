@@ -16,7 +16,7 @@
       plugin = nvim-treesitter;
       config = ''
         lua << END
-          require'nvim-treesitter.configs'.setup {
+          require('nvim-treesitter.configs').setup {
             auto_install = false,
             highlight = {
               enable = true,
