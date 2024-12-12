@@ -25,7 +25,7 @@
           inherit inputs;
           isWSL = true;
           stateVersion = "24.05";
-          languages = [ "nix" "nodejs" ];
+          languages = [{ language = "nix"; } { language = "nodejs"; }];
         };
         modules = [
           ./nixos

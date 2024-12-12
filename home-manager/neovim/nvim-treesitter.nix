@@ -6,11 +6,11 @@
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     (nvim-treesitter.withPlugins (p: map
-      (language:
-        if language == "nodejs" then p.javascript
-        else p."${language}"
+      (l:
+        if l.language == "nodejs" then p.javascript
+        else p."${l.language}"
       )
-      ([ "c" "lua" "vimdoc" ] ++ languages)))
+      ([{ language = "c"; } { language = "lua"; } { language = "vimdoc"; }] ++ languages)))
 
     {
       plugin = nvim-treesitter;

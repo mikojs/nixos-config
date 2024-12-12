@@ -25,8 +25,8 @@
             ./fish.nix
           ] ++ (
             map
-              (l: ./languages/${l}.nix)
-              (filter (l: pathExists ./languages/${l}.nix) languages)
+              (l: ./languages/${l.language}.nix)
+              (filter (l: pathExists ./languages/${l.language}.nix) languages)
           );
           home.stateVersion = stateVersion;
         };
