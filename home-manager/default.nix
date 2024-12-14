@@ -1,6 +1,7 @@
 { pkgs
 , inputs
 , stateVersion
+, languages
 , ...
 }: with inputs; {
   imports = [
@@ -13,15 +14,20 @@
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
+        extraSpecialArgs = { inherit languages; };
 
         users.nixos = {
-          imports = [
+          imports = with builtins; [
             ./git.nix
             ./gh.nix
             ./neovim
             ./tree.nix
             ./fish.nix
-          ];
+          ] ++ (
+            map
+              (l: ./languages/${l.language}.nix)
+              (filter (l: pathExists ./languages/${l.language}.nix) languages)
+          );
           home.stateVersion = stateVersion;
         };
       };

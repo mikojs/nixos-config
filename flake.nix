@@ -2,7 +2,7 @@
   description = "Mikojs NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -10,7 +10,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -24,7 +24,8 @@
         specialArgs = {
           inherit inputs;
           isWSL = true;
-          stateVersion = "24.05";
+          stateVersion = "24.11";
+          languages = [{ language = "nix"; } { language = "nodejs"; }];
         };
         modules = [
           ./nixos

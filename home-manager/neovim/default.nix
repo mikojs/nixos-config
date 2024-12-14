@@ -1,12 +1,15 @@
 { pkgs
+, languages
 , ...
 }:
 let
   configs = map
     (m: import ./${m} {
-      inherit pkgs;
+      inherit pkgs languages;
     })
     ([
+      "nvim-treesitter.nix"
+      "nvim-cmp"
       "tokyonight-nvim.nix"
     ]);
 
