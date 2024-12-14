@@ -23,8 +23,11 @@
             ./neovim
             ./tree.nix
             ./fish.nix
-            ./languages
-          ];
+          ] ++ (
+            map
+              (l: ./languages/${l.language}.nix)
+              (filter (l: pathExists ./languages/${l.language}.nix) languages)
+          );
           home.stateVersion = stateVersion;
         };
       };
