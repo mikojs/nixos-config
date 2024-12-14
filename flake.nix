@@ -2,7 +2,7 @@
   description = "Mikojs NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
