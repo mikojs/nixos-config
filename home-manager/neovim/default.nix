@@ -11,6 +11,7 @@ let
       "nvim-treesitter.nix"
       "nvim-cmp"
       "tokyonight-nvim.nix"
+      "which-key-nvim.nix"
     ]);
 
   getConfig = with builtins; (keys: (foldl'
