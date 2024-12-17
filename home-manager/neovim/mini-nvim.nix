@@ -48,5 +48,41 @@
         END
       '';
     }
+
+    {
+      plugin = mini-pairs;
+      config = ''
+        lua << END
+          require('mini.pairs').setup();
+        END
+      '';
+    }
+
+    {
+      plugin = mini-trailspace;
+      config = ''
+        lua << END
+          require('mini.trailspace').setup();
+        END
+      '';
+    }
+
+    {
+      plugin = mini-bracketed;
+      config = ''
+        lua << END
+          require('mini.bracketed').setup();
+        END
+      '';
+    }
+
+    {
+      plugin = mini-move;
+      config = ''
+        lua << END
+          require('mini.move').setup();
+        END
+      '';
+    }
   ];
 }
