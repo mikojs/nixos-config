@@ -19,11 +19,6 @@
               },
             },
           })
-
-          require('which-key').add({
-            {'<leader>f', group = 'Fuzzy Find'},
-            {'<leader>b', group = 'Buffer'},
-          })
         END
       '';
     }
