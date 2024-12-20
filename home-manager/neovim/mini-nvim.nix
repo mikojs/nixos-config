@@ -35,7 +35,9 @@
       plugin = mini-surround;
       config = ''
         lua << END
-          require('mini.surround').setup();
+          require('mini.surround').setup({
+            n_lines = 20,
+          });
         END
       '';
     }
