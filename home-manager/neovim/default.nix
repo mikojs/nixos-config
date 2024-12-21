@@ -14,6 +14,7 @@ let
       "mini-nvim.nix"
       "which-key-nvim.nix"
       "dressing-nvim.nix"
+      "copilot-vim.nix"
     ]);
 
   getConfig = with builtins; (keys: (foldl'
