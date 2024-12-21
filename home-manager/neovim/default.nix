@@ -11,7 +11,6 @@ let
       "nvim-treesitter.nix"
       "nvim-cmp"
       "tokyonight-nvim.nix"
-      "nord-vim.nix"
       "mini-nvim.nix"
       "which-key-nvim.nix"
       "dressing-nvim.nix"
