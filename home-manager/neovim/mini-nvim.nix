@@ -52,15 +52,6 @@
     }
 
     {
-      plugin = mini-pairs;
-      config = ''
-        lua << END
-          require('mini.pairs').setup();
-        END
-      '';
-    }
-
-    {
       plugin = mini-trailspace;
       config = ''
         lua << END
