@@ -9,6 +9,7 @@ let
     })
     ([
       "nvim-treesitter.nix"
+      "vim-cue.nix"
       "nvim-cmp"
       "tokyonight-nvim.nix"
       "mini-nvim.nix"
