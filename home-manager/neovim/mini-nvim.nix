@@ -1,8 +1,6 @@
 { pkgs
 , ...
 }: {
-  home.packages = [ ];
-
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
       plugin = mini-icons;
