@@ -13,6 +13,7 @@ let
       "tokyonight-nvim.nix"
       "mini-nvim.nix"
       "which-key-nvim.nix"
+      "dressing-nvim.nix"
     ]);
 
   getConfig = with builtins; (keys: (foldl'
