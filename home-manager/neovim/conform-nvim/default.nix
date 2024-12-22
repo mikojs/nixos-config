@@ -1,5 +1,6 @@
 {
-  pkgs, ...
+  pkgs,
+  ...
 }:
 {
   home.packages = with pkgs; [
@@ -15,6 +16,7 @@
             formatters_by_ft = {
               nix = { "nixfmt" },
             },
+            format_on_save = true,
           })
         END
       '';
