@@ -20,19 +20,22 @@ in
       result: l: if hasAttr "packages" l then result ++ l.packages else result
     ) [ ] languagesConfig;
 
-  programs.neovim.plugins = with pkgs.vimPlugins; [
-    {
-      plugin = conform-nvim;
-      config = ''
-        lua << END
-          require("conform").setup({
-            formatters_by_ft = {
-              ${builtins.concatStringsSep ",\n" (map (l: l.formatter) languagesConfig)}
-            },
-            format_on_save = true,
-          })
-        END
-      '';
-    }
-  ];
+  programs.neovim.plugins =
+    with pkgs.vimPlugins;
+    with builtins;
+    [
+      {
+        plugin = conform-nvim;
+        config = ''
+          lua << END
+            require("conform").setup({
+              formatters_by_ft = {
+                ${concatStringsSep ",\n" (map (l: l.formatter) languagesConfig)}
+              },
+              format_on_save = true,
+            })
+          END
+        '';
+      }
+    ];
 }
