@@ -14,7 +14,11 @@ let
     ) (filter (l: pathExists ./${l.language}.nix) languages);
 in
 {
-  home.packages = with builtins; foldl' (result: l: result ++ l.packages) [ ] languagesConfig;
+  home.packages =
+    with builtins;
+    foldl' (
+      result: l: if hasAttr "packages" l then result ++ l.packages else result
+    ) [ ] languagesConfig;
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
