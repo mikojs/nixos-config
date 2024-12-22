@@ -20,6 +20,7 @@ let
         "gitsigns-nvim.nix"
         "which-key-nvim.nix"
         "conform-nvim"
+        "lualine-nvim.nix"
         "dressing-nvim.nix"
         "copilot-vim.nix"
       ]);
