@@ -1,9 +1,12 @@
-{ pkgs
-, inputs
-, stateVersion
-, languages
-, ...
-}: with inputs; {
+{
+  pkgs,
+  inputs,
+  stateVersion,
+  languages,
+  ...
+}:
+with inputs;
+{
   imports = [
     home-manager.nixosModules.home-manager
 
@@ -17,17 +20,18 @@
         extraSpecialArgs = { inherit languages; };
 
         users.nixos = {
-          imports = with builtins; [
-            ./git.nix
-            ./gh.nix
-            ./neovim
-            ./tree.nix
-            ./fish.nix
-          ] ++ (
-            map
-              (l: ./languages/${l.language}.nix)
-              (filter (l: pathExists ./languages/${l.language}.nix) languages)
-          );
+          imports =
+            with builtins;
+            [
+              ./git.nix
+              ./gh.nix
+              ./neovim
+              ./tree.nix
+              ./fish.nix
+            ]
+            ++ (map (l: ./languages/${l.language}.nix) (
+              filter (l: pathExists ./languages/${l.language}.nix) languages
+            ));
           home.stateVersion = stateVersion;
         };
       };

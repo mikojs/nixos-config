@@ -1,6 +1,8 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   # follow: https://github.com/orgs/community/discussions/50263
   home.packages = with pkgs; [ firefox ];
 

@@ -1,6 +1,8 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -14,7 +16,10 @@
     '';
 
     plugins = with pkgs.fishPlugins; [
-      { name = "tide"; src = tide.src; }
+      {
+        name = "tide";
+        src = tide.src;
+      }
     ];
 
     shellAliases = {

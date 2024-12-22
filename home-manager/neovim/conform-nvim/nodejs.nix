@@ -1,0 +1,6 @@
+{
+  ...
+}:
+{
+  formatter = ''javascript = { "prettier" }'';
+}
