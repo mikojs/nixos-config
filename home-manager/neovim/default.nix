@@ -21,8 +21,8 @@ let
         "which-key-nvim.nix"
         "conform-nvim"
         "lualine-nvim.nix"
+        "telescope-nvim.nix"
         "dressing-nvim.nix"
-        "nui-nvim.nix"
         "copilot-vim.nix"
       ]);
 
