@@ -17,6 +17,7 @@ let
         "nvim-cmp"
         "tokyonight-nvim.nix"
         "mini-nvim.nix"
+        "gitsigns-nvim.nix"
         "which-key-nvim.nix"
         "conform-nvim"
         "dressing-nvim.nix"
