@@ -1,6 +1,8 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   packages = with pkgs; [ nil ];
   config = ''
     require('lspconfig').nil_ls.setup {

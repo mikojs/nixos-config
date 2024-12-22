@@ -1,6 +1,8 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   programs = {
     fish.interactiveShellInit = ''
       # TokyoNight Color Palette
