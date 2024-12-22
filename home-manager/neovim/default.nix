@@ -13,6 +13,7 @@ let
       "tokyonight-nvim.nix"
       "mini-nvim.nix"
       "which-key-nvim.nix"
+      "conform-nvim.nix"
       "dressing-nvim.nix"
       "copilot-vim.nix"
     ]);

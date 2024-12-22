@@ -15,17 +15,19 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs:
+  outputs =
+    { nixpkgs, ... }@inputs:
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-
       nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
           isWSL = true;
           stateVersion = "24.11";
-          languages = [{ language = "nix"; } { language = "nodejs"; }];
+          languages = [
+            { language = "nix"; }
+            { language = "nodejs"; }
+          ];
         };
         modules = [
           ./nixos
