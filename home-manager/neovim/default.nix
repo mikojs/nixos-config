@@ -22,6 +22,7 @@ let
         "conform-nvim"
         "lualine-nvim.nix"
         "dressing-nvim.nix"
+        "nui-nvim.nix"
         "copilot-vim.nix"
       ]);
 
