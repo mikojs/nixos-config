@@ -1,8 +1,6 @@
 { pkgs
 , ...
 }: {
-  home.packages = [ ];
-
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
       plugin = mini-icons;
@@ -47,15 +45,6 @@
       config = ''
         lua << END
           require('mini.notify').setup();
-        END
-      '';
-    }
-
-    {
-      plugin = mini-pairs;
-      config = ''
-        lua << END
-          require('mini.pairs').setup();
         END
       '';
     }
