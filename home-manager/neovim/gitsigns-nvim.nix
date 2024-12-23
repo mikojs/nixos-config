@@ -8,12 +8,68 @@
       plugin = gitsigns-nvim;
       config = ''
         lua << END
-          require('gitsigns').setup({
+          local gitsigns = require('gitsigns')
+          local wk = require('which-key')
+
+          gitsigns.setup({
             numhl = true,
             current_line_blame = true,
             current_line_blame_opts = {
               delay = 100,
             },
+          })
+
+          local next_git_hunk = function()
+            if vim.wo.diff then
+              vim.cmd.normal({ ']c', bang = true })
+            else
+              gitsigns.nav_hunk('next')
+            end
+          end
+
+          local prev_git_hunk = function()
+            if vim.wo.diff then
+              vim.cmd.normal({ '[c', bang = true })
+            else
+              gitsigns.nav_hunk('prev')
+            end
+          end
+
+          local stage_git_hunk = function()
+            gitsigns.stage_hunk { vim.fn.line('.'), vim.fn.line('v') }
+          end
+          local reset_git_hunk = function()
+            gitsigns.reset_hunk { vim.fn.line('.'), vim.fn.line('v') }
+          end
+
+          local diffthis = function()
+            gitsigns.diffthis('~')
+          end
+          local blame_line = function()
+            gitsigns.blame_line { full = true }
+          end
+
+          wk.add({
+            { ']c', next_git_hunk, desc = 'Next git hunk', mode = 'n' },
+            { '[c', prev_git_hunk, desc = 'Previous git hunk', mode = 'n' },
+
+            { '<leader>g', group = 'Gitsigns', mode = { 'n', 'v' } },
+            { '<leader>gs', stage_git_hunk, desc = 'Stage git hunk', mode = 'v' },
+            { '<leader>gr', reset_git_hunk, desc = 'Reset git hunk', mode = 'v' },
+
+            { '<leader>gh', group = 'Hunk' },
+            { '<leader>ghs', gitsigns.stage_hunk, desc = 'Stage git hunk', mode = 'n' },
+            { '<leader>ghr', gitsigns.reset_hunk, desc = 'Reset git hunk', mode = 'n' },
+            { '<leader>ghS', gitsigns.stage_buffer, desc = 'Stage git buffer', mode = 'n' },
+            { '<leader>ghu', gitsigns.undo_stage_hunk, desc = 'Undo stage git hunk', mode = 'n' },
+            { '<leader>ghR', gitsigns.reset_buffer, desc = 'Reset git buffer', mode = 'n' },
+            { '<leader>ghp', gitsigns.preview_hunk, desc = 'Preview git hunk', mode = 'n' },
+            { '<leader>ghd', gitsigns.diffthis, desc = 'Diff this', mode = 'n' },
+            { '<leader>ghD', diffthis, desc = 'Diff this (cached)', mode = 'n' },
+            { '<leader>ghb', blame_line, desc = 'Blame line', mode = 'n' },
+
+            { '<leader>gt', group = 'Toggle' },
+            { '<leader>gtd', gitsigns.toggle_deleted, desc = 'Toggle deleted', mode = 'n' }
           })
         END
       '';

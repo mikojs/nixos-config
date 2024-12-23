@@ -13,16 +13,23 @@ let
         }
       )
       ([
+        # Colorschema
+        "tokyonight-nvim.nix"
+        # UI
+        "lualine-nvim.nix"
+        "dressing-nvim.nix"
+        # Lsp
         "nvim-treesitter.nix"
         "nvim-cmp"
-        "tokyonight-nvim.nix"
-        "mini-nvim.nix"
-        "gitsigns-nvim.nix"
+        # Editor
         "which-key-nvim.nix"
-        "conform-nvim"
-        "lualine-nvim.nix"
         "telescope-nvim.nix"
-        "dressing-nvim.nix"
+        "gitsigns-nvim.nix"
+        # Coding
+        "mini-nvim.nix"
+        # Formatting
+        "conform-nvim"
+        # AI
         "copilot-vim.nix"
       ]);
 
