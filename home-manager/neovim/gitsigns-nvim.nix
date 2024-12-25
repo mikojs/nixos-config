@@ -50,26 +50,26 @@
           end
 
           wk.add({
-            { ']c', next_git_hunk, desc = 'Next git hunk', mode = 'n' },
-            { '[c', prev_git_hunk, desc = 'Previous git hunk', mode = 'n' },
+            { ']c', next_git_hunk, desc = 'Next git hunk' },
+            { '[c', prev_git_hunk, desc = 'Previous git hunk' },
 
             { '<leader>g', group = 'Gitsigns', mode = { 'n', 'v' } },
             { '<leader>gs', stage_git_hunk, desc = 'Stage git hunk', mode = 'v' },
             { '<leader>gr', reset_git_hunk, desc = 'Reset git hunk', mode = 'v' },
 
             { '<leader>gh', group = 'Hunk' },
-            { '<leader>ghs', gitsigns.stage_hunk, desc = 'Stage git hunk', mode = 'n' },
-            { '<leader>ghr', gitsigns.reset_hunk, desc = 'Reset git hunk', mode = 'n' },
-            { '<leader>ghS', gitsigns.stage_buffer, desc = 'Stage git buffer', mode = 'n' },
-            { '<leader>ghu', gitsigns.undo_stage_hunk, desc = 'Undo stage git hunk', mode = 'n' },
-            { '<leader>ghR', gitsigns.reset_buffer, desc = 'Reset git buffer', mode = 'n' },
-            { '<leader>ghp', gitsigns.preview_hunk, desc = 'Preview git hunk', mode = 'n' },
-            { '<leader>ghd', gitsigns.diffthis, desc = 'Diff this', mode = 'n' },
-            { '<leader>ghD', diffthis, desc = 'Diff this (cached)', mode = 'n' },
-            { '<leader>ghb', blame_line, desc = 'Blame line', mode = 'n' },
+            { '<leader>ghs', gitsigns.stage_hunk, desc = 'Stage git hunk' },
+            { '<leader>ghr', gitsigns.reset_hunk, desc = 'Reset git hunk' },
+            { '<leader>ghS', gitsigns.stage_buffer, desc = 'Stage git buffer' },
+            { '<leader>ghu', gitsigns.undo_stage_hunk, desc = 'Undo stage git hunk' },
+            { '<leader>ghR', gitsigns.reset_buffer, desc = 'Reset git buffer' },
+            { '<leader>ghp', gitsigns.preview_hunk, desc = 'Preview git hunk' },
+            { '<leader>ghd', gitsigns.diffthis, desc = 'Diff this' },
+            { '<leader>ghD', diffthis, desc = 'Diff this (cached)' },
+            { '<leader>ghb', blame_line, desc = 'Blame line' },
 
             { '<leader>gt', group = 'Toggle' },
-            { '<leader>gtd', gitsigns.toggle_deleted, desc = 'Toggle deleted', mode = 'n' }
+            { '<leader>gtd', gitsigns.toggle_deleted, desc = 'Toggle deleted' }
           })
         END
       '';

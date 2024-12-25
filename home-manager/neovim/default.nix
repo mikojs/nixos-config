@@ -25,6 +25,7 @@ let
         "which-key-nvim.nix"
         "telescope-nvim.nix"
         "gitsigns-nvim.nix"
+        "toggleterm-nvim.nix"
         # Coding
         "mini-nvim.nix"
         # Formatting
