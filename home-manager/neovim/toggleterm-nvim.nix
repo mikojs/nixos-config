@@ -17,7 +17,7 @@
 
           toggleterm.setup()
           wk.add({
-            { "<leader>T", group = "Toggleterm" },
+            { "<leader>T", group = "Terminal (Toggleterm)" },
             { "<leader>Tt", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle terminal" },
             { "<leader>Tv", "<cmd>ToggleTerm direction=vertical size=60<cr>", desc = "Toggle vertical terminal" },
             { "<leader>Th", "<cmd>ToggleTerm<cr>", desc = "Toggle horizontal terminal" },
