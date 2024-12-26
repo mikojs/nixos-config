@@ -32,6 +32,17 @@
     }
 
     {
+      plugin = mini-sessions;
+      config = ''
+        lua << END
+          require('mini.sessions').setup({
+            autoread = true,
+          });
+        END
+      '';
+    }
+
+    {
       plugin = mini-ai;
       config = ''
         lua << END
