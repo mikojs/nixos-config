@@ -17,11 +17,11 @@
 
           toggleterm.setup()
           wk.add({
-            { "<leader>T", group = "Terminal (Toggleterm)" },
-            { "<leader>Tn", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle terminal" },
-            { "<leader>Tv", "<cmd>ToggleTerm direction=vertical size=60<cr>", desc = "Toggle vertical terminal" },
-            { "<leader>Th", "<cmd>ToggleTerm<cr>", desc = "Toggle horizontal terminal" },
-            { "<leader>Tt", "<cmd>ToggleTerm direction=tab<cr>", desc = "Toggle tab terminal" },
+            { "<leader>t", group = "Terminal (Toggleterm)" },
+            { "<leader>tn", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle terminal" },
+            { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=60<cr>", desc = "Toggle vertical terminal" },
+            { "<leader>th", "<cmd>ToggleTerm<cr>", desc = "Toggle horizontal terminal" },
+            { "<leader>tt", "<cmd>ToggleTerm direction=tab<cr>", desc = "Toggle tab terminal" },
             { "<leader>s", send_selection_to_terminal, desc = "Send selection to terminal", mode = "v" },
             { "<esc>", "<C-\\><C-n>", desc = "Exit terminal mode", mode = "t" },
           })
