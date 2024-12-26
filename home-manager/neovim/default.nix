@@ -26,6 +26,7 @@ let
         "telescope-nvim.nix"
         "gitsigns-nvim.nix"
         "toggleterm-nvim.nix"
+        "barbar-nvim.nix"
         # Coding
         "mini-nvim.nix"
         # Formatting
