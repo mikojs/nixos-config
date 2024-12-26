@@ -13,6 +13,20 @@
           local wk = require('which-key')
           local opts = { noremap = true, silent = true }
 
+          vim.g.barbar_auto_setup = false
+
+          require('barbar').setup({
+            icons = {
+              pinned = { button = '', filename = true },
+              diagnostics = {
+                [vim.diagnostic.severity.ERROR] = { enabled = true, icon = ' ' },
+                [vim.diagnostic.severity.WARN] = { enabled = true, icon = ' ' },
+                [vim.diagnostic.severity.INFO] = { enabled = true, icon = ' ' },
+                [vim.diagnostic.severity.HINT] = { enabled = true, icon = ' ' },
+              },
+            }
+          })
+
           wk.add({
             { '<A-[>', '<Cmd>BufferPrevious<CR>', opts, desc = "Go to previous tab" },
             { '<A-]>', '<Cmd>BufferNext<CR>', opts, desc = "Go to next tab" },
