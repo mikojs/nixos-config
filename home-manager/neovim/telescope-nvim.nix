@@ -13,7 +13,6 @@
       plugin = telescope-nvim;
       config = ''
         lua << END
-          local wk = require('which-key')
           local builtin = require('telescope.builtin')
 
           local single_or_multi_select = function(prompt_bufnr)
@@ -54,7 +53,7 @@
             },
           })
 
-          wk.add({
+          require('which-key').add({
             { '<leader>T', group = 'Telescope' },
             { '<leader>Tf', builtin.find_files, desc = 'Telescope find files' },
             { '<leader>Tl', builtin.live_grep, desc = 'Telescope live grep' },
