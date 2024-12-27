@@ -23,7 +23,12 @@
                 [vim.diagnostic.severity.INFO] = { enabled = true, icon = ' ' },
                 [vim.diagnostic.severity.HINT] = { enabled = true, icon = ' ' },
               },
-            }
+              gitsigns = {
+                added = { enabled = true, icon = '+' },
+                changed = { enabled = true, icon = '~' },
+                deleted = { enabled = true, icon = '-' },
+              },
+            },
           })
 
           require('which-key').add({
