@@ -9,7 +9,6 @@
       config = ''
         lua << END
           local gitsigns = require('gitsigns')
-          local wk = require('which-key')
 
           gitsigns.setup({
             numhl = true,
@@ -49,7 +48,7 @@
             gitsigns.blame_line { full = true }
           end
 
-          wk.add({
+          require('which-key').add({
             { ']c', next_git_hunk, desc = 'Next git hunk' },
             { '[c', prev_git_hunk, desc = 'Previous git hunk' },
 

@@ -10,7 +10,6 @@
       plugin = barbar-nvim;
       config = ''
         lua << END
-          local wk = require('which-key')
           local opts = { noremap = true, silent = true }
 
           vim.g.barbar_auto_setup = false
@@ -27,7 +26,7 @@
             }
           })
 
-          wk.add({
+          require('which-key').add({
             { '<A-[>', '<Cmd>BufferPrevious<CR>', opts, desc = "Go to previous tab" },
             { '<A-]>', '<Cmd>BufferNext<CR>', opts, desc = "Go to next tab" },
 

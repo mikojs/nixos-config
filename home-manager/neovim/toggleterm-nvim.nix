@@ -8,7 +8,6 @@
       plugin = toggleterm-nvim;
       config = ''
         lua << END
-          local wk = require("which-key")
           local toggleterm = require("toggleterm")
 
           local send_selection_to_terminal = function()
@@ -16,7 +15,7 @@
           end
 
           toggleterm.setup()
-          wk.add({
+          require("which-key").add({
             { "<leader>t", group = "Terminal (Toggleterm)" },
             { "<leader>tn", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle terminal" },
             { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=60<cr>", desc = "Toggle vertical terminal" },
