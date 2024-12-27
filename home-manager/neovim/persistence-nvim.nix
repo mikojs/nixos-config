@@ -7,9 +7,11 @@
     {
       plugin = persistence-nvim;
       config = ''
-        require('persistence').setup({
-          need = 0,
-        })
+        lua << END
+          require('persistence').setup({
+            need = 0,
+          })
+        END
       '';
     }
   ];
