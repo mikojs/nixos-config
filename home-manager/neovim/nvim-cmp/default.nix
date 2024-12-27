@@ -33,7 +33,7 @@ in
       {
         plugin = nvim-cmp;
         config = ''
-          lua <<EOF
+          lua << END
             local cmp = require("cmp")
 
             cmp.setup({
@@ -155,7 +155,7 @@ in
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             ${(with builtins; foldl' (result: l: result + l.config) "" languagesConfig)}
-          EOF
+          END
         '';
       }
     ];
