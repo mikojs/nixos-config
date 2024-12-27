@@ -27,6 +27,7 @@ let
         "gitsigns-nvim.nix"
         "toggleterm-nvim.nix"
         "barbar-nvim.nix"
+        "persistence-nvim.nix"
         # Coding
         "mini-nvim.nix"
         # Formatting
