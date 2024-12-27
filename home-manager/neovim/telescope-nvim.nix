@@ -13,16 +13,16 @@
       plugin = telescope-nvim;
       config = ''
         lua << END
-          local builtin = require('telescope.builtin')
+          local builtin = require("telescope.builtin")
 
           local single_or_multi_select = function(prompt_bufnr)
-            local current_picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+            local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
             local has_multi_selection = next(current_picker:get_multi_selection()) ~= nil
 
             if has_multi_selection then
               local results = {}
 
-              require('telescope.actions.utils').map_selections(prompt_bufnr, function(selection)
+              require("telescope.actions.utils").map_selections(prompt_bufnr, function(selection)
                 table.insert(results, selection[1])
               end)
 
@@ -43,28 +43,28 @@
             require("telescope.actions").file_edit(prompt_bufnr)
           end
 
-          require('telescope').setup({
+          require("telescope").setup({
             defaults = {
               mappings = {
                 i = {
-                  ['<cr>'] = single_or_multi_select,
+                  ["<cr>"] = single_or_multi_select,
                 },
               },
             },
           })
 
-          require('which-key').add({
-            { '<leader>T', group = 'Telescope' },
-            { '<leader>Tf', builtin.find_files, desc = 'Telescope find files' },
-            { '<leader>Tl', builtin.live_grep, desc = 'Telescope live grep' },
-            { '<leader>Tb', builtin.buffers, desc = 'Telescope buffers' },
-            { '<leader>Th', builtin.help_tags, desc = 'Telescope help tags' },
-            { '<leader>Tk', builtin.keymaps, desc = 'Telescope keymaps' },
+          require("which-key").add({
+            { "<leader>T", group = "Telescope" },
+            { "<leader>Tf", builtin.find_files, desc = "Telescope find files" },
+            { "<leader>Tl", builtin.live_grep, desc = "Telescope live grep" },
+            { "<leader>Tb", builtin.buffers, desc = "Telescope buffers" },
+            { "<leader>Th", builtin.help_tags, desc = "Telescope help tags" },
+            { "<leader>Tk", builtin.keymaps, desc = "Telescope keymaps" },
 
-            { '<leader>Tg', group = 'Telescope git' },
-            { '<leader>Tgs', builtin.git_status, desc = 'Telescope git status' },
-            { '<leader>Tgh', builtin.git_stash, desc = 'Telescope git stash' },
-            { '<leader>Tgc', builtin.git_commits, desc = 'Telescope git commit' },
+            { "<leader>Tg", group = "Telescope git" },
+            { "<leader>Tgs", builtin.git_status, desc = "Telescope git status" },
+            { "<leader>Tgh", builtin.git_stash, desc = "Telescope git stash" },
+            { "<leader>Tgc", builtin.git_commits, desc = "Telescope git commit" },
           })
         END
       '';
