@@ -47,7 +47,7 @@
             defaults = {
               mappings = {
                 i = {
-                  ["<cr>"] = single_or_multi_select,
+                  ["<CR>"] = single_or_multi_select,
                 },
               },
             },

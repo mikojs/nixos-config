@@ -17,12 +17,12 @@
           toggleterm.setup()
           require("which-key").add({
             { "<leader>t", group = "Terminal (Toggleterm)" },
-            { "<leader>tn", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle terminal" },
-            { "<leader>tv", "<cmd>ToggleTerm direction=vertical size=60<cr>", desc = "Toggle vertical terminal" },
-            { "<leader>th", "<cmd>ToggleTerm<cr>", desc = "Toggle horizontal terminal" },
-            { "<leader>tt", "<cmd>ToggleTerm direction=tab<cr>", desc = "Toggle tab terminal" },
+            { "<leader>tn", "<Cmd>ToggleTerm direction=float<CR>", desc = "Toggle terminal" },
+            { "<leader>tv", "<Cmd>ToggleTerm direction=vertical size=60<CR>", desc = "Toggle vertical terminal" },
+            { "<leader>th", "<Cmd>ToggleTerm<CR>", desc = "Toggle horizontal terminal" },
+            { "<leader>tt", "<Cmd>ToggleTerm direction=tab<CR>", desc = "Toggle tab terminal" },
             { "<leader>s", send_selection_to_terminal, desc = "Send selection to terminal", mode = "v" },
-            { "<esc>", "<C-\\><C-n>", desc = "Exit terminal mode", mode = "t" },
+            { "<Esc>", "<C-\\><C-n>", desc = "Exit terminal mode", mode = "t" },
           })
         END
       '';
