@@ -65,6 +65,15 @@
             { "<leader>Tgs", builtin.git_status, desc = "Telescope git status" },
             { "<leader>Tgh", builtin.git_stash, desc = "Telescope git stash" },
             { "<leader>Tgc", builtin.git_commits, desc = "Telescope git commit" },
+
+            { "<leader>Tl", group = "Telescope lsp" },
+            { "<leader>Tld", builtin.lsp_definitions, desc = "Telescope lsp definitions" },
+            { "<leader>Tlt", builtin.lsp_type_definitions, desc = "Telescope lsp type definitions" },
+            { "<leader>Tlr", builtin.lsp_references, desc = "Telescope lsp references" },
+            { "<leader>Tla", builtin.lsp_implementations, desc = "Telescope lsp implementations" },
+            { "<leader>Tli", builtin.lsp_incoming_calls, desc = "Telescope lsp incoming calls" },
+            { "<leader>Tlo", builtin.lsp_outgoing_calls, desc = "Telescope lsp outgoing calls" },
+            { "<leader>Tlc", builtin.lsp_document_symbols, desc = "Telescope lsp document symbols" },
           })
         END
       '';

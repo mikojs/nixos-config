@@ -23,7 +23,18 @@ in
       vim-vsnip
       cmp-vsnip
 
-      nvim-lspconfig
+      {
+        plugin = nvim-lspconfig;
+        config = ''
+          lua << END
+            require("which-key").add({
+              { "<leader>l", group = "Lsp" },
+              { "<leader>lh", vim.lsp.buf.hover, desc = "Hover information" },
+              { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
+            })
+          END
+        '';
+      }
       cmp-nvim-lsp
 
       cmp-buffer
