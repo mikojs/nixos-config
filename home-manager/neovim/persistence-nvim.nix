@@ -8,7 +8,7 @@
       plugin = persistence-nvim;
       config = ''
         lua << END
-          require('persistence').setup({
+          require("persistence").setup({
             need = 0,
           })
         END
