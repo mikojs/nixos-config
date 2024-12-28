@@ -68,7 +68,7 @@
             { "<leader>lT", builtin.lsp_type_definitions, desc = "Go to type definitions" },
             { "<leader>lR", builtin.lsp_references, desc = "Show references" },
             { "<leader>lI", builtin.lsp_implementations, desc = "Go to implementations" },
-            { "<leader>lD", builtin.lsp_document_symbols, desc = "Show document symbols" },
+            { "<leader>lS", builtin.lsp_document_symbols, desc = "Show document symbols" },
           })
         END
       '';
