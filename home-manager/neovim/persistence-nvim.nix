@@ -13,9 +13,9 @@
           })
 
           require("which-key").add({
-            { "<leader>q", group = "Session (Persistence)" },
-            { "<leader>ql", function() require("persistence").load({ last = true }) end, desc ="Load last session" },
-            { "<leader>qd", function() require("persistence").stop() end, desc = "Stop Persistence" },
+            { "<leader>s", group = "Session" },
+            { "<leader>sl", function() require("persistence").load({ last = true }) end, desc ="Load last session" },
+            { "<leader>ss", function() require("persistence").stop() end, desc = "Stop auto-save session" },
           })
         END
       '';
