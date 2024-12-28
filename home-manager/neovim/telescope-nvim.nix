@@ -47,24 +47,28 @@
             defaults = {
               mappings = {
                 i = {
-                  ["<cr>"] = single_or_multi_select,
+                  ["<CR>"] = single_or_multi_select,
                 },
               },
             },
           })
 
           require("which-key").add({
-            { "<leader>T", group = "Telescope" },
-            { "<leader>Tf", builtin.find_files, desc = "Telescope find files" },
-            { "<leader>Tl", builtin.live_grep, desc = "Telescope live grep" },
-            { "<leader>Tb", builtin.buffers, desc = "Telescope buffers" },
-            { "<leader>Th", builtin.help_tags, desc = "Telescope help tags" },
-            { "<leader>Tk", builtin.keymaps, desc = "Telescope keymaps" },
+            { "<leader>F", builtin.find_files, desc = "Find files" },
+            { "<leader>G", builtin.live_grep, desc = "Search with grep" },
+            { "<leader>B", builtin.buffers, desc = "Show buffers" },
+            { "<leader>?", builtin.help_tags, desc = "Help" },
+            { "<leader>K", builtin.keymaps, desc = "Show keymaps" },
 
-            { "<leader>Tg", group = "Telescope git" },
-            { "<leader>Tgs", builtin.git_status, desc = "Telescope git status" },
-            { "<leader>Tgh", builtin.git_stash, desc = "Telescope git stash" },
-            { "<leader>Tgc", builtin.git_commits, desc = "Telescope git commit" },
+            { "<leader>gT", builtin.git_status, desc = "Show git status" },
+            { "<leader>gA", builtin.git_stash, desc = "Show git stash" },
+            { "<leader>gC", builtin.git_commits, desc = "Show git commit" },
+
+            { "<leader>lD", builtin.lsp_definitions, desc = "Go to definitions" },
+            { "<leader>lT", builtin.lsp_type_definitions, desc = "Go to type definitions" },
+            { "<leader>lR", builtin.lsp_references, desc = "Show references" },
+            { "<leader>lI", builtin.lsp_implementations, desc = "Go to implementations" },
+            { "<leader>lD", builtin.lsp_document_symbols, desc = "Show document symbols" },
           })
         END
       '';

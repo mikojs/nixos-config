@@ -23,7 +23,18 @@ in
       vim-vsnip
       cmp-vsnip
 
-      nvim-lspconfig
+      {
+        plugin = nvim-lspconfig;
+        config = ''
+          lua << END
+            require("which-key").add({
+              { "<leader>l", group = "Lsp" },
+              { "<leader>lh", vim.lsp.buf.hover, desc = "Hover information" },
+              { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
+            })
+          END
+        '';
+      }
       cmp-nvim-lsp
 
       cmp-buffer
@@ -33,7 +44,7 @@ in
       {
         plugin = nvim-cmp;
         config = ''
-          lua <<EOF
+          lua << END
             local cmp = require("cmp")
 
             cmp.setup({
@@ -155,7 +166,7 @@ in
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             ${(with builtins; foldl' (result: l: result + l.config) "" languagesConfig)}
-          EOF
+          END
         '';
       }
     ];

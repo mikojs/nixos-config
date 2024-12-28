@@ -52,18 +52,18 @@
             { "<A-p>", "<Cmd>BufferPin<CR>", opts, desc = "Pin tab" },
             { "<A-c>", "<Cmd>BufferClose<CR>", opts, desc = "Close tab" },
 
-            { "<leader>b", group = "Tab (Barbar)" },
-            { "<leader>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts, desc = "Sort tabs by buffer number" },
-            { "<leader>bn", "<Cmd>BufferOrderByName<CR>", opts, desc = "Sort tabs by name" },
-            { "<leader>bd", "<Cmd>BufferOrderByDirectory<CR>", opts, desc = "Sort tabs by directory" },
-            { "<leader>bl", "<Cmd>BufferOrderByLanguage<CR>", opts, desc = "Sort tabs by language" },
-            { "<leader>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts, desc = "Sort tabs By window number" },
+            { "<leader>t", group = "Tab" },
 
-            { "<leader>bc", group = "Close" },
-            { "<leader>bcc", "<Cmd>BufferCloseAllButCurrent<CR>", opts, desc = "Close all tabs but current" },
-            { "<leader>bcp", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts, desc = "Close all tabs but current or pinned" },
-            { "<leader>bcl", "<Cmd>BufferCloseBuffersLeft<CR>", opts, desc = "Close left other tabs" },
-            { "<leader>bcr", "<Cmd>BufferCloseBuffersRight<CR>", opts, desc = "Close right other tabs" },
+            { "<leader>ts", group = "Sort" },
+            { "<leader>tsb", "<Cmd>BufferOrderByBufferNumber<CR>", opts, desc = "Sort by buffer number" },
+            { "<leader>tsn", "<Cmd>BufferOrderByName<CR>", opts, desc = "Sort by name" },
+            { "<leader>tsd", "<Cmd>BufferOrderByDirectory<CR>", opts, desc = "Sort by directory" },
+            { "<leader>tsl", "<Cmd>BufferOrderByLanguage<CR>", opts, desc = "Sort by language" },
+            { "<leader>tsw", "<Cmd>BufferOrderByWindowNumber<CR>", opts, desc = "Sort By window number" },
+
+            { "<leader>to", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts, desc = "Close all tabs but current or pinned" },
+            { "<leader>tl", "<Cmd>BufferCloseBuffersLeft<CR>", opts, desc = "Close left other tabs" },
+            { "<leader>tr", "<Cmd>BufferCloseBuffersRight<CR>", opts, desc = "Close right other tabs" },
           })
         END
       '';
