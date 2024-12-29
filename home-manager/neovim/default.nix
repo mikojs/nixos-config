@@ -84,5 +84,23 @@ in
 
       set nocompatible
     '';
+
+    extraLuaConfig = ''
+      vim.g.clipboard = {
+        name = "OSC 52",
+        copy = {
+          ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+          ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+        },
+        paste = {
+          ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+          ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+        },
+      }
+
+      require("which-key").add({
+        { "<leader>c", "\"+y ", desc = "Copy to clipboard", mode = "v" },
+      })
+    '';
   };
 }
