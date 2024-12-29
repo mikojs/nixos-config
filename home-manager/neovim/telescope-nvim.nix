@@ -60,6 +60,7 @@
             { "<leader>B", builtin.buffers, desc = "Show buffers" },
             { "<leader>?", builtin.help_tags, desc = "Help" },
             { "<leader>K", builtin.keymaps, desc = "Show keymaps" },
+            { "<leader>D", builtin.diagnostics, desc = "Show diagnostics" },
 
             { "<leader>gT", builtin.git_status, desc = "Show git status" },
             { "<leader>gA", builtin.git_stash, desc = "Show git stash" },
