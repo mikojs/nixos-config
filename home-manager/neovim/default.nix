@@ -99,7 +99,15 @@ in
       }
 
       require("which-key").add({
-        { "<leader>c", "\"+y ", desc = "Copy to clipboard", mode = "v" },
+        { "<leader>c", "\"+y", desc = "Copy to clipboard", mode = "v" },
+
+        { "<leader>w", group = "Window" },
+        { "<leader>wh", group = "Resize height" },
+        { "<leader>wh+", "<Cmd>resize +10<CR>", desc = "Increase 10 height" },
+        { "<leader>wh-", "<Cmd>resize -10<CR>", desc = "Decrease 10 height" },
+        { "<leader>ww", group = "Resize width" },
+        { "<leader>ww+", "<Cmd>vertical resize +20<CR>", desc = "Increase 20 width" },
+        { "<leader>ww-", "<Cmd>vertical resize -20<CR>", desc = "Decrease 20 width" },
       })
     '';
   };
