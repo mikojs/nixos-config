@@ -23,7 +23,7 @@
               local results = {}
 
               require("telescope.actions.utils").map_selections(prompt_bufnr, function(selection)
-                table.insert(results, selection[1])
+                table.insert(results, selection[1]:match("(.-):%d+:%d+") or selection[1])
               end)
 
               for _, filepath in ipairs(results) do
@@ -43,6 +43,7 @@
             require("telescope.actions").file_edit(prompt_bufnr)
           end
 
+          -- follow: https://github.com/nvim-telescope/telescope.nvim/issues/416
           require("telescope").setup({
             defaults = {
               mappings = {
