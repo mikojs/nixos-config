@@ -29,6 +29,7 @@ with inputs;
               ./tree.nix
               ./tmux.nix
               ./jless.nix
+              ./jq.nix
               ./fish.nix
             ]
             ++ (map (l: ./languages/${l.language}.nix) (
