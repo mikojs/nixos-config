@@ -28,6 +28,7 @@ let
         "toggleterm-nvim.nix"
         "barbar-nvim.nix"
         "persistence-nvim.nix"
+        "todo-comments-nvim.nix"
         # Coding
         "mini-nvim.nix"
         # Formatting

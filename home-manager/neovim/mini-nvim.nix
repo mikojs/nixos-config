@@ -32,6 +32,26 @@
     }
 
     {
+      plugin = mini-files;
+      config = ''
+        lua << END
+          local mini_files = require("mini.files")
+
+          mini_files.setup({
+            mappings = {
+              mark_goto = "",
+              mark_set = "",
+              reveal_cwd = "",
+            },
+          })
+          require("which-key").add({
+            { "<leader>f", mini_files.open, desc = "Manipulate files" },
+          })
+        END
+      '';
+    }
+
+    {
       plugin = mini-ai;
       config = ''
         lua << END

@@ -27,6 +27,7 @@ with inputs;
               ./gh.nix
               ./neovim
               ./tree.nix
+              ./tmux.nix
               ./fish.nix
             ]
             ++ (map (l: ./languages/${l.language}.nix) (
