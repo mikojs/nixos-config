@@ -9,14 +9,24 @@
   programs.neovim.plugins = with pkgs.vimPlugins; [
     (nvim-treesitter.withPlugins (
       p:
-      map (l: if l.language == "nodejs" then p.javascript else p."${l.language}") (
-        [
-          { language = "c"; }
-          { language = "lua"; }
-          { language = "vimdoc"; }
-        ]
-        ++ languages
-      )
+      map
+        (
+          l:
+          if l.language == "nodejs" then
+            p.javascript
+          else if l.language == "postgresql" then
+            p.sql
+          else
+            p."${l.language}"
+        )
+        (
+          [
+            { language = "c"; }
+            { language = "lua"; }
+            { language = "vimdoc"; }
+          ]
+          ++ languages
+        )
     ))
 
     {

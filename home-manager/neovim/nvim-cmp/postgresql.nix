@@ -3,10 +3,12 @@
   ...
 }:
 {
-  packages = with pkgs; [ nil ];
+  packages = with pkgs; [
+    sqls
+  ];
 
   config = ''
-    require("lspconfig").nil_ls.setup({
+    require("lspconfig").sqls.setup({
       capabilities = capabilities,
     })
   '';

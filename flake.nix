@@ -31,6 +31,7 @@
           languages = [
             { language = "nix"; }
             { language = "nodejs"; }
+            { language = "postgresql"; }
           ];
         };
         modules = [
