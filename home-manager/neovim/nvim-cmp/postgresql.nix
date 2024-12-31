@@ -1,9 +1,14 @@
 {
+  pkgs,
   ...
 }:
 {
+  packages = with pkgs; [
+    sqls
+  ];
+
   config = ''
-    require("lspconfig").sqlls.setup({
+    require("lspconfig").sqls.setup({
       capabilities = capabilities,
     })
   '';
