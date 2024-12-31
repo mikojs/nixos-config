@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   stateVersion,
+  user,
   languages,
   ...
 }:
@@ -17,7 +18,7 @@ with inputs;
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        extraSpecialArgs = { inherit languages; };
+        extraSpecialArgs = { inherit user languages; };
 
         users.nixos = {
           imports =
