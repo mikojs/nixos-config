@@ -1,6 +1,11 @@
 {
+  pkgs,
   ...
 }:
 {
-  formatter = ''javascript = { "pg_format" }'';
+  packages = with pkgs; [
+    pgformatter
+  ];
+
+  formatter = ''sql = { "pg_format" }'';
 }
