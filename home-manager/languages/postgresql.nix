@@ -9,5 +9,8 @@ let
   version = if hasAttr "version" language then "_${language.version}" else "";
 in
 {
-  home.packages = [ pkgs."postgresql${version}" ];
+  home.packages = with pkgs; [
+    pkgs."postgresql${version}"
+    pgcli
+  ];
 }
