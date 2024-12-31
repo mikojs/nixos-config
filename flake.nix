@@ -24,6 +24,10 @@
           inherit inputs;
           isWSL = true;
           stateVersion = "24.11";
+          user = {
+            "name" = "Mikojs";
+            "email" = "mikojs@gmail.com";
+          };
           languages = [
             { language = "nix"; }
             { language = "nodejs"; }
