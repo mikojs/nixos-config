@@ -36,6 +36,7 @@
           ];
         };
         modules = [
+          ./commands
           ./nixos
           ./home-manager
         ];
