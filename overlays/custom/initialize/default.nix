@@ -3,16 +3,19 @@
 }:
 with rustPlatform;
 buildRustPackage {
-  name = "init";
+  name = "initialize";
   src = ./..;
+
   cargoLock = {
     lockFile = ../Cargo.lock;
   };
+
   buildPhase = ''
-    cargo build --release -p init
+    cargo build --release -p initialize
   '';
+
   installPhase = ''
-    mkdir $out/bin
-    cp -r target/release/init $out/bin/init
+    mkdir -p $out/bin
+    cp -r target/release/initialize $out/bin
   '';
 }
