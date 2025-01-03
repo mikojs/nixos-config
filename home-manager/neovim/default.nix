@@ -3,6 +3,7 @@
   languages,
   ...
 }:
+with builtins;
 let
   configs =
     map
@@ -12,30 +13,35 @@ let
           inherit pkgs languages;
         }
       )
-      ([
-        # Colorschema
-        "tokyonight-nvim.nix"
-        # UI
-        "lualine-nvim.nix"
-        "dressing-nvim.nix"
-        # Lsp
-        "nvim-treesitter.nix"
-        "nvim-cmp"
-        # Editor
-        "which-key-nvim.nix"
-        "telescope-nvim.nix"
-        "gitsigns-nvim.nix"
-        "toggleterm-nvim.nix"
-        "barbar-nvim.nix"
-        "persistence-nvim.nix"
-        "todo-comments-nvim.nix"
-        # Coding
-        "mini-nvim.nix"
-        # Formatting
-        "conform-nvim"
-        # AI
-        "copilot-vim.nix"
-      ]);
+      (
+        [
+          # Colorschema
+          "tokyonight-nvim.nix"
+          # UI
+          "lualine-nvim.nix"
+          "dressing-nvim.nix"
+          # Lsp
+          "nvim-treesitter.nix"
+          "nvim-cmp"
+          # Editor
+          "which-key-nvim.nix"
+          "telescope-nvim.nix"
+          "gitsigns-nvim.nix"
+          "toggleterm-nvim.nix"
+          "barbar-nvim.nix"
+          "persistence-nvim.nix"
+          "todo-comments-nvim.nix"
+          # Coding
+          "mini-nvim.nix"
+          # Formatting
+          "conform-nvim"
+          # AI
+          "copilot-vim.nix"
+        ]
+        ++ (map (l: "./languages/${l.language}.nix") (
+          filter (l: pathExists ./languages/${l.language}.nix) languages
+        ))
+      );
 
   getConfig =
     with builtins;

@@ -24,14 +24,14 @@ with inputs;
           imports =
             with builtins;
             [
-              ./git.nix
+              ./fish.nix
               ./gh.nix
-              ./neovim
-              ./tree.nix
-              ./tmux.nix
+              ./git.nix
               ./jless.nix
               ./jq.nix
-              ./fish.nix
+              ./neovim
+              ./tmux.nix
+              ./tree.nix
             ]
             ++ (map (l: ./languages/${l.language}.nix) (
               filter (l: pathExists ./languages/${l.language}.nix) languages
