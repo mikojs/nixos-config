@@ -1,11 +1,11 @@
-use dialoguer::{Error as DialoguerError, FuzzySelect};
+use inquire::{InquireError, Select};
 use std::env;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
 enum MainError {
-    #[error("Dialoguer error: {0}")]
-    Dialoguer(#[from] DialoguerError),
+    #[error("InquireError: {0}")]
+    InquireError(#[from] InquireError),
 }
 
 struct Config {
@@ -15,15 +15,16 @@ struct Config {
 static TIDE_ITMES: &[&str] = &["Yes", "No", "Skip"];
 
 fn main() -> Result<(), MainError> {
-    let mut config = Config { tide: true };
+    let mut config = Config { tide: false };
 
     if env::var("TIDE_INIT").is_err() {
-        let result = FuzzySelect::new()
-            .with_prompt("Do you want to initialize a new Tide configure?")
-            .items(TIDE_ITMES)
-            .interact()?;
+        let result = Select::new(
+            "Do you want to initialize a new Tide configure?",
+            TIDE_ITMES.to_vec(),
+        )
+        .prompt()?;
 
-        match TIDE_ITMES[result] {
+        match result {
             "Yes" => {
                 // TODO: Initialize Tide
                 config.tide = true;
