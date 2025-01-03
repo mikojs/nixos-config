@@ -1,21 +1,22 @@
+use config::{Config, ConfigError};
 use inquire::{InquireError, Select};
 use std::env;
 use thiserror::Error;
+
+mod config;
 
 #[derive(Error, Debug)]
 enum MainError {
     #[error("InquireError: {0}")]
     InquireError(#[from] InquireError),
-}
-
-struct Config {
-    tide: bool,
+    #[error("ConfigError: {0}")]
+    ConfigError(#[from] ConfigError),
 }
 
 static TIDE_ITMES: &[&str] = &["Yes", "No", "Skip"];
 
 fn main() -> Result<(), MainError> {
-    let mut config = Config { tide: false };
+    let mut config = Config::new();
 
     if env::var("TIDE_INIT").is_err() {
         let result = Select::new(
@@ -27,14 +28,13 @@ fn main() -> Result<(), MainError> {
         match result {
             "Yes" => {
                 // TODO: Initialize Tide
-                config.tide = true;
+                config.tide_is_updated();
             }
-            "No" => {
-                config.tide = true;
-            }
+            "No" => config.tide_is_updated(),
             _ => {}
         }
     }
 
+    config.save()?;
     Ok(())
 }
