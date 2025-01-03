@@ -33,7 +33,8 @@ in
           lua << END
             require("which-key").add({
               { "<leader>l", group = "Lsp" },
-              { "<leader>lh", vim.lsp.buf.hover, desc = "Hover information" },
+              { "<leader>li", vim.lsp.buf.hover, desc = "Show information" },
+              { "<leader>ld", vim.diagnostic.open_float, desc = "Show diagnostic" },
               { "<leader>lr", vim.lsp.buf.rename, desc = "Rename" },
             })
           END
