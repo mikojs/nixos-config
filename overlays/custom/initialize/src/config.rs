@@ -28,6 +28,10 @@ impl Config {
         }
     }
 
+    pub fn file_path(&self) -> &PathBuf {
+        &self.file_path
+    }
+
     pub fn tide_is_updated(&mut self) {
         self.tide = true;
     }
@@ -35,7 +39,9 @@ impl Config {
     pub fn save(&self) -> Result<(), ConfigError> {
         let mut file = File::create(&self.file_path)?;
 
-        file.write_all("set -x -g tide_is_initialized = true".as_bytes())?;
+        if self.tide {
+            file.write_all("set -x -g tide_is_initialized = true".as_bytes())?;
+        }
 
         Ok(())
     }
