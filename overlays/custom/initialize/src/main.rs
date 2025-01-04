@@ -1,6 +1,5 @@
 use config::{Config, ConfigError};
 use inquire::{InquireError, Select};
-use std::env;
 use thiserror::Error;
 
 mod config;
@@ -18,7 +17,7 @@ static TIDE_ITMES: &[&str] = &["Yes", "No", "Skip"];
 fn main() -> Result<(), MainError> {
     let mut config = Config::new();
 
-    if env::var("TIDE_INIT").is_err() {
+    if !config.is_tide_initialized() {
         let result = Select::new(
             "Do you want to initialize a new Tide configure?",
             TIDE_ITMES.to_vec(),
@@ -28,9 +27,9 @@ fn main() -> Result<(), MainError> {
         match result {
             "Yes" => {
                 // TODO: Initialize Tide
-                config.tide_is_updated();
+                config.tide_is_initialized();
             }
-            "No" => config.tide_is_updated(),
+            "No" => config.tide_is_initialized(),
             _ => {}
         }
     }

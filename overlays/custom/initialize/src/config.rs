@@ -1,6 +1,8 @@
+use serde::{Deserialize, Serialize};
+use serde_json::Error as SerdeJsonError;
 use std::{
     env,
-    fs::File,
+    fs::{read_to_string, File},
     io::{Error as IoError, Write},
     path::PathBuf,
 };
@@ -10,32 +12,44 @@ use thiserror::Error;
 pub enum ConfigError {
     #[error("IoError: {0}")]
     Io(#[from] IoError),
+    #[error("SerdeJsonError: {0}")]
+    SerdeJson(#[from] SerdeJsonError),
 }
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
-    tide: bool,
+    #[serde(skip)]
     file_path: PathBuf,
+    tide_is_initialized: bool,
 }
 
 impl Config {
     pub fn new() -> Self {
-        let file_path =
-            env::var("INITIALIZE_CONFIG").unwrap_or("~/.config/nvim/initialize.sh".to_string());
+        let file_path = PathBuf::from(
+            env::var("INITIALIZE_CONFIG").unwrap_or("~/.config/initialize.json".to_string()),
+        );
+        let config_str = read_to_string(file_path.clone()).unwrap_or_default();
+        let mut config = serde_json::from_str(&config_str).unwrap_or(Config {
+            file_path: file_path.clone(),
+            tide_is_initialized: false,
+        });
 
-        Self {
-            tide: false,
-            file_path: PathBuf::from(file_path),
-        }
+        config.file_path = file_path;
+        config
     }
 
-    pub fn tide_is_updated(&mut self) {
-        self.tide = true;
+    pub fn tide_is_initialized(&mut self) {
+        self.tide_is_initialized = true;
+    }
+
+    pub fn is_tide_initialized(&self) -> bool {
+        self.tide_is_initialized
     }
 
     pub fn save(&self) -> Result<(), ConfigError> {
         let mut file = File::create(&self.file_path)?;
 
-        file.write_all("set -x -g tide_is_initialized = true".as_bytes())?;
+        file.write_all(serde_json::to_string(&self)?.as_bytes())?;
 
         Ok(())
     }
