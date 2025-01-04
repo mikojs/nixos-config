@@ -24,7 +24,6 @@ with inputs;
           imports =
             with builtins;
             [
-              ./custom.nix
               ./fish.nix
               ./gh.nix
               ./git.nix

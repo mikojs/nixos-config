@@ -3,6 +3,10 @@
   ...
 }:
 {
+  home.packages = with pkgs; [
+    initialize
+  ];
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -10,6 +14,9 @@
       set fish_greeting
 
       ${(import ./neovim/tokyonight-nvim.nix { inherit pkgs; }).programs.fish.interactiveShellInit}
+
+      # Initialize
+      initialize
 
       # Load Custom Env
       test -f ~/init.fish && source ~/init.fish 2> /dev/null
