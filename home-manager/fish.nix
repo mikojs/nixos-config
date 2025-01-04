@@ -17,9 +17,6 @@
 
       # Initialize
       initialize
-
-      # Load Custom Env
-      test -f ~/init.fish && source ~/init.fish 2> /dev/null
     '';
 
     plugins = with pkgs.fishPlugins; [
