@@ -36,6 +36,7 @@
           ];
         };
         modules = [
+          ./overlays
           ./nixos
           ./home-manager
         ];
