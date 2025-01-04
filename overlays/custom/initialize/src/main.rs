@@ -17,7 +17,7 @@ static TIDE_ITMES: &[&str] = &["Yes", "No", "Skip"];
 fn main() -> Result<(), MainError> {
     let mut config = Config::new();
 
-    if !config.is_tide_initialized() {
+    if !config.tide_is_initialized {
         let result = Select::new(
             "Do you want to initialize a new Tide configure?",
             TIDE_ITMES.to_vec(),
@@ -27,9 +27,9 @@ fn main() -> Result<(), MainError> {
         match result {
             "Yes" => {
                 // TODO: Initialize Tide
-                config.tide_is_initialized();
+                config.tide_is_initialized = true;
             }
-            "No" => config.tide_is_initialized(),
+            "No" => config.tide_is_initialized = true,
             _ => {}
         }
     }

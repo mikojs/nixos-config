@@ -20,7 +20,7 @@ pub enum ConfigError {
 pub struct Config {
     #[serde(skip)]
     file_path: PathBuf,
-    tide_is_initialized: bool,
+    pub tide_is_initialized: bool,
 }
 
 impl Config {
@@ -42,14 +42,6 @@ impl Config {
 
         config.file_path = file_path;
         config
-    }
-
-    pub fn tide_is_initialized(&mut self) {
-        self.tide_is_initialized = true;
-    }
-
-    pub fn is_tide_initialized(&self) -> bool {
-        self.tide_is_initialized
     }
 
     pub fn save(&self) -> Result<(), ConfigError> {
