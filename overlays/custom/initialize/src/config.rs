@@ -25,8 +25,14 @@ pub struct Config {
 
 impl Config {
     pub fn new() -> Self {
+        let home_dir = dirs::home_dir().unwrap_or("./".into());
         let file_path = PathBuf::from(
-            env::var("INITIALIZE_CONFIG").unwrap_or("~/.config/initialize.json".to_string()),
+            env::var("INITIALIZE_CONFIG").unwrap_or(
+                home_dir
+                    .join("./.config/initialize.json")
+                    .display()
+                    .to_string(),
+            ),
         );
         let config_str = read_to_string(file_path.clone()).unwrap_or_default();
         let mut config = serde_json::from_str(&config_str).unwrap_or(Config {
