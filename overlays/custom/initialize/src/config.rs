@@ -19,7 +19,7 @@ pub enum ConfigError {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
     #[serde(skip)]
-    file_path: PathBuf,
+    pub file_path: PathBuf,
     pub tide_is_initialized: bool,
 }
 
@@ -29,7 +29,7 @@ impl Config {
         let file_path = PathBuf::from(
             env::var("INITIALIZE_CONFIG").unwrap_or(
                 home_dir
-                    .join("./.config/initialize.json")
+                    .join(".config/initialize.json")
                     .display()
                     .to_string(),
             ),

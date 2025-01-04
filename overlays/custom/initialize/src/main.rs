@@ -1,15 +1,19 @@
+use ansi_term::Colour::Red;
 use config::{Config, ConfigError};
 use inquire::{InquireError, Select};
+use std::{io::Error as IoError, process::Command};
 use thiserror::Error;
 
 mod config;
 
 #[derive(Error, Debug)]
 enum MainError {
+    #[error("IoError: {0}")]
+    Io(#[from] IoError),
     #[error("InquireError: {0}")]
-    InquireError(#[from] InquireError),
+    Inquire(#[from] InquireError),
     #[error("ConfigError: {0}")]
-    ConfigError(#[from] ConfigError),
+    Config(#[from] ConfigError),
 }
 
 static TIDE_ITMES: &[&str] = &["Yes", "No", "Skip"];
@@ -26,8 +30,17 @@ fn main() -> Result<(), MainError> {
 
         match result {
             "Yes" => {
-                // TODO: Initialize Tide
-                config.tide_is_initialized = true;
+                if Command::new("fish")
+                    .args(["-c", "tide configure"])
+                    .status()?
+                    .success()
+                {
+                    config.tide_is_initialized = true;
+                    println!(
+                        "Tide is initialized. If you want to reinitialize, please remove the {} file.",
+                        Red.paint(config.file_path.display().to_string())
+                    );
+                }
             }
             "No" => config.tide_is_initialized = true,
             _ => {}
