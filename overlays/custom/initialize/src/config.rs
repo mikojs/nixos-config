@@ -19,7 +19,7 @@ pub enum ConfigError {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Config {
     #[serde(skip)]
-    pub file_path: PathBuf,
+    file_path: PathBuf,
     pub tide_is_initialized: bool,
 }
 

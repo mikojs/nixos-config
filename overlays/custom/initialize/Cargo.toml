@@ -4,7 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-ansi_term = "0.12.1"
 dirs = "5.0.1"
 inquire = "0.7.5"
 serde = { version = "1.0.217", features = ["derive"] }
