@@ -27,6 +27,7 @@ fn main() -> Result<(), MainError> {
                 match config_type {
                     ConfigType::Tide => "Do you want to initialize a new Tide configure?",
                     ConfigType::Gh => "Do you want to login Github CLI?",
+                    ConfigType::Tailscale => "Do you want to login Tailscale with the root user?",
                 },
                 OPTIONS.to_vec(),
             )
@@ -37,10 +38,12 @@ fn main() -> Result<(), MainError> {
                     let command_name = match config_type {
                         ConfigType::Tide => "fish",
                         ConfigType::Gh => "gh",
+                        ConfigType::Tailscale => "sudo",
                     };
                     let command_args = match config_type {
                         ConfigType::Tide => ["-c", "tide configure"],
                         ConfigType::Gh => ["auth", "login"],
+                        ConfigType::Tailscale => ["tailscale", "login"],
                     };
 
                     if Command::new(command_name)

@@ -6,6 +6,7 @@ use std::{
     io::{Error as IoError, Write},
     path::PathBuf,
     process::Command,
+    string::FromUtf8Error,
 };
 use strum_macros::EnumIter;
 use thiserror::Error;
@@ -16,12 +17,15 @@ pub enum ConfigError {
     Io(#[from] IoError),
     #[error("SerdeJsonError: {0}")]
     SerdeJson(#[from] SerdeJsonError),
+    #[error("FromUtf8Error: {0}")]
+    FromUtf8(#[from] FromUtf8Error),
 }
 
 #[derive(EnumIter, Debug, Clone)]
 pub enum ConfigType {
     Tide,
     Gh,
+    Tailscale,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
@@ -30,6 +34,7 @@ pub struct Config {
     file_path: PathBuf,
     tide_is_initialized: bool,
     gh_is_initialized: bool,
+    tailscale_is_initialized: bool,
 }
 
 impl Config {
@@ -49,6 +54,9 @@ impl Config {
         config.file_path = file_path;
         config.gh_is_initialized =
             config.gh_is_initialized || Command::new("gh").arg("status").output().is_ok();
+        config.tailscale_is_initialized = config.tailscale_is_initialized
+            || !String::from_utf8(Command::new("tailscale").arg("status").output()?.stdout)?
+                .contains("Logged out");
 
         Ok(config)
     }
@@ -57,6 +65,7 @@ impl Config {
         match config_type {
             ConfigType::Tide => self.tide_is_initialized,
             ConfigType::Gh => self.gh_is_initialized,
+            ConfigType::Tailscale => self.tailscale_is_initialized,
         }
     }
 
@@ -64,6 +73,7 @@ impl Config {
         match config_type {
             ConfigType::Tide => self.tide_is_initialized = true,
             ConfigType::Gh => self.gh_is_initialized = true,
+            ConfigType::Tailscale => self.tailscale_is_initialized = true,
         }
     }
 
