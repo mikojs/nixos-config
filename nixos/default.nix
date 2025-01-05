@@ -17,7 +17,8 @@ with inputs;
       system.stateVersion = stateVersion;
       wsl.enable = isWSL;
       nixpkgs.config.allowUnfree = true;
-      services.tailscale.enable = true;
     }
+
+    (import ./tailscale.nix)
   ];
 }
