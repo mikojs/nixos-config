@@ -24,15 +24,27 @@ fn main() -> Result<(), MainError> {
     for config_type in ConfigType::iter() {
         if !config.is_initialized(config_type.clone()) {
             let result = Select::new(
-                "Do you want to initialize a new Tide configure?",
+                match config_type {
+                    ConfigType::Tide => "Do you want to initialize a new Tide configure?",
+                    ConfigType::Gh => "Do you want to login Github CLI?",
+                },
                 OPTIONS.to_vec(),
             )
             .prompt()?;
 
             match result {
                 "Yes" => {
-                    if Command::new("fish")
-                        .args(["-c", "tide configure"])
+                    let command_name = match config_type {
+                        ConfigType::Tide => "fish",
+                        ConfigType::Gh => "gh",
+                    };
+                    let command_args = match config_type {
+                        ConfigType::Tide => ["-c", "tide configure"],
+                        ConfigType::Gh => ["auth", "login"],
+                    };
+
+                    if Command::new(command_name)
+                        .args(command_args)
                         .status()?
                         .success()
                     {
