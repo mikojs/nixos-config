@@ -36,7 +36,6 @@ let
           # Formatting
           "conform-nvim"
           # AI
-          "copilot-vim.nix"
         ]
         ++ (map (l: "./languages/${l.language}.nix") (
           filter (l: pathExists ./languages/${l.language}.nix) languages
