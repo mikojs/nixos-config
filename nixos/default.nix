@@ -20,5 +20,6 @@ with inputs;
     }
 
     (import ./tailscale.nix)
+    (import ./ollama.nix)
   ];
 }
