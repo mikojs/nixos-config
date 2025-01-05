@@ -1,5 +1,5 @@
 use config::{Config, ConfigError, ConfigType};
-use inquire::{InquireError, Select};
+use inquire::{Confirm, InquireError, Select, Text};
 use std::{io::Error as IoError, process::Command};
 use strum::IntoEnumIterator;
 use thiserror::Error;
@@ -41,9 +41,53 @@ fn main() -> Result<(), MainError> {
                         ConfigType::Tailscale => "sudo",
                     };
                     let command_args = match config_type {
-                        ConfigType::Tide => ["-c", "tide configure"],
-                        ConfigType::Gh => ["auth", "login"],
-                        ConfigType::Tailscale => ["tailscale", "login"],
+                        ConfigType::Tide => vec!["-c", "tide configure"]
+                            .into_iter()
+                            .map(|v| v.to_string())
+                            .collect(),
+                        ConfigType::Gh => vec!["auth", "login"]
+                            .into_iter()
+                            .map(|v| v.to_string())
+                            .collect(),
+                        ConfigType::Tailscale => {
+                            let mut command_args: Vec<String> = vec!["tailscale", "login"]
+                                .into_iter()
+                                .map(|v| v.to_string())
+                                .collect();
+
+                            let hostname = Text::new("Hostname:")
+                                .with_help_message(
+                                    "Leave it empty if you want to auto-generate the hostname by Tailscale",
+                                )
+                                .prompt()?;
+
+                            if !hostname.is_empty() {
+                                let new_args = format!("--hostname={}", hostname);
+
+                                command_args.push(new_args);
+                            }
+
+                            let use_ssh = Confirm::new("Use ssh?").with_default(false)
+                                .with_help_message("Run an SSH server, permitting access per tailnet admin's declared policy")
+                                .prompt()?;
+
+                            if use_ssh {
+                                command_args.push("--ssh".to_string());
+                            }
+
+                            let use_advertise_exit_node = Confirm::new("Use advertise exit node?")
+                                .with_default(false)
+                                .with_help_message(
+                                    "Offer to be an exit node for internet traffic for the tailnet",
+                                )
+                                .prompt()?;
+
+                            if use_advertise_exit_node {
+                                command_args.push("--advertise-exit-node".to_string());
+                            }
+
+                            command_args
+                        }
                     };
 
                     if Command::new(command_name)
