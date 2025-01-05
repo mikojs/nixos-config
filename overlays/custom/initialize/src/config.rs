@@ -5,6 +5,7 @@ use std::{
     fs::{read_to_string, File},
     io::{Error as IoError, Write},
     path::PathBuf,
+    process::Command,
 };
 use strum_macros::EnumIter;
 use thiserror::Error;
@@ -32,7 +33,7 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new() -> Self {
+    pub fn new() -> Result<Self, ConfigError> {
         let home_dir = dirs::home_dir().unwrap_or("./".into());
         let file_path = PathBuf::from(
             env::var("INITIALIZE_CONFIG").unwrap_or(
@@ -46,7 +47,10 @@ impl Config {
         let mut config = serde_json::from_str(&config_str).unwrap_or(Config::default());
 
         config.file_path = file_path;
-        config
+        config.gh_is_initialized =
+            config.gh_is_initialized || Command::new("gh").arg("status").output().is_ok();
+
+        Ok(config)
     }
 
     pub fn is_initialized(&self, config_type: ConfigType) -> bool {

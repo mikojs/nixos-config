@@ -19,7 +19,7 @@ enum MainError {
 static OPTIONS: &[&str] = &["Yes", "No", "Skip"];
 
 fn main() -> Result<(), MainError> {
-    let mut config = Config::new();
+    let mut config = Config::new()?;
 
     for config_type in ConfigType::iter() {
         if !config.is_initialized(config_type.clone()) {
