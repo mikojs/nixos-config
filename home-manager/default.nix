@@ -13,7 +13,12 @@ with inputs;
   ];
 
   programs.fish.enable = true;
-  users.users.nixos.shell = pkgs.fish;
+
+  users.users.nixos = {
+    isNormalUser = true;
+    shell = pkgs.fish;
+    extraGroups = [ "wheel" ];
+  };
 
   home-manager = {
     useGlobalPkgs = true;
