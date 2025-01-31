@@ -16,30 +16,23 @@
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
+    inputs:
+    let
+      mkSystem = import ./mkSystem.nix inputs;
+    in
     {
-      nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.wsl = mkSystem {
         system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          isWSL = true;
-          stateVersion = "24.11";
-          user = {
-            "name" = "Mikojs";
-            "email" = "mikojs@gmail.com";
-          };
-          languages = [
-            { language = "nix"; }
-            { language = "nodejs"; }
-            { language = "rust"; }
-            { language = "postgresql"; }
-          ];
+        isWSL = true;
+        user = {
+          "name" = "Mikojs";
+          "email" = "mikojs@gmail.com";
         };
-        modules = [
-          ./overlays
-          ./nixos
-          ./nixos/wsl.nix
-          ./home-manager
+        languages = [
+          { language = "nix"; }
+          { language = "nodejs"; }
+          { language = "rust"; }
+          { language = "postgresql"; }
         ];
       };
     };
