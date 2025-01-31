@@ -13,7 +13,11 @@ with inputs;
 
     {
       programs.fish.enable = true;
-      users.users.nixos.shell = pkgs.fish;
+
+      users.users.nixos = {
+        isNormalUser = true;
+        shell = pkgs.fish;
+      };
 
       home-manager = {
         useGlobalPkgs = true;
