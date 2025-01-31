@@ -1,6 +1,6 @@
 {
   inputs,
-  isWSL ? false,
+  isWSL,
   stateVersion,
   ...
 }:
@@ -9,15 +9,13 @@ with inputs;
   imports = [
     (if isWSL then nixos-wsl.nixosModules.default else { })
 
-    {
-      nix.settings.experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      system.stateVersion = stateVersion;
-      wsl.enable = isWSL;
-    }
-
-    (import ./tailscale.nix)
+    ./tailscale.nix
   ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+  system.stateVersion = stateVersion;
+  wsl.enable = isWSL;
 }
