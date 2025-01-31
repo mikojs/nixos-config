@@ -47,7 +47,7 @@
           system = "aarch64-linux";
           specialArgs = {
             inherit inputs;
-            isWSL = true;
+            isWSL = false;
             stateVersion = "24.11";
             user = {
               "name" = "Mikojs";
