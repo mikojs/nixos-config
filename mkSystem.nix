@@ -11,7 +11,6 @@ inputs.nixpkgs.lib.nixosSystem {
   specialArgs = {
     inherit
       inputs
-      isWSL
       user
       languages
       ;
