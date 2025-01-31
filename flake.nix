@@ -38,6 +38,7 @@
         modules = [
           ./overlays
           ./nixos
+          ./nixos/wsl.nix
           ./home-manager
         ];
       };
