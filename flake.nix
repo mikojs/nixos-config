@@ -18,28 +18,54 @@
   outputs =
     { nixpkgs, ... }@inputs:
     {
-      nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          isWSL = true;
-          stateVersion = "24.11";
-          user = {
-            "name" = "Mikojs";
-            "email" = "mikojs@gmail.com";
+      nixosConfigurations = {
+        wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+            isWSL = true;
+            stateVersion = "24.11";
+            user = {
+              "name" = "Mikojs";
+              "email" = "mikojs@gmail.com";
+            };
+            languages = [
+              { language = "nix"; }
+              { language = "nodejs"; }
+              { language = "rust"; }
+              { language = "postgresql"; }
+            ];
           };
-          languages = [
-            { language = "nix"; }
-            { language = "nodejs"; }
-            { language = "rust"; }
-            { language = "postgresql"; }
+          modules = [
+            ./overlays
+            ./nixos
+            ./home-manager
           ];
         };
-        modules = [
-          ./overlays
-          ./nixos
-          ./home-manager
-        ];
+
+        "mac-vmware" = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = {
+            inherit inputs;
+            isWSL = true;
+            stateVersion = "24.11";
+            user = {
+              "name" = "Mikojs";
+              "email" = "mikojs@gmail.com";
+            };
+            languages = [
+              { language = "nix"; }
+              { language = "nodejs"; }
+              { language = "rust"; }
+              { language = "postgresql"; }
+            ];
+          };
+          modules = [
+            ./overlays
+            ./nixos
+            ./home-manager
+          ];
+        };
       };
     };
 }
