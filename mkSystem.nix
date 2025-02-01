@@ -25,7 +25,7 @@ inputs.nixpkgs.lib.nixosSystem {
     ./nixos
     (if isWSL then ./nixos/wsl.nix else { })
     (if isVMware then ./nixos/vmware.nix else { })
-    (if isVMware then /etc/nixos/hardware-configuration.nix else { })
+    (if isVMware then ./hardwares/${system}.nix else { })
 
     ./home-manager
   ];
