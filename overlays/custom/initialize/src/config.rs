@@ -52,8 +52,8 @@ impl Config {
         let mut config = serde_json::from_str(&config_str).unwrap_or(Config::default());
 
         config.file_path = file_path;
-        config.gh_is_initialized =
-            config.gh_is_initialized || Command::new("gh").arg("status").output().is_ok();
+        config.gh_is_initialized = config.gh_is_initialized
+            || Command::new("gh").arg("status").output()?.stderr.is_empty();
         config.tailscale_is_initialized = config.tailscale_is_initialized
             || !String::from_utf8(Command::new("tailscale").arg("status").output()?.stdout)?
                 .contains("Logged out");
