@@ -38,8 +38,8 @@
         };
 
         "mac-vmware" = mkSystem {
-          system = "x86_64-linux";
-          isVMware = false;
+          system = "aarch64-linux";
+          isVMware = true;
           user = {
             "name" = "Mikojs";
             "email" = "mikojs@gmail.com";

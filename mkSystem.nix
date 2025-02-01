@@ -2,6 +2,7 @@ inputs:
 {
   system,
   isWSL ? false,
+  isVMware ? false,
   user,
   languages,
 }:
@@ -23,6 +24,7 @@ inputs.nixpkgs.lib.nixosSystem {
 
     ./nixos
     (if isWSL then ./nixos/wsl.nix else { })
+    (if isVMware then ./nixos/vmware.nix else { })
 
     ./home-manager
   ];
