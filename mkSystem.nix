@@ -21,8 +21,8 @@ inputs.nixpkgs.lib.nixosSystem {
 
   modules = [
     ./overlays
-
     ./nixos
+
     (if isWSL then ./nixos/wsl.nix else { })
     (if isVMware then ./nixos/vmware.nix else { })
     (if isVMware then ./hardwares/${system}.nix else { })
