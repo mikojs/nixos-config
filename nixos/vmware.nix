@@ -3,7 +3,10 @@
   ...
 }:
 {
-  imports = [ ./openssh.nix ];
+  imports = [
+    ./specialization/i3.nix
+    ./openssh.nix
+  ];
 
   boot.loader = {
     systemd-boot.enable = true;
