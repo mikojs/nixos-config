@@ -13,6 +13,8 @@
     efi.canTouchEfiVariables = true;
   };
 
+  virtualisation.vmware.guest.enable = true;
+
   fonts = {
     fontDir.enable = true;
 
