@@ -21,19 +21,36 @@
       mkSystem = import ./mkSystem.nix inputs;
     in
     {
-      nixosConfigurations.wsl = mkSystem {
-        system = "x86_64-linux";
-        isWSL = true;
-        user = {
-          "name" = "Mikojs";
-          "email" = "mikojs@gmail.com";
+      nixosConfigurations = {
+        wsl = mkSystem {
+          system = "x86_64-linux";
+          isWSL = true;
+          user = {
+            "name" = "Mikojs";
+            "email" = "mikojs@gmail.com";
+          };
+          languages = [
+            { language = "nix"; }
+            { language = "nodejs"; }
+            { language = "rust"; }
+            { language = "postgresql"; }
+          ];
         };
-        languages = [
-          { language = "nix"; }
-          { language = "nodejs"; }
-          { language = "rust"; }
-          { language = "postgresql"; }
-        ];
+
+        "mac-vmware" = mkSystem {
+          system = "aarch64-linux";
+          isVMware = true;
+          user = {
+            "name" = "Mikojs";
+            "email" = "mikojs@gmail.com";
+          };
+          languages = [
+            { language = "nix"; }
+            { language = "nodejs"; }
+            { language = "rust"; }
+            { language = "postgresql"; }
+          ];
+        };
       };
     };
 }
