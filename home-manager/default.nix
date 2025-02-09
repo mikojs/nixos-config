@@ -29,6 +29,7 @@ with inputs;
       imports =
         with builtins;
         [
+          ./kitty.nix
           ./fish.nix
           ./gh.nix
           ./git.nix
