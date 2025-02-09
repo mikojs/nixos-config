@@ -60,10 +60,14 @@ let
     );
 in
 {
-  home.packages = getConfig ([
-    "home"
-    "packages"
-  ]);
+  home.packages =
+    getConfig ([
+      "home"
+      "packages"
+    ])
+    ++ (with pkgs; [
+      xclip
+    ]);
 
   programs.neovim = {
     enable = true;
