@@ -105,5 +105,14 @@
         END
       '';
     }
+
+    {
+      plugin = mini-align;
+      config = ''
+        lua << END
+          require("mini.align").setup()
+        END
+      '';
+    }
   ];
 }
