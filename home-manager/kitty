@@ -6,8 +6,8 @@ font_size 12.0
 # Key bindings
 #--------------------------------------------------------------------
 # Clipboard
-map super+v             paste_from_clipboard
-map super+c             copy_or_interrupt
+map super+v paste_from_clipboard
+map super+c copy_or_interrupt
 
 # Miscellaneous
 map super+equal increase_font_size
