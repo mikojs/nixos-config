@@ -11,5 +11,6 @@
     "nix-command"
     "flakes"
   ];
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = stateVersion;
 }
