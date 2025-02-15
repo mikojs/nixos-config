@@ -58,7 +58,6 @@ in
                 { name = "vsnip" },
                 { name = "path" },
                 { name = "nvim_treesitter" },
-                { name = "codeium" },
               }, {
                 { name = "buffer" },
               }),
