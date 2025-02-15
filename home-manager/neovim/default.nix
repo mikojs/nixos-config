@@ -19,7 +19,6 @@ let
           "tokyonight-nvim.nix"
           # UI
           "lualine-nvim.nix"
-          "dressing-nvim.nix"
           # Lsp
           "nvim-treesitter.nix"
           "nvim-cmp"
@@ -36,6 +35,7 @@ let
           # Formatting
           "conform-nvim"
           # AI
+          "codeium-nvim.nix"
         ]
         ++ (map (l: "./languages/${l.language}.nix") (
           filter (l: pathExists ./languages/${l.language}.nix) languages
