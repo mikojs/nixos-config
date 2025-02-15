@@ -19,7 +19,6 @@ let
           "tokyonight-nvim.nix"
           # UI
           "lualine-nvim.nix"
-          "dressing-nvim.nix"
           # Lsp
           "nvim-treesitter.nix"
           "nvim-cmp"
