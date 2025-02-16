@@ -3,9 +3,11 @@
   ...
 }:
 {
-  environment = {
-    systemPackages = with pkgs; [
-      firefox
-    ];
+  environment.systemPackages = with pkgs; [
+    firefox
+  ];
+
+  programs.firefox.preferences = {
+    "layout.css.devPixelsPerPx" = "0.3";
   };
 }
