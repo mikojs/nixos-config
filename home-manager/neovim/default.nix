@@ -91,7 +91,7 @@ in
       " set clipboard
       set clipboard=unnamedplus
 
-      " set mouse
+      " disable compatibility
       set nocompatible
     '';
 
