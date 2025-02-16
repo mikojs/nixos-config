@@ -69,3 +69,7 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+
+# change container layout (tabbed, toggle split)
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+s layout toggle split
