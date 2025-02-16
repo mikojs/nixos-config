@@ -6,6 +6,7 @@
   imports = [
     ./specialization/i3.nix
     ./openssh.nix
+    ./firefox.nix
   ];
 
   boot.loader = {
