@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   stateVersion,
+  isVMware,
   user,
   languages,
   ...
@@ -40,7 +41,15 @@ with inputs;
         ]
         ++ (map (l: ./languages/${l.language}.nix) (
           filter (l: pathExists ./languages/${l.language}.nix) languages
-        ));
+        ))
+        ++ (
+          if isVMware then
+            [
+              ./ghostty.nix
+            ]
+          else
+            [ ]
+        );
 
       home.stateVersion = stateVersion;
     };

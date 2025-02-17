@@ -5,7 +5,6 @@
 {
   imports = [
     ./specialization/i3.nix
-    ./ghostty.nix
     ./openssh.nix
     ./firefox.nix
   ];
