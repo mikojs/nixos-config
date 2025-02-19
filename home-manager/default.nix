@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   inputs,
   stateVersion,
@@ -7,6 +8,7 @@
   languages,
   ...
 }:
+with lib;
 with inputs;
 {
   imports = [
@@ -42,14 +44,7 @@ with inputs;
         ++ (map (l: ./languages/${l.language}.nix) (
           filter (l: pathExists ./languages/${l.language}.nix) languages
         ))
-        ++ (
-          if isVMware then
-            [
-              ./ghostty.nix
-            ]
-          else
-            [ ]
-        );
+        ++ (optionals isVMware [ ./ghostty.nix ]);
 
       home.stateVersion = stateVersion;
     };
