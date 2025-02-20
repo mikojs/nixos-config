@@ -60,14 +60,10 @@ let
     );
 in
 {
-  home.packages =
-    getConfig ([
-      "home"
-      "packages"
-    ])
-    ++ (with pkgs; [
-      xclip
-    ]);
+  home.packages = getConfig ([
+    "home"
+    "packages"
+  ]);
 
   programs.neovim = {
     enable = true;
@@ -92,6 +88,10 @@ in
       " set backspace
       set backspace=indent,eol,start
 
+      " set clipboard
+      set clipboard=unnamedplus
+
+      " disable compatibility
       set nocompatible
     '';
 
@@ -109,8 +109,6 @@ in
       }
 
       require("which-key").add({
-        { "<leader>c", "\"+y", desc = "Copy to clipboard", mode = "v" },
-
         { "<leader>w", group = "Window" },
         { "<leader>wh", group = "Resize height" },
         { "<leader>wh+", "<Cmd>resize +10<CR>", desc = "Increase 10 height" },

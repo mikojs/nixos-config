@@ -51,7 +51,7 @@ exec --no-startup-id xrandr --output Virtual-1 --mode 1920x1200
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+n exec kitty
+bindsym $mod+n exec ghostty
 bindsym $mod+d split h
 bindsym $mod+Shift+d split v
 

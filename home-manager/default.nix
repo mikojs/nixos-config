@@ -1,11 +1,14 @@
 {
+  lib,
   pkgs,
   inputs,
   stateVersion,
+  isVMware,
   user,
   languages,
   ...
 }:
+with lib;
 with inputs;
 {
   imports = [
@@ -29,7 +32,6 @@ with inputs;
       imports =
         with builtins;
         [
-          ./kitty.nix
           ./fish.nix
           ./gh.nix
           ./git.nix
@@ -41,7 +43,8 @@ with inputs;
         ]
         ++ (map (l: ./languages/${l.language}.nix) (
           filter (l: pathExists ./languages/${l.language}.nix) languages
-        ));
+        ))
+        ++ (optionals isVMware [ ./ghostty.nix ]);
 
       home.stateVersion = stateVersion;
     };
