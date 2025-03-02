@@ -73,3 +73,6 @@ bindsym $mod+Shift+l move right
 # change container layout (tabbed, toggle split)
 bindsym $mod+Shift+t layout tabbed
 bindsym $mod+Shift+s layout toggle split
+
+# show menu
+bindsym $mod+m exec --no-startup-id rofi -show drun
