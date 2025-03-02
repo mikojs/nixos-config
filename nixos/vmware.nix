@@ -6,6 +6,8 @@
   imports = [
     ./specialization/i3.nix
     ./openssh.nix
+    ./fcitx5.nix
+    ./rofi.nix
     ./firefox.nix
   ];
 
