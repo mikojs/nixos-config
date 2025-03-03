@@ -8,7 +8,7 @@
     ./openssh.nix
     ./fcitx5.nix
     ./rofi.nix
-    ./firefox.nix
+    ./chromium.nix
   ];
 
   boot.loader = {
