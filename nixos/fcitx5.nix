@@ -11,25 +11,23 @@
 
       addons = with pkgs; [
         fcitx5-gtk
-        fcitx5-configtool
         fcitx5-chinese-addons
         fcitx5-chewing
-        fcitx5-material-color
+        fcitx5-nord
       ];
 
       settings = {
-        # addons = {
-        #   classicui.globalSection.Theme = "Material-Color-deepPurple";
-        #   classicui.globalSection.DarkTheme = "Material-Color-deepPurple";
-        #   pinyin.globalSection = {
-        #     PageSize = 9;
-        #     CloudPinyinEnabled = "True";
-        #     CloudPinyinIndex = 2;
-        #   };
-        #   cloudpinyin.globalSection = {
-        #     Backend = "Baidu";
-        #   };
-        # };
+        globalOptions.Behavior = {
+          resetStateWhenFocusIn = "All";
+          ShareInputState = "All";
+        };
+
+        addons.classicui.globalSection = {
+          Theme = "Nord-Dark";
+          Font = "Fira Code Medium 5";
+          MenuFont = "Fira Code Medium 5";
+          TrayFont = "Fira Code Demi-Bold 5";
+        };
 
         inputMethod = {
           "Groups/0" = {
