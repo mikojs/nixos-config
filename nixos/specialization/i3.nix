@@ -2,13 +2,6 @@
   ...
 }:
 {
-  services.xserver.xrandrHeads = [
-    {
-      output = "Virtual-1";
-      primary = true;
-    }
-  ];
-
   specialisation.i3.configuration = {
     services = {
       displayManager.defaultSession = "none+i3";
