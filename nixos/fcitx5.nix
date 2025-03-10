@@ -24,9 +24,9 @@
 
         addons.classicui.globalSection = {
           Theme = "Nord-Dark";
-          Font = "Fira Code Medium 5";
-          MenuFont = "Fira Code Medium 5";
-          TrayFont = "Fira Code Demi-Bold 5";
+          Font = "Fira Code Medium 10";
+          MenuFont = "Fira Code Medium 10";
+          TrayFont = "Fira Code Demi-Bold 10";
         };
 
         inputMethod = {

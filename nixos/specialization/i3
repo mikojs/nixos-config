@@ -1,7 +1,7 @@
 # follow https://github.com/mitchellh/nixos-config
 set $mod Mod4
 
-font pango:Fira Code 8
+font pango:Fira Code 10
 
 # Window visuals
 new_window pixel 1
@@ -40,9 +40,6 @@ exec --no-startup-id xsetroot -solid $back
 
 # Input methods
 exec --no-startup-id fcitx5 -d
-
-# Screen size
-exec --no-startup-id xrandr --output Virtual-1 --mode 1920x1200
 
 #----------------------------------------------------------------------
 # Keybindings
