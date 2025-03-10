@@ -15,6 +15,7 @@
 
       xserver = {
         enable = true;
+
         # macbook 16 inch
         virtualScreen = {
           x = 3456;
