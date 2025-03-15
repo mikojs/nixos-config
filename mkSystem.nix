@@ -6,7 +6,8 @@ inputs:
   user,
   languages,
 }:
-inputs.nixpkgs.lib.nixosSystem {
+with inputs.nixpkgs.lib;
+nixosSystem {
   inherit system;
 
   specialArgs = {
@@ -20,14 +21,17 @@ inputs.nixpkgs.lib.nixosSystem {
     stateVersion = "24.11";
   };
 
-  modules = [
-    ./overlays
-    ./nixos
-
-    (if isWSL then ./nixos/wsl.nix else { })
-    (if isVMware then ./nixos/vmware.nix else { })
-    (if isVMware then ./hardwares/${system}.nix else { })
-
-    ./home-manager
-  ];
+  modules =
+    [
+      ./overlays
+      ./nixos
+      ./home-manager
+    ]
+    ++ (optionals isWSL [
+      ./nixos/wsl.nix
+    ])
+    ++ (optionals isVMware [
+      ./nixos/vmware.nix
+      ./hardwares/${system}.nix
+    ]);
 }
