@@ -8,7 +8,7 @@
     ./openssh.nix
     ./fcitx5.nix
     ./rofi.nix
-    ./firefox.nix
+    ./chromium.nix
   ];
 
   boot.loader = {
@@ -17,6 +17,13 @@
   };
 
   virtualisation.vmware.guest.enable = true;
+
+  services.xserver.xrandrHeads = [
+    {
+      output = "Virtual-1";
+      primary = true;
+    }
+  ];
 
   fonts = {
     fontDir.enable = true;

@@ -14,6 +14,7 @@
       clipboard-read = "allow";
       copy-on-select = false;
       gtk-titlebar = false;
+      font-size = 20;
     };
   };
 }

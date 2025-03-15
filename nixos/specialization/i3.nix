@@ -3,21 +3,28 @@
 }:
 {
   specialisation.i3.configuration = {
-    services.xserver = {
-      enable = true;
-      # macbook 16 inch
-      dpi = 257;
-
-      desktopManager = {
-        xterm.enable = false;
-        wallpaper.mode = "fill";
-      };
-
+    services = {
       displayManager.defaultSession = "none+i3";
 
-      windowManager.i3 = {
+      xserver = {
         enable = true;
-        configFile = ./i3;
+
+        # macbook 16 inch
+        virtualScreen = {
+          x = 3456;
+          y = 2160;
+        };
+        dpi = 226;
+
+        desktopManager = {
+          xterm.enable = false;
+          wallpaper.mode = "fill";
+        };
+
+        windowManager.i3 = {
+          enable = true;
+          configFile = ./i3;
+        };
       };
     };
   };
