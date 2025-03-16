@@ -65,7 +65,7 @@ The following packages and repositories are used in this NixOS configuration:
 * [neovim](./home-manager/neovim/default.nix)
     + Repository: [https://github.com/neovim/neovim](https://github.com/neovim/neovim)
     + Description: Neovim is a Vim-fork focused on extensibility and agility.
-    + keybindings:
+    + Keybindings:
         - `Window`: `<leader>w`
         - `Ressize height`: `<leader>wh`
         - `Increase 10 height`: `<leader>wh+`
@@ -82,6 +82,16 @@ The following packages and repositories are used in this NixOS configuration:
 ### Neovim
 
 The following Neovim plugins are used in this NixOS configuration:
+
+* [tokyonight-nvim](./home-manager/neovim/tokyonight-nvim.nix)
+    + Repository: [https://github.com/folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim)
+    + Description: tokyonight.nvim is a color scheme for Neovim.
+* [lualine-nvim](./home-manager/neovim/lualine-nvim.nix)
+    + Repository: [https://github.com/nvim-lualine/lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
+    + Description: lualine.nvim is a statusline plugin for Neovim.
+* [nvim-treesitter](./home-manager/neovim/nvim-treesitter.nix)
+    + Repository: [https://github.com/nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+    + Description: nvim-treesitter is a syntax highlighting plugin for Neovim.
 
 ## Custom Commands
 
