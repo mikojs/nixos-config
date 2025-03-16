@@ -5,7 +5,7 @@
 To install NixOS, run the following command:
 
 ```bash
-nixos-rebuild switch --flake .#<system>
+nixos-rebuild switch --flake .#<wsl|mac-vmware>
 ```
 
 ### VMware
