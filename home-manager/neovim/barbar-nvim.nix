@@ -59,7 +59,7 @@
             { "<leader>tsn", "<Cmd>BufferOrderByName<CR>", opts, desc = "Sort by name" },
             { "<leader>tsd", "<Cmd>BufferOrderByDirectory<CR>", opts, desc = "Sort by directory" },
             { "<leader>tsl", "<Cmd>BufferOrderByLanguage<CR>", opts, desc = "Sort by language" },
-            { "<leader>tsw", "<Cmd>BufferOrderByWindowNumber<CR>", opts, desc = "Sort By window number" },
+            { "<leader>tsw", "<Cmd>BufferOrderByWindowNumber<CR>", opts, desc = "Sort by window number" },
 
             { "<leader>to", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>", opts, desc = "Close all tabs but current or pinned" },
             { "<leader>tl", "<Cmd>BufferCloseBuffersLeft<CR>", opts, desc = "Close left other tabs" },
