@@ -213,10 +213,10 @@ The following Neovim plugins are used in this NixOS configuration:
     + Repository: [https://github.com/stevearc/conform.nvim](https://github.com/stevearc/conform.nvim)
     + Description: conform.nvim is a formatter plugin for Neovim.
     + Support languages:
-        - `nix`
-        - `nodejs`
-        - `postgresql`
-        - `rust`
+        - `nix`: [nixfmt](https://github.com/NixOS/nixfmt)
+        - `nodejs`: [prettier](https://github.com/prettier/prettier)
+        - `postgresql`: [pgformatter](https://github.com/darold/pgformatter)
+        - `rust`: [rustfmt](https://github.com/rust-lang/rustfmt)
 * [codeium-nvim](./home-manager/neovim/codeium-nvim.nix)
     + Repository: [https://github.com/Exafunction/codeium.vim](https://github.com/Exafunction/codeium.vim)
     + Description: codeium.nvim is a plugin for Neovim that provides AI code completion.
