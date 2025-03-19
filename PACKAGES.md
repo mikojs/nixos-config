@@ -2,65 +2,49 @@
 
 The following packages are used in this NixOS configuration. You can find more information about each package in its own file.
 
-## [tailscale](./nixos/tailscale.nix)
+## [tailscale](./nixos/tailscale.nix) - [Repository](https://github.com/tailscale/tailscale)
 
 Tailscale is used to build a private network.
 
-- Repository: [https://github.com/tailscale/tailscale](https://github.com/tailscale/tailscale)
-
-## [fish](./home-manager/fish.nix)
+## [fish](./home-manager/fish.nix) - [Repository](https://github.com/fish-shell/fish-shell)
 
 Fish is a user-friendly command line shell.
 
-- Repository: [https://github.com/fish-shell/fish-shell](https://github.com/fish-shell/fish-shell)
-
-### `tide`
+### tide - [Respoitory](https://github.com/IlanCosman/tide)
 
 The ultimate Fish prompt.
 
-- Respoitory: [https://github.com/IlanCosman/tide](https://github.com/IlanCosman/tide)
-
-## [gh](./home-manager/gh.nix)
+## [gh](./home-manager/gh.nix) - [Repository](https://github.com/cli/cli)
 
 GitHub CLI is used to login to GitHub.
 
-- Repository: [https://github.com/cli/cli](https://github.com/cli/cli)
-
-## [git](./home-manager/git.nix)
+## [git](./home-manager/git.nix) - [Repository](https://github.com/git/git)
 
 Git is used to manage version control.
 
-- Repository: [https://github.com/git/git](https://github.com/git/git)
 - `aliases`
     - `gr`: Show formatted git logs.
 
-### `delta`
+### delta - [Repository](https://github.com/dandavison/delta)
 
-- Repository: [https://github.com/dandavison/delta](https://github.com/dandavison/delta)
-- Description: A syntax-highlighting pager for git and diff output.
+A syntax-highlighting pager for git and diff output.
 
-### `cz`
+### cz - [Repository](https://github.com/commitizen-tools/commitizen)
 
-- Repository: [https://github.com/commitizen-tools/commitizen](https://github.com/commitizen-tools/commitizen)
-- Description: Commitizen is used to manage commits.
+Commitizen is used to manage commits.
 
-## [jless](./home-manager/jless.nix)
+## [jless](./home-manager/jless.nix) - [Repository](https://github.com/PaulJuliusMartinez/jless)
 
 jless is a less-like pager for JSON files.
 
-- Repository: [https://github.com/PaulJuliusMartinez/jless](https://github.com/PaulJuliusMartinez/jless)
-
-## [jq](./home-manager/jq.nix)
+## [jq](./home-manager/jq.nix) - [Repository](https://github.com/stedolan/jq)
 
 jq is a lightweight and flexible command-line JSON processor.
 
-- Repository: [https://github.com/stedolan/jq](https://github.com/stedolan/jq)
-
-## [neovim](./home-manager/neovim/default.nix)
+## [neovim](./home-manager/neovim/default.nix) - [Repository](https://github.com/neovim/neovim)
 
 Neovim is a Vim-fork focused on extensibility and agility.
 
-- Repository: [https://github.com/neovim/neovim](https://github.com/neovim/neovim)
 - Keybindings:
     - `Window`: `<leader>w`
         - `Ressize height`: `<leader>wh`
@@ -69,11 +53,10 @@ Neovim is a Vim-fork focused on extensibility and agility.
         - `Ressize width`: `<leader>ww`
         - `Increase 20 width`: `<leader>ww+`
         - `Decrease 20 width`: `<leader>ww-`
-## [tmux](./home-manager/tmux.nix)
+
+## [tmux](./home-manager/tmux.nix) - [Repository](https://github.com/tmux/tmux)
 
 Tmux is a terminal multiplexer.
-
-- Repository: [https://github.com/tmux/tmux](https://github.com/tmux/tmux)
 
 ## [tree](./home-manager/tree.nix)
 
