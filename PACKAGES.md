@@ -1,4 +1,4 @@
-## Packages
+# Packages
 
 The following packages are used in this NixOS configuration.
 
