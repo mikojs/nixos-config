@@ -70,14 +70,17 @@ Neovim is a Vim-fork focused on extensibility and agility.
 
 - [Configuration](./home-manager/neovim/default.nix)
 - [Repository](https://github.com/neovim/neovim)
-- Keybindings:
-    - `Window`: `<leader>w`
-        - `Ressize height`: `<leader>wh`
-        - `Increase 10 height`: `<leader>wh+`
-        - `Decrease 10 height`: `<leader>wh-`
-        - `Ressize width`: `<leader>ww`
-        - `Increase 20 width`: `<leader>ww+`
-        - `Decrease 20 width`: `<leader>ww-`
+- Keybindings
+
+    | Description        | Key           |
+    | ---                | ---           |
+    | Window commands    | `<leader>w`   |
+    | Resize height      | `<leader>wh`  |
+    | Increase 10 height | `<leader>wh+` |
+    | Decrease 10 height | `<leader>wh-` |
+    | Resize width       | `<leader>ww`  |
+    | Increase 20 width  | `<leader>ww+` |
+    | Decrease 20 width  | `<leader>ww-` |
 
 ## Tmux
 
