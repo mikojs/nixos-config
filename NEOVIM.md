@@ -30,11 +30,6 @@ nvim-cmp is a completion plugin for Neovim.
 
 - [Configuration](./home-manager/neovim/nvim-cmp.nix)
 - [Repository](https://github.com/hrsh7th/nvim-cmp)
-- Support languages:
-    - `nix`
-    - `nodejs`
-    - `postgresql`
-    - `rust`
 - Keybindings
 
     | Description      | Key          |
