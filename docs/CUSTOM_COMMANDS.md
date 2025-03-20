@@ -6,7 +6,7 @@ The following custom commands are available.
 
 Initialize the system with custom settings
 
-- [Configuration](../home-manager/flake.nix)
+- [Configuration](../home-manager/fish.nix)
 - [Code](../overlays/custom/initialize)
 - Support packages
     - `tide`
