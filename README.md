@@ -13,65 +13,66 @@ Some steps are required before installing NixOS.
 
 ### MacOS VMware
 
-- I refer to this [repository](https://github.com/mitchellh/nixos-config).
-- Follow this [video](https://youtu.be/ubDMLoWz76U?t=82) to set up the VMware setting.
-    - ISO: NixOS 23.05 or later.
-    - Disk: SATA 150 GB+
-    - CPU/Memory: I give at least half my cores and half my RAM, as much as you can.
-    - Graphics: Full acceleration, full resolution, maximum graphics RAM.
-    - Network: Shared with my Mac.
-    - Remove sound card, remove video camera, remove printer.
-    - Profile: Disable almost all keybindings
-    - Boot Mode: UEFI
+I refer to this [repository](https://github.com/mitchellh/nixos-config).
+Follow this [video](https://youtu.be/ubDMLoWz76U?t=82) to set up the VMware setting.
 
-- Set up ssh
+- ISO: NixOS 23.05 or later.
+- Disk: SATA 150 GB+
+- CPU/Memory: I give at least half my cores and half my RAM, as much as you can.
+- Graphics: Full acceleration, full resolution, maximum graphics RAM.
+- Network: Shared with my Mac.
+- Remove sound card, remove video camera, remove printer.
+- Profile: Disable almost all keybindings
+- Boot Mode: UEFI
 
-    ```bash
-    sudo su
-    passwd # set root password to root
-    ```
+Set up ssh.
 
-- Run the following command:
+```bash
+sudo su
+passwd # set root password to root
+```
 
-    ```bash
-    parted /dev/sda -- mklabel gpt
-    parted /dev/sda -- mkpart primary 512MB -8GB
-    parted /dev/sda -- mkpart primary linux-swap -8GB 100%
-    parted /dev/sda -- mkpart ESP fat32 1MB 512MB
-    parted /dev/sda -- set 3 esp on
+Run the following command.
 
-    mkfs.ext4 -L nixos /dev/sda1
-    mkswap -L swap /dev/sda2
-    mkfs.fat -F 32 -n boot /dev/sda3
+```bash
+parted /dev/sda -- mklabel gpt
+parted /dev/sda -- mkpart primary 512MB -8GB
+parted /dev/sda -- mkpart primary linux-swap -8GB 100%
+parted /dev/sda -- mkpart ESP fat32 1MB 512MB
+parted /dev/sda -- set 3 esp on
 
-    mount /dev/disk/by-label/nixos /mnt
-    mkdir -p /mnt/boot
-    mount /dev/disk/by-label/boot /mnt/boot
-    nixos-generate-config --root /mnt
-    ```
+mkfs.ext4 -L nixos /dev/sda1
+mkswap -L swap /dev/sda2
+mkfs.fat -F 32 -n boot /dev/sda3
 
-- Add to `/mnt/etc/nixos/configuration.nix`
+mount /dev/disk/by-label/nixos /mnt
+mkdir -p /mnt/boot
+mount /dev/disk/by-label/boot /mnt/boot
+nixos-generate-config --root /mnt
+```
 
-    ```nix
-    nix.settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    services.openssh.enable = true;
-    services.openssh.settings.PasswordAuthentication = true;
-    services.openssh.settings.PermitRootLogin = "yes";
-    users.users.root.initialPassword = "root";
-    ```
+Add to `/mnt/etc/nixos/configuration.nix`.
 
-- Run the following command:
+```nix
+nix.settings.experimental-features = [
+  "nix-command"
+  "flakes"
+];
+services.openssh.enable = true;
+services.openssh.settings.PasswordAuthentication = true;
+services.openssh.settings.PermitRootLogin = "yes";
+users.users.root.initialPassword = "root";
+```
 
-    ```bash
-    nixos-install --no-root-passwd && reboot
-    ```
+Run the following command.
+
+```bash
+nixos-install --no-root-passwd && reboot
+```
 
 ## Installation
 
-To install NixOS, run the following command:
+To install NixOS, run the following command.
 
 ```bash
 nixos-rebuild switch --flake .#<wsl|mac-vmware>
