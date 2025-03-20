@@ -72,10 +72,17 @@ nixos-install --no-root-passwd && reboot
 
 ## Installation
 
-To install NixOS, run the following command.
+To install NixOS, run the following command after setting `git` and `ssh`.
 
 ```bash
-nixos-rebuild switch --flake .#<wsl|mac-vmware>
+# `--install-bootloader` for VMware first time
+nixos-rebuild switch --flake github:mikojs/nixos-conifg#<wsl|mac-vmware>
+```
+
+After installing, you need to authorize `Codeium` in `nvim` manually.
+
+```nvim
+:Codeium Auth
 ```
 
 Here are the packages I use.
