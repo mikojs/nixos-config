@@ -224,43 +224,117 @@ Mini.files is a file explorer for Neovim.
     | Description           | Key          |
     | ---                   | ---          |
     | Manipulate files      | `<leader>f`  |
+    | Close explorer        | `q`          |
+    | Go into directory     | `l`          |
+    | Go out of directory   | `h`          |
+    | Reset file explorer   | `<BS>`       |
+    | Sync file explorer    | `=`          |
 
 ### Mini.ai
 
 Mini.ai is a textobject plugin for Neovim.
 
 - [Repository](https://github.com/echasnovski/mini.ai)
+- Keybindings
+
+    | Description                     | Key          |
+    | ---                             | ---          |
+    | Find arround textobject         | `a`          |
+    | Find inside textobject          | `i`          |
+    | Go to left arround textobject   | `g[`         |
+    | Go to right arround textobject  | `g]`         |
 
 ### Mini.surround
 
 Mini.surround is a surround plugin for Neovim.
 
 - [Repository](https://github.com/echasnovski/mini.surround)
+- Keybindings
+
+    | Description                                | Key          |
+    | ---                                        | ---          |
+    | Add surrounding in Normal and Visual modes | `sa`         |
+    | Delete surrounding                         | `sd`         |
+    | Find surrounding (to the right)            | `sf`         |
+    | Find surrounding (to the left)             | `sF`         |
+    | Highlight surrounding                      | `sh`         |
+    | Replace surrounding                        | `sr`         |
+    | Update n_lines                             | `sn`         |
+    | Suffix to search with "prev" method        | `l`          |
+    | Suffix to search with "next" method        | `n`          |
 
 ### Mini.bracketed
 
 Go forward/backward with square brackets
 
 - [Repository](https://github.com/echasnovski/mini.bracketed)
+- Keybindings
+
+    | Description                                       | Key                   |
+    | ---                                               | ---                   |
+    | Buffer                                            | `[B` `[b` `]b` `]B`   |
+    | Comment block                                     | `[C` `[c` `]c` `]C`   |
+    | Conflict marker                                   | `[X` `[x` `]x` `]X`   |
+    | Diagnostic                                        | `[D` `[d` `]d` `]D`   |
+    | File on disk                                      | `[F` `[f` `]f` `]F`   |
+    | Indent change                                     | `[I` `[i` `]i` `]I`   |
+    | Jump from jumplist                                | `[J` `[j` `]j` `]J`   |
+    | Location from location list                       | `[L` `[l` `]l` `]L`   |
+    | Old files                                         | `[O` `[o` `]o` `]O`   |
+    | Quickfix entry from quickfix list                 | `[Q` `[q` `]q` `]Q`   |
+    | Tree-sitter node and parents                      | `[T` `[t` `]t` `]T`   |
+    | Undo states from specially tracked linear history | `[U` `[u` `]u` `]U`   |
+    | Window in current tab                             | `[W` `[w` `]w` `]W`   |
+    | Yank selection replacing latest put region        | `[Y` `[y` `]y` `]Y`   |
 
 ### Mini.comment
 
 Comment lines
 
 - [Repository](https://github.com/echasnovski/mini.comment)
+- Keybindings
+
+    | Description                    | Key          |
+    | ---                            | ---          |
+    | Toggle comment                 | `gc`         |
+    | Toggle comment on current line | `gcc`        |
+
 
 ### Mini.move
 
 Move any selection in any direction
 
 - [Repository](https://github.com/echasnovski/mini.move)
+- Keybindings
+
+    | Description                    | Key          |
+    | ---                            | ---          |
+    | Move left                        | `<M-h>`      |
+    | Move right                       | `<M-l>`      |
+    | Move down                        | `<M-j>`      |
+    | Move up                          | `<M-k>`      |
 
 ### Mini.align
 
 Align text interactively
 
 - [Repository](https://github.com/echasnovski/mini.align)
+- Keybindings
 
+    | Description                                 | Key          |
+    | ---                                         | ---          |
+    | Align text interactively                    | `ga`         |
+    | Align text interactively with preview       | `gA`         |
+
+    | Description                    | Key          |
+    | ---                            | ---          |
+    | Enter split pattern            | `s`          |
+    | Choose justify side            | `j`          |
+    | Enter merge delimiter          | `m`          |
+    | Enhanced setup for '='         | `=`          |
+    | Enhanced setup for ','         | `,`          |
+    | Enhanced setup for '\|'        | `\|`         |
+    | Enhanced setup for ' '         | ` `          |
 
 ## Conform.nvim
 
