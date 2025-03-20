@@ -7,16 +7,3 @@ To install NixOS, run the following command:
 ```bash
 nixos-rebuild switch --flake .#<system>
 ```
-## Languages Packages
-
-### Nodejs
-
-* No specific packages listed.
-
-### Postgresql
-
-- [pgcli](https://github.com/dbcli/pgcli): A command-line interface for PostgreSQL.
-
-### Rust
-
-- [crates.nvim](https://github.com/saecki/crates.nvim): A neovim plugin that helps managing crates.io dependencies.
