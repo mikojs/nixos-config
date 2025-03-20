@@ -6,14 +6,14 @@ The following Neovim plugins are used in this NixOS configuration.
 
 Tokyonight.nvim is a color scheme for Neovim.
 
-- [Configuration](./home-manager/neovim/tokyonight-nvim.nix)
+- [Configuration](../home-manager/neovim/tokyonight-nvim.nix)
 - [Repository](https://github.com/folke/tokyonight.nvim)
 
 ## Lualine.nvim
 
 Lualine.nvim is a statusline plugin for Neovim.
 
-- [Configuration](./home-manager/neovim/lualine-nvim.nix)
+- [Configuration](../home-manager/neovim/lualine-nvim.nix)
 - [Repository](https://github.com/nvim-lualine/lualine.nvim)
 
 
@@ -21,14 +21,14 @@ Lualine.nvim is a statusline plugin for Neovim.
 
 nvim-treesitter is a syntax highlighting plugin for Neovim.
 
-- [Configuration](./home-manager/neovim/nvim-treesitter.nix)
+- [Configuration](../home-manager/neovim/nvim-treesitter.nix)
 - [Repository](https://github.com/nvim-treesitter/nvim-treesitter)
 
 ## nvim-cmp
 
 nvim-cmp is a completion plugin for Neovim.
 
-- [Configuration](./home-manager/neovim/nvim-cmp.nix)
+- [Configuration](../home-manager/neovim/nvim-cmp.nix)
 - [Repository](https://github.com/hrsh7th/nvim-cmp)
 - Keybindings
 
@@ -53,7 +53,7 @@ nvim-cmp is a completion plugin for Neovim.
 
 Which-key.nvim is a plugin for Neovim that shows a popup with available keybindings.
 
-- [Configuration](./home-manager/neovim/which-key-nvim.nix)
+- [Configuration](../home-manager/neovim/which-key-nvim.nix)
 - [Repository](https://github.com/folke/which-key.nvim)
 
 
@@ -61,7 +61,7 @@ Which-key.nvim is a plugin for Neovim that shows a popup with available keybindi
 
 Telescope.nvim is a fuzzy finder for Neovim.
 
-- [Configuration](./home-manager/neovim/telescope-nvim.nix)
+- [Configuration](../home-manager/neovim/telescope-nvim.nix)
 - [Repository](https://github.com/nvim-telescope/telescope.nvim)
 - Keybindings
 
@@ -94,7 +94,7 @@ Telescope.nvim is a fuzzy finder for Neovim.
 
 Gitsigns.nvim is a git signs plugin for Neovim.
 
-- [Configuration](./home-manager/neovim/gitsigns-nvim.nix)
+- [Configuration](../home-manager/neovim/gitsigns-nvim.nix)
 - [Repository](https://github.com/lewis6991/gitsigns.nvim)
 - Keybindings
 
@@ -121,7 +121,7 @@ Gitsigns.nvim is a git signs plugin for Neovim.
 
 Toggleterm.nvim is a terminal plugin for Neovim.
 
-- [Configuration](./home-manager/neovim/toggleterm-nvim.nix)
+- [Configuration](../home-manager/neovim/toggleterm-nvim.nix)
 - [Repository](https://github.com/akinsho/toggleterm.nvim)
 - Keybindings
 
@@ -138,7 +138,7 @@ Toggleterm.nvim is a terminal plugin for Neovim.
 
 Barbar.nvim is a tabline plugin for Neovim.
 
-- [Configuration](./home-manager/neovim/barbar-nvim.nix)
+- [Configuration](../home-manager/neovim/barbar-nvim.nix)
 - [Repository](https://github.com/romgrk/barbar.nvim)
 - Keybindings
 
@@ -165,7 +165,7 @@ Barbar.nvim is a tabline plugin for Neovim.
 
 Presistence.nvim is a session plugin for Neovim.
 
-- [Configuration](./home-manager/neovim/presistence-nvim.nix)
+- [Configuration](../home-manager/neovim/presistence-nvim.nix)
 - [Repository](https://github.com/folke/persistence.nvim)
 - Keybindings
 
@@ -179,7 +179,7 @@ Presistence.nvim is a session plugin for Neovim.
 
 Todo-comments.nvim is a todo comments plugin for Neovim.
 
-- [Configuration](./home-manager/neovim/todo-comments-nvim.nix)
+- [Configuration](../home-manager/neovim/todo-comments-nvim.nix)
 - [Repository](https://github.com/folke/todo-comments.nvim)
 - keybindings
 
@@ -191,7 +191,7 @@ Todo-comments.nvim is a todo comments plugin for Neovim.
 
 Mini.nvim is a plugin for Neovim that provides small utilities.
 
-- [Configuration](./home-manager/neovim/mini-nvim.nix)
+- [Configuration](../home-manager/neovim/mini-nvim.nix)
 - [Repository](https://github.com/echasnovski/mini.nvim)
 
 ### Mini.icons
@@ -340,7 +340,7 @@ Align text interactively
 
 Conform.nvim is a formatter plugin for Neovim.
 
-- [Configuration](./home-manager/neovim/conform-nvim/default.nix)
+- [Configuration](../home-manager/neovim/conform-nvim/default.nix)
 - [Repository](https://github.com/stevearc/conform.nvim)
 - Support languages
     - `nix`: [nixfmt](https://github.com/NixOS/nixfmt)
@@ -352,5 +352,5 @@ Conform.nvim is a formatter plugin for Neovim.
 
 Codeium.nvim is a plugin for Neovim that provides AI code completion.
 
-- [Configuration](./home-manager/neovim/codeium-nvim.nix)
+- [Configuration](../home-manager/neovim/codeium-nvim.nix)
 - [Repository](https://github.com/Exafunction/codeium.vim)
