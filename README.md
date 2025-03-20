@@ -20,12 +20,3 @@ nixos-rebuild switch --flake .#<system>
 ### Rust
 
 - [crates.nvim](https://github.com/saecki/crates.nvim): A neovim plugin that helps managing crates.io dependencies.
-
-## Custom Commands
-
-The following custom commands are available:
-
-* [Initialize](./overlays/custom/initialize): Initialize the system with custom settings
-    + `tide`
-    + `gh`
-    + `tailscale`

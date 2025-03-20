@@ -342,7 +342,7 @@ Conform.nvim is a formatter plugin for Neovim.
 
 - [Configuration](./home-manager/neovim/conform-nvim/default.nix)
 - [Repository](https://github.com/stevearc/conform.nvim)
-- Support languages:
+- Support languages
     - `nix`: [nixfmt](https://github.com/NixOS/nixfmt)
     - `nodejs`: [prettier](https://github.com/prettier/prettier)
     - `postgresql`: [pgformatter](https://github.com/darold/pgformatter)
