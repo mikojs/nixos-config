@@ -11,10 +11,9 @@ Some steps are required before installing NixOS.
 - Follow the instructions in [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).
 - (Optional) Install the [powerline](https://github.com/powerline/fonts) font.
 
-### MacOS VMWARE
+### MacOS VMware
 
-I refer to this [repository](https://github.com/mitchellh/nixos-config).
-
+- I refer to this [repository](https://github.com/mitchellh/nixos-config).
 - Follow this [video](https://youtu.be/ubDMLoWz76U?t=82) to set up the VMware setting.
     - ISO: NixOS 23.05 or later.
     - Disk: SATA 150 GB+
