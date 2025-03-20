@@ -23,15 +23,11 @@ To install NixOS, run the following command:
 nixos-rebuild switch --flake .#<wsl|mac-vmware>
 ```
 
-## Packages
-
 Here are the packages I use.
 
 - [Common](./docs/PACKAGES.md)
 - [Languages](./docs/LANGUAGES.md)
 - [Custom commands](./docs/CUSTOM_COMMANDS.md)
-
-## System Packages
 
 Here are the system packages I use.
 
