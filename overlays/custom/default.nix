@@ -1,3 +1,3 @@
-final: prev: {
-  initialize = final.callPackage ./initialize { };
+final: prev: with prev; {
+  initialize = callPackage ./initialize { };
 }
