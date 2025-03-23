@@ -28,6 +28,20 @@ A neovim plugin that helps managing crates.io dependencies.
 
 - [Repository](https://github.com/saecki/crates.nvim)
 - [Configuration](../home-manager/neovim/languages/rust.nix)
+- Keybindings
+
+    | Description             | Key          |
+    | ---                     | ---          |
+    | Crates                  | `<leader>c`  |
+    | Reload data             | `<leader>cR` |
+    | Enable or disable info  | `<leader>ct` |
+    | Expand crate            | `<leader>ce` |
+    | Upgrade crate           | `<leader>cu` |
+    | Open homepage           | `<leader>ch` |
+    | Open repository         | `<leader>cr` |
+    | Open documentation      | `<leader>cd` |
+    | Open crates.io          | `<leader>cc` |
+    | Show crate details      | `<leader>cs` |
 
 ## How to add a new language
 
