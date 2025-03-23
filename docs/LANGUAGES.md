@@ -36,6 +36,7 @@ A neovim plugin that helps managing crates.io dependencies.
     | Reload data             | `<leader>cR` |
     | Enable or disable info  | `<leader>ct` |
     | Expand crate            | `<leader>ce` |
+    | Upgrade crate           | `<leader>cu` |
     | Open homepage           | `<leader>ch` |
     | Open repository         | `<leader>cr` |
     | Open documentation      | `<leader>cd` |
