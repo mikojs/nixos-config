@@ -15,6 +15,8 @@ Fish is a user-friendly command line shell.
 
 - [Configuration](../home-manager/fish.nix)
 - [Repository](https://github.com/fish-shell/fish-shell)
+- `aliases`
+    - `nsf`: Run `nix-shell` with fish-shell.
 
 ### Tide
 
