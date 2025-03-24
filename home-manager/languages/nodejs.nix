@@ -9,5 +9,8 @@ let
   version = if hasAttr "version" language then "-${language.version}" else "";
 in
 {
-  home.packages = [ pkgs."nodejs${version}" ];
+  home.packages = with pkgs; [
+    pkgs."nodejs${version}"
+    yarn
+  ];
 }
