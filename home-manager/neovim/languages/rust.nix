@@ -8,7 +8,7 @@
       plugin = crates-nvim;
       config = ''
         lua << END
-          local crates = require('crates')
+          local crates = require("crates")
 
           crates.setup({
             popup = {
