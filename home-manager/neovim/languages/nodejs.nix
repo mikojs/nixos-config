@@ -13,7 +13,6 @@
           local package_info = require("package-info")
 
           package_info.setup()
-
           require("which-key").add({
             { "<leader>n", group = "Node packages" },
             { "<leader>nt", package_info.toggle, desc = "Enable or disable info" },
