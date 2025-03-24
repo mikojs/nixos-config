@@ -9,7 +9,20 @@ Basically, this flake also support those languages for `nvim-treesitter`, `nvim-
 
 ## Nodejs
 
-* No specific packages listed.
+### package-info.nvim
+
+A neovim plugin that provides information about npm packages.
+
+- [Repository](https://github.com/vuki656/package-info.nvim)
+- [Configuration](../home-manager/neovim/languages/nodejs.nix)
+- Keybindings
+
+    | Description               | Key          |
+    | ---                       | ---          |
+    | Node packages             | `<leader>n`  |
+    | Enable or disable info    | `<leader>nt` |
+    | Update dependency         | `<leader>nu` |
+    | Change dependency version | `<leader>nc` |
 
 ## Postgresql
 
