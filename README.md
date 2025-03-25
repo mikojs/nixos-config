@@ -9,7 +9,8 @@ Some steps are required before installing NixOS.
 ### WSL
 
 - Follow the instructions in [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).
-- (Optional) Install the [powerline](https://github.com/powerline/fonts) font.
+- Install the [MesloLGS NF](https://github.com/IlanCosman/tide?tab=readme-ov-file#fonts) font.
+- (Optional) You may need to remove some terminal keybindings.
 
 ### MacOS VMware
 
@@ -25,7 +26,7 @@ Follow this [video](https://youtu.be/ubDMLoWz76U?t=82) to set up the VMware sett
 - Profile: Disable almost all keybindings
 - Boot Mode: UEFI
 
-Set up ssh.
+Set up the root password.
 
 ```bash
 sudo su
