@@ -10,7 +10,6 @@ Some steps are required before installing NixOS.
 
 - Follow the instructions in [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).
 - Install the [MesloLGS NF](https://github.com/IlanCosman/tide?tab=readme-ov-file#fonts) font.
-- (Optional) You may need to remove some terminal keybindings.
 
 ### MacOS VMware
 
