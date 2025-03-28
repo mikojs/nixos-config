@@ -13,6 +13,7 @@ nixosSystem {
   specialArgs = {
     inherit
       inputs
+      isWSL
       isVMware
       user
       languages

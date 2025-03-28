@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   stateVersion,
+  isWSL,
   isVMware,
   user,
   languages,
@@ -26,7 +27,7 @@ with inputs;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit user languages; };
+    extraSpecialArgs = { inherit isWSL user languages; };
 
     users.nixos = {
       imports =
