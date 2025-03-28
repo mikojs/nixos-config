@@ -169,12 +169,11 @@ Presistence.nvim is a session plugin for Neovim.
 - [Repository](https://github.com/folke/persistence.nvim)
 - Keybindings
 
-    | Description              | Key          |
-    | ---                      | ---          |
-    | Session                  | `<leader>s`  |
-    | Load last session        | `<leader>sl` |
-    | Save auto-save session   | `<leader>ss` |
-    | Select a session to load | `<leader>sS` |
+    | Description            | Key          |
+    | ---                    | ---          |
+    | Session                | `<leader>s`  |
+    | Load last session      | `<leader>sl` |
+    | Save auto-save session | `<leader>ss` |
 
 ## Todo-comments.nvim
 
