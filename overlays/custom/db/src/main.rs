@@ -1,17 +1,29 @@
-use clap::Parser;
+use clap::{Parser, Subcommand};
 use thiserror::Error;
+use update::Update;
+
+mod update;
 
 #[derive(Error, Debug)]
 enum MainError {}
 
+#[derive(Subcommand)]
+enum Commands {
+    Update(Update),
+}
+
 #[derive(Parser)]
 struct Cli {
-    url: String,
+    #[command(subcommand)]
+    command: Commands,
 }
 
 fn main() -> Result<(), MainError> {
     let cli = Cli::parse();
 
-    println!("{}", cli.url);
+    match cli.command {
+        Commands::Update(update) => update.run(),
+    }
+
     Ok(())
 }
