@@ -1,13 +1,13 @@
 use clap::{Parser, Subcommand};
 use thiserror::Error;
-use update::Update;
+use update::{Update, UpdateError};
 
 mod update;
 
 #[derive(Error, Debug)]
 enum MainError {
     #[error("UpdateError: {0}")]
-    UpdateError(#[from] update::UpdateError),
+    UpdateError(#[from] UpdateError),
 }
 
 #[derive(Subcommand)]
