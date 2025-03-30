@@ -62,6 +62,8 @@ impl Config {
 
         file.write_all(serde_json::to_string(&self.config)?.as_bytes())?;
 
+        // TODO: update sqls config
+
         Ok(())
     }
 }
