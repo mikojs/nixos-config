@@ -1,15 +1,16 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Error as SerdeJsonError;
+use strum_macros::EnumIter;
+use thiserror::Error;
+
 use std::{
     env,
-    fs::{read_to_string, File},
+    fs::{self, File},
     io::{Error as IoError, Write},
     path::PathBuf,
     process::Command,
     string::FromUtf8Error,
 };
-use strum_macros::EnumIter;
-use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum ConfigError {
@@ -48,7 +49,7 @@ impl Config {
                     .to_string(),
             ),
         );
-        let config_str = read_to_string(file_path.clone()).unwrap_or_default();
+        let config_str = fs::read_to_string(file_path.clone()).unwrap_or_default();
         let mut config = serde_json::from_str(&config_str).unwrap_or(Config::default());
 
         config.file_path = file_path;
