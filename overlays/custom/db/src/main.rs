@@ -2,6 +2,7 @@ use clap::{Parser, Subcommand};
 use thiserror::Error;
 use update::{Update, UpdateError};
 
+mod config;
 mod update;
 
 #[derive(Error, Debug)]
