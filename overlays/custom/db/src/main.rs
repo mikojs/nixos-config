@@ -1,4 +1,7 @@
-use clap::{Parser, Subcommand};
+use std::io::{self, Error as IoError};
+
+use clap::{CommandFactory, Parser, Subcommand};
+use clap_complete::{generate, Shell};
 use show::{Show, ShowError};
 use sync::{Sync, SyncError};
 use thiserror::Error;
@@ -17,6 +20,8 @@ enum MainError {
     Sync(#[from] SyncError),
     #[error("ShowError: {0}")]
     Show(#[from] ShowError),
+    #[error("IoError: {0}")]
+    Io(#[from] IoError),
 }
 
 #[derive(Subcommand)]
@@ -28,17 +33,31 @@ enum Commands {
 
 #[derive(Parser)]
 struct Cli {
+    #[arg(long, value_enum, hide = true)]
+    generate: Option<Shell>,
     #[command(subcommand)]
-    command: Commands,
+    commands: Option<Commands>,
 }
 
 fn main() -> Result<(), MainError> {
     let cli = Cli::parse();
 
-    match cli.command {
-        Commands::Update(update) => update.run()?,
-        Commands::Sync(sync) => sync.run()?,
-        Commands::Show(show) => show.run()?,
+    if let Some(generator) = cli.generate {
+        let cmd = &mut Cli::command();
+
+        generate(
+            generator,
+            cmd,
+            cmd.get_name().to_string(),
+            &mut io::stdout(),
+        );
+    } else {
+        match cli.commands {
+            Some(Commands::Update(update)) => update.run()?,
+            Some(Commands::Sync(sync)) => sync.run()?,
+            Some(Commands::Show(show)) => show.run()?,
+            _ => Cli::command().print_help()?,
+        }
     }
 
     Ok(())
