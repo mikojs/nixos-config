@@ -97,24 +97,30 @@ in
     '';
 
     extraLuaConfig = ''
+      ${
+        if !isWSL then
+          ""
+        else
+          ''
+            local function paste()
+              return {
+                vim.split(vim.fn.getreg(""), '\n'),
+                vim.fn.getregtype(""),
+              }
+            end
+          ''
+      }
+
       vim.g.clipboard = {
         name = "OSC 52",
         copy = {
           ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
           ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
         },
-
-        ${
-          if isWSL then
-            ""
-          else
-            ''
-              paste = {
-                ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-                ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-              },
-            ''
-        }
+        paste = {
+          ["+"] = ${if isWSL then ''paste'' else ''("vim.ui.clipboard.osc52").paste("+")''},
+          ["*"] = ${if isWSL then ''paste'' else ''("vim.ui.clipboard.osc52").paste("*")''},
+        },
       }
 
       require("which-key").add({
