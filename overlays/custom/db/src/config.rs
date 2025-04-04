@@ -20,7 +20,7 @@ pub enum ConfigError {
     FromUtf8(#[from] FromUtf8Error),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct DbConfig {
     pub name: String,
     pub url: String,
@@ -55,6 +55,10 @@ impl Config {
         }
 
         self.config.push(new_db_config);
+    }
+
+    pub fn list(&self) -> Vec<DbConfig> {
+        self.config.clone()
     }
 
     pub fn save(&self) -> Result<(), ConfigError> {
