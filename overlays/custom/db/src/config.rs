@@ -33,27 +33,42 @@ pub struct Config(Vec<DbConfig>);
 
 impl Config {
     pub fn new() -> Result<Config, ConfigError> {
-        let mut db_configs = Vec::new();
+        let mut db_configs: Vec<DbConfig> = Vec::new();
         let db_parttern = Regex::new(r"^DB_(?<name>\w+)_(?<type>URL|TYPE)$")?;
 
         for (key, value) in env::vars() {
             if let Some(caps) = db_parttern.captures(&key) {
-                let mut db_config = DbConfig {
-                    name: caps["name"].replace("_", "-").to_lowercase(),
-                    ..Default::default()
-                };
+                let name = caps["name"].replace("_", "-").to_lowercase();
+                let r#type = caps["type"].to_string();
 
-                match caps["type"].as_ref() {
-                    "URL" => db_config.url = Some(Url::parse(&value)?),
-                    "TYPE" => db_config.r#type = Some(DbType::from_str(&value)?),
-                    _ => unreachable!("unknown type {}", &caps["type"]),
+                if let Some(index) = db_configs.iter().position(|c| c.name == name) {
+                    Config::update_db_config_with_type(&mut db_configs[index], r#type, value)?;
+                } else {
+                    let mut db_config = DbConfig {
+                        name,
+                        ..Default::default()
+                    };
+
+                    Config::update_db_config_with_type(&mut db_config, r#type, value)?;
+                    db_configs.push(db_config);
                 }
-
-                db_configs.push(db_config);
             };
         }
 
         Ok(Config(db_configs))
+    }
+
+    fn update_db_config_with_type(
+        db_config: &mut DbConfig,
+        r#type: String,
+        value: String,
+    ) -> Result<(), ConfigError> {
+        match r#type.as_ref() {
+            "URL" => db_config.url = Some(Url::parse(&value)?),
+            "TYPE" => db_config.r#type = Some(DbType::from_str(&value)?),
+            _ => unreachable!("unknown type {}", r#type),
+        }
+        Ok(())
     }
 }
 
