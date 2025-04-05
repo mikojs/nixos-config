@@ -1,8 +1,9 @@
 use config::{Config, ConfigError, ConfigType};
 use inquire::{Confirm, InquireError, Select, Text};
-use std::{io::Error as IoError, process::Command};
 use strum::IntoEnumIterator;
 use thiserror::Error;
+
+use std::{io::Error as IoError, process::Command};
 
 mod config;
 
