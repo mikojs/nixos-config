@@ -78,7 +78,7 @@ impl Config {
 }
 
 #[cfg(test)]
-const DB_DEFAULT_URL: &str = "poastgres:://postgres@localhost/postgres";
+const DB_DEFAULT_URL: &str = "postgresql://postgres:postgres@localhost/postgres";
 
 #[test]
 fn get_config() -> Result<(), ConfigError> {
