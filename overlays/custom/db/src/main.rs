@@ -3,18 +3,24 @@ use std::io::{self, Error as IoError};
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use config::Config;
+use show::{Show, ShowError};
 use thiserror::Error;
 
 mod config;
+mod show;
 
 #[derive(Error, Debug)]
 enum MainError {
+    #[error("ShowError: {0}")]
+    Show(#[from] ShowError),
     #[error("IoError: {0}")]
     Io(#[from] IoError),
 }
 
 #[derive(Subcommand)]
-enum Commands {}
+enum Commands {
+    Show(Show),
+}
 
 #[derive(Parser)]
 struct Cli {
@@ -40,6 +46,7 @@ fn main() -> Result<(), MainError> {
         );
     } else {
         match cli.commands {
+            Some(Commands::Show(show)) => show.run()?,
             _ => Cli::command().print_help()?,
         }
     }

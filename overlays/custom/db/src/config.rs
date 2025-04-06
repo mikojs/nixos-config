@@ -32,7 +32,7 @@ pub struct DbConfig {
 pub struct Config(Vec<DbConfig>);
 
 impl Config {
-    pub fn new() -> Result<Config, ConfigError> {
+    pub fn new() -> Result<Self, ConfigError> {
         let mut db_configs: Vec<DbConfig> = Vec::new();
         let db_parttern = Regex::new(r"^DB_(?<name>\w+)_(?<type>URL|TYPE)$")?;
 
@@ -55,7 +55,7 @@ impl Config {
             };
         }
 
-        Ok(Config(db_configs))
+        Ok(Self(db_configs))
     }
 
     fn update_db_config_with_type(
