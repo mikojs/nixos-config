@@ -18,6 +18,7 @@ enum MainError {
 
 #[derive(Subcommand)]
 enum Commands {
+    /// Show databases
     Show(Show),
 }
 

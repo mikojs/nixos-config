@@ -38,7 +38,7 @@ impl Args for Show {
         let mut new_cmd = cmd;
 
         for db_config in config.list() {
-            new_cmd = new_cmd.subcommand(Command::new(db_config.name));
+            new_cmd = new_cmd.subcommand(Command::new(db_config.name).about("Datebase"));
         }
 
         new_cmd
