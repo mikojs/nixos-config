@@ -2,7 +2,6 @@ use std::io::{self, Error as IoError};
 
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
-use config::Config;
 use show::{Show, ShowError};
 use thiserror::Error;
 
@@ -31,7 +30,6 @@ struct Cli {
 }
 
 fn main() -> Result<(), MainError> {
-    let _ = Config::new();
     let cli = Cli::parse();
 
     if let Some(generator) = cli.generate {

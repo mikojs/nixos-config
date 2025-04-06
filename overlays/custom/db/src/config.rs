@@ -16,19 +16,20 @@ pub enum ConfigError {
     UrlParse(#[from] UrlParseError),
 }
 
-#[derive(EnumString, Debug, PartialEq)]
+#[derive(EnumString, Debug, PartialEq, Clone)]
 pub enum DbType {
     #[strum(serialize = "postgres")]
     Postgres,
 }
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct DbConfig {
-    name: String,
-    url: Option<Url>,
-    r#type: Option<DbType>,
+    pub name: String,
+    pub url: Option<Url>,
+    pub r#type: Option<DbType>,
 }
 
+#[derive(Default)]
 pub struct Config(Vec<DbConfig>);
 
 impl Config {
@@ -70,6 +71,10 @@ impl Config {
         }
         Ok(())
     }
+
+    pub fn list(&self) -> Vec<DbConfig> {
+        self.0.clone()
+    }
 }
 
 #[cfg(test)]
@@ -83,14 +88,14 @@ fn get_config() -> Result<(), ConfigError> {
 
     let config = Config::new()?;
 
-    if let Some(default_config) = config.0.first() {
+    if let Some(default_config) = config.list().first() {
         assert_eq!(default_config.name, "default");
         assert_eq!(default_config.url, Some(Url::parse(DB_DEFAULT_URL)?));
     } else {
         unreachable!("not found default config");
     };
 
-    if let Some(test_test_config) = config.0.get(1) {
+    if let Some(test_test_config) = config.list().get(1) {
         assert_eq!(test_test_config.name, "test-test");
         assert_eq!(test_test_config.url, Some(Url::parse(DB_DEFAULT_URL)?));
         assert_eq!(test_test_config.r#type, Some(DbType::Postgres));
