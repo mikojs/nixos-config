@@ -19,8 +19,9 @@ pub enum ConfigError {
 
 #[derive(EnumString, Serialize, Debug, PartialEq, Clone)]
 pub enum DbType {
-    #[strum(serialize = "postgres")]
-    Postgres,
+    #[serde(rename = "postgresql")]
+    #[strum(serialize = "postgresql")]
+    Postgresql,
 }
 
 #[derive(Default, Clone)]
@@ -85,7 +86,7 @@ const DB_DEFAULT_URL: &str = "postgresql://postgres:postgres@localhost/postgres"
 fn get_config() -> Result<(), ConfigError> {
     env::set_var("DB_DEFAULT_URL", DB_DEFAULT_URL);
     env::set_var("DB_TEST_TEST_URL", DB_DEFAULT_URL);
-    env::set_var("DB_TEST_TEST_TYPE", "postgres");
+    env::set_var("DB_TEST_TEST_TYPE", "postgresql");
 
     let config = Config::new()?;
 
@@ -99,7 +100,7 @@ fn get_config() -> Result<(), ConfigError> {
     if let Some(test_test_config) = config.list().get(1) {
         assert_eq!(test_test_config.name, "test-test");
         assert_eq!(test_test_config.url, Some(Url::parse(DB_DEFAULT_URL)?));
-        assert_eq!(test_test_config.r#type, Some(DbType::Postgres));
+        assert_eq!(test_test_config.r#type, Some(DbType::Postgresql));
     } else {
         unreachable!("not found test-test config");
     };

@@ -14,6 +14,7 @@ pub enum SqlsError {
 }
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct SqlsDbConfig {
     driver: DbType,
     data_source_name: String,
@@ -22,7 +23,7 @@ pub struct SqlsDbConfig {
 impl From<DbConfig> for SqlsDbConfig {
     fn from(value: DbConfig) -> Self {
         Self {
-            driver: value.r#type.unwrap_or(DbType::Postgres),
+            driver: value.r#type.unwrap_or(DbType::Postgresql),
             data_source_name: value.url.map(|url| url.to_string()).unwrap_or_default(),
         }
     }
