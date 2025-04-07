@@ -1,12 +1,14 @@
 use clap::{ArgMatches, Args, Command, Error as ClapError, FromArgMatches};
 use thiserror::Error;
 
-use crate::config::Config;
+use crate::config::{Config, DbConfig};
 
 #[derive(Error, Debug)]
 pub enum ShowError {}
 
-pub struct Show {}
+pub struct Show {
+    db_config: Option<DbConfig>,
+}
 
 impl FromArgMatches for Show {
     fn from_arg_matches(matches: &ArgMatches) -> Result<Self, ClapError> {
@@ -16,19 +18,23 @@ impl FromArgMatches for Show {
     }
 
     fn from_arg_matches_mut(matches: &mut ArgMatches) -> Result<Self, ClapError> {
-        Ok(Self {})
+        let db_config = if let Some((name, _)) = matches.subcommand() {
+            Config::new()
+                .unwrap_or_default()
+                .list()
+                .into_iter()
+                .find(|db_config| db_config.name == name)
+        } else {
+            None
+        };
+
+        Ok(Self { db_config })
     }
 
     fn update_from_arg_matches(&mut self, matches: &ArgMatches) -> Result<(), ClapError> {
         let mut matches = matches.clone();
 
         self.update_from_arg_matches_mut(&mut matches)
-    }
-
-    fn update_from_arg_matches_mut(&mut self, matches: &mut ArgMatches) -> Result<(), ClapError> {
-        // TODO: add logic
-
-        Ok(())
     }
 }
 
@@ -51,7 +57,10 @@ impl Args for Show {
 
 impl Show {
     pub fn run(&self) -> Result<(), ShowError> {
-        // TODO: add logic
+        println!(
+            "{:?}",
+            self.db_config.clone().map(|db_config| db_config.name)
+        );
 
         Ok(())
     }
