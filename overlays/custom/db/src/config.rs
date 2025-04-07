@@ -1,6 +1,7 @@
 use std::{env, str::FromStr};
 
 use regex::{Error as RegexError, Regex};
+use serde::Serialize;
 use strum::ParseError as StrumParseError;
 use strum_macros::EnumString;
 use thiserror::Error;
@@ -16,7 +17,7 @@ pub enum ConfigError {
     UrlParse(#[from] UrlParseError),
 }
 
-#[derive(EnumString, Debug, PartialEq, Clone)]
+#[derive(EnumString, Serialize, Debug, PartialEq, Clone)]
 pub enum DbType {
     #[strum(serialize = "postgres")]
     Postgres,
