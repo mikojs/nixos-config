@@ -1,10 +1,6 @@
 use clap::{ArgMatches, Args, Command, Error as ClapError, FromArgMatches};
-use thiserror::Error;
 
 use crate::config::{Config, DbConfig};
-
-#[derive(Error, Debug)]
-pub enum ShowError {}
 
 pub struct Show {
     db_config: Option<DbConfig>,
@@ -44,7 +40,9 @@ impl Args for Show {
         let mut new_cmd = cmd;
 
         for db_config in config.list() {
-            new_cmd = new_cmd.subcommand(Command::new(db_config.name).about("Datebase"));
+            new_cmd = new_cmd
+                .subcommand(Command::new(db_config.name).about("Datebase"))
+                .subcommand_required(true);
         }
 
         new_cmd
@@ -56,12 +54,9 @@ impl Args for Show {
 }
 
 impl Show {
-    pub fn run(&self) -> Result<(), ShowError> {
-        println!(
-            "{:?}",
-            self.db_config.clone().map(|db_config| db_config.name)
-        );
-
-        Ok(())
+    pub fn run(&self) {
+        if let Some(Some(url)) = self.db_config.clone().map(|db_config| db_config.url) {
+            println!("{}", url);
+        }
     }
 }

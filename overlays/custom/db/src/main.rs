@@ -2,7 +2,7 @@ use std::io::{self, Error as IoError};
 
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
-use show::{Show, ShowError};
+use show::Show;
 use thiserror::Error;
 
 mod config;
@@ -10,8 +10,6 @@ mod show;
 
 #[derive(Error, Debug)]
 enum MainError {
-    #[error("ShowError: {0}")]
-    Show(#[from] ShowError),
     #[error("IoError: {0}")]
     Io(#[from] IoError),
 }
@@ -45,7 +43,7 @@ fn main() -> Result<(), MainError> {
         );
     } else {
         match cli.commands {
-            Some(Commands::Show(show)) => show.run()?,
+            Some(Commands::Show(show)) => show.run(),
             _ => Cli::command().print_help()?,
         }
     }
