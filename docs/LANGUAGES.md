@@ -24,15 +24,6 @@ A neovim plugin that provides information about npm packages.
     | Update dependency         | `<leader>nu` |
     | Change dependency version | `<leader>nc` |
 
-## Postgresql
-
-### pgcli
-
-A command-line interface for PostgreSQL.
-
-- [Repository](https://github.com/dbcli/pgcli)
-- [Configuration](../home-manager/languages/postgresql.nix)
-
 ## Rust
 
 ### crates.nvim
@@ -55,6 +46,24 @@ A neovim plugin that helps managing crates.io dependencies.
     | Open documentation      | `<leader>cd` |
     | Open crates.io          | `<leader>cc` |
     | Show crate details      | `<leader>cs` |
+
+## Postgresql
+
+### pgcli
+
+A command-line interface for PostgreSQL.
+
+- [Repository](https://github.com/dbcli/pgcli)
+- [Configuration](../home-manager/languages/postgresql.nix)
+
+## Sqlite
+
+### litecli
+
+A command-line interface for SQLite.
+
+- [Repository](https://github.com/dbcli/litecli)
+- [Configuration](../home-manager/languages/sqlite.nix)
 
 ## How to add a new language
 
