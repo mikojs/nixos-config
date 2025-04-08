@@ -18,7 +18,7 @@ let
         }
       else
         result
-    ) languages;
+    ) [ ] languages;
 in
 {
   home.packages =
