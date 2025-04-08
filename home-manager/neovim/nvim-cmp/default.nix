@@ -13,9 +13,11 @@ let
       in
       if pathExists ./${language}.nix then
         result
-        ++ import ./${language}.nix {
-          inherit pkgs;
-        }
+        ++ [
+          (import ./${language}.nix {
+            inherit pkgs;
+          })
+        ]
       else
         result
     ) [ ] languages;
