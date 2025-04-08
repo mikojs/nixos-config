@@ -6,12 +6,21 @@
 let
   languagesConfig =
     with builtins;
-    map (
-      l:
-      import ./${l.language}.nix {
-        inherit pkgs;
-      }
-    ) (filter (l: pathExists ./${l.language}.nix) languages);
+    foldl' (
+      result: l:
+      let
+        language = if l.language == "postgresql" || l.language == "sqlite" then "db" else l.language;
+      in
+      if pathExists ./${language}.nix then
+        result
+        ++ [
+          (import ./${language}.nix {
+            inherit pkgs;
+          })
+        ]
+      else
+        result
+    ) [ ] languages;
 in
 {
   home.packages =

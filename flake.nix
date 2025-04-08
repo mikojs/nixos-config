@@ -34,6 +34,7 @@
             { language = "nodejs"; }
             { language = "rust"; }
             { language = "postgresql"; }
+            { language = "sqlite"; }
           ];
         };
 
@@ -49,6 +50,7 @@
             { language = "nodejs"; }
             { language = "rust"; }
             { language = "postgresql"; }
+            { language = "sqlite"; }
           ];
         };
       };

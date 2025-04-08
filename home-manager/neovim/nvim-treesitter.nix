@@ -14,7 +14,7 @@
           l:
           if l.language == "nodejs" then
             p.javascript
-          else if l.language == "postgresql" then
+          else if l.language == "postgresql" || l.language == "sqlite" then
             p.sql
           else
             p."${l.language}"
