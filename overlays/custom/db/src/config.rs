@@ -22,6 +22,9 @@ pub enum DbType {
     #[serde(rename = "postgresql")]
     #[strum(serialize = "postgresql")]
     Postgresql,
+    #[serde(rename = "sqlite3")]
+    #[strum(serialize = "sqlite3")]
+    Sqlite,
 }
 
 #[derive(Default, Clone)]
