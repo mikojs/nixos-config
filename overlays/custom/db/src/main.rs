@@ -20,7 +20,7 @@ enum MainError {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Show databases
+    /// Show database url
     Show(Show),
     /// Generate sqls config
     Sqls(Sqls),
