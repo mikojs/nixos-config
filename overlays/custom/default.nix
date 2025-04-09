@@ -4,7 +4,9 @@ final: prev: with prev; {
 
   miko-fish.interactiveShellInit = ''
     # Initialize
-    initialize
+    if type -q initialize
+      initialize
+    end
 
     # db
     if type -q db
