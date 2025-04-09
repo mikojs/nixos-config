@@ -66,6 +66,13 @@ jq is a lightweight and flexible command-line JSON processor.
 - [Configuration](../home-manager/jq.nix)
 - [Repository](https://github.com/stedolan/jq)
 
+## nq
+
+Unix command line queue utility.
+
+- [Configuration](../home-manager/nq.nix)
+- [Repository](https://github.com/leahneukirchen/nq)
+
 ## Neovim
 
 Neovim is a Vim-fork focused on extensibility and agility.

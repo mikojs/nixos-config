@@ -38,6 +38,7 @@ with inputs;
           ./git.nix
           ./jless.nix
           ./jq.nix
+          ./nq.nix
           ./neovim
           ./tmux.nix
           ./tree.nix
