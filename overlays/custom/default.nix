@@ -1,4 +1,4 @@
 final: prev: with prev; {
-  initialize = callPackage ./initialize { };
-  db = callPackage ./db { };
+  miko-initialize = callPackage ./initialize { };
+  miko-db = callPackage ./db { };
 }

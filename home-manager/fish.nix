@@ -4,7 +4,7 @@
 }:
 {
   home.packages = with pkgs; [
-    initialize
+    miko-initialize
   ];
 
   programs.fish = {
