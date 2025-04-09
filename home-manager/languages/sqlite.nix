@@ -3,8 +3,11 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    sqlite
-    litecli
-  ];
+  home.packages =
+    with pkgs;
+    [
+      sqlite
+      litecli
+    ]
+    ++ (import ./db.nix { inherit pkgs; }).home.packages;
 }
