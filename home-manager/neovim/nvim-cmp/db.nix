@@ -24,7 +24,7 @@
       end,
       settings = {
         sqls = {
-          connections= connections,
+          connections = connections,
         },
       },
     })
