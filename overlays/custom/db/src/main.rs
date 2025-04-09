@@ -28,7 +28,8 @@ enum Commands {
 
 #[derive(Parser)]
 struct Cli {
-    #[arg(long, value_enum, hide = true)]
+    /// Generate shell completion
+    #[arg(long, value_enum)]
     generate: Option<Shell>,
     #[command(subcommand)]
     commands: Option<Commands>,
@@ -40,7 +41,6 @@ fn main() -> Result<(), MainError> {
     if let Some(generator) = cli.generate {
         let cmd = &mut Cli::command();
 
-        // TODO: auto load and update when the env update or update command
         generate(
             generator,
             cmd,
