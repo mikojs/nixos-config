@@ -49,7 +49,11 @@ A neovim plugin that helps managing crates.io dependencies.
 
 ## DB
 
-Common database packages, plugins and configurations are provided in the `db` module.
+Common database packages, plugins and configurations are provided in the `db` files.
+
+- [language configuration](../home-manager/languages/db.nix)
+- [nvim-cmp configuration](../home-manager/neovim/nvim-cmp/db.nix)
+- [conform.nvim configuration](../home-manager/neovim/conform-nvim/db.nix)
 
 ### sqls.nvim
 
