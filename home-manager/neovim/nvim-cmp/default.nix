@@ -183,5 +183,8 @@ in
           END
         '';
       }
-    ];
+    ]
+    ++ foldl' (
+      result: l: if hasAttr "plugins" l then result ++ l.plugins else result
+    ) [ ] languagesConfig;
 }

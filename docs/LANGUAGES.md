@@ -47,6 +47,27 @@ A neovim plugin that helps managing crates.io dependencies.
     | Open crates.io          | `<leader>cc` |
     | Show crate details      | `<leader>cs` |
 
+## DB
+
+Common database packages, plugins and configurations are provided in the `db` module.
+
+### sqls.nvim
+
+A neovim plugin for SQL.
+
+- [Repository](https://github.com/nanotee/sqls.nvim)
+- [Configuration](../home-manager/neovim/nvim-cmp/db.nix)
+- Commands
+
+    | Description                        | Command                                    |
+    | ---                                | ---                                        |
+    | Execute SQL                        | `:SqlsExecuteQuery`                        |
+    | Execute SQL but display vertically | `:SqlsExecuteQueryVertical`                |
+    | Show database list                 | `:SqlsShowDatabases`                       |
+    | Show connection list               | `:SqlsShowConnections`                     |
+    | Switch database                    | `:SqlsSwitchDatabase <database_name>`      |
+    | Switch connection                  | `:SqlsSwitchConnection <connection_index>` |
+
 ## Postgresql
 
 ### pgcli

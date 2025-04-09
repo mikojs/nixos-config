@@ -4,19 +4,17 @@
 }:
 {
   home.packages = with pkgs; [
-    initialize
+    miko-initialize
   ];
 
   programs.fish = {
     enable = true;
-    interactiveShellInit = ''
+    interactiveShellInit = with pkgs; ''
       # Disable Greeting
       set fish_greeting
 
       ${(import ./neovim/tokyonight-nvim.nix { inherit pkgs; }).programs.fish.interactiveShellInit}
-
-      # Initialize
-      initialize
+      ${miko-fish.interactiveShellInit}
     '';
 
     plugins = with pkgs.fishPlugins; [
