@@ -21,6 +21,21 @@
       mkSystem = import ./mkSystem.nix inputs;
     in
     {
+      darwinConfigurations."Miko-MacBook" = mkSystem {
+        system = "aarch64-darwin";
+        user = {
+          "name" = "Mikojs";
+          "email" = "mikojs@gmail.com";
+        };
+        languages = [
+          { language = "nix"; }
+          { language = "nodejs"; }
+          { language = "rust"; }
+          { language = "postgresql"; }
+          { language = "sqlite"; }
+        ];
+      };
+
       nixosConfigurations = {
         wsl = mkSystem {
           system = "x86_64-linux";
