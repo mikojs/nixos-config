@@ -34,7 +34,7 @@
             name = "mac";
             gitconfig = {
               userName = "Mikojs";
-              email = "mikojs@gmail.com";
+              userEmail = "mikojs@gmail.com";
             };
             languages = [
               { language = "nix"; }
