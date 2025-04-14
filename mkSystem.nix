@@ -2,9 +2,7 @@ inputs:
 {
   system,
   isWSL ? false,
-  isVMware ? false,
-  user,
-  languages,
+  users,
 }:
 with inputs.nixpkgs.lib;
 with inputs.nix-darwin.lib;
@@ -13,9 +11,7 @@ darwinSystem {
     inherit
       inputs
       isWSL
-      isVMware
-      user
-      languages
+      users
       ;
 
     stateVersion = "24.11";

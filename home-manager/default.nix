@@ -4,13 +4,12 @@
   inputs,
   stateVersion,
   isWSL,
-  isVMware,
-  user,
-  languages,
+  users,
   ...
 }:
 with lib;
 with inputs;
+with builtins;
 {
   imports = [
     home-manager.darwinModules.home-manager

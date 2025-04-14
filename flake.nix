@@ -45,32 +45,21 @@
         wsl = mkSystem {
           system = "x86_64-linux";
           isWSL = true;
-          user = {
-            "name" = "Mikojs";
-            "email" = "mikojs@gmail.com";
-          };
-          languages = [
-            { language = "nix"; }
-            { language = "nodejs"; }
-            { language = "rust"; }
-            { language = "postgresql"; }
-            { language = "sqlite"; }
-          ];
-        };
-
-        "mac-vmware" = mkSystem {
-          system = "aarch64-linux";
-          isVMware = true;
-          user = {
-            "name" = "Mikojs";
-            "email" = "mikojs@gmail.com";
-          };
-          languages = [
-            { language = "nix"; }
-            { language = "nodejs"; }
-            { language = "rust"; }
-            { language = "postgresql"; }
-            { language = "sqlite"; }
+          users = [
+            {
+              name = "nixos";
+              gitconfig = {
+                userName = "Mikojs";
+                userEmail = "mikojs@gmail.com";
+              };
+              languages = [
+                { language = "nix"; }
+                { language = "nodejs"; }
+                { language = "rust"; }
+                { language = "postgresql"; }
+                { language = "sqlite"; }
+              ];
+            }
           ];
         };
       };

@@ -1,7 +1,9 @@
 {
+  languages,
+}:
+{
   pkgs,
   isWSL,
-  languages,
   ...
 }:
 with builtins;
