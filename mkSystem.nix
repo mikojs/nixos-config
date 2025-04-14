@@ -2,8 +2,7 @@ inputs:
 {
   system,
   isWSL ? false,
-  user,
-  languages,
+  users,
 }:
 with inputs.nixpkgs.lib;
 nixosSystem {
@@ -13,8 +12,7 @@ nixosSystem {
     inherit
       inputs
       isWSL
-      user
-      languages
+      users
       ;
 
     stateVersion = "24.11";

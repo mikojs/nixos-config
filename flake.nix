@@ -25,16 +25,21 @@
         wsl = mkSystem {
           system = "x86_64-linux";
           isWSL = true;
-          user = {
-            "name" = "Mikojs";
-            "email" = "mikojs@gmail.com";
-          };
-          languages = [
-            { language = "nix"; }
-            { language = "nodejs"; }
-            { language = "rust"; }
-            { language = "postgresql"; }
-            { language = "sqlite"; }
+          users = [
+            {
+              name = "mikojs";
+              gitconfig = {
+                "name" = "Mikojs";
+                "email" = "mikojs@gmail.com";
+              };
+              languages = [
+                { language = "nix"; }
+                { language = "nodejs"; }
+                { language = "rust"; }
+                { language = "postgresql"; }
+                { language = "sqlite"; }
+              ];
+            }
           ];
         };
       };
