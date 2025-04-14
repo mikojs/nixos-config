@@ -96,8 +96,6 @@ in
 
       " disable compatibility
       set nocompatible
-
-      set termguicolors
     '';
 
     extraLuaConfig = ''
