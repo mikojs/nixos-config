@@ -120,8 +120,8 @@ in
                 ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
               },
               paste = {
-                ["+"] = ${if isWSL then ''paste'' else ''("vim.ui.clipboard.osc52").paste("+")''},
-                ["*"] = ${if isWSL then ''paste'' else ''("vim.ui.clipboard.osc52").paste("*")''},
+                ["+"] = paste,
+                ["*"] = paste,
               },
             }
           ''
