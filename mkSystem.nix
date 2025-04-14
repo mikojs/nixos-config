@@ -2,7 +2,6 @@ inputs:
 {
   system,
   isWSL ? false,
-  isVMware ? false,
   user,
   languages,
 }:
@@ -14,7 +13,6 @@ nixosSystem {
     inherit
       inputs
       isWSL
-      isVMware
       user
       languages
       ;
@@ -30,9 +28,5 @@ nixosSystem {
     ]
     ++ (optionals isWSL [
       ./nixos/wsl.nix
-    ])
-    ++ (optionals isVMware [
-      ./nixos/vmware.nix
-      ./hardwares/${system}.nix
     ]);
 }
