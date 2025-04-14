@@ -36,7 +36,12 @@ with builtins;
       map (
         user:
         nameValuePair user.name {
-          extraSpecialArgs = { inherit isWSL user; };
+          extraSpecialArgs = {
+            inherit isWSL;
+
+            gitconfig = user.gitconfig;
+            languages = user.languages;
+          };
 
           imports =
             [

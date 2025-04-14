@@ -1,6 +1,6 @@
 {
   pkgs,
-  user,
+  gitconfig,
   ...
 }:
 {
@@ -17,10 +17,8 @@
     '';
   };
 
-  programs.git = {
+  programs.git = gitconfig // {
     enable = true;
-    userName = user.name;
-    userEmail = user.email;
 
     extraConfig = {
       init.defaultBranch = "main";

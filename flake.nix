@@ -29,8 +29,8 @@
             {
               name = "mikojs";
               gitconfig = {
-                "name" = "Mikojs";
-                "email" = "mikojs@gmail.com";
+                userNname = "Mikojs";
+                userEmail = "mikojs@gmail.com";
               };
               languages = [
                 { language = "nix"; }
