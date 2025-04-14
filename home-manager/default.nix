@@ -43,15 +43,15 @@ with builtins;
             [
               ./fish.nix
               ./gh.nix
-              (import ./git.nix { gitconfig = user.gitconfig; })
               ./jless.nix
               ./jq.nix
               ./nq.nix
-              (import ./neovim { languages = user.languages; })
               ./tmux.nix
               ./tree.nix
+              (import ./git.nix { gitconfig = user.gitconfig; })
+              (import ./neovim { languages = user.languages; })
             ]
-            ++ (map (l: import ./languages/${l.language}.nix { languages = user.languages; }) (
+            ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
             ));
 
