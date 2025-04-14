@@ -28,7 +28,7 @@ with builtins;
       user:
       nameValuePair user.name {
         shell = pkgs.fish;
-        home = "/Users/nixos";
+        home = "/Users/${user.name}";
       }
     ) users
   );
@@ -51,9 +51,9 @@ with builtins;
               ./nq.nix
               ./tmux.nix
               ./tree.nix
-              ./kitty.nix
               (import ./git.nix { gitconfig = user.gitconfig; })
               (import ./neovim { languages = user.languages; })
+              (import ./kitty.nix { userName = user.name; })
             ]
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
