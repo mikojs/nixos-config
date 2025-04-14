@@ -27,7 +27,7 @@
           isWSL = true;
           users = [
             {
-              name = "mikojs";
+              name = "nixos";
               gitconfig = {
                 userName = "Mikojs";
                 userEmail = "mikojs@gmail.com";
