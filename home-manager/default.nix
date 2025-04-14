@@ -47,11 +47,11 @@ with builtins;
               ./jless.nix
               ./jq.nix
               ./nq.nix
-              ./neovim
+              (import ./neovim { languages = user.languages; })
               ./tmux.nix
               ./tree.nix
             ]
-            ++ (map (l: ./languages/${l.language}.nix) (
+            ++ (map (l: import ./languages/${l.language}.nix { languages = user.languages; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
             ));
 

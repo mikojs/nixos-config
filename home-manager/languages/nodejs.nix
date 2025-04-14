@@ -1,6 +1,8 @@
 {
-  pkgs,
   languages,
+}:
+{
+  pkgs,
   ...
 }:
 with builtins;
