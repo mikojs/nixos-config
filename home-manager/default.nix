@@ -17,43 +17,51 @@ with builtins;
 
   programs.fish.enable = true;
 
-  users.users.nixos = {
-    shell = pkgs.fish;
-    home = "/Users/nixos";
-  };
-
   # FIXME default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
   environment.variables = {
     SHELL = "fish";
     EDITOR = "nvim";
   };
 
+  users.users = listToAttrs (
+    map (
+      user:
+      nameValuePair user.name {
+        shell = pkgs.fish;
+        home = "/Users/nixos";
+      }
+    ) users
+  );
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit isWSL user languages; };
+    extraSpecialArgs = { inherit isWSL; };
 
-    users.nixos = {
-      imports =
-        with builtins;
-        [
-          ./fish.nix
-          ./gh.nix
-          ./git.nix
-          ./jless.nix
-          ./jq.nix
-          ./nq.nix
-          ./neovim
-          ./tmux.nix
-          ./tree.nix
-          ./kitty.nix
-        ]
-        ++ (map (l: ./languages/${l.language}.nix) (
-          filter (l: pathExists ./languages/${l.language}.nix) languages
-        ))
-        ++ (optionals isVMware [ ./ghostty.nix ]);
+    users = listToAttrs (
+      map (
+        user:
+        nameValuePair user.name {
+          imports =
+            [
+              ./fish.nix
+              ./gh.nix
+              ./jless.nix
+              ./jq.nix
+              ./nq.nix
+              ./tmux.nix
+              ./tree.nix
+              ./kitty.nix
+              (import ./git.nix { gitconfig = user.gitconfig; })
+              (import ./neovim { languages = user.languages; })
+            ]
+            ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
+              filter (l: pathExists ./languages/${l.language}.nix) user.languages
+            ));
 
-      home.stateVersion = stateVersion;
-    };
+          home.stateVersion = stateVersion;
+        }
+      ) users
+    );
   };
 }
