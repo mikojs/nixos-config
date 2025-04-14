@@ -28,6 +28,7 @@
     {
       darwinConfigurations.mac = mkSystem {
         system = "aarch64-darwin";
+        isMac = true;
         users = [
           {
             name = "mac";

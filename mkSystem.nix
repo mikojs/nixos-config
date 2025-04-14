@@ -2,11 +2,15 @@ inputs:
 {
   system,
   isWSL ? false,
+  isMac ? false,
   users,
 }:
-with inputs.nixpkgs.lib;
-with inputs.nix-darwin.lib;
-darwinSystem {
+let
+  lib = if isMac then inputs.nix-darwin.lib else inputs.nixpkgs.lib;
+  system = if isMac then lib.darwinSystem else lib.nixosSystem;
+in
+with lib;
+system {
   specialArgs = {
     inherit
       inputs
