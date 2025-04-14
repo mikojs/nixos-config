@@ -4,12 +4,12 @@
   inputs,
   stateVersion,
   isWSL,
-  user,
-  languages,
+  users,
   ...
 }:
 with lib;
 with inputs;
+with builtins;
 {
   imports = [
     home-manager.nixosModules.home-manager
@@ -17,36 +17,47 @@ with inputs;
 
   programs.fish.enable = true;
 
-  users.users.nixos = {
-    isNormalUser = true;
-    shell = pkgs.fish;
-    extraGroups = [ "wheel" ];
-  };
+  users.users = listToAttrs (
+    map (
+      user:
+      nameValuePair user.name {
+        isNormalUser = true;
+        shell = pkgs.fish;
+        extraGroups = [ "wheel" ];
+      }
+    ) users
+  );
 
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit isWSL user languages; };
-
-    users.nixos = {
-      imports =
-        with builtins;
-        [
-          ./fish.nix
-          ./gh.nix
-          ./git.nix
-          ./jless.nix
-          ./jq.nix
-          ./nq.nix
-          ./neovim
-          ./tmux.nix
-          ./tree.nix
-        ]
-        ++ (map (l: ./languages/${l.language}.nix) (
-          filter (l: pathExists ./languages/${l.language}.nix) languages
-        ));
-
-      home.stateVersion = stateVersion;
+    extraSpecialArgs = {
+      inherit isWSL;
     };
+
+    users = listToAttrs (
+      map (
+        user:
+        nameValuePair user.name {
+          imports =
+            [
+              ./fish.nix
+              ./gh.nix
+              ./jless.nix
+              ./jq.nix
+              ./nq.nix
+              ./tmux.nix
+              ./tree.nix
+              (import ./git.nix { gitconfig = user.gitconfig; })
+              (import ./neovim { languages = user.languages; })
+            ]
+            ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
+              filter (l: pathExists ./languages/${l.language}.nix) user.languages
+            ));
+
+          home.stateVersion = stateVersion;
+        }
+      ) users
+    );
   };
 }
