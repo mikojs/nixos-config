@@ -13,15 +13,20 @@ with lib;
 with inputs;
 {
   imports = [
-    home-manager.nixosModules.home-manager
+    home-manager.darwinModules.home-manager
   ];
 
   programs.fish.enable = true;
 
   users.users.nixos = {
-    isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" ];
+    home = "/Users/nixos";
+  };
+
+  # FIXME default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
+  environment.variables = {
+    SHELL = "fish";
+    EDITOR = "nvim";
   };
 
   home-manager = {
@@ -42,6 +47,7 @@ with inputs;
           ./neovim
           ./tmux.nix
           ./tree.nix
+          ./kitty.nix
         ]
         ++ (map (l: ./languages/${l.language}.nix) (
           filter (l: pathExists ./languages/${l.language}.nix) languages

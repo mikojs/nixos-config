@@ -7,9 +7,8 @@ inputs:
   languages,
 }:
 with inputs.nixpkgs.lib;
-nixosSystem {
-  inherit system;
-
+with inputs.nix-darwin.lib;
+darwinSystem {
   specialArgs = {
     inherit
       inputs
@@ -30,9 +29,5 @@ nixosSystem {
     ]
     ++ (optionals isWSL [
       ./nixos/wsl.nix
-    ])
-    ++ (optionals isVMware [
-      ./nixos/vmware.nix
-      ./hardwares/${system}.nix
     ]);
 }

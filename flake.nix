@@ -26,7 +26,7 @@
       mkSystem = import ./mkSystem.nix inputs;
     in
     {
-      darwinConfigurations."Miko-MacBook" = mkSystem {
+      darwinConfigurations.mac = mkSystem {
         system = "aarch64-darwin";
         user = {
           "name" = "Mikojs";
