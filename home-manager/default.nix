@@ -4,7 +4,6 @@
   inputs,
   stateVersion,
   isWSL,
-  isVMware,
   user,
   languages,
   ...
@@ -45,8 +44,7 @@ with inputs;
         ]
         ++ (map (l: ./languages/${l.language}.nix) (
           filter (l: pathExists ./languages/${l.language}.nix) languages
-        ))
-        ++ (optionals isVMware [ ./ghostty.nix ]);
+        ));
 
       home.stateVersion = stateVersion;
     };
