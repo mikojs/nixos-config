@@ -29,7 +29,7 @@
             {
               name = "mikojs";
               gitconfig = {
-                userNname = "Mikojs";
+                userName = "Mikojs";
                 userEmail = "mikojs@gmail.com";
               };
               languages = [

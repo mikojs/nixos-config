@@ -31,23 +31,19 @@ with builtins;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = {
+      inherit isWSL;
+    };
 
     users = listToAttrs (
       map (
         user:
         nameValuePair user.name {
-          extraSpecialArgs = {
-            inherit isWSL;
-
-            gitconfig = user.gitconfig;
-            languages = user.languages;
-          };
-
           imports =
             [
               ./fish.nix
               ./gh.nix
-              ./git.nix
+              (import ./git.nix { gitconfig = user.gitconfig; })
               ./jless.nix
               ./jq.nix
               ./nq.nix

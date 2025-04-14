@@ -1,6 +1,8 @@
 {
-  pkgs,
   gitconfig,
+}:
+{
+  pkgs,
   ...
 }:
 {
