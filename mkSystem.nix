@@ -6,10 +6,9 @@ inputs:
   users,
 }:
 let
-  lib = if isMac then inputs.nix-darwin.lib else inputs.nixpkgs.lib;
-  mkSystem = if isMac then lib.darwinSystem else lib.nixosSystem;
+  mkSystem = if isMac then inputs.nix-darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
 in
-with lib;
+with inputs.nixpkgs.lib;
 mkSystem {
   inherit system;
 

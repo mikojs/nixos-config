@@ -33,8 +33,8 @@
           {
             name = "mac";
             gitconfig = {
-              "name" = "Mikojs";
-              "email" = "mikojs@gmail.com";
+              userName = "Mikojs";
+              email = "mikojs@gmail.com";
             };
             languages = [
               { language = "nix"; }
