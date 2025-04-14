@@ -7,10 +7,12 @@ inputs:
 }:
 let
   lib = if isMac then inputs.nix-darwin.lib else inputs.nixpkgs.lib;
-  system = if isMac then lib.darwinSystem else lib.nixosSystem;
+  mkSystem = if isMac then lib.darwinSystem else lib.nixosSystem;
 in
 with lib;
-system {
+mkSystem {
+  inherit system;
+
   specialArgs = {
     inherit
       inputs
