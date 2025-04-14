@@ -28,16 +28,21 @@
     {
       darwinConfigurations.mac = mkSystem {
         system = "aarch64-darwin";
-        user = {
-          "name" = "Mikojs";
-          "email" = "mikojs@gmail.com";
-        };
-        languages = [
-          { language = "nix"; }
-          { language = "nodejs"; }
-          { language = "rust"; }
-          { language = "postgresql"; }
-          { language = "sqlite"; }
+        users = [
+          {
+            name = "mac";
+            gitconfig = {
+              "name" = "Mikojs";
+              "email" = "mikojs@gmail.com";
+            };
+            languages = [
+              { language = "nix"; }
+              { language = "nodejs"; }
+              { language = "rust"; }
+              { language = "postgresql"; }
+              { language = "sqlite"; }
+            ];
+          }
         ];
       };
 
