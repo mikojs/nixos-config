@@ -13,7 +13,6 @@
       # Disable Greeting
       set fish_greeting
 
-      ${(import ./neovim/tokyonight-nvim.nix { inherit pkgs; }).programs.fish.interactiveShellInit}
       ${miko-fish.interactiveShellInit}
     '';
 

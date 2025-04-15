@@ -19,7 +19,7 @@ let
       (
         [
           # Colorschema
-          "tokyonight-nvim.nix"
+          "onenord-nvim.nix"
           # UI
           "lualine-nvim.nix"
           # Lsp
