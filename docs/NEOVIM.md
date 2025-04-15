@@ -4,7 +4,7 @@ The following Neovim plugins are used in this NixOS configuration.
 
 ## onenord.nvim
 
-nord.nvim is a colorscheme plugin for Neovim.
+onenord.nvim is a colorscheme plugin for Neovim.
 
 - [Configuration](../home-manager/neovim/onenord-nvim.nix)
 - [Repository](https://github.com/rmehri01/onenord.nvim)
