@@ -16,6 +16,7 @@ mkSystem {
     inherit
       inputs
       isWSL
+      isMac
       users
       ;
 

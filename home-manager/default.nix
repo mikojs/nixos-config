@@ -4,6 +4,7 @@
   inputs,
   stateVersion,
   isWSL,
+  isMac,
   users,
   ...
 }:
@@ -53,11 +54,13 @@ with builtins;
               ./tree.nix
               (import ./git.nix { gitconfig = user.gitconfig; })
               (import ./neovim { languages = user.languages; })
-              (import ./kitty.nix { userName = user.name; })
             ]
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
-            ));
+            ))
+            ++ (optionals isMac [
+              (import ./kitty.nix { userName = user.name; })
+            ]);
 
           home.stateVersion = stateVersion;
         }
