@@ -43,6 +43,7 @@ Some steps are required before installing NixOS.
 
 - Install [nix](https://nixos.org/download/).
 - Install [nix-darwin](https://github.com/nix-darwin/nix-darwin).
+- Install [docker](https://www.docker.com/get-started).
 
 Mac built-in terminal has some problems with customization, so we don't use it.
 We use [Kitty](https://sw.kovidgoyal.net/kitty/) to replace it. Here is the [configuration](./home-manager/kitty.nix).

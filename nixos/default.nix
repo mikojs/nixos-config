@@ -1,13 +1,18 @@
 {
+  lib,
   stateVersion,
   isMac,
   ...
 }:
+with lib;
 {
-  imports = [
-    ./tailscale.nix
-    ./docker.nix
-  ];
+  imports =
+    [
+      ./tailscale.nix
+    ]
+    ++ (optionals (!isMac) [
+      ./docker.nix
+    ]);
 
   nix.settings.experimental-features = [
     "nix-command"
