@@ -16,7 +16,7 @@ Docker is used to run containers.
 - [Configuration](../nixos/docker.nix)
 - [Repository](https://github.com/docker/cli)
 
-We doesn't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) is details.
+We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
 Please install it manually.
 
 ## Fish
