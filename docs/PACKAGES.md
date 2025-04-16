@@ -9,6 +9,15 @@ Tailscale is used to build a private network.
 - [Configuration](../nixos/tailscale.nix)
 - [Repository](https://github.com/tailscale/tailscale)
 
+## Docker
+
+Docker is used to run containers.
+It doesn't support MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) is details.
+Please install it manually.
+
+- [Configuration](../nixos/docker.nix)
+- [Repository](https://github.com/docker/cli)
+
 ## Fish
 
 Fish is a user-friendly command line shell.
