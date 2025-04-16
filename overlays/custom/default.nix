@@ -13,5 +13,10 @@ final: prev: with prev; {
     if type -q db
       db --generate fish | source
     end
+
+    # db
+    if type -q coder
+      coder --generate fish | source
+    end
   '';
 }
