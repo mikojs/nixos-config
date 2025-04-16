@@ -6,7 +6,7 @@
 {
   imports = [
     ./tailscale.nix
-    ./docker.nix
+    ./podman.nix
   ];
 
   nix.settings.experimental-features = [
