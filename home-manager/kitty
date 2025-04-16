@@ -4,7 +4,7 @@ font_size 13.0
 # force macos option key as alt
 macos_option_as_alt yes
 
-# FIXME default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
+# FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
 shell fish
 
 # Nord Colorscheme for Kitty
