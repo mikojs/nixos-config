@@ -13,24 +13,38 @@ with inputs;
 with builtins;
 {
   imports = [
-    home-manager.darwinModules.home-manager
+    (if !isMac then home-manager.nixosModules.home-manager else home-manager.darwinModules.home-manager)
   ];
 
   programs.fish.enable = true;
 
   # FIXME default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
-  environment.variables = {
-    SHELL = "fish";
-    EDITOR = "nvim";
-  };
+  environment.variables = (
+    if !isMac then
+      { }
+    else
+      {
+        SHELL = "fish";
+        EDITOR = "nvim";
+      }
+  );
 
   users.users = listToAttrs (
     map (
       user:
-      nameValuePair user.name {
-        shell = pkgs.fish;
-        home = "/Users/${user.name}";
-      }
+      nameValuePair user.name (
+        if !isMac then
+          {
+            shell = pkgs.fish;
+            isNormalUser = true;
+            extraGroups = [ "wheel" ];
+          }
+        else
+          {
+            shell = pkgs.fish;
+            home = "/Users/${user.name}";
+          }
+      )
     ) users
   );
 
