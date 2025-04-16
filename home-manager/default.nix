@@ -44,7 +44,10 @@ with builtins;
           else
             {
               isNormalUser = true;
-              extraGroups = [ "wheel" ];
+              extraGroups = [
+                "wheel"
+                "docker"
+              ];
             }
         )
       )

@@ -6,6 +6,7 @@
 {
   imports = [
     ./tailscale.nix
+    ./docker.nix
   ];
 
   nix.settings.experimental-features = [
