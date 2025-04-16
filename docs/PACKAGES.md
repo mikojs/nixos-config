@@ -9,6 +9,13 @@ Tailscale is used to build a private network.
 - [Configuration](../nixos/tailscale.nix)
 - [Repository](https://github.com/tailscale/tailscale)
 
+## Docker
+
+Docker is used to run containers.
+
+- [Configuration](../nixos/docker.nix)
+- [Repository](https://github.com/docker/cli)
+
 ## Fish
 
 Fish is a user-friendly command line shell.
