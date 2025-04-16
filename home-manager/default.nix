@@ -32,19 +32,21 @@ with builtins;
   users.users = listToAttrs (
     map (
       user:
-      nameValuePair user.name {
-        shell = pkgs.fish;
-      }
-      // (
-        if isMac then
-          {
-            home = "/Users/${user.name}";
-          }
-        else
-          {
-            isNormalUser = true;
-            extraGroups = [ "wheel" ];
-          }
+      nameValuePair user.name (
+        {
+          shell = pkgs.fish;
+        }
+        // (
+          if isMac then
+            {
+              home = "/Users/${user.name}";
+            }
+          else
+            {
+              isNormalUser = true;
+              extraGroups = [ "wheel" ];
+            }
+        )
       )
     ) users
   );
