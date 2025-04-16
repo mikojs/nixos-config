@@ -1,11 +1,25 @@
-font_family MesloLGS Nerd Font Mono
-font_size 13.0
+# FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
+shell fish
 
 # force macos option key as alt
 macos_option_as_alt yes
 
-# FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
-shell fish
+# font
+font_family MesloLGS Nerd Font Mono
+font_size 13.0
+
+# tab bar
+tab_bar_style             slant
+tab_bar_margin_height     0 7.5
+tab_bar_align             left
+tab_title_max_length      27
+tab_title_template        " ⌘{index} {title[title.rfind('/')+1:]}"
+active_tab_title_template " ⌘{index} {title[title.rfind('/')+1:]}"
+tab_bar_background        #4C566A
+inactive_tab_background   #4C566A
+inactive_tab_foreground   #ECEFF4
+active_tab_background     #ECEFF4
+active_tab_foreground     #4C566A
 
 # Nord Colorscheme for Kitty
 # Based on:
