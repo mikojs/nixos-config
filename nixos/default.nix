@@ -1,5 +1,6 @@
 {
   stateVersion,
+  isMac,
   ...
 }:
 {
@@ -12,5 +13,5 @@
     "flakes"
   ];
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = 5;
+  system.stateVersion = if isMac then 5 else stateVersion;
 }
