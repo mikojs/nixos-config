@@ -32,15 +32,16 @@ with builtins;
   users.users = listToAttrs (
     map (
       user:
-      nameValuePair user.name (
+      nameValuePair user.name {
+        shell = pkgs.fish;
+      }
+      // (
         if isMac then
           {
-            shell = pkgs.fish;
             home = "/Users/${user.name}";
           }
         else
           {
-            shell = pkgs.fish;
             isNormalUser = true;
             extraGroups = [ "wheel" ];
           }
