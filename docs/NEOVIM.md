@@ -2,12 +2,12 @@
 
 The following Neovim plugins are used in this NixOS configuration.
 
-## Tokyonight.nvim
+## onenord.nvim
 
-Tokyonight.nvim is a color scheme for Neovim.
+onenord.nvim is a colorscheme plugin for Neovim.
 
-- [Configuration](../home-manager/neovim/tokyonight-nvim.nix)
-- [Repository](https://github.com/folke/tokyonight.nvim)
+- [Configuration](../home-manager/neovim/onenord-nvim.nix)
+- [Repository](https://github.com/rmehri01/onenord.nvim)
 
 ## Lualine.nvim
 
