@@ -40,6 +40,13 @@ Some steps are required before installing NixOS.
 
 - Use `MesloLGS NF` and `Nord` in Windows Terminal.
 
+### MacOS
+
+- Install [nix](https://nixos.org/download/).
+- Install [nix-darwin](https://github.com/nix-darwin/nix-darwin).
+
+We didn't use the original mac terminal. We use [kitty](https://sw.kovidgoyal.net/kitty/). Here is [configuration](./home-manager/kitty.nix).
+
 ## Installation
 
 Set up `git` and `ssh` keys.
@@ -51,10 +58,14 @@ nix-shell -p git <other packages you need> # use any method you like to set up `
 Install the NixOS configuration.
 
 ```bash
-# `--install-bootloader` for VMware first time
+# For MacOS, if you have the problem, follow this: https://github.com/nix-darwin/nix-darwin?tab=readme-ov-file#step-2-installing-nix-darwin
+darwin-rebuild switch --flake github:mikojs/nixos-conifg#<mac>
+# Others
 nixos-rebuild switch --flake github:mikojs/nixos-conifg#<wsl>
 
-# Reboot or reopen the terminal and it would auto run the `initialize` command
+# Run `initialize` command manually
+# It would auto-reun when you reopen the terminal
+initialize
 ```
 
 After installing, you need to authorize `Codeium` in `nvim` manually.
