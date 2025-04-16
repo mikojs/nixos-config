@@ -8,7 +8,11 @@
       plugin = lualine-nvim;
       config = ''
         lua << END
-          require("lualine").setup()
+          require("lualine").setup({
+            options = {
+               theme = "onenord",
+            }
+          })
         END
       '';
     }
