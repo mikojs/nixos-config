@@ -8,7 +8,7 @@ Some steps are required before installing NixOS.
 
 ### WSL
 
-- Follow the instructions in [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) to install nixos in WSL.
+- Follow the instructions in [NixOS-WSL](https://github.com/nix-community/NixOS-WSL).
 - Use `MesloLGS NF` and `Nord` in Windows Terminal.
     - Install the [MesloLGS NF](https://github.com/IlanCosman/tide?tab=readme-ov-file#fonts) font.
     - Add [Nord](https://www.nordtheme.com/) colorscheme to Windows Terminal.
@@ -44,8 +44,8 @@ Some steps are required before installing NixOS.
 - Install [nix](https://nixos.org/download/).
 - Install [nix-darwin](https://github.com/nix-darwin/nix-darwin).
 
-The mac bultin terminal has the some problems for the customization. So, we don't use that.
-We use [kitty](https://sw.kovidgoyal.net/kitty/) to replace the mac bultin terminal. Here is [configuration](./home-manager/kitty.nix).
+Mac built-in terminal has some problems with customization, so we don't use it.
+We use [Kitty](https://sw.kovidgoyal.net/kitty/) to replace it. Here is the [configuration](./home-manager/kitty.nix).
 
 ## Installation
 
@@ -59,7 +59,7 @@ Install the NixOS configuration.
 
 ```bash
 # MacOS
-# if you have the problem, follow this: https://github.com/nix-darwin/nix-darwin?tab=readme-ov-file#step-2-installing-nix-darwin
+# If you have the problem, follow this: https://github.com/nix-darwin/nix-darwin?tab=readme-ov-file#step-2-installing-nix-darwin
 darwin-rebuild switch --flake github:mikojs/nixos-conifg#<mac>
 # Others
 nixos-rebuild switch --flake github:mikojs/nixos-conifg#<wsl>
