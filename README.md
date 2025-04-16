@@ -45,7 +45,8 @@ Some steps are required before installing NixOS.
 - Install [nix](https://nixos.org/download/).
 - Install [nix-darwin](https://github.com/nix-darwin/nix-darwin).
 
-We don't use the original mac terminal. We use [kitty](https://sw.kovidgoyal.net/kitty/). Here is [configuration](./home-manager/kitty.nix).
+The mac bultin terminal has the some problems for the customization. So, we don't use that.
+We use [kitty](https://sw.kovidgoyal.net/kitty/) to replace the mac bultin terminal. Here is [configuration](./home-manager/kitty.nix).
 
 ## Installation
 
