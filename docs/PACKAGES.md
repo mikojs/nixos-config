@@ -9,12 +9,12 @@ Tailscale is used to build a private network.
 - [Configuration](../nixos/tailscale.nix)
 - [Repository](https://github.com/tailscale/tailscale)
 
-## Podman
+## Docker
 
-Podman is a container runtime.
+Docker is used to run containers.
 
-- [Configuration](../nixos/podman.nix)
-- [Repository](https://podman.io)
+- [Configuration](../nixos/docker.nix)
+- [Repository](https://github.com/docker/cli)
 
 ## Fish
 
