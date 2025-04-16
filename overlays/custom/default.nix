@@ -14,7 +14,7 @@ final: prev: with prev; {
       db --generate fish | source
     end
 
-    # db
+    # coder
     if type -q coder
       coder --generate fish | source
     end
