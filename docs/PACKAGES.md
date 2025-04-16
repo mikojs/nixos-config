@@ -12,11 +12,12 @@ Tailscale is used to build a private network.
 ## Docker
 
 Docker is used to run containers.
-It doesn't support MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) is details.
-Please install it manually.
 
 - [Configuration](../nixos/docker.nix)
 - [Repository](https://github.com/docker/cli)
+
+We doesn't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) is details.
+Please install it manually.
 
 ## Fish
 
