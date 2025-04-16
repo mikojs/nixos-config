@@ -31,5 +31,8 @@ mkSystem {
     ]
     ++ (optionals isWSL [
       ./nixos/wsl.nix
+    ])
+    ++ (optionals isMac [
+      ./nixos/mac.nix
     ]);
 }
