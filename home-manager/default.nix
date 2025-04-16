@@ -4,6 +4,7 @@
   inputs,
   stateVersion,
   isWSL,
+  isMac,
   users,
   ...
 }:
@@ -12,28 +13,48 @@ with inputs;
 with builtins;
 {
   imports = [
-    home-manager.nixosModules.home-manager
+    (if isMac then home-manager.darwinModules.home-manager else home-manager.nixosModules.home-manager)
   ];
 
   programs.fish.enable = true;
 
+  # FIXME default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
+  environment.variables = (
+    if isMac then
+      {
+        SHELL = "fish";
+        EDITOR = "nvim";
+      }
+    else
+      { }
+  );
+
   users.users = listToAttrs (
     map (
       user:
-      nameValuePair user.name {
-        isNormalUser = true;
-        shell = pkgs.fish;
-        extraGroups = [ "wheel" ];
-      }
+      nameValuePair user.name (
+        {
+          shell = pkgs.fish;
+        }
+        // (
+          if isMac then
+            {
+              home = "/Users/${user.name}";
+            }
+          else
+            {
+              isNormalUser = true;
+              extraGroups = [ "wheel" ];
+            }
+        )
+      )
     ) users
   );
 
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = {
-      inherit isWSL;
-    };
+    extraSpecialArgs = { inherit isWSL; };
 
     users = listToAttrs (
       map (
@@ -53,7 +74,10 @@ with builtins;
             ]
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
-            ));
+            ))
+            ++ (optionals isMac [
+              (import ./kitty.nix { userName = user.name; })
+            ]);
 
           home.stateVersion = stateVersion;
         }
