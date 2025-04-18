@@ -2,16 +2,23 @@ use std::io::{self, Error as IoError};
 
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
+use sync::{Sync, SyncError};
 use thiserror::Error;
+
+mod sync;
 
 #[derive(Error, Debug)]
 enum MainError {
     #[error("IoError: {0}")]
     Io(#[from] IoError),
+    #[error("SyncError: {0}")]
+    Sync(#[from] SyncError),
 }
 
 #[derive(Subcommand)]
-enum Commands {}
+enum Commands {
+    Sync(Sync),
+}
 
 #[derive(Parser)]
 struct Cli {
@@ -36,6 +43,7 @@ fn main() -> Result<(), MainError> {
         );
     } else {
         match cli.commands {
+            Some(Commands::Sync(cmd)) => cmd.run()?,
             _ => Cli::command().print_help()?,
         }
     }
