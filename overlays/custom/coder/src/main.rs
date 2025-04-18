@@ -17,6 +17,7 @@ enum MainError {
 
 #[derive(Subcommand)]
 enum Commands {
+    /// Sync two git repos
     Sync(Sync),
 }
 
