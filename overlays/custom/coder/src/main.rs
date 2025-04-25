@@ -4,6 +4,8 @@ use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use thiserror::Error;
 
+mod config;
+
 #[derive(Error, Debug)]
 enum MainError {
     #[error("IoError: {0}")]
