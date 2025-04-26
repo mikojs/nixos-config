@@ -21,7 +21,6 @@ pub enum ConfigError {
 pub struct Config {
     #[serde(skip)]
     file_path: PathBuf,
-    pub remote: String,
 }
 
 impl Config {
