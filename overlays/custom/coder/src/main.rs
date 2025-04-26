@@ -2,25 +2,18 @@ use std::io::{self, Error as IoError};
 
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
-use remote::{Remote, RemoteError};
 use thiserror::Error;
 
 mod config;
-mod remote;
 
 #[derive(Error, Debug)]
 enum MainError {
     #[error("IoError: {0}")]
     Io(#[from] IoError),
-    #[error("RemoteError: {0}")]
-    Remote(#[from] RemoteError),
 }
 
 #[derive(Subcommand)]
-enum Commands {
-    /// Manage the set of servers
-    Remote(Remote),
-}
+enum Commands {}
 
 #[derive(Parser)]
 struct Cli {
@@ -45,7 +38,6 @@ fn main() -> Result<(), MainError> {
         );
     } else {
         match cli.commands {
-            Some(Commands::Remote(remote)) => remote.run()?,
             _ => Cli::command().print_help()?,
         }
     }
