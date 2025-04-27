@@ -1,8 +1,3 @@
-use serde::{Deserialize, Serialize};
-use serde_json::Error as SerdeJsonError;
-use strum_macros::EnumIter;
-use thiserror::Error;
-
 use std::{
     env,
     fs::{self, File},
@@ -11,6 +6,11 @@ use std::{
     process::Command,
     string::FromUtf8Error,
 };
+
+use serde::{Deserialize, Serialize};
+use serde_json::Error as SerdeJsonError;
+use strum_macros::EnumIter;
+use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum ConfigError {
