@@ -73,6 +73,18 @@ impl Config {
         Ok(())
     }
 
+    pub fn remove(&mut self, repo_name: String) -> Result<(), ConfigError> {
+        let amount = self.repos.len();
+
+        self.repos.retain(|repo| repo.name != repo_name);
+
+        if amount == self.repos.len() {
+            return Err(ConfigError::RepoNotFound);
+        }
+
+        Ok(())
+    }
+
     pub fn save(&self) -> Result<(), ConfigError> {
         let mut file = File::create(&self.file_path)?;
 

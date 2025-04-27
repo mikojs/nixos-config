@@ -3,10 +3,12 @@ use std::io::{self, Error as IoError};
 use add::{Add, AddError};
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
+use remove::{Remove, RemoveError};
 use thiserror::Error;
 
 mod add;
 mod config;
+mod remove;
 
 #[derive(Error, Debug)]
 enum MainError {
@@ -14,12 +16,16 @@ enum MainError {
     Io(#[from] IoError),
     #[error("AddError: {0}")]
     Add(#[from] AddError),
+    #[error("RemoveError: {0}")]
+    Remove(#[from] RemoveError),
 }
 
 #[derive(Subcommand)]
 enum Commands {
     /// Add a new repository to the coder
     Add(Add),
+    /// Remove a repository from the coder
+    Remove(Remove),
 }
 
 #[derive(Parser)]
@@ -46,6 +52,7 @@ fn main() -> Result<(), MainError> {
     } else {
         match cli.commands {
             Some(Commands::Add(add)) => add.run()?,
+            Some(Commands::Remove(remove)) => remove.run()?,
             _ => Cli::command().print_help()?,
         }
     }
