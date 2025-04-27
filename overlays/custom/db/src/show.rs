@@ -37,12 +37,10 @@ impl FromArgMatches for Show {
 impl Args for Show {
     fn augment_args(cmd: Command) -> Command {
         let config = Config::new().unwrap_or_default();
-        let mut new_cmd = cmd;
+        let mut new_cmd = cmd.subcommand_required(true);
 
         for db_config in config.list() {
-            new_cmd = new_cmd
-                .subcommand(Command::new(db_config.name).about("Datebase"))
-                .subcommand_required(true);
+            new_cmd = new_cmd.subcommand(Command::new(db_config.name).about("Datebase"))
         }
 
         new_cmd
