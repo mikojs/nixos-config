@@ -2,7 +2,7 @@ use std::io::{self, Error as IoError};
 
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
-use show::Show;
+use show::{Show, ShowError};
 use sqls::{Sqls, SqlsError};
 use thiserror::Error;
 
@@ -14,6 +14,8 @@ mod sqls;
 enum MainError {
     #[error("IoError: {0}")]
     Io(#[from] IoError),
+    #[error("ShowError: {0}")]
+    Show(#[from] ShowError),
     #[error("SqlsError: {0}")]
     Sqls(#[from] SqlsError),
 }
@@ -49,7 +51,7 @@ fn main() -> Result<(), MainError> {
         );
     } else {
         match cli.commands {
-            Some(Commands::Show(show)) => show.run(),
+            Some(Commands::Show(show)) => show.run()?,
             Some(Commands::Sqls(sqls)) => sqls.run()?,
             _ => Cli::command().print_help()?,
         }
