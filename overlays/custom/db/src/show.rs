@@ -54,7 +54,10 @@ impl Args for Show {
                 continue;
             }
 
-            new_cmd = new_cmd.subcommand(Command::new(db_config.name).about("Datebase"))
+            new_cmd = new_cmd.subcommand(
+                Command::new(db_config.name)
+                    .about(db_config.description.unwrap_or("Database".to_string())),
+            );
         }
 
         new_cmd
