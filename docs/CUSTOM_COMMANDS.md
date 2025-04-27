@@ -19,4 +19,10 @@ Some helpful commands for working with databases.
 
 - [Configuration](../home-manager/languages/db.nix)
 - [Code](../overlays/custom/db)
-- Use `--help` to see available commands
+- Support Environment Variables
+
+    | Environment Variable  | Description                      |
+    | --------------------  | -----------                      |
+    | DB_<NAME>_TYPE        | Database type(sqlite3, postgres) |
+    | DB_<NAME>_DESCRIPTION | Database description             |
+    | DB_<NAME>_URL         | Database URL                     |
