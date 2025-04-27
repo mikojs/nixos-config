@@ -5,6 +5,7 @@ use std::{
     path::PathBuf,
 };
 
+use pathdiff::diff_paths;
 use serde::{Deserialize, Serialize};
 use serde_json::Error as SerdeJsonError;
 use thiserror::Error;
@@ -15,12 +16,29 @@ pub enum ConfigError {
     Io(#[from] IoError),
     #[error("SerdeJsonError: {0}")]
     SerdeJson(#[from] SerdeJsonError),
+    #[error("Repo already exists")]
+    RepoExists,
+    #[error("Repo not found")]
+    RepoNotFound,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Repo {
+    name: String,
+    relative_path: PathBuf,
+}
+
+impl PartialEq for Repo {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name || self.relative_path == other.relative_path
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Config {
     #[serde(skip)]
     file_path: PathBuf,
+    repos: Vec<Repo>,
 }
 
 impl Config {
@@ -36,6 +54,23 @@ impl Config {
         config.file_path = file_path;
 
         Ok(config)
+    }
+
+    pub fn add(&mut self, repo_name: String, repo_file_path: PathBuf) -> Result<(), ConfigError> {
+        let relative_path = diff_paths(repo_file_path, self.file_path.clone())
+            .ok_or_else(|| ConfigError::RepoNotFound)?;
+        let repo = Repo {
+            name: repo_name,
+            relative_path,
+        };
+
+        if self.repos.contains(&repo) {
+            return Err(ConfigError::RepoExists);
+        }
+
+        self.repos.push(repo);
+
+        Ok(())
     }
 
     pub fn save(&self) -> Result<(), ConfigError> {
