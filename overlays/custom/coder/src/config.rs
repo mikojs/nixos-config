@@ -5,6 +5,7 @@ use std::{
     path::PathBuf,
 };
 
+use clap::{error::ErrorKind, ArgMatches, Command, Error as ClapError};
 use pathdiff::diff_paths;
 use serde::{Deserialize, Serialize};
 use serde_json::Error as SerdeJsonError;
@@ -22,9 +23,10 @@ pub enum ConfigError {
     RepoNotFound,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Repo {
     name: String,
+    // FIXME: find the git repo root file path
     relative_path: PathBuf,
 }
 
@@ -91,5 +93,40 @@ impl Config {
         file.write_all(serde_json::to_string(&self)?.as_bytes())?;
 
         Ok(())
+    }
+}
+
+// for clap
+impl Config {
+    fn list(&self) -> Vec<Repo> {
+        self.repos.clone()
+    }
+
+    pub fn from_arg_matches_mut(matches: &mut ArgMatches) -> Result<String, ClapError> {
+        let db_config_result = if let Some((name, _)) = matches.subcommand() {
+            Config::new()
+                .unwrap_or_default()
+                .list()
+                .into_iter()
+                .find(|db_config| db_config.name == name)
+        } else {
+            None
+        };
+        let db_config = db_config_result
+            .ok_or(ClapError::new(ErrorKind::ValueValidation))?
+            .clone();
+
+        Ok(db_config.name)
+    }
+
+    pub fn augment_args(cmd: Command) -> Command {
+        let config = Config::new().unwrap_or_default();
+        let mut new_cmd = cmd.subcommand_required(true);
+
+        for db_config in config.list() {
+            new_cmd = new_cmd.subcommand(Command::new(db_config.name).about("Repo"));
+        }
+
+        new_cmd
     }
 }

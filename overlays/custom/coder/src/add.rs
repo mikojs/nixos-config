@@ -26,6 +26,8 @@ impl Add {
         config.add(self.repo_name.clone(), self.repo_file_path.clone())?;
         config.save()?;
 
+        // TODO: initialize the repository
+
         Ok(())
     }
 }
