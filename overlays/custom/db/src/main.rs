@@ -28,7 +28,15 @@ enum Commands {
     Sqls(Sqls),
 }
 
+/// Parse database information from environment variables
+///
+/// Environment variable:
+///
+/// - DB_<DB_NAME>_URL: The database url
+/// - DB_<DB_NAME>_TYPE: The database type (postgres|sqlite3)
+/// - DB_<DB_NAME>_DESCRIPTION: The database description
 #[derive(Parser)]
+#[command(verbatim_doc_comment)]
 struct Cli {
     /// Generate shell completion
     #[arg(long, value_enum)]
