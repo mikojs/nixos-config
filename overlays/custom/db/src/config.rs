@@ -92,6 +92,7 @@ fn get_config() -> Result<(), ConfigError> {
     env::set_var("DB_DEFAULT_URL", DB_DEFAULT_URL);
     env::set_var("DB_TEST_TEST_URL", DB_DEFAULT_URL);
     env::set_var("DB_TEST_TEST_TYPE", "postgresql");
+    env::set_var("DB_TEST_TEST_DESCRIPTION", "description");
 
     let config = Config::new()?;
 
@@ -106,6 +107,10 @@ fn get_config() -> Result<(), ConfigError> {
         assert_eq!(test_test_config.name, "test-test");
         assert_eq!(test_test_config.url, Some(Url::parse(DB_DEFAULT_URL)?));
         assert_eq!(test_test_config.r#type, Some(DbType::Postgresql));
+        assert_eq!(
+            test_test_config.description,
+            Some("description".to_string())
+        );
     } else {
         unreachable!("not found test-test config");
     };
