@@ -30,6 +30,7 @@ pub enum DbType {
 #[derive(Default, Clone)]
 pub struct DbConfig {
     pub name: String,
+    pub description: Option<String>,
     pub url: Option<Url>,
     pub r#type: Option<DbType>,
 }
@@ -40,7 +41,7 @@ pub struct Config(Vec<DbConfig>);
 impl Config {
     pub fn new() -> Result<Self, ConfigError> {
         let mut db_configs: Vec<DbConfig> = Vec::new();
-        let db_parttern = Regex::new(r"^DB_(?<name>\w+)_(?<type>URL|TYPE)$")?;
+        let db_parttern = Regex::new(r"^DB_(?<name>\w+)_(?<type>URL|TYPE|DESCRIPTION)$")?;
 
         for (key, value) in env::vars() {
             if let Some(caps) = db_parttern.captures(&key) {
@@ -72,6 +73,7 @@ impl Config {
         match r#type.as_ref() {
             "URL" => db_config.url = Some(Url::parse(&value)?),
             "TYPE" => db_config.r#type = Some(DbType::from_str(&value)?),
+            "DESCRIPTION" => db_config.description = Some(value),
             _ => unreachable!("unknown type {}", r#type),
         }
         Ok(())
@@ -90,6 +92,7 @@ fn get_config() -> Result<(), ConfigError> {
     env::set_var("DB_DEFAULT_URL", DB_DEFAULT_URL);
     env::set_var("DB_TEST_TEST_URL", DB_DEFAULT_URL);
     env::set_var("DB_TEST_TEST_TYPE", "postgresql");
+    env::set_var("DB_TEST_TEST_DESCRIPTION", "description");
 
     let config = Config::new()?;
 
@@ -104,6 +107,10 @@ fn get_config() -> Result<(), ConfigError> {
         assert_eq!(test_test_config.name, "test-test");
         assert_eq!(test_test_config.url, Some(Url::parse(DB_DEFAULT_URL)?));
         assert_eq!(test_test_config.r#type, Some(DbType::Postgresql));
+        assert_eq!(
+            test_test_config.description,
+            Some("description".to_string())
+        );
     } else {
         unreachable!("not found test-test config");
     };
