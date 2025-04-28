@@ -1,9 +1,16 @@
-use clap::{ArgMatches, Args, Command, Error as ClapError, FromArgMatches};
+use clap::{error::ErrorKind, ArgMatches, Args, Command, Error as ClapError, FromArgMatches};
+use thiserror::Error;
 
 use crate::config::{Config, DbConfig};
 
+#[derive(Error, Debug)]
+pub enum ShowError {
+    #[error("Not found")]
+    NotFound,
+}
+
 pub struct Show {
-    db_config: Option<DbConfig>,
+    db_config: DbConfig,
 }
 
 impl FromArgMatches for Show {
@@ -14,7 +21,7 @@ impl FromArgMatches for Show {
     }
 
     fn from_arg_matches_mut(matches: &mut ArgMatches) -> Result<Self, ClapError> {
-        let db_config = if let Some((name, _)) = matches.subcommand() {
+        let db_config_result = if let Some((name, _)) = matches.subcommand() {
             Config::new()
                 .unwrap_or_default()
                 .list()
@@ -23,6 +30,9 @@ impl FromArgMatches for Show {
         } else {
             None
         };
+        let db_config = db_config_result
+            .ok_or(ClapError::new(ErrorKind::ValueValidation))?
+            .clone();
 
         Ok(Self { db_config })
     }
@@ -37,12 +47,17 @@ impl FromArgMatches for Show {
 impl Args for Show {
     fn augment_args(cmd: Command) -> Command {
         let config = Config::new().unwrap_or_default();
-        let mut new_cmd = cmd;
+        let mut new_cmd = cmd.subcommand_required(true);
 
         for db_config in config.list() {
-            new_cmd = new_cmd
-                .subcommand(Command::new(db_config.name).about("Datebase"))
-                .subcommand_required(true);
+            if db_config.url.is_none() {
+                continue;
+            }
+
+            new_cmd = new_cmd.subcommand(
+                Command::new(db_config.name)
+                    .about(db_config.description.unwrap_or("Database".to_string())),
+            );
         }
 
         new_cmd
@@ -54,9 +69,10 @@ impl Args for Show {
 }
 
 impl Show {
-    pub fn run(&self) {
-        if let Some(Some(url)) = self.db_config.clone().map(|db_config| db_config.url) {
-            println!("{}", url);
-        }
+    pub fn run(&self) -> Result<(), ShowError> {
+        let url = self.db_config.url.as_ref().ok_or(ShowError::NotFound)?;
+
+        println!("{}", url);
+        Ok(())
     }
 }

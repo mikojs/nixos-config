@@ -11,6 +11,8 @@ pub enum SqlsError {
     Config(#[from] ConfigError),
     #[error("SerdeJsonError: {0}")]
     SerdeJson(#[from] serdeJsonError),
+    #[error("Url Not Found")]
+    UrlNotFound,
 }
 
 #[derive(Serialize)]
@@ -20,21 +22,36 @@ pub struct SqlsDbConfig {
     data_source_name: String,
 }
 
-impl From<DbConfig> for SqlsDbConfig {
-    fn from(value: DbConfig) -> Self {
-        Self {
+impl TryFrom<DbConfig> for SqlsDbConfig {
+    type Error = SqlsError;
+
+    fn try_from(value: DbConfig) -> Result<Self, Self::Error> {
+        Ok(Self {
             driver: value.r#type.unwrap_or(DbType::Postgresql),
-            data_source_name: value.url.map(|url| url.to_string()).unwrap_or_default(),
-        }
+            data_source_name: value
+                .url
+                .map(|url| url.to_string())
+                .ok_or(SqlsError::UrlNotFound)?,
+        })
     }
 }
 
 #[derive(Serialize)]
 pub struct SqlsConfig(Vec<SqlsDbConfig>);
 
-impl From<Config> for SqlsConfig {
-    fn from(value: Config) -> Self {
-        Self(value.list().into_iter().map(Into::into).collect())
+impl TryFrom<Config> for SqlsConfig {
+    type Error = SqlsError;
+
+    fn try_from(value: Config) -> Result<Self, Self::Error> {
+        let mut sqls_config: Vec<SqlsDbConfig> = Vec::new();
+
+        for db_config in value.list() {
+            if db_config.url.is_some() {
+                sqls_config.push(db_config.try_into()?);
+            }
+        }
+
+        Ok(Self(sqls_config))
     }
 }
 
@@ -44,7 +61,7 @@ pub struct Sqls {}
 impl Sqls {
     pub fn run(&self) -> Result<(), SqlsError> {
         let config = Config::new()?;
-        let sqls_config: SqlsConfig = config.into();
+        let sqls_config: SqlsConfig = config.try_into()?;
 
         println!("{}", serde_json::to_string_pretty(&sqls_config)?);
         Ok(())
