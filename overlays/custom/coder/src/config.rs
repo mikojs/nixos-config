@@ -6,7 +6,7 @@ use std::{
 };
 
 use clap::{error::ErrorKind, ArgMatches, Command, Error as ClapError};
-use pathdiff::diff_paths;
+use git2::{Error as RepositoryError, Repository};
 use serde::{Deserialize, Serialize};
 use serde_json::Error as SerdeJsonError;
 use thiserror::Error;
@@ -17,6 +17,8 @@ pub enum ConfigError {
     Io(#[from] IoError),
     #[error("SerdeJsonError: {0}")]
     SerdeJson(#[from] SerdeJsonError),
+    #[error("RepositoryError: {0}")]
+    Repository(#[from] RepositoryError),
     #[error("Repo already exists")]
     RepoExists,
     #[error("Repo not found")]
@@ -26,13 +28,12 @@ pub enum ConfigError {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct RepoConfig {
     name: String,
-    // FIXME: find the git repo root file path
-    relative_path: PathBuf,
+    repo_path: PathBuf,
 }
 
 impl PartialEq for RepoConfig {
     fn eq(&self, other: &Self) -> bool {
-        self.name == other.name || self.relative_path == other.relative_path
+        self.name == other.name || self.repo_path == other.repo_path
     }
 }
 
@@ -58,19 +59,18 @@ impl Config {
         Ok(config)
     }
 
-    pub fn add(&mut self, repo_name: String, repo_file_path: PathBuf) -> Result<(), ConfigError> {
-        let relative_path = diff_paths(repo_file_path, self.file_path.clone())
-            .ok_or_else(|| ConfigError::RepoNotFound)?;
-        let repo = RepoConfig {
+    pub fn add(&mut self, repo_name: String, path: PathBuf) -> Result<(), ConfigError> {
+        let repo = Repository::discover(path.clone())?;
+        let repo_config = RepoConfig {
             name: repo_name,
-            relative_path,
+            repo_path: repo.path().to_path_buf(),
         };
 
-        if self.repos.contains(&repo) {
+        if self.repos.contains(&repo_config) {
             return Err(ConfigError::RepoExists);
         }
 
-        self.repos.push(repo);
+        self.repos.push(repo_config);
 
         Ok(())
     }
