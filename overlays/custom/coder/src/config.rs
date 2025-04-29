@@ -24,13 +24,13 @@ pub enum ConfigError {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Repo {
+pub struct RepoConfig {
     name: String,
     // FIXME: find the git repo root file path
     relative_path: PathBuf,
 }
 
-impl PartialEq for Repo {
+impl PartialEq for RepoConfig {
     fn eq(&self, other: &Self) -> bool {
         self.name == other.name || self.relative_path == other.relative_path
     }
@@ -40,7 +40,7 @@ impl PartialEq for Repo {
 pub struct Config {
     #[serde(skip)]
     file_path: PathBuf,
-    repos: Vec<Repo>,
+    repos: Vec<RepoConfig>,
 }
 
 impl Config {
@@ -61,7 +61,7 @@ impl Config {
     pub fn add(&mut self, repo_name: String, repo_file_path: PathBuf) -> Result<(), ConfigError> {
         let relative_path = diff_paths(repo_file_path, self.file_path.clone())
             .ok_or_else(|| ConfigError::RepoNotFound)?;
-        let repo = Repo {
+        let repo = RepoConfig {
             name: repo_name,
             relative_path,
         };
@@ -98,7 +98,7 @@ impl Config {
 
 // for clap
 impl Config {
-    fn list(&self) -> Vec<Repo> {
+    fn list(&self) -> Vec<RepoConfig> {
         self.repos.clone()
     }
 
