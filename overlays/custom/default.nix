@@ -1,16 +1,47 @@
-final: prev: with prev; {
-  miko-initialize = callPackage ./initialize { };
-  miko-db = callPackage ./db { };
+final: prev:
+with prev;
+with lib;
+with builtins;
+let
+  custom-pkg-names = [
+    "initialize"
+    "db"
+  ];
 
-  miko-fish.interactiveShellInit = ''
-    # Initialize
-    if type -q initialize
-      initialize
-    end
+  custom-pkgs = listToAttrs (
+    map (
+      name:
+      nameValuePair "miko-${name}" (
+        with rustPlatform;
+        buildRustPackage {
+          inherit name;
+          src = ./.;
 
-    # db
-    if type -q db
-      db --generate fish | source
-    end
-  '';
+          cargoLock = {
+            lockFile = ./Cargo.lock;
+          };
+
+          buildPhase = ''
+            cargo build --release -p ${name}
+          '';
+
+          installPhase = ''
+            mkdir -p $out/bin
+            cp -r target/release/${name} $out/bin
+          '';
+        }
+      )
+    ) custom-pkg-names
+  );
+in
+custom-pkgs
+// {
+  miko-fish.interactiveShellInit = concatStrings (
+    map (name: ''
+      # ${name}
+      if type -q ${name}
+        ${name} ${if name == "initialize" then "" else "--generate fish | source"}
+      end
+    '') custom-pkg-names
+  );
 }
