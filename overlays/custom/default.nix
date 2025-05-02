@@ -22,6 +22,14 @@ let
             lockFile = ./Cargo.lock;
           };
 
+          nativeBuildInputs = [
+            pkg-config
+          ];
+
+          buildInputs = [
+            openssl
+          ];
+
           buildPhase = ''
             cargo build --release -p ${name}
           '';
