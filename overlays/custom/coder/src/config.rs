@@ -90,6 +90,8 @@ impl Config {
     pub fn save(&self) -> Result<(), ConfigError> {
         let mut file = File::create(&self.file_path)?;
 
+        // TODO: sync the repos
+
         file.write_all(serde_json::to_string(&self)?.as_bytes())?;
 
         Ok(())
