@@ -6,6 +6,7 @@ let
   custom-pkg-names = [
     "initialize"
     "db"
+    "coder"
   ];
 
   custom-pkgs = listToAttrs (
@@ -20,6 +21,14 @@ let
           cargoLock = {
             lockFile = ./Cargo.lock;
           };
+
+          nativeBuildInputs = [
+            pkg-config
+          ];
+
+          buildInputs = [
+            openssl
+          ];
 
           buildPhase = ''
             cargo build --release -p ${name}
