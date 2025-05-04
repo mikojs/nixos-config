@@ -40,21 +40,23 @@ impl PartialEq for RepoConfig {
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Config {
     #[serde(skip)]
-    file_path: PathBuf,
+    folder_path: PathBuf,
     repos: Vec<RepoConfig>,
 }
+
+static CONFIG_FILE: &str = "config.json";
 
 impl Config {
     pub fn new() -> Result<Self, ConfigError> {
         let home_dir = dirs::home_dir().unwrap_or("./".into());
-        let file_path = PathBuf::from(
-            env::var("CODER_CONFIG")
-                .unwrap_or(home_dir.join(".config/coder.json").display().to_string()),
+        let folder_path = PathBuf::from(
+            env::var("CODER").unwrap_or(home_dir.join(".config/coder").display().to_string()),
         );
-        let config_str = fs::read_to_string(file_path.clone()).unwrap_or_default();
+        let config_str =
+            fs::read_to_string(folder_path.clone().join(CONFIG_FILE)).unwrap_or_default();
         let mut config = serde_json::from_str(&config_str).unwrap_or(Config::default());
 
-        config.file_path = file_path;
+        config.folder_path = folder_path;
 
         Ok(config)
     }
@@ -87,11 +89,15 @@ impl Config {
         Ok(())
     }
 
+    pub fn sync(&self) -> Result<(), ConfigError> {
+        // TODO: sync bare repos
+        Ok(())
+    }
+
     pub fn save(&self) -> Result<(), ConfigError> {
-        let mut file = File::create(&self.file_path)?;
+        let mut file = File::create(self.folder_path.join(CONFIG_FILE))?;
 
-        // TODO: sync the repos
-
+        self.sync()?;
         file.write_all(serde_json::to_string(&self)?.as_bytes())?;
 
         Ok(())
