@@ -66,7 +66,7 @@
     ];
 
     shellAliases = {
-      nsf = ''nix-shell --run fish'';
+      nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
     };
   };
 }
