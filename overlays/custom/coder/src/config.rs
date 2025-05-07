@@ -90,7 +90,8 @@ impl Config {
     }
 
     pub fn sync(&self) -> Result<(), ConfigError> {
-        // TODO: sync bare repos
+        // TODO: map repos, create bare git repo, remove untracked git repo
+        // TODO: add history(version + branches) and sync all branches
         Ok(())
     }
 
@@ -136,5 +137,33 @@ impl Config {
         }
 
         new_cmd
+    }
+}
+
+#[cfg(test)]
+mod config_tests {
+    use super::*;
+
+    #[derive(Error, Debug)]
+    enum ConfigTestsError {
+        #[error("ConfigError: {0}")]
+        Config(#[from] ConfigError),
+    }
+
+    fn test(tests_fn: fn() -> Result<(), ConfigTestsError>) -> Result<(), ConfigTestsError> {
+        let mut config = Config::new()?;
+        let folder_path = dirs::home_dir()
+            .unwrap_or("./".into())
+            .join(".cache/coder-tests");
+
+        config.folder_path = folder_path;
+        assert!(tests_fn().is_ok());
+
+        Ok(())
+    }
+
+    #[test]
+    fn sync_the_repos() -> Result<(), ConfigTestsError> {
+        test(|| Ok(()))
     }
 }
