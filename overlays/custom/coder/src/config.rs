@@ -143,27 +143,73 @@ impl Config {
 #[cfg(test)]
 mod config_tests {
     use super::*;
+    use std::{fs::File, path::Path};
+
+    use git2::IndexAddOption;
 
     #[derive(Error, Debug)]
     enum ConfigTestsError {
         #[error("ConfigError: {0}")]
         Config(#[from] ConfigError),
+        #[error("RepositoryError: {0}")]
+        Repository(#[from] RepositoryError),
+        #[error("IoError: {0}")]
+        Io(#[from] IoError),
     }
 
-    fn test(tests_fn: fn() -> Result<(), ConfigTestsError>) -> Result<(), ConfigTestsError> {
-        let mut config = Config::new()?;
-        let folder_path = dirs::home_dir()
+    fn create_test_repo(
+        test_folder_path: &Path,
+        repo_name: &str,
+    ) -> Result<Repository, ConfigTestsError> {
+        let repo_path = test_folder_path.join(repo_name);
+        let repo = Repository::init(repo_path.clone())?;
+        let mut file = File::create(repo_path.join("foo"))?;
+
+        file.write_all(b"test")?;
+        repo.index()?
+            .add_all(["."], IndexAddOption::DEFAULT, None)?;
+        repo.index()?.write()?;
+
+        let oid = repo.index()?.write_tree()?;
+        let tree = repo.find_tree(oid)?;
+        let parent_commit = repo.head()?.peel_to_commit()?;
+
+        repo.commit(
+            Some("HEAD"),
+            &repo.signature()?,
+            &repo.signature()?,
+            "init",
+            &tree,
+            &[&parent_commit],
+        )?;
+
+        Ok(Repository::open(repo_path)?)
+    }
+
+    fn test(
+        tests_fn: fn(test_folder_path: &Path, config: &Config) -> Result<(), ConfigTestsError>,
+    ) -> Result<(), ConfigTestsError> {
+        let test_folder_path = dirs::home_dir()
             .unwrap_or("./".into())
             .join(".cache/coder-tests");
+        let mut config = Config::new()?;
 
-        config.folder_path = folder_path;
-        assert!(tests_fn().is_ok());
+        config.folder_path = test_folder_path.clone().join("coder");
+
+        if let Err(e) = tests_fn(&test_folder_path, &config) {
+            fs::remove_dir_all(test_folder_path)?;
+            assert_eq!(e.to_string(), "");
+        }
 
         Ok(())
     }
 
     #[test]
     fn sync_the_repos() -> Result<(), ConfigTestsError> {
-        test(|| Ok(()))
+        test(|test_folder_path, _| {
+            create_test_repo(test_folder_path, "repo1")?;
+
+            Ok(())
+        })
     }
 }
