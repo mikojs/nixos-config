@@ -163,7 +163,6 @@ mod config_tests {
     ) -> Result<Repository, ConfigTestsError> {
         let repo_path = test_folder_path.join(repo_name);
         let repo = Repository::init(repo_path.clone())?;
-
         let signature = repo.signature()?;
         let oid = repo.index()?.write_tree()?;
         let tree = repo.find_tree(oid)?;
@@ -174,11 +173,13 @@ mod config_tests {
     }
 
     fn test(
+        name: &str,
         tests_fn: fn(test_folder_path: &Path, config: &mut Config) -> Result<(), ConfigTestsError>,
     ) -> Result<(), ConfigTestsError> {
         let test_folder_path = dirs::home_dir()
             .unwrap_or("./".into())
-            .join(".cache/coder-tests");
+            .join(".cache/coder-tests")
+            .join(name);
         let mut config = Config::new()?;
 
         config.folder_path = test_folder_path.join("coder");
@@ -210,8 +211,45 @@ mod config_tests {
     }
 
     #[test]
+    fn add_repos() -> Result<(), ConfigTestsError> {
+        test("add_a_repo", |test_folder_path, config| {
+            create_test_repo(test_folder_path, "repo1")?;
+            config.add("repo1".to_string(), test_folder_path.join("repo1"))?;
+            test_assert_eq(
+                "Repo already exists",
+                matches!(
+                    config.add("repo1".to_string(), test_folder_path.join("repo1")),
+                    Err(ConfigError::RepoExists)
+                ),
+                true,
+            )?;
+
+            Ok(())
+        })
+    }
+
+    #[test]
+    fn remove_a_repo() -> Result<(), ConfigTestsError> {
+        test("remove_a_repo", |test_folder_path, config| {
+            create_test_repo(test_folder_path, "repo1")?;
+            config.add("repo1".to_string(), test_folder_path.join("repo1"))?;
+            test_assert_eq(
+                "Repo not found",
+                matches!(
+                    config.remove("repo_not_exist".to_string()),
+                    Err(ConfigError::RepoNotFound),
+                ),
+                true,
+            )?;
+            config.remove("repo1".to_string())?;
+
+            Ok(())
+        })
+    }
+
+    #[test]
     fn sync_the_repos() -> Result<(), ConfigTestsError> {
-        test(|test_folder_path, config| {
+        test("sync_the_repos", |test_folder_path, config| {
             create_test_repo(test_folder_path, "repo1")?;
             config.add("repo1".to_string(), test_folder_path.join("repo1"))?;
             config.sync()?;
