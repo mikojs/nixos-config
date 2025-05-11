@@ -153,6 +153,8 @@ mod config_tests {
         Repository(#[from] RepositoryError),
         #[error("IoError: {0}")]
         Io(#[from] IoError),
+        #[error("Not Equal: {0}")]
+        NotEqual(String),
     }
 
     fn create_test_repo(
@@ -172,7 +174,7 @@ mod config_tests {
     }
 
     fn test(
-        tests_fn: fn(test_folder_path: &Path, config: &Config) -> Result<(), ConfigTestsError>,
+        tests_fn: fn(test_folder_path: &Path, config: &mut Config) -> Result<(), ConfigTestsError>,
     ) -> Result<(), ConfigTestsError> {
         let test_folder_path = dirs::home_dir()
             .unwrap_or("./".into())
@@ -181,7 +183,7 @@ mod config_tests {
 
         config.folder_path = test_folder_path.join("coder");
 
-        let result = if let Err(e) = tests_fn(&test_folder_path, &config) {
+        let result = if let Err(e) = tests_fn(&test_folder_path, &mut config) {
             e.to_string()
         } else {
             "".to_string()
@@ -193,10 +195,41 @@ mod config_tests {
         Ok(())
     }
 
+    fn test_assert_eq<T: Eq + std::fmt::Debug>(
+        description: &str,
+        a: T,
+        b: T,
+    ) -> Result<(), ConfigTestsError> {
+        if a != b {
+            return Err(ConfigTestsError::NotEqual(format!(
+                "{description}: {a:?} != {b:?}"
+            )));
+        }
+
+        Ok(())
+    }
+
     #[test]
     fn sync_the_repos() -> Result<(), ConfigTestsError> {
-        test(|test_folder_path, _| {
+        test(|test_folder_path, config| {
             create_test_repo(test_folder_path, "repo1")?;
+            config.add("repo1".to_string(), test_folder_path.join("repo1"))?;
+            config.sync()?;
+
+            test_assert_eq(
+                "Bare Repo Exists",
+                fs::exists(config.folder_path.join("repo1"))?,
+                true,
+            )?;
+
+            config.remove("repo1".to_string())?;
+            config.sync()?;
+
+            test_assert_eq(
+                "Bare Repo Exists",
+                fs::exists(config.folder_path.join("repo1"))?,
+                false,
+            )?;
 
             Ok(())
         })
