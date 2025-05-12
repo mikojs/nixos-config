@@ -6,7 +6,7 @@ use std::{
 };
 
 use clap::{error::ErrorKind, ArgMatches, Command, Error as ClapError};
-use git2::{Error as RepositoryError, Repository};
+use git2::{BranchType, Error as RepositoryError, Repository};
 use serde::{Deserialize, Serialize};
 use serde_json::Error as SerdeJsonError;
 use thiserror::Error;
@@ -23,6 +23,8 @@ pub enum ConfigError {
     RepoExists,
     #[error("Repo not found")]
     RepoNotFound,
+    #[error("Branch not found")]
+    BranchNotFound,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -90,7 +92,29 @@ impl Config {
     }
 
     pub fn sync(&self) -> Result<(), ConfigError> {
-        // TODO: map repos, create bare git repo, remove untracked git repo
+        for repo_config in &self.repos {
+            let source_repo = Repository::open(repo_config.repo_path.clone())?;
+            let target_repo_path = self.folder_path.join(repo_config.name.clone());
+
+            if Repository::open_bare(target_repo_path.clone()).is_err() {
+                Repository::init_bare(target_repo_path.clone())?;
+            }
+
+            let mut remote = source_repo.remote(
+                "coder",
+                &target_repo_path.join(".git").display().to_string(),
+            )?;
+
+            for branch_result in source_repo.branches(Some(BranchType::Local))? {
+                let (branch, _) = branch_result?;
+
+                remote.push(&[branch.name()?.ok_or(ConfigError::BranchNotFound)?], None)?;
+            }
+
+            source_repo.remote_delete("coder")?;
+        }
+
+        // TODO: remove untracked git repo
         // TODO: add history(version + branches) and sync all branches
         Ok(())
     }
@@ -260,11 +284,14 @@ mod config_tests {
                 true,
             )?;
 
+            // TODO: add more branches
+            // TODO: check git history and check repo_config history
+
             config.remove("repo1".to_string())?;
             config.sync()?;
 
             test_assert_eq(
-                "Bare Repo Exists",
+                "Bare Repo Not Exists",
                 fs::exists(config.folder_path.join("repo1"))?,
                 false,
             )?;
