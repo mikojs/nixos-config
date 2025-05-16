@@ -6,7 +6,7 @@ use std::{
 };
 
 use clap::{error::ErrorKind, ArgMatches, Command, Error as ClapError};
-use git2::{BranchType, Error as RepositoryError, Repository};
+use git2::{Error as RepositoryError, Repository};
 use serde::{Deserialize, Serialize};
 use serde_json::Error as SerdeJsonError;
 use thiserror::Error;
@@ -23,8 +23,8 @@ pub enum ConfigError {
     RepoExists,
     #[error("Repo not found")]
     RepoNotFound,
-    #[error("Branch not found")]
-    BranchNotFound,
+    #[error("Reference not found")]
+    ReferenceNotFound,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -100,21 +100,28 @@ impl Config {
                 Repository::init_bare(target_repo_path.clone())?;
             }
 
-            let mut remote = source_repo.remote(
-                "coder",
-                &target_repo_path.join(".git").display().to_string(),
-            )?;
+            let mut remote =
+                source_repo.remote("coder", &target_repo_path.display().to_string())?;
 
-            for branch_result in source_repo.branches(Some(BranchType::Local))? {
-                let (branch, _) = branch_result?;
+            for reference in source_repo.references()? {
+                let reference = reference?;
+                let reference_str = reference.name().ok_or(ConfigError::ReferenceNotFound)?;
 
-                remote.push(&[branch.name()?.ok_or(ConfigError::BranchNotFound)?], None)?;
+                remote.push(&[format!("{}:{}", reference_str, reference_str)], None)?;
             }
 
             source_repo.remote_delete("coder")?;
         }
 
-        // TODO: remove untracked git repo
+        for folder in fs::read_dir(self.folder_path.clone())? {
+            let folder = folder?;
+            let folder_name = folder.file_name();
+
+            if !self.repos.iter().any(|repo| *repo.name == folder_name) {
+                fs::remove_dir_all(folder.path())?;
+            }
+        }
+
         // TODO: add history(version + branches) and sync all branches
         Ok(())
     }
