@@ -5,8 +5,9 @@ use std::{
     path::PathBuf,
 };
 
+use chrono::Utc;
 use clap::{error::ErrorKind, ArgMatches, Command, Error as ClapError};
-use git2::{Error as RepositoryError, Repository};
+use git2::{BranchType, Error as RepositoryError, Repository};
 use serde::{Deserialize, Serialize};
 use serde_json::Error as SerdeJsonError;
 use thiserror::Error;
@@ -23,8 +24,8 @@ pub enum ConfigError {
     RepoExists,
     #[error("Repo not found")]
     RepoNotFound,
-    #[error("Reference not found")]
-    ReferenceNotFound,
+    #[error("Branch not found")]
+    BranchNotFound,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -43,6 +44,7 @@ impl PartialEq for RepoConfig {
 pub struct Config {
     #[serde(skip)]
     folder_path: PathBuf,
+    timestamp: i64,
     repos: Vec<RepoConfig>,
 }
 
@@ -59,6 +61,7 @@ impl Config {
         let mut config = serde_json::from_str(&config_str).unwrap_or(Config::default());
 
         config.folder_path = folder_path;
+        config.timestamp = Utc::now().timestamp();
 
         Ok(config)
     }
@@ -103,11 +106,17 @@ impl Config {
             let mut remote =
                 source_repo.remote("coder", &target_repo_path.display().to_string())?;
 
-            for reference in source_repo.references()? {
-                let reference = reference?;
-                let reference_str = reference.name().ok_or(ConfigError::ReferenceNotFound)?;
+            for branch in source_repo.branches(Some(BranchType::Local))? {
+                let (branch, _) = branch?;
+                let branch_str = branch.name()?.ok_or(ConfigError::BranchNotFound)?;
 
-                remote.push(&[format!("{}:{}", reference_str, reference_str)], None)?;
+                remote.push(
+                    &[format!(
+                        "refs/heads/{}:refs/heads/{}-{}",
+                        branch_str, self.timestamp, branch_str
+                    )],
+                    None,
+                )?;
             }
 
             source_repo.remote_delete("coder")?;
