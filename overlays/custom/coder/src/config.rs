@@ -63,6 +63,11 @@ impl Config {
         let folder_path = PathBuf::from(
             env::var("CODER").unwrap_or(home_dir.join(".config/coder").display().to_string()),
         );
+
+        if !fs::exists(folder_path.clone())? {
+            fs::create_dir_all(folder_path.clone())?;
+        }
+
         let config_str =
             fs::read_to_string(folder_path.clone().join(CONFIG_FILE)).unwrap_or_default();
         let mut config = serde_json::from_str(&config_str).unwrap_or(Config::default());
@@ -157,6 +162,10 @@ impl Config {
         for folder in fs::read_dir(self.folder_path.clone())? {
             let folder = folder?;
             let folder_name = folder.file_name();
+
+            if folder_name == CONFIG_FILE {
+                continue;
+            }
 
             if !self.repos.iter().any(|repo| *repo.name == folder_name) {
                 fs::remove_dir_all(folder.path())?;
