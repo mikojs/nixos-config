@@ -106,10 +106,6 @@ impl Config {
         for repo_config in &mut self.repos {
             let source_repo = Repository::open(repo_config.repo_path.clone())?;
             let target_repo_path = self.folder_path.join(repo_config.name.clone());
-            let mut history = RepoHistory {
-                timestamp: self.timestamp,
-                branches: Vec::new(),
-            };
 
             if Repository::open_bare(target_repo_path.clone()).is_err() {
                 Repository::init_bare(target_repo_path.clone())?;
@@ -117,6 +113,10 @@ impl Config {
 
             let mut remote =
                 source_repo.remote("coder", &target_repo_path.display().to_string())?;
+            let mut history = RepoHistory {
+                timestamp: self.timestamp,
+                branches: Vec::new(),
+            };
 
             for branch in source_repo.branches(Some(BranchType::Local))? {
                 let (branch, _) = branch?;
