@@ -3,12 +3,16 @@ use std::io::{self, Error as IoError};
 use add::{Add, AddError};
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
+use pull::{Pull, PullError};
+use push::{Push, PushError};
 use remove::{Remove, RemoveError};
 use sync::{Sync, SyncError};
 use thiserror::Error;
 
 mod add;
 mod config;
+mod pull;
+mod push;
 mod remove;
 mod sync;
 
@@ -22,6 +26,10 @@ enum MainError {
     Remove(#[from] RemoveError),
     #[error("SyncError: {0}")]
     Sync(#[from] SyncError),
+    #[error("PushError: {0}")]
+    Push(#[from] PushError),
+    #[error("PullError: {0}")]
+    Pull(#[from] PullError),
 }
 
 #[derive(Subcommand)]
@@ -32,6 +40,10 @@ enum Commands {
     Remove(Remove),
     /// Sync all repositories in Coder
     Sync(Sync),
+    /// Push all repositories in Coder to the target service
+    Push(Push),
+    /// Pull all repositories in Coder from the target service
+    Pull(Pull),
 }
 
 #[derive(Parser)]
@@ -60,6 +72,8 @@ fn main() -> Result<(), MainError> {
             Some(Commands::Add(add)) => add.run()?,
             Some(Commands::Remove(remove)) => remove.run()?,
             Some(Commands::Sync(sync)) => sync.run()?,
+            Some(Commands::Push(push)) => push.run()?,
+            Some(Commands::Pull(pull)) => pull.run()?,
             _ => Cli::command().print_help()?,
         }
     }
