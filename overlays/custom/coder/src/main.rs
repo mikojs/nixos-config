@@ -3,6 +3,7 @@ use std::io::{self, Error as IoError};
 use add::{Add, AddError};
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
+use deploy::{Deploy, DeployError};
 use pull::{Pull, PullError};
 use push::{Push, PushError};
 use remove::{Remove, RemoveError};
@@ -11,6 +12,7 @@ use thiserror::Error;
 
 mod add;
 mod config;
+mod deploy;
 mod pull;
 mod push;
 mod remove;
@@ -30,6 +32,8 @@ enum MainError {
     Push(#[from] PushError),
     #[error("PullError: {0}")]
     Pull(#[from] PullError),
+    #[error("DeployError: {0}")]
+    Deploy(#[from] DeployError),
 }
 
 #[derive(Subcommand)]
@@ -44,6 +48,8 @@ enum Commands {
     Push(Push),
     /// Pull all repositories in Coder from the target service
     Pull(Pull),
+    /// Deploy a repository deploy script in coder
+    Deploy(Deploy),
 }
 
 #[derive(Parser)]
@@ -74,6 +80,7 @@ fn main() -> Result<(), MainError> {
             Some(Commands::Sync(sync)) => sync.run()?,
             Some(Commands::Push(push)) => push.run()?,
             Some(Commands::Pull(pull)) => pull.run()?,
+            Some(Commands::Deploy(deploy)) => deploy.run()?,
             _ => Cli::command().print_help()?,
         }
     }
