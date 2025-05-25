@@ -17,6 +17,7 @@ mod deploy;
 mod info;
 mod pull;
 mod push;
+mod remote;
 mod remove;
 mod repo_info;
 mod sync;
@@ -49,9 +50,9 @@ enum Commands {
     Remove(Remove),
     /// Sync all repositories in Coder
     Sync(Sync),
-    /// Push all repositories in Coder to the target service
+    /// Push all repositories in Coder to the target service with Tailscale
     Push(Push),
-    /// Pull all repositories in Coder from the target service
+    /// Pull all repositories in Coder from the target service with Tailscale
     Pull(Pull),
     /// Deploy a repository deploy script in coder
     Deploy(Deploy),
