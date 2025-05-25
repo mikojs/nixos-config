@@ -4,6 +4,7 @@ use add::{Add, AddError};
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use deploy::{Deploy, DeployError};
+use info::{Info, InfoError};
 use pull::{Pull, PullError};
 use push::{Push, PushError};
 use remove::{Remove, RemoveError};
@@ -13,9 +14,11 @@ use thiserror::Error;
 mod add;
 mod config;
 mod deploy;
+mod info;
 mod pull;
 mod push;
 mod remove;
+mod repo_info;
 mod sync;
 
 #[derive(Error, Debug)]
@@ -34,6 +37,8 @@ enum MainError {
     Pull(#[from] PullError),
     #[error("DeployError: {0}")]
     Deploy(#[from] DeployError),
+    #[error("InfoError: {0}")]
+    Info(#[from] InfoError),
 }
 
 #[derive(Subcommand)]
@@ -50,6 +55,8 @@ enum Commands {
     Pull(Pull),
     /// Deploy a repository deploy script in coder
     Deploy(Deploy),
+    /// Get information about Coder
+    Info(Info),
 }
 
 #[derive(Parser)]
@@ -81,6 +88,7 @@ fn main() -> Result<(), MainError> {
             Some(Commands::Push(push)) => push.run()?,
             Some(Commands::Pull(pull)) => pull.run()?,
             Some(Commands::Deploy(deploy)) => deploy.run()?,
+            Some(Commands::Info(info)) => info.run()?,
             _ => Cli::command().print_help()?,
         }
     }

@@ -47,6 +47,19 @@ impl PartialEq for RepoConfig {
     }
 }
 
+impl RepoConfig {
+    pub fn info(&self) -> Result<(PathBuf, Vec<String>), ConfigError> {
+        Ok((
+            self.repo_path.clone(),
+            self.history
+                .first()
+                .ok_or(ConfigError::RepoNotFound)?
+                .branches
+                .clone(),
+        ))
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Config {
     #[serde(skip)]
@@ -183,14 +196,14 @@ impl Config {
 
         Ok(())
     }
+
+    pub fn list(&self) -> Vec<RepoConfig> {
+        self.repos.clone()
+    }
 }
 
 // for clap
 impl Config {
-    fn list(&self) -> Vec<RepoConfig> {
-        self.repos.clone()
-    }
-
     pub fn from_arg_matches_mut(matches: &mut ArgMatches) -> Result<String, ClapError> {
         let db_config_result = if let Some((name, _)) = matches.subcommand() {
             Config::new()
