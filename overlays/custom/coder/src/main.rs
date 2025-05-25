@@ -19,7 +19,6 @@ mod pull;
 mod push;
 mod remote;
 mod remove;
-mod repo_info;
 mod sync;
 
 #[derive(Error, Debug)]

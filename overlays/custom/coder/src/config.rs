@@ -28,6 +28,14 @@ pub enum ConfigError {
     BranchNotFound,
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct RepoInfo {
+    pub timestamp: i64,
+    pub bare_repo_path: PathBuf,
+    pub repo_path: PathBuf,
+    pub branches: Vec<String>,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct RepoHistory {
     timestamp: i64,
@@ -44,19 +52,6 @@ pub struct RepoConfig {
 impl PartialEq for RepoConfig {
     fn eq(&self, other: &Self) -> bool {
         self.name == other.name || self.repo_path == other.repo_path
-    }
-}
-
-impl RepoConfig {
-    pub fn info(&self) -> Result<(PathBuf, Vec<String>), ConfigError> {
-        Ok((
-            self.repo_path.clone(),
-            self.history
-                .first()
-                .ok_or(ConfigError::RepoNotFound)?
-                .branches
-                .clone(),
-        ))
     }
 }
 
@@ -197,8 +192,24 @@ impl Config {
         Ok(())
     }
 
-    pub fn list(&self) -> Vec<RepoConfig> {
-        self.repos.clone()
+    pub fn info(&self) -> Result<Vec<RepoInfo>, ConfigError> {
+        let mut repo_infos = Vec::new();
+
+        for repo in self.repos.clone() {
+            repo_infos.push(RepoInfo {
+                timestamp: self.timestamp,
+                bare_repo_path: self.folder_path.join(repo.name.clone()),
+                repo_path: repo.repo_path.clone(),
+                branches: repo
+                    .history
+                    .first()
+                    .ok_or(ConfigError::RepoNotFound)?
+                    .branches
+                    .clone(),
+            });
+        }
+
+        Ok(repo_infos)
     }
 }
 
@@ -208,7 +219,7 @@ impl Config {
         let db_config_result = if let Some((name, _)) = matches.subcommand() {
             Config::new()
                 .unwrap_or_default()
-                .list()
+                .repos
                 .into_iter()
                 .find(|db_config| db_config.name == name)
         } else {
@@ -225,7 +236,7 @@ impl Config {
         let config = Config::new().unwrap_or_default();
         let mut new_cmd = cmd.subcommand_required(true);
 
-        for db_config in config.list() {
+        for db_config in config.repos {
             new_cmd = new_cmd.subcommand(Command::new(db_config.name).about("Repo"));
         }
 
