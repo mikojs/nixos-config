@@ -4,13 +4,11 @@ use add::{Add, AddError};
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use remove::{Remove, RemoveError};
-use sync::{Sync, SyncError};
 use thiserror::Error;
 
 mod add;
 mod config;
 mod remove;
-mod sync;
 
 #[derive(Error, Debug)]
 enum MainError {
@@ -20,8 +18,6 @@ enum MainError {
     Add(#[from] AddError),
     #[error("RemoveError: {0}")]
     Remove(#[from] RemoveError),
-    #[error("SyncError: {0}")]
-    Sync(#[from] SyncError),
 }
 
 #[derive(Subcommand)]
@@ -30,8 +26,6 @@ enum Commands {
     Add(Add),
     /// Remove a repository from Coder
     Remove(Remove),
-    /// Sync all repositories in Coder
-    Sync(Sync),
 }
 
 #[derive(Parser)]
@@ -59,7 +53,6 @@ fn main() -> Result<(), MainError> {
         match cli.commands {
             Some(Commands::Add(add)) => add.run()?,
             Some(Commands::Remove(remove)) => remove.run()?,
-            Some(Commands::Sync(sync)) => sync.run()?,
             _ => Cli::command().print_help()?,
         }
     }

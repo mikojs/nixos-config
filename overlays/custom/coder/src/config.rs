@@ -5,9 +5,8 @@ use std::{
     path::PathBuf,
 };
 
-use chrono::{Duration, Utc};
 use clap::{error::ErrorKind, ArgMatches, Command, Error as ClapError};
-use git2::{BranchType, Error as RepositoryError, Repository};
+use git2::{Error as RepositoryError, Repository};
 use serde::{Deserialize, Serialize};
 use serde_json::Error as SerdeJsonError;
 use thiserror::Error;
@@ -24,21 +23,12 @@ pub enum ConfigError {
     RepoExists,
     #[error("Repo not found")]
     RepoNotFound,
-    #[error("Branch not found")]
-    BranchNotFound,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub struct RepoHistory {
-    timestamp: i64,
-    branches: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct RepoConfig {
     name: String,
     repo_path: PathBuf,
-    history: Vec<RepoHistory>,
 }
 
 impl PartialEq for RepoConfig {
@@ -51,7 +41,6 @@ impl PartialEq for RepoConfig {
 pub struct Config {
     #[serde(skip)]
     folder_path: PathBuf,
-    timestamp: i64,
     repos: Vec<RepoConfig>,
 }
 
@@ -73,7 +62,6 @@ impl Config {
         let mut config = serde_json::from_str(&config_str).unwrap_or(Config::default());
 
         config.folder_path = folder_path;
-        config.timestamp = Utc::now().timestamp();
 
         Ok(config)
     }
@@ -83,7 +71,6 @@ impl Config {
         let repo_config = RepoConfig {
             name: repo_name,
             repo_path: repo.path().to_path_buf(),
-            history: Vec::new(),
         };
 
         if self.repos.contains(&repo_config) {
@@ -107,78 +94,9 @@ impl Config {
         Ok(())
     }
 
-    pub fn sync(&mut self) -> Result<(), ConfigError> {
-        for repo_config in &mut self.repos {
-            let source_repo = Repository::open(repo_config.repo_path.clone())?;
-            let target_repo_path = self.folder_path.join(repo_config.name.clone());
-
-            if Repository::open_bare(target_repo_path.clone()).is_err() {
-                Repository::init_bare(target_repo_path.clone())?;
-            }
-
-            let mut remote =
-                source_repo.remote("coder", &target_repo_path.display().to_string())?;
-            let mut history = RepoHistory {
-                timestamp: self.timestamp,
-                branches: Vec::new(),
-            };
-
-            for branch in source_repo.branches(Some(BranchType::Local))? {
-                let (branch, _) = branch?;
-                let branch_str = branch.name()?.ok_or(ConfigError::BranchNotFound)?;
-
-                remote.push(
-                    &[format!(
-                        "refs/heads/{}:refs/heads/{}-{}",
-                        branch_str, self.timestamp, branch_str
-                    )],
-                    None,
-                )?;
-                history
-                    .branches
-                    .push(format!("{}-{}", self.timestamp, branch_str));
-            }
-
-            source_repo.remote_delete("coder")?;
-            repo_config.history.push(history);
-
-            let target_repo = Repository::open_bare(target_repo_path)?;
-
-            for history in repo_config.history.clone().iter() {
-                if self.timestamp - history.timestamp < Duration::days(7).num_seconds() {
-                    continue;
-                }
-
-                for branch in &history.branches {
-                    target_repo
-                        .find_branch(branch, BranchType::Local)?
-                        .delete()?;
-                }
-
-                repo_config.history.retain(|h| *h == *history);
-            }
-        }
-
-        for folder in fs::read_dir(self.folder_path.clone())? {
-            let folder = folder?;
-            let folder_name = folder.file_name();
-
-            if folder_name == CONFIG_FILE {
-                continue;
-            }
-
-            if !self.repos.iter().any(|repo| *repo.name == folder_name) {
-                fs::remove_dir_all(folder.path())?;
-            }
-        }
-
-        Ok(())
-    }
-
     pub fn save(&mut self) -> Result<(), ConfigError> {
         let mut file = File::create(self.folder_path.join(CONFIG_FILE))?;
 
-        self.sync()?;
         file.write_all(serde_json::to_string(&self)?.as_bytes())?;
 
         Ok(())
@@ -187,15 +105,11 @@ impl Config {
 
 // for clap
 impl Config {
-    fn list(&self) -> Vec<RepoConfig> {
-        self.repos.clone()
-    }
-
     pub fn from_arg_matches_mut(matches: &mut ArgMatches) -> Result<String, ClapError> {
         let db_config_result = if let Some((name, _)) = matches.subcommand() {
             Config::new()
                 .unwrap_or_default()
-                .list()
+                .repos
                 .into_iter()
                 .find(|db_config| db_config.name == name)
         } else {
@@ -212,7 +126,7 @@ impl Config {
         let config = Config::new().unwrap_or_default();
         let mut new_cmd = cmd.subcommand_required(true);
 
-        for db_config in config.list() {
+        for db_config in config.repos {
             new_cmd = new_cmd.subcommand(Command::new(db_config.name).about("Repo"));
         }
 
@@ -225,7 +139,6 @@ mod config_tests {
     use std::path::Path;
 
     use super::*;
-    use chrono::Duration;
 
     #[derive(Error, Debug)]
     enum ConfigTestsError {
@@ -257,19 +170,6 @@ mod config_tests {
         repo.branch("foo", &commit, false)?;
 
         Ok(Repository::open(repo_path)?)
-    }
-
-    fn get_branches(repo: Repository) -> Result<Vec<String>, ConfigTestsError> {
-        let mut branchees = Vec::new();
-
-        for branch in repo.branches(Some(BranchType::Local))? {
-            let (branch, _) = branch?;
-            let branch_str = branch.name()?.ok_or(ConfigError::BranchNotFound)?;
-
-            branchees.push(branch_str.to_string());
-        }
-
-        Ok(branchees)
     }
 
     fn test(
@@ -342,50 +242,6 @@ mod config_tests {
                 true,
             )?;
             config.remove("repo1".to_string())?;
-
-            Ok(())
-        })
-    }
-
-    #[test]
-    fn sync_the_repos() -> Result<(), ConfigTestsError> {
-        test("sync_the_repos", |test_folder_path, config| {
-            create_test_repo(test_folder_path, "repo1")?;
-            config.add("repo1".to_string(), test_folder_path.join("repo1"))?;
-            config.sync()?;
-
-            test_assert_eq(
-                "Bare Repo Exists",
-                fs::exists(config.folder_path.join("repo1"))?,
-                true,
-            )?;
-            test_assert_eq(
-                "Branches",
-                get_branches(Repository::open_bare(config.folder_path.join("repo1"))?)?,
-                vec!["foo", "main"]
-                    .into_iter()
-                    .map(|b| format!("{}-{}", config.timestamp, b))
-                    .collect(),
-            )?;
-
-            config.repos[0].history[0].timestamp =
-                config.timestamp - Duration::days(10).num_seconds();
-            config.sync()?;
-
-            test_assert_eq(
-                "No Branches",
-                get_branches(Repository::open_bare(config.folder_path.join("repo1"))?)?,
-                Vec::new(),
-            )?;
-
-            config.remove("repo1".to_string())?;
-            config.sync()?;
-
-            test_assert_eq(
-                "Bare Repo Not Exists",
-                fs::exists(config.folder_path.join("repo1"))?,
-                false,
-            )?;
 
             Ok(())
         })
