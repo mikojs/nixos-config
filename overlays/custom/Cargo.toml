@@ -1,3 +1,3 @@
 [workspace]
-members = [ "initialize", "db", "coder" ]
+members = [ "initialize", "db" ]
 resolver = "2"
