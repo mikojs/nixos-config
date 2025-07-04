@@ -8,5 +8,8 @@ with inputs;
     nixos-wsl.nixosModules.default
   ];
 
-  wsl.enable = true;
+  wsl = {
+    enable = true;
+    docker-desktop.enable = true;
+  };
 }
