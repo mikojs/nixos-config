@@ -24,10 +24,11 @@ impl Sync {
             exec_result("git", vec!["bundle", "list-heads", &bundle_path_str])?;
         let bundle_branches = bundle_branches_str
             .split("\n")
-            .filter(|s| !s.is_empty())
+            .filter(|s| !s.is_empty() && s.contains("refs/heads/"))
             .map(|s| s.split(" ").collect::<Vec<&str>>()[1].replace("refs/heads/", ""))
             .collect::<Vec<String>>();
 
+        let current_branch = exec_result("git", vec!["rev-parse", "--abbrev-ref", "HEAD"])?;
         let current_branches_str = exec_result("git", vec!["branch"])?;
         let current_branches = current_branches_str
             .split("\n")
@@ -60,12 +61,16 @@ impl Sync {
             exec("git", vec!["branch", branch])?;
         }
 
-        for branch in bundle_branches {
+        for branch in bundle_branches.clone() {
             exec("git", vec!["checkout", &branch])?;
             exec("git", vec!["pull", &bundle_path_str, &branch])?;
         }
 
-        exec("git", vec!["checkout", main_branch])?;
+        if bundle_branches.contains(&current_branch) {
+            exec("git", vec!["checkout", &current_branch])?;
+        } else {
+            exec("git", vec!["checkout", &main_branch])?;
+        }
 
         Ok(())
     }
