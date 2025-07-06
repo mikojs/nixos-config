@@ -6,6 +6,7 @@ let
   custom-pkg-names = [
     "initialize"
     "db"
+    "coder"
   ];
 
   custom-pkgs = listToAttrs (
