@@ -48,14 +48,25 @@ impl Sync {
         Ok(())
     }
 
+    fn get_current_branch(&self) -> Result<String, SyncError> {
+        let current_branch =
+            exec_result("git", vec!["rev-parse", "--abbrev-ref", "HEAD"])?.replace("\n", "");
+
+        Ok(current_branch)
+    }
+
     fn checkout_to_main_branch(&self) -> Result<(), SyncError> {
+        let current_branch = self.get_current_branch()?;
         let main_branch = self
             .current_branches
             .iter()
             .find(|b| *b == "develop" || *b == "master")
             .map_or("main", |b| b);
 
-        exec("git", vec!["checkout", main_branch])?;
+        if current_branch != main_branch {
+            exec("git", vec!["checkout", main_branch])?;
+        }
+
         Ok(())
     }
 
@@ -68,6 +79,7 @@ impl Sync {
 
         for branch in removed_branches {
             exec("git", vec!["branch", "-D", branch])?;
+            println!("Branch '{}' is removed.", branch);
         }
 
         Ok(())
@@ -82,6 +94,7 @@ impl Sync {
 
         for branch in added_branches {
             exec("git", vec!["branch", branch])?;
+            println!("Branch '{}' is added.", branch);
         }
 
         Ok(())
@@ -89,11 +102,15 @@ impl Sync {
 
     fn update_branches(&self) -> Result<(), SyncError> {
         for branch in self.bundle_branches.clone() {
-            exec("git", vec!["checkout", &branch])?;
+            if branch != self.get_current_branch()? {
+                exec("git", vec!["checkout", &branch])?;
+            }
+
             exec(
                 "git",
                 vec!["pull", &self.bundle.display().to_string(), &branch],
             )?;
+            println!("Branch '{}' is updated.", branch);
         }
 
         Ok(())
@@ -103,15 +120,16 @@ impl Sync {
         self.get_bundle_branches()?;
         self.get_current_branches()?;
 
-        let current_branch =
-            exec_result("git", vec!["rev-parse", "--abbrev-ref", "HEAD"])?.replace("\n", "");
+        let current_branch = self.get_current_branch()?;
 
         self.checkout_to_main_branch()?;
         self.remove_old_branches()?;
         self.add_new_branches()?;
         self.update_branches()?;
 
-        if self.bundle_branches.contains(&current_branch) {
+        if self.bundle_branches.contains(&current_branch)
+            && current_branch != self.get_current_branch()?
+        {
             exec("git", vec!["checkout", &current_branch])?;
         }
 

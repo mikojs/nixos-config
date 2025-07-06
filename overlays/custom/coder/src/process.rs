@@ -1,4 +1,4 @@
-use std::{io::Error as IoError, process::Command, string::FromUtf8Error};
+use std::{env, io::Error as IoError, process::Command, string::FromUtf8Error};
 
 use thiserror::Error;
 
@@ -23,8 +23,12 @@ pub fn exec(command: &str, args: Vec<&str>) -> Result<(), ProcessError> {
         return Err(ProcessError::CommandNotFound(command.to_string()));
     }
 
-    if !Command::new(command).args(args).status()?.success() {
-        return Err(ProcessError::RunCommandFails);
+    if env::var("CODER_DEBUG").is_ok() {
+        if !Command::new(command).args(args).status()?.success() {
+            return Err(ProcessError::RunCommandFails);
+        }
+    } else {
+        Command::new(command).args(args).output()?;
     }
 
     Ok(())
