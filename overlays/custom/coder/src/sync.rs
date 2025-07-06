@@ -2,13 +2,13 @@ use clap::Args;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
-pub enum PushError {}
+pub enum SyncError {}
 
 #[derive(Args)]
-pub struct Push {}
+pub struct Sync {}
 
-impl Push {
-    pub fn run(&self) -> Result<(), PushError> {
+impl Sync {
+    pub fn run(&self) -> Result<(), SyncError> {
         Ok(())
     }
 }

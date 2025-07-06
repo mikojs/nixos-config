@@ -2,23 +2,23 @@ use std::io::{self, Error as IoError};
 
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
-use push::{Push, PushError};
+use sync::{Sync, SyncError};
 use thiserror::Error;
 
-mod push;
+mod sync;
 
 #[derive(Error, Debug)]
 enum MainError {
     #[error("IoError: {0}")]
     Io(#[from] IoError),
-    #[error("PushError: {0}")]
-    Push(#[from] PushError),
+    #[error("SyncError: {0}")]
+    Sync(#[from] SyncError),
 }
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Push code to the remote server
-    Push(Push),
+    /// Sync code with git bundle file
+    Sync(Sync),
 }
 
 #[derive(Parser)]
@@ -44,7 +44,7 @@ fn main() -> Result<(), MainError> {
         );
     } else {
         match cli.commands {
-            Some(Commands::Push(push)) => push.run()?,
+            Some(Commands::Sync(push)) => push.run()?,
             _ => Cli::command().print_help()?,
         }
     }
