@@ -5,6 +5,7 @@ use clap_complete::{generate, Shell};
 use sync::{Sync, SyncError};
 use thiserror::Error;
 
+mod process;
 mod sync;
 
 #[derive(Error, Debug)]
