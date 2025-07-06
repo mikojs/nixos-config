@@ -2,16 +2,24 @@ use std::io::{self, Error as IoError};
 
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
+use push::{Push, PushError};
 use thiserror::Error;
+
+mod push;
 
 #[derive(Error, Debug)]
 enum MainError {
     #[error("IoError: {0}")]
     Io(#[from] IoError),
+    #[error("PushError: {0}")]
+    Push(#[from] PushError),
 }
 
 #[derive(Subcommand)]
-enum Commands {}
+enum Commands {
+    /// Push code to the remote server
+    Push(Push),
+}
 
 #[derive(Parser)]
 struct Cli {
@@ -36,6 +44,7 @@ fn main() -> Result<(), MainError> {
         );
     } else {
         match cli.commands {
+            Some(Commands::Push(push)) => push.run()?,
             _ => Cli::command().print_help()?,
         }
     }
