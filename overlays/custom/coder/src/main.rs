@@ -45,7 +45,7 @@ fn main() -> Result<(), MainError> {
         );
     } else {
         match cli.commands {
-            Some(Commands::Sync(push)) => push.run()?,
+            Some(Commands::Sync(mut push)) => push.run()?,
             _ => Cli::command().print_help()?,
         }
     }

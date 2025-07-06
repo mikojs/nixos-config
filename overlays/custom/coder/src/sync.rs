@@ -15,61 +15,103 @@ pub enum SyncError {
 pub struct Sync {
     /// Path to the bundle file
     bundle: PathBuf,
+
+    #[clap(skip)]
+    bundle_branches: Vec<String>,
+    #[clap(skip)]
+    current_branches: Vec<String>,
 }
 
 impl Sync {
-    pub fn run(&self) -> Result<(), SyncError> {
-        let bundle_path_str = self.bundle.display().to_string();
-        let bundle_branches_str =
-            exec_result("git", vec!["bundle", "list-heads", &bundle_path_str])?;
-        let bundle_branches = bundle_branches_str
+    fn get_bundle_branches(&mut self) -> Result<(), SyncError> {
+        let bundle_branches_str = exec_result(
+            "git",
+            vec!["bundle", "list-heads", &self.bundle.display().to_string()],
+        )?;
+
+        self.bundle_branches = bundle_branches_str
             .split("\n")
             .filter(|s| !s.is_empty() && s.contains("refs/heads/"))
             .map(|s| s.split(" ").collect::<Vec<&str>>()[1].replace("refs/heads/", ""))
-            .collect::<Vec<String>>();
+            .collect();
+        Ok(())
+    }
 
-        let current_branch = exec_result("git", vec!["rev-parse", "--abbrev-ref", "HEAD"])?;
+    fn get_current_branches(&mut self) -> Result<(), SyncError> {
         let current_branches_str = exec_result("git", vec!["branch"])?;
-        let current_branches = current_branches_str
+
+        self.current_branches = current_branches_str
             .split("\n")
             .filter(|s| !s.is_empty())
             .map(|s| s.replace("*", "").replace(" ", ""))
-            .collect::<Vec<String>>();
+            .collect();
+        Ok(())
+    }
 
-        let main_branch = current_branches
+    fn checkout_to_main_branch(&self) -> Result<(), SyncError> {
+        let main_branch = self
+            .current_branches
             .iter()
             .find(|b| *b == "develop" || *b == "master")
             .map_or("main", |b| b);
 
         exec("git", vec!["checkout", main_branch])?;
+        Ok(())
+    }
 
-        let removed_branches = current_branches
+    fn remove_old_branches(&self) -> Result<(), SyncError> {
+        let removed_branches = self
+            .current_branches
             .iter()
-            .filter(|b| !bundle_branches.contains(b))
+            .filter(|b| !self.bundle_branches.contains(b))
             .collect::<Vec<&String>>();
 
         for branch in removed_branches {
             exec("git", vec!["branch", "-D", branch])?;
         }
 
-        let added_branches = bundle_branches
+        Ok(())
+    }
+
+    fn add_new_branches(&self) -> Result<(), SyncError> {
+        let added_branches = self
+            .bundle_branches
             .iter()
-            .filter(|b| !current_branches.contains(b))
+            .filter(|b| !self.current_branches.contains(b))
             .collect::<Vec<&String>>();
 
         for branch in added_branches {
             exec("git", vec!["branch", branch])?;
         }
 
-        for branch in bundle_branches.clone() {
+        Ok(())
+    }
+
+    fn update_branches(&self) -> Result<(), SyncError> {
+        for branch in self.bundle_branches.clone() {
             exec("git", vec!["checkout", &branch])?;
-            exec("git", vec!["pull", &bundle_path_str, &branch])?;
+            exec(
+                "git",
+                vec!["pull", &self.bundle.display().to_string(), &branch],
+            )?;
         }
 
-        if bundle_branches.contains(&current_branch) {
+        Ok(())
+    }
+
+    pub fn run(&mut self) -> Result<(), SyncError> {
+        self.get_bundle_branches()?;
+        self.get_current_branches()?;
+
+        let current_branch = exec_result("git", vec!["rev-parse", "--abbrev-ref", "HEAD"])?;
+
+        self.checkout_to_main_branch()?;
+        self.remove_old_branches()?;
+        self.add_new_branches()?;
+        self.update_branches()?;
+
+        if self.bundle_branches.contains(&current_branch) {
             exec("git", vec!["checkout", &current_branch])?;
-        } else {
-            exec("git", vec!["checkout", &main_branch])?;
         }
 
         Ok(())
