@@ -103,7 +103,8 @@ impl Sync {
         self.get_bundle_branches()?;
         self.get_current_branches()?;
 
-        let current_branch = exec_result("git", vec!["rev-parse", "--abbrev-ref", "HEAD"])?;
+        let current_branch =
+            exec_result("git", vec!["rev-parse", "--abbrev-ref", "HEAD"])?.replace("\n", "");
 
         self.checkout_to_main_branch()?;
         self.remove_old_branches()?;
