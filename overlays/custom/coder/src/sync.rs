@@ -71,6 +71,10 @@ impl Sync {
             .find(|b| *b == "develop" || *b == "master")
             .map_or("main", |b| b);
 
+        if !exec_result("git", vec!["status", "--porcelain"])?.is_empty() {
+            exec("git", vec!["stash", "--include-untracked"])?;
+        }
+
         if current_branch != main_branch {
             exec("git", vec!["checkout", main_branch])?;
         }
