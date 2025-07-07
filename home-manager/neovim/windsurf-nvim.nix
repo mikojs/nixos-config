@@ -10,7 +10,7 @@
       plugin = windsurf-nvim;
       config = ''
         lua << END
-          require("windsurf").setup({
+          require("codeium").setup({
             enable_cmp_source = false,
             virtual_text = {
               enabled = true,
