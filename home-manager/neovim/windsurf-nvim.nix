@@ -7,10 +7,10 @@
     plenary-nvim
 
     {
-      plugin = codeium-nvim;
+      plugin = windsurf-nvim;
       config = ''
         lua << END
-          require("codeium").setup({
+          require("windsurf").setup({
             enable_cmp_source = false,
             virtual_text = {
               enabled = true,
