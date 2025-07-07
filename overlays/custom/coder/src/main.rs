@@ -2,10 +2,12 @@ use std::io::{self, Error as IoError};
 
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
+use push::{Push, PushError};
 use sync::{Sync, SyncError};
 use thiserror::Error;
 
 mod process;
+mod push;
 mod sync;
 
 #[derive(Error, Debug)]
@@ -14,12 +16,16 @@ enum MainError {
     Io(#[from] IoError),
     #[error("SyncError: {0}")]
     Sync(#[from] SyncError),
+    #[error("PushError: {0}")]
+    Push(#[from] PushError),
 }
 
 #[derive(Subcommand)]
 enum Commands {
     /// Sync code with git bundle file
     Sync(Sync),
+    /// Push code to remote server with git bundle file
+    Push(Push),
 }
 
 #[derive(Parser)]
@@ -45,7 +51,8 @@ fn main() -> Result<(), MainError> {
         );
     } else {
         match cli.commands {
-            Some(Commands::Sync(mut push)) => push.run()?,
+            Some(Commands::Sync(mut sync)) => sync.run()?,
+            Some(Commands::Push(push)) => push.run()?,
             _ => Cli::command().print_help()?,
         }
     }
