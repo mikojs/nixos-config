@@ -7,3 +7,4 @@ edition = "2021"
 clap = { version = "4.5.35", features = ["derive", "string"] }
 clap_complete = "4.5.47"
 thiserror = "2.0.12"
+url = "2.5.4"

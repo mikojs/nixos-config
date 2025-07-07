@@ -147,6 +147,7 @@ dependencies = [
  "clap",
  "clap_complete",
  "thiserror",
+ "url",
 ]
 
 [[package]]
