@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::{fs::remove_file, io::Error as IoError, path::PathBuf};
 
 use clap::Args;
 use thiserror::Error;
@@ -8,6 +8,8 @@ use crate::process::{exec, ProcessError};
 
 #[derive(Error, Debug)]
 pub enum PushError {
+    #[error("IoError: {0}")]
+    Io(#[from] IoError),
     #[error("ProcessError: {0}")]
     Process(#[from] ProcessError),
 }
@@ -24,10 +26,10 @@ impl Push {
     pub fn run(&self) -> Result<(), PushError> {
         let ssh_url = self.ssh_url.as_str().replace("ssh://", "");
 
-        println!("Creating bundle");
+        println!("Creating bundle file");
         exec("git", vec!["bundle", "create", "temp.bundle", "--all"])?;
 
-        println!("Pushing bundle");
+        println!("Pushing bundle file");
         exec(
             "scp",
             vec![
@@ -47,9 +49,7 @@ impl Push {
                 ),
             ],
         )?;
-
-        println!("Cleaning up");
-        exec("rm", vec!["temp.bundle"])?;
+        remove_file(self.directory.join("temp.bundle"))?;
 
         Ok(())
     }

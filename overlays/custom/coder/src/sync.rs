@@ -23,6 +23,14 @@ pub struct Sync {
 }
 
 impl Sync {
+    pub fn new(bundle: PathBuf) -> Self {
+        Self {
+            bundle,
+            bundle_branches: Vec::new(),
+            current_branches: Vec::new(),
+        }
+    }
+
     fn get_bundle_branches(&mut self) -> Result<(), SyncError> {
         let bundle_branches_str = exec_result(
             "git",
