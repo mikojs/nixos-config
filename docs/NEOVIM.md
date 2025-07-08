@@ -49,6 +49,13 @@ nvim-cmp is a completion plugin for Neovim.
     | Confirm          | `<CR>`       |
     | Select           | `<Tab>`      |
 
+## Vim-rzip
+
+Vim-rzip is a plugin for Neovim that provides a wrapper for zip files.
+
+- [Configuration](../home-manager/neovim/vim-rzip.nix)
+- [Repository](https://github.com/lbrayner/vim-rzip)
+
 ## Which-key.nvim
 
 Which-key.nvim is a plugin for Neovim that shows a popup with available keybindings.
@@ -187,13 +194,6 @@ Todo-comments.nvim is a todo comments plugin for Neovim.
     | Description | Key          |
     | ---         | ---          |
     | Show TODOs  | `<leader>O`  |
-
-## Vim-rzip
-
-Vim-rzip is a plugin for Neovim that provides a wrapper for zip files.
-
-- [Configuration](../home-manager/neovim/vim-rzip.nix)
-- [Repository](https://github.com/lbrayner/vim-rzip)
 
 ## Csvview-nvim
 
