@@ -348,9 +348,9 @@ Conform.nvim is a formatter plugin for Neovim.
     - `postgresql`: [pgformatter](https://github.com/darold/pgformatter)
     - `rust`: [rustfmt](https://github.com/rust-lang/rustfmt)
 
-## Codeium.nvim
+## Windsurf.nvim
 
-Codeium.nvim is a plugin for Neovim that provides AI code completion.
+Windsurf.nvim is a plugin for Neovim that provides AI code completion.
 
-- [Configuration](../home-manager/neovim/codeium-nvim.nix)
-- [Repository](https://github.com/Exafunction/codeium.vim)
+- [Configuration](../home-manager/neovim/windsurf-nvim.nix)
+- [Repository](https://github.com/Exafunction/windsurf.vim)

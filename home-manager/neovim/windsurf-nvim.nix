@@ -7,7 +7,7 @@
     plenary-nvim
 
     {
-      plugin = codeium-nvim;
+      plugin = windsurf-nvim;
       config = ''
         lua << END
           require("codeium").setup({

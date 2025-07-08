@@ -38,7 +38,7 @@ let
           # Formatting
           "conform-nvim"
           # AI
-          "codeium-nvim.nix"
+          "windsurf-nvim.nix"
         ]
         ++ (map (l: "./languages/${l.language}.nix") (
           filter (l: pathExists ./languages/${l.language}.nix) languages

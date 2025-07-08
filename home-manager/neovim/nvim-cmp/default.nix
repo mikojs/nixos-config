@@ -97,6 +97,7 @@ in
               }),
               formatting = {
                 format = function(entry, item)
+                  -- copy from https://github.com/LazyVim/LazyVim/blob/25abbf546d564dc484cf903804661ba12de45507/lua/lazyvim/config/init.lua#L61
                   local icons = {
                     Array         = " ",
                     Boolean       = "󰨙 ",
@@ -128,7 +129,7 @@ in
                     Package       = " ",
                     Property      = " ",
                     Reference     = " ",
-                    Snippet       = " ",
+                    Snippet       = "󱄽 ",
                     String        = " ",
                     Struct        = "󰆼 ",
                     Supermaven    = " ",
