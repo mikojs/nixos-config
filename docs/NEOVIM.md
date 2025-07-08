@@ -161,9 +161,9 @@ Barbar.nvim is a tabline plugin for Neovim.
     | Close left other tabs                | `<leader>tl`  |
     | Close right other tabs               | `<leader>tr`  |
 
-## Presistence.nvim
+## Persistence.nvim
 
-Presistence.nvim is a session plugin for Neovim.
+Persistence.nvim is a session plugin for Neovim.
 
 - [Configuration](../home-manager/neovim/presistence-nvim.nix)
 - [Repository](https://github.com/folke/persistence.nvim)
@@ -172,7 +172,8 @@ Presistence.nvim is a session plugin for Neovim.
     | Description            | Key          |
     | ---                    | ---          |
     | Session                | `<leader>s`  |
-    | Load last session      | `<leader>sl` |
+    | Load session           | `<leader>sl` |
+    | Select session         | `<leader>sc` |
     | Save auto-save session | `<leader>ss` |
 
 ## Todo-comments.nvim
