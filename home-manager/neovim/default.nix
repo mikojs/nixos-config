@@ -100,6 +100,13 @@ in
 
       " disable compatibility
       set nocompatible
+
+      " fold
+      set foldmethod=expr
+      set foldexpr=nvim_treesitter#foldexpr()
+      set foldtext=getline(v:foldstart).'...'.trim(getline(v:foldend))
+      set foldnestmax=3
+      set foldminlines=1
     '';
 
     extraLuaConfig = ''
