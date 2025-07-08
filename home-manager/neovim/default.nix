@@ -35,6 +35,7 @@ let
           "todo-comments-nvim.nix"
           # Coding
           "mini-nvim.nix"
+          "vim-rzip.nix"
           # Formatting
           "conform-nvim"
           # AI
