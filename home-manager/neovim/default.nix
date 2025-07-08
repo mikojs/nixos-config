@@ -33,8 +33,8 @@ let
           "barbar-nvim.nix"
           "persistence-nvim.nix"
           "todo-comments-nvim.nix"
-          # File type support
           "vim-rzip.nix"
+          # Viewer
           "csvview-nvim.nix"
           "markview-nvim.nix"
           # Coding
