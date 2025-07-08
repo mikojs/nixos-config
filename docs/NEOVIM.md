@@ -17,14 +17,14 @@ Lualine.nvim is a statusline plugin for Neovim.
 - [Repository](https://github.com/nvim-lualine/lualine.nvim)
 
 
-## nvim-treesitter
+## Nvim-treesitter
 
 nvim-treesitter is a syntax highlighting plugin for Neovim.
 
 - [Configuration](../home-manager/neovim/nvim-treesitter.nix)
 - [Repository](https://github.com/nvim-treesitter/nvim-treesitter)
 
-## nvim-cmp
+## Nvim-cmp
 
 nvim-cmp is a completion plugin for Neovim.
 
@@ -48,6 +48,13 @@ nvim-cmp is a completion plugin for Neovim.
     | Abort            | `<C-e>`      |
     | Confirm          | `<CR>`       |
     | Select           | `<Tab>`      |
+
+## Vim-rzip
+
+Vim-rzip is a plugin for Neovim that provides a wrapper for zip files.
+
+- [Configuration](../home-manager/neovim/vim-rzip.nix)
+- [Repository](https://github.com/lbrayner/vim-rzip)
 
 ## Which-key.nvim
 
@@ -161,9 +168,9 @@ Barbar.nvim is a tabline plugin for Neovim.
     | Close left other tabs                | `<leader>tl`  |
     | Close right other tabs               | `<leader>tr`  |
 
-## Presistence.nvim
+## Persistence.nvim
 
-Presistence.nvim is a session plugin for Neovim.
+Persistence.nvim is a session plugin for Neovim.
 
 - [Configuration](../home-manager/neovim/presistence-nvim.nix)
 - [Repository](https://github.com/folke/persistence.nvim)
@@ -172,7 +179,8 @@ Presistence.nvim is a session plugin for Neovim.
     | Description            | Key          |
     | ---                    | ---          |
     | Session                | `<leader>s`  |
-    | Load last session      | `<leader>sl` |
+    | Load session           | `<leader>sl` |
+    | Select session         | `<leader>sc` |
     | Save auto-save session | `<leader>ss` |
 
 ## Todo-comments.nvim
@@ -186,6 +194,28 @@ Todo-comments.nvim is a todo comments plugin for Neovim.
     | Description | Key          |
     | ---         | ---          |
     | Show TODOs  | `<leader>O`  |
+
+## Csvview-nvim
+
+Csvview-nvim is a plugin for Neovim that provides a CSV viewer.
+
+- [Configuration](../home-manager/neovim/csvview-nvim.nix)
+- [Repository](https://github.com/hat0uma/csvview.nvim)
+
+```nvim
+:CsvViewToggle ...
+```
+
+## Markview.nvim
+
+Markview.nvim is a plugin for Neovim that provides a mark viewer.
+
+- [Configuration](../home-manager/neovim/markview-nvim.nix)
+- [Repository](https://github.com/OXY2DEV/markview.nvim)
+
+```nvim
+:Markview ...
+```
 
 ## Mini.nvim
 

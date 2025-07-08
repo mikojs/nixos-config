@@ -26,6 +26,7 @@ let
           "nvim-treesitter.nix"
           "nvim-cmp"
           # Editor
+          "vim-rzip.nix"
           "which-key-nvim.nix"
           "telescope-nvim.nix"
           "gitsigns-nvim.nix"
@@ -33,6 +34,9 @@ let
           "barbar-nvim.nix"
           "persistence-nvim.nix"
           "todo-comments-nvim.nix"
+          # Viewer
+          "csvview-nvim.nix"
+          "markview-nvim.nix"
           # Coding
           "mini-nvim.nix"
           # Formatting
