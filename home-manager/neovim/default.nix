@@ -36,6 +36,7 @@ let
           # File type support
           "vim-rzip.nix"
           "csvview-nvim.nix"
+          "markview-nvim.nix"
           # Coding
           "mini-nvim.nix"
           # Formatting
