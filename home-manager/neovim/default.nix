@@ -33,9 +33,11 @@ let
           "barbar-nvim.nix"
           "persistence-nvim.nix"
           "todo-comments-nvim.nix"
+          # File type support
+          "vim-rzip.nix"
+          "csvview-nvim.nix"
           # Coding
           "mini-nvim.nix"
-          "vim-rzip.nix"
           # Formatting
           "conform-nvim"
           # AI
