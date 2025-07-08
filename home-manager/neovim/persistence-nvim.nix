@@ -12,6 +12,7 @@
 
           persistence.setup({
             need = 1,
+            branch = true,
           })
 
           require("which-key").add({
