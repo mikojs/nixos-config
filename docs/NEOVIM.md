@@ -17,14 +17,14 @@ Lualine.nvim is a statusline plugin for Neovim.
 - [Repository](https://github.com/nvim-lualine/lualine.nvim)
 
 
-## nvim-treesitter
+## Nvim-treesitter
 
 nvim-treesitter is a syntax highlighting plugin for Neovim.
 
 - [Configuration](../home-manager/neovim/nvim-treesitter.nix)
 - [Repository](https://github.com/nvim-treesitter/nvim-treesitter)
 
-## nvim-cmp
+## Nvim-cmp
 
 nvim-cmp is a completion plugin for Neovim.
 
@@ -187,6 +187,35 @@ Todo-comments.nvim is a todo comments plugin for Neovim.
     | Description | Key          |
     | ---         | ---          |
     | Show TODOs  | `<leader>O`  |
+
+## Vim-rzip
+
+Vim-rzip is a plugin for Neovim that provides a wrapper for zip files.
+
+- [Configuration](../home-manager/neovim/vim-rzip.nix)
+- [Repository](https://github.com/lbrayner/vim-rzip)
+
+## Csvview-nvim
+
+Csvview-nvim is a plugin for Neovim that provides a CSV viewer.
+
+- [Configuration](../home-manager/neovim/csvview-nvim.nix)
+- [Repository](https://github.com/hat0uma/csvview.nvim)
+
+```nvim
+:CsvViewToggle ...
+```
+
+## Markview.nvim
+
+Markview.nvim is a plugin for Neovim that provides a mark viewer.
+
+- [Configuration](../home-manager/neovim/markview-nvim.nix)
+- [Repository](https://github.com/OXY2DEV/markview.nvim)
+
+```nvim
+:Markview ...
+```
 
 ## Mini.nvim
 
