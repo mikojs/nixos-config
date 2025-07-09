@@ -2,5 +2,8 @@
   ...
 }:
 {
-  formatter = ''javascript = { "prettier" }'';
+  formatter = ''
+    javascript = { "prettier" },
+    typescript = { "prettier" }
+  '';
 }
