@@ -45,7 +45,23 @@ in
               formatters_by_ft = {
                 ${concatStringsSep ",\n" (map (l: l.formatter) languagesConfig)}
               },
-              format_on_save = true,
+              format_on_save = function(bufnr)
+                if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                  return
+                end
+
+                return { timeout_ms = 500, lsp_format = "fallback" }
+              end,
+            })
+
+            require("which-key").add({
+              { "<leader>c", group = "Conform" },
+              { "<leader>cT", function() vim.g.disable_autoformat = not vim.g.disable_autoformat end, desc = "Toggle autoformat for all files" },
+              {
+                "<leader>ct",
+                function() vim.b[vim.api.nvim_get_current_buf()].disable_autoformat = not vim.b[vim.api.nvim_get_current_buf()].disable_autoformat end,
+                desc = "Toggle autoformat for current file"
+              },
             })
           END
         '';

@@ -23,17 +23,17 @@
           })
 
           require("which-key").add({
-            { "<leader>c", group = "Crates", mode = { "n", "v" } },
-            { "<leader>cR", crates.reload, desc = "Reload data" },
-            { "<leader>ct", crates.toggle, desc = "Enable or disable info"  },
-            { "<leader>ce", crates.expand_plain_crate_to_inline_table, desc = "Expand crate" },
-            { "<leader>cu", crates.upgrade_crate, desc = "Upgrade crate", mode = "n" },
-            { "<leader>cu", function() crates.upgrade_crates() end, desc = "Upgrade crates", mode = "v" },
-            { "<leader>ch", crates.open_homepage, desc = "Open homepage" },
-            { "<leader>cr", crates.open_repository, desc = "Open repository" },
-            { "<leader>cd", crates.open_documentation, desc = "Open documentation" },
-            { "<leader>cc", crates.open_crates_io, desc = "Open crates.io" },
-            { "<leader>cs", crates.show_popup, desc = "Show crate details" },
+            { "<leader>C", group = "Crates", mode = { "n", "v" } },
+            { "<leader>CR", crates.reload, desc = "Reload data" },
+            { "<leader>Ct", crates.toggle, desc = "Enable or disable info"  },
+            { "<leader>Ce", crates.expand_plain_crate_to_inline_table, desc = "Expand crate" },
+            { "<leader>Cu", crates.upgrade_crate, desc = "Upgrade crate", mode = "n" },
+            { "<leader>Cu", function() crates.upgrade_crates() end, desc = "Upgrade crates", mode = "v" },
+            { "<leader>Ch", crates.open_homepage, desc = "Open homepage" },
+            { "<leader>Cr", crates.open_repository, desc = "Open repository" },
+            { "<leader>Cd", crates.open_documentation, desc = "Open documentation" },
+            { "<leader>Cc", crates.open_crates_io, desc = "Open crates.io" },
+            { "<leader>Cs", crates.show_popup, desc = "Show crate details" },
           })
         END
       '';
