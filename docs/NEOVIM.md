@@ -79,7 +79,11 @@ Telescope.nvim is a fuzzy finder for Neovim.
     | Show buffers          | `<leader>B`  |
     | Help                  | `<leader>?`  |
     | Show keymaps          | `<leader>K`  |
-    | Show diagnostics      | `<leader>D`  |
+
+    | Description           | Key          |
+    | ---                   | ---          |
+    | Diagnostics           | `<leader>d`  |
+    | Show diagnostics      | `<leader>dS` |
 
     | Description           | Key          |
     | ---                   | ---          |
@@ -377,6 +381,13 @@ Conform.nvim is a formatter plugin for Neovim.
     - `nodejs`: [prettier](https://github.com/prettier/prettier)
     - `postgresql`: [pgformatter](https://github.com/darold/pgformatter)
     - `rust`: [rustfmt](https://github.com/rust-lang/rustfmt)
+- Keybindings
+
+    | Description                        | Key          |
+    | ---                                | ---          |
+    | Conform                            | `<leader>c`  |
+    | Toggle autoformat for all files    | `<leader>cT` |
+    | Toggle autoformat for current file | `<leader>ct` |
 
 ## Windsurf.nvim
 

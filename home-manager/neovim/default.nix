@@ -145,6 +145,17 @@ in
         { "<leader>ww+", "<Cmd>vertical resize +20<CR>", desc = "Increase 20 width" },
         { "<leader>ww-", "<Cmd>vertical resize -20<CR>", desc = "Decrease 20 width" },
       })
+
+      vim.diagnostic.config({ virtual_lines = true })
+
+      require("which-key").add({
+        { "<leader>d", group = "Diagnostics" },
+        {
+          "<leader>dt",
+          function() vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines }) end,
+          desc = "Toggle diagnostics virtual lines"
+        },
+      })
     '';
   };
 }

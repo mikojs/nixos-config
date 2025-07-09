@@ -102,6 +102,12 @@ Neovim is a Vim-fork focused on extensibility and agility.
     | Increase 20 width  | `<leader>ww+` |
     | Decrease 20 width  | `<leader>ww-` |
 
+
+    | Description                      | Key          |
+    | ---                              | ---          |
+    | Diagnostics                      | `<leader>d`  |
+    | Toggle diagnostics virtual lines | `<leader>dt` |
+
 ## Tmux
 
 Tmux is a terminal multiplexer.

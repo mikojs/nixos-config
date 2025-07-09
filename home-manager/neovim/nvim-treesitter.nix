@@ -6,45 +6,44 @@
 {
   home.packages = with pkgs; [ libgccjit ];
 
-  programs.neovim.plugins = with pkgs.vimPlugins; [
-    (nvim-treesitter.withPlugins (
-      p:
-      map
-        (
-          l:
+  programs.neovim.plugins =
+    with pkgs.vimPlugins;
+    with builtins;
+    [
+      (nvim-treesitter.withPlugins (
+        p:
+        foldl' (
+          result: l:
           if l.language == "nodejs" then
-            p.javascript
+            result
+            ++ [
+              p.javascript
+              p.typescript
+              p.tsx
+            ]
           else if l.language == "postgresql" || l.language == "sqlite" then
-            p.sql
+            result ++ [ p.sql ]
           else
-            p."${l.language}"
-        )
-        (
-          [
-            { language = "c"; }
-            { language = "lua"; }
-            { language = "vimdoc"; }
-          ]
-          ++ languages
-        )
-    ))
+            result ++ [ p."${l.language}" ]
+        ) [ p.c p.lua p.vimdoc ] languages
+      ))
 
-    {
-      plugin = nvim-treesitter;
-      config = ''
-        lua << END
-          vim.opt.foldmethod = "expr"
-          vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-          vim.opt.foldenable = false
+      {
+        plugin = nvim-treesitter;
+        config = ''
+          lua << END
+            vim.opt.foldmethod = "expr"
+            vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+            vim.opt.foldenable = false
 
-          require("nvim-treesitter.configs").setup({
-            auto_install = false,
-            highlight = {
-              enable = true,
-            },
-          })
-        END
-      '';
-    }
-  ];
+            require("nvim-treesitter.configs").setup({
+              auto_install = false,
+              highlight = {
+                enable = true,
+              },
+            })
+          END
+        '';
+      }
+    ];
 }
