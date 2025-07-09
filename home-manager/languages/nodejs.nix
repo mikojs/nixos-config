@@ -7,7 +7,7 @@
 }:
 with builtins;
 let
-  version = if hasAttr "version" language then "-${language.version}" else "";
+  version = if hasAttr "version" language then "_${language.version}" else "";
 in
 {
   home.packages = with pkgs; [
