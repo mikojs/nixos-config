@@ -37,6 +37,10 @@ in
         plugin = conform-nvim;
         config = ''
           lua << END
+            ${concatStringsSep "\n" (
+              foldl' (result: l: if hasAttr "init" l then result ++ [ l.init ] else result) [ ] languagesConfig
+            )}
+
             require("conform").setup({
               formatters_by_ft = {
                 ${concatStringsSep ",\n" (map (l: l.formatter) languagesConfig)}
