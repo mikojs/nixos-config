@@ -18,7 +18,7 @@ with builtins;
 
   programs.fish.enable = true;
 
-  # FIXME default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
+  # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
   environment.variables = (
     if isMac then
       {
@@ -70,8 +70,11 @@ with builtins;
               ./jless.nix
               ./jq.nix
               ./nq.nix
-              ./tmux.nix
               ./tree.nix
+              (import ./tmux.nix {
+                isMac = isMac;
+                userName = user.name;
+              })
               (import ./git.nix { gitconfig = user.gitconfig; })
               (import ./neovim { languages = user.languages; })
             ]
