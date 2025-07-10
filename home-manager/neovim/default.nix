@@ -110,6 +110,7 @@ in
     '';
 
     extraLuaConfig = ''
+      -- Clipboard
       ${
         if !isWSL then
           ""
@@ -136,6 +137,7 @@ in
           ''
       }
 
+      -- Window
       require("which-key").add({
         { "<leader>w", group = "Window" },
         { "<leader>wh", group = "Resize height" },
@@ -146,6 +148,7 @@ in
         { "<leader>ww-", "<Cmd>vertical resize -20<CR>", desc = "Decrease 20 width" },
       })
 
+      -- Diagnostics
       vim.diagnostic.config({ virtual_lines = true })
 
       require("which-key").add({
