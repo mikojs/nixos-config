@@ -40,6 +40,7 @@ impl Push {
             ],
         )?;
         let bundle_dir = PathBuf::from(git_root_path.trim()).join("..");
+        let file_path = bundle_dir.join("temp.bundle");
 
         println!("Pushing bundle file");
         exec(
@@ -58,8 +59,8 @@ impl Push {
                 &format!(
                     "cd {} && coder sync {} && rm {}",
                     self.directory.display(),
-                    bundle_dir.join("temp.bundle").display(),
-                    bundle_dir.join("temp.bundle").display(),
+                    file_path.display(),
+                    file_path.display(),
                 ),
             ],
         )?;
