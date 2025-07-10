@@ -18,7 +18,7 @@ with builtins;
 
   programs.fish.enable = true;
 
-  # FIXME default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
+  # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
   environment.variables = (
     if isMac then
       {
