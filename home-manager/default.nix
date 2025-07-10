@@ -70,8 +70,11 @@ with builtins;
               ./jless.nix
               ./jq.nix
               ./nq.nix
-              ./tmux.nix
               ./tree.nix
+              (import ./tmux.nix {
+                isMac = isMac;
+                userName = user.name;
+              })
               (import ./git.nix { gitconfig = user.gitconfig; })
               (import ./neovim { languages = user.languages; })
             ]
