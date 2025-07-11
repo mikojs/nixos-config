@@ -4,7 +4,7 @@ use clap::Args;
 use thiserror::Error;
 use url::Url;
 
-use crate::process::{exec, ProcessError};
+use crate::process::{exec, exec_result, ProcessError};
 
 #[derive(Error, Debug)]
 pub enum PushError {
@@ -29,12 +29,25 @@ impl Push {
         println!("Creating bundle file");
         exec("git", vec!["bundle", "create", "temp.bundle", "--all"])?;
 
+        let git_root_path = exec_result(
+            "ssh",
+            vec![
+                &ssh_url,
+                &format!(
+                    "cd {} && git rev-parse --show-toplevel",
+                    self.directory.display()
+                ),
+            ],
+        )?;
+        let bundle_dir = PathBuf::from(git_root_path.trim()).join("..");
+        let file_path = bundle_dir.join("temp.bundle");
+
         println!("Pushing bundle file");
         exec(
             "scp",
             vec![
                 "temp.bundle",
-                &format!("{}:{}", ssh_url, self.directory.display()),
+                &format!("{}:{}", ssh_url, bundle_dir.display()),
             ],
         )?;
 
@@ -44,12 +57,14 @@ impl Push {
             vec![
                 &ssh_url,
                 &format!(
-                    "cd {} && coder sync temp.bundle && rm temp.bundle",
-                    self.directory.display()
+                    "cd {} && coder sync {} && rm {}",
+                    self.directory.display(),
+                    file_path.display(),
+                    file_path.display(),
                 ),
             ],
         )?;
-        remove_file(self.directory.join("temp.bundle"))?;
+        remove_file("temp.bundle")?;
 
         Ok(())
     }

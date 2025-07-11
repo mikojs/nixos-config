@@ -5,7 +5,7 @@ use thiserror::Error;
 use url::Url;
 
 use crate::{
-    process::{exec, ProcessError},
+    process::{exec, exec_result, ProcessError},
     sync::{Sync, SyncError},
 };
 
@@ -30,6 +30,8 @@ pub struct Pull {
 impl Pull {
     pub fn run(&self) -> Result<(), PullError> {
         let ssh_url = self.ssh_url.as_str().replace("ssh://", "");
+        let git_root_path = exec_result("git", vec!["rev-parse", "--show-toplevel"])?;
+        let bundle_dir = PathBuf::from(git_root_path.trim()).join("..");
 
         println!("Creating bundle file");
         exec(
@@ -52,7 +54,7 @@ impl Pull {
                     ssh_url,
                     self.directory.join("temp.bundle").display()
                 ),
-                ".",
+                &bundle_dir.display().to_string(),
             ],
         )?;
         exec(
@@ -65,7 +67,7 @@ impl Pull {
 
         println!("Syncing the repository");
 
-        let file_path = PathBuf::from("temp.bundle");
+        let file_path = bundle_dir.join("temp.bundle");
         let mut sync = Sync::new(file_path.clone());
 
         sync.run()?;
