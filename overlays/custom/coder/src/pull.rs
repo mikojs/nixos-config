@@ -21,9 +21,9 @@ pub enum PullError {
 
 #[derive(Args)]
 pub struct Pull {
-    /// The ssh URL of the remote server
+    /// The ssh URL of the remote server (ex: ssh://user@host)
     ssh_url: Url,
-    /// The directory to push
+    /// The target repository directory in the remote server
     directory: PathBuf,
 }
 
