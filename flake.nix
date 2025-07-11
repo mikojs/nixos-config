@@ -26,6 +26,8 @@
       mkSystem = import ./mkSystem.nix inputs;
     in
     {
+      inherit mkSystem;
+
       darwinConfigurations.mac = mkSystem {
         system = "aarch64-darwin";
         isMac = true;
