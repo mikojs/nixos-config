@@ -20,3 +20,11 @@ Some helpful commands for working with databases.
 - [Configuration](../home-manager/languages/db.nix)
 - [Code](../overlays/custom/db)
 - Use `--help` to see available commands
+
+## Coder
+
+Some helpful commands to sync code between machines.
+
+- [Configuration](../home-manager/fish.nix]
+- [Code](../overlays/custom/coder)
+- Use `--help` to see available commands
