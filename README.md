@@ -61,9 +61,9 @@ Install the NixOS configuration.
 ```bash
 # MacOS
 # If you have the problem, follow this: https://github.com/nix-darwin/nix-darwin?tab=readme-ov-file#step-2-installing-nix-darwin
-darwin-rebuild switch --flake github:mikojs/nixos-conifg#<mac> --use-remote-sudo
+sudo darwin-rebuild switch --flake github:mikojs/nixos-conifg#<system name>
 # Others
-nixos-rebuild switch --flake github:mikojs/nixos-conifg#<wsl> --use-remote-sudo
+nixos-rebuild switch --flake github:mikojs/nixos-conifg#<system name> --use-remote-sudo
 
 # Run `initialize` command manually
 # It would auto-reun when you reopen the terminal
