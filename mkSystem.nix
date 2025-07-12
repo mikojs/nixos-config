@@ -15,6 +15,7 @@ mkSystem {
   specialArgs = {
     inherit
       inputs
+      system
       isWSL
       isMac
       users
