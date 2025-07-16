@@ -24,9 +24,10 @@
     inputs:
     let
       mkSystem = import ./mkSystem.nix inputs;
+      homeManager = import ./home-manager;
     in
     {
-      inherit mkSystem;
+      inherit mkSystem homeManager;
 
       darwinConfigurations.mac = mkSystem {
         system = "aarch64-darwin";
