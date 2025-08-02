@@ -83,7 +83,14 @@ with builtins;
             ))
             ++ (optionals isMac [
               (import ./kitty.nix { userName = user.name; })
-            ]);
+            ])
+            ++ (
+              if hasAttr "packages" user then
+                user.packages
+              else
+                [
+                ]
+            );
 
           home.stateVersion = stateVersion;
         }
