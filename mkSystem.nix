@@ -1,6 +1,7 @@
 inputs:
 {
   system,
+  systemModules ? [ ],
   isWSL ? false,
   isMac ? false,
   users,
@@ -25,7 +26,8 @@ mkSystem {
   };
 
   modules =
-    [
+    systemModules
+    ++ [
       ./overlays
       ./nixos
       ./home-manager

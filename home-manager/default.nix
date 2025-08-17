@@ -64,7 +64,8 @@ with builtins;
         user:
         nameValuePair user.name {
           imports =
-            [
+            (optionals (hasAttr "packages" user) user.packages)
+            ++ [
               ./fish.nix
               ./gh.nix
               ./jless.nix
@@ -83,14 +84,7 @@ with builtins;
             ))
             ++ (optionals isMac [
               (import ./kitty.nix { userName = user.name; })
-            ])
-            ++ (
-              if hasAttr "packages" user then
-                user.packages
-              else
-                [
-                ]
-            );
+            ]);
 
           home.stateVersion = stateVersion;
         }
