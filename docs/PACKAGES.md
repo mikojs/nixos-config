@@ -48,6 +48,7 @@ Git is used to manage version control.
 - [Configuration](../home-manager/git.nix)
 - [Repository](https://github.com/git/git)
 - `aliases`
+    - `d`: Show default `git diff` output.
     - `gr`: Show formatted git logs.
 
 ### Delta
