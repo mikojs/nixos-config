@@ -72,6 +72,7 @@ with builtins;
               ./jq.nix
               ./nq.nix
               ./tree.nix
+              ./tabiew.nix
               (import ./tmux.nix {
                 isMac = isMac;
                 userName = user.name;
