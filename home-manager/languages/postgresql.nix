@@ -15,4 +15,12 @@ in
       pgcli
     ]
     ++ (import ./db.nix { inherit pkgs; }).home.packages;
+
+  xdg.configFile = {
+    "pgcli/config".text = ''
+      [main]
+      use_local_timezone = False
+      keyring = False
+    '';
+  };
 }
