@@ -102,6 +102,11 @@ Neovim is a Vim-fork focused on extensibility and agility.
     | Increase 20 width  | `<leader>ww+` |
     | Decrease 20 width  | `<leader>ww-` |
 
+    | Description             | Key          |
+    | ---                     | ---          |
+    | Copy/Conform            | `<leader>c` |
+    | Copy current file path  | `<leader>cf` |
+    | Copy relative file path | `<leader>cr` |
 
     | Description                      | Key          |
     | ---                              | ---          |

@@ -55,10 +55,10 @@ in
             })
 
             require("which-key").add({
-              { "<leader>c", group = "Conform" },
-              { "<leader>cT", function() vim.g.disable_autoformat = not vim.g.disable_autoformat end, desc = "Toggle autoformat for all files" },
+              { "<leader>cc", group = "Conform" },
+              { "<leader>ccT", function() vim.g.disable_autoformat = not vim.g.disable_autoformat end, desc = "Toggle autoformat for all files" },
               {
-                "<leader>ct",
+                "<leader>cct",
                 function() vim.b[vim.api.nvim_get_current_buf()].disable_autoformat = not vim.b[vim.api.nvim_get_current_buf()].disable_autoformat end,
                 desc = "Toggle autoformat for current file"
               },
