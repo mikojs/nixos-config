@@ -36,7 +36,7 @@
     };
 
     aliases = {
-      d = "git -c pager.diff='less -R' diff";
+      d = "-c pager.diff='less -R' diff";
       gr = "log --date=short --graph --pretty=format:'%C(yellow)%h%Creset %ad %C(bold green)%an%Creset %s%C(yellow)%d%Creset'";
     };
   };
