@@ -48,6 +48,7 @@ Git is used to manage version control.
 - [Configuration](../home-manager/git.nix)
 - [Repository](https://github.com/git/git)
 - `aliases`
+    - `d`: Show default `git diff` output.
     - `gr`: Show formatted git logs.
 
 ### Delta
@@ -112,6 +113,13 @@ Neovim is a Vim-fork focused on extensibility and agility.
     | ---                              | ---          |
     | Diagnostics                      | `<leader>d`  |
     | Toggle diagnostics virtual lines | `<leader>dt` |
+
+## Somo
+
+Somo is a human-friendly alternative to netstat for socket and port monitoring on Linux and macOS.
+
+- [Configuration](../home-manager/somo.nix)
+- [Repository](https://github.com/theopfr/somo)
 
 ## Tabiew
 
