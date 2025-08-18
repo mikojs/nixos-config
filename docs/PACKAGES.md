@@ -113,6 +113,13 @@ Neovim is a Vim-fork focused on extensibility and agility.
     | Diagnostics                      | `<leader>d`  |
     | Toggle diagnostics virtual lines | `<leader>dt` |
 
+## Tabiew
+
+Tabiew is a lightweight TUI application to view and query tabular data files, such as CSV, TSV, and parquet.
+
+- [Configuration](../home-manager/tabiew.nix)
+- [Repository](https://github.com/shshemi/tabiew)
+
 ## Tmux
 
 Tmux is a terminal multiplexer.
