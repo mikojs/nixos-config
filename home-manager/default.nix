@@ -71,6 +71,7 @@ with builtins;
               ./jless.nix
               ./jq.nix
               ./nq.nix
+              ./somo.nix
               ./tree.nix
               ./tabiew.nix
               (import ./tmux.nix {

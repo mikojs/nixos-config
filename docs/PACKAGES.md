@@ -113,6 +113,13 @@ Neovim is a Vim-fork focused on extensibility and agility.
     | Diagnostics                      | `<leader>d`  |
     | Toggle diagnostics virtual lines | `<leader>dt` |
 
+## Somo
+
+Somo is a human-friendly alternative to netstat for socket and port monitoring on Linux and macOS.
+
+- [Configuration](../home-manager/somo.nix)
+- [Repository](https://github.com/theopfr/somo)
+
 ## Tabiew
 
 Tabiew is a lightweight TUI application to view and query tabular data files, such as CSV, TSV, and parquet.
