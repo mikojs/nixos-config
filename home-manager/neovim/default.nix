@@ -148,6 +148,13 @@ in
         { "<leader>ww-", "<Cmd>vertical resize -20<CR>", desc = "Decrease 20 width" },
       })
 
+      -- Copy
+      require("which-key").add({
+        { "<leader>c", group = "Copy/Conform" },
+        { "<leader>cf", function() vim.fn.setreg('+', vim.fn.expand('%:p')) end, desc = "Copy current file path" },
+        { "<leader>cr", function() vim.fn.setreg('+', vim.fn.expand('%')) end, desc = "Copy relative file path" },
+      })
+
       -- Diagnostics
       vim.diagnostic.config({ virtual_lines = true })
 

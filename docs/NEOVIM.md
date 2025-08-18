@@ -385,9 +385,9 @@ Conform.nvim is a formatter plugin for Neovim.
 
     | Description                        | Key          |
     | ---                                | ---          |
-    | Conform                            | `<leader>c`  |
-    | Toggle autoformat for all files    | `<leader>cT` |
-    | Toggle autoformat for current file | `<leader>ct` |
+    | Conform                            | `<leader>cc`  |
+    | Toggle autoformat for all files    | `<leader>ccT` |
+    | Toggle autoformat for current file | `<leader>cct` |
 
 ## Windsurf.nvim
 
