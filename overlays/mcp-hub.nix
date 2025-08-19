@@ -1,4 +1,5 @@
-inputs: final: prev:
+{ inputs, ... }:
+final: prev:
 with prev;
 with prev.vimUtils;
 {
