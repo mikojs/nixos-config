@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, system, ... }:
 final: prev:
 with prev;
 with prev.vimUtils;
