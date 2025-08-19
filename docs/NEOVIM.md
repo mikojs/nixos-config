@@ -16,7 +16,6 @@ Lualine.nvim is a statusline plugin for Neovim.
 - [Configuration](../home-manager/neovim/lualine-nvim.nix)
 - [Repository](https://github.com/nvim-lualine/lualine.nvim)
 
-
 ## Nvim-treesitter
 
 nvim-treesitter is a syntax highlighting plugin for Neovim.
@@ -384,3 +383,26 @@ Windsurf.nvim is a plugin for Neovim that provides AI code completion.
 
 - [Configuration](../home-manager/neovim/windsurf-nvim.nix)
 - [Repository](https://github.com/Exafunction/windsurf.vim)
+
+## Avante.nvim
+
+Avante.nvim help to make Neovim more useful with the power of AI.
+
+- [Configuration](../home-manager/neovim/avante-nvim.nix)
+- [Repository](https://github.com/yetone/avante.nvim)
+
+```nvim
+:Avante...
+```
+
+## Mcphub.nvim
+
+Mcphub.nvim is a plugin for Neovim that provides mcp services.
+
+- [Configuration](../home-manager/neovim/mcphub-nvim.nix)
+- [Repository](https://github.com/ravitemer/mcphub.nvim)
+- Also work with `avante` and `lualine`.
+
+```nvim
+:MCPHub ...
+```
