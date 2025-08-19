@@ -44,6 +44,7 @@ let
           # AI
           "windsurf-nvim.nix"
           "avante-nvim.nix"
+          "mcphub-nvim.nix"
         ]
         ++ (map (l: "./languages/${l.language}.nix") (
           filter (l: pathExists ./languages/${l.language}.nix) languages
