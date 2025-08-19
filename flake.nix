@@ -20,6 +20,7 @@
     };
 
     mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
+    mcp-hub.url = "github:ravitemer/mcp-hub";
   };
 
   outputs =
