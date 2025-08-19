@@ -12,6 +12,7 @@
         require("avante").setup({
           system_prompt = function()
             local hub = require("mcphub").get_hub_instance()
+
             return hub and hub:get_active_servers_prompt() or ""
           end,
 
