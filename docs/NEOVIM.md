@@ -199,17 +199,6 @@ Todo-comments.nvim is a todo comments plugin for Neovim.
     | ---         | ---          |
     | Show TODOs  | `<leader>O`  |
 
-## Csvview-nvim
-
-Csvview-nvim is a plugin for Neovim that provides a CSV viewer.
-
-- [Configuration](../home-manager/neovim/csvview-nvim.nix)
-- [Repository](https://github.com/hat0uma/csvview.nvim)
-
-```nvim
-:CsvViewToggle ...
-```
-
 ## Markview.nvim
 
 Markview.nvim is a plugin for Neovim that provides a mark viewer.

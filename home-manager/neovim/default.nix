@@ -35,7 +35,6 @@ let
           "persistence-nvim.nix"
           "todo-comments-nvim.nix"
           # Viewer
-          "csvview-nvim.nix"
           "markview-nvim.nix"
           # Coding
           "mini-nvim.nix"
