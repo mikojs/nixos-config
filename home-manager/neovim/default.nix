@@ -35,7 +35,6 @@ let
           "persistence-nvim.nix"
           "todo-comments-nvim.nix"
           # Viewer
-          "csvview-nvim.nix"
           "markview-nvim.nix"
           # Coding
           "mini-nvim.nix"
@@ -43,6 +42,8 @@ let
           "conform-nvim"
           # AI
           "windsurf-nvim.nix"
+          "avante-nvim.nix"
+          "mcphub-nvim.nix"
         ]
         ++ (map (l: "./languages/${l.language}.nix") (
           filter (l: pathExists ./languages/${l.language}.nix) languages

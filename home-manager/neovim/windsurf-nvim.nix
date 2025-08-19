@@ -8,18 +8,17 @@
 
     {
       plugin = windsurf-nvim;
+      type = "lua";
       config = ''
-        lua << END
-          require("codeium").setup({
-            enable_cmp_source = false,
-            virtual_text = {
-              enabled = true,
-              key_bindings = {
-                accept = "<A-CR>",
-              },
+        require("codeium").setup({
+          enable_cmp_source = false,
+          virtual_text = {
+            enabled = true,
+            key_bindings = {
+              accept = "<A-CR>",
             },
-          })
-        END
+          },
+        })
       '';
     }
   ];
