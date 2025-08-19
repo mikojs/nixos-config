@@ -6,10 +6,9 @@
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
       plugin = csvview-nvim;
+      type = "lua";
       config = ''
-        lua << END
-          require("csvview").setup()
-        END
+        require("csvview").setup()
       '';
     }
   ];

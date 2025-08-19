@@ -6,14 +6,13 @@
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
       plugin = lualine-nvim;
+      type = "lua";
       config = ''
-        lua << END
-          require("lualine").setup({
-            options = {
-               theme = "onenord",
-            }
-          })
-        END
+        require("lualine").setup({
+          options = {
+             theme = "onenord",
+          }
+        })
       '';
     }
   ];

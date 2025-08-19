@@ -6,112 +6,102 @@
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
       plugin = mini-icons;
+      type = "lua";
       config = ''
-        lua << END
-          require("mini.icons").setup()
-        END
+        require("mini.icons").setup()
       '';
     }
 
     {
       plugin = mini-notify;
+      type = "lua";
       config = ''
-        lua << END
-          require("mini.notify").setup()
-        END
+        require("mini.notify").setup()
       '';
     }
 
     {
       plugin = mini-trailspace;
+      type = "lua";
       config = ''
-        lua << END
-          require("mini.trailspace").setup()
-        END
+        require("mini.trailspace").setup()
       '';
     }
 
     {
       plugin = mini-files;
+      type = "lua";
       config = ''
-        lua << END
-          local mini_files = require("mini.files")
+        local mini_files = require("mini.files")
 
-          mini_files.setup({
-            mappings = {
-              mark_goto = "",
-              mark_set = "",
-              reveal_cwd = "",
-            },
-          })
-          require("which-key").add({
-            { "<leader>f", mini_files.open, desc = "Manipulate files" },
-          })
-        END
+        mini_files.setup({
+          mappings = {
+            mark_goto = "",
+            mark_set = "",
+            reveal_cwd = "",
+          },
+        })
+        require("which-key").add({
+          { "<leader>f", mini_files.open, desc = "Manipulate files" },
+        })
       '';
     }
 
     {
       plugin = mini-ai;
+      type = "lua";
       config = ''
-        lua << END
-          require("mini.ai").setup({
-            n_lines = 200,
-            mappings = {
-              around_next = "",
-              inside_next = "",
-              around_last = "",
-              inside_next = "",
-            },
-          })
-        END
+        require("mini.ai").setup({
+          n_lines = 200,
+          mappings = {
+            around_next = "",
+            inside_next = "",
+            around_last = "",
+            inside_next = "",
+          },
+        })
       '';
     }
 
     {
       plugin = mini-surround;
+      type = "lua";
       config = ''
-        lua << END
-          require("mini.surround").setup({
-            n_lines = 200,
-          })
-        END
+        require("mini.surround").setup({
+          n_lines = 200,
+        })
       '';
     }
 
     {
       plugin = mini-bracketed;
+      type = "lua";
       config = ''
-        lua << END
-          require("mini.bracketed").setup()
-        END
+        require("mini.bracketed").setup()
       '';
     }
 
     {
       plugin = mini-comment;
+      type = "lua";
       config = ''
-        lua << END
-          require("mini.comment").setup()
-        END
+        require("mini.comment").setup()
       '';
     }
 
     {
       plugin = mini-move;
+      type = "lua";
       config = ''
-        lua << END
-          require("mini.move").setup()
-        END
+        require("mini.move").setup()
       '';
     }
 
     {
       plugin = mini-align;
+      type = "lua";
       config = ''
-        lua << END
-          require("mini.align").setup()
-        END
+        require("mini.align").setup()
       '';
     }
   ];
