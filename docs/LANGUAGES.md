@@ -61,16 +61,10 @@ A neovim plugin for SQL.
 
 - [Repository](https://github.com/nanotee/sqls.nvim)
 - [Configuration](../home-manager/neovim/nvim-cmp/db.nix)
-- Commands
 
-    | Description                        | Command                                    |
-    | ---                                | ---                                        |
-    | Execute SQL                        | `:SqlsExecuteQuery`                        |
-    | Execute SQL but display vertically | `:SqlsExecuteQueryVertical`                |
-    | Show database list                 | `:SqlsShowDatabases`                       |
-    | Show connection list               | `:SqlsShowConnections`                     |
-    | Switch database                    | `:SqlsSwitchDatabase <database_name>`      |
-    | Switch connection                  | `:SqlsSwitchConnection <connection_index>` |
+```nvim
+:Sqls...
+```
 
 ## Postgresql
 
