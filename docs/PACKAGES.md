@@ -140,3 +140,10 @@ Tmux is a terminal multiplexer.
 tree is a directory listing program that makes it easy to display a directory tree.
 
 - [Configuration](../home-manager/tree.nix)
+
+## Gemini CLI
+
+Gemini CLI is an AI agent that brings the power of Gemini directly into your terminal.
+
+- [Configuration](../home-manager/gemini.nix)
+- [Repository](https://github.com/google-gemini/gemini-cli)

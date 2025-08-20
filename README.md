@@ -70,7 +70,15 @@ nixos-rebuild switch --flake github:mikojs/nixos-conifg#<system name> --use-remo
 initialize
 ```
 
-After installing, you need to authorize `Codeium` in `nvim` manually.
+## After installing, you need to authorize some packages manually.
+
+### Gemini
+
+```bash
+gemini
+```
+
+### Codeium in nvim
 
 ```nvim
 :Codeium Auth
