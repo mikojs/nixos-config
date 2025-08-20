@@ -15,7 +15,7 @@
         config = ''
           require("avante_lib").load()
           require("avante").setup({
-            ${if lists.length ai > 0 then "provider = ${ai [ 0 ]}" else ""}
+            ${if lists.length ai > 0 then ''provider = "${lists.head ai}",'' else ""}
             system_prompt = function()
               local hub = require("mcphub").get_hub_instance()
 
