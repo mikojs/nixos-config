@@ -25,6 +25,6 @@ Some helpful commands for working with databases.
 
 Some helpful commands to sync code between machines.
 
-- [Configuration](../home-manager/fish.nix]
+- [Configuration](../home-manager/fish.nix)
 - [Code](../overlays/custom/coder)
 - Use `--help` to see available commands
