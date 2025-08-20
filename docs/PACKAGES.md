@@ -34,13 +34,6 @@ Tide is the ultimate Fish prompt.
 
 - [Repository](https://github.com/IlanCosman/tide)
 
-## Gemini CLI
-
-Gemini CLI is an AI agent that brings the power of Gemini directly into your terminal.
-
-- [Configuration](../home-manager/gemini.nix)
-- [Repository](https://github.com/google-gemini/gemini-cli)
-
 ## gh
 
 GitHub CLI is used to login to GitHub and control repositories.
@@ -58,17 +51,17 @@ Git is used to manage version control.
     - `d`: Show default `git diff` output.
     - `gr`: Show formatted git logs.
 
-### Delta
-
-A syntax-highlighting pager for git and diff output.
-
-- [Repository](https://github.com/dandavison/delta)
-
 ### cz
 
 Commitizen is used to manage commits.
 
 - [Repository](https://github.com/commitizen-tools/commitizen)
+
+### Delta
+
+A syntax-highlighting pager for git and diff output.
+
+- [Repository](https://github.com/dandavison/delta)
 
 ## jless
 
@@ -83,13 +76,6 @@ jq is a lightweight and flexible command-line JSON processor.
 
 - [Configuration](../home-manager/jq.nix)
 - [Repository](https://github.com/stedolan/jq)
-
-## nq
-
-Unix command line queue utility.
-
-- [Configuration](../home-manager/nq.nix)
-- [Repository](https://github.com/leahneukirchen/nq)
 
 ## Neovim
 
@@ -120,6 +106,13 @@ Neovim is a Vim-fork focused on extensibility and agility.
     | ---                              | ---          |
     | Diagnostics                      | `<leader>d`  |
     | Toggle diagnostics virtual lines | `<leader>dt` |
+
+## nq
+
+Unix command line queue utility.
+
+- [Configuration](../home-manager/nq.nix)
+- [Repository](https://github.com/leahneukirchen/nq)
 
 ## Somo
 

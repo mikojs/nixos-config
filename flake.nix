@@ -41,6 +41,10 @@
               userName = "Mikojs";
               userEmail = "mikojs@gmail.com";
             };
+            ai = [
+              "gemini"
+              "claude"
+            ];
             languages = [
               { language = "nix"; }
               { language = "nodejs"; }
@@ -63,6 +67,10 @@
                 userName = "Mikojs";
                 userEmail = "mikojs@gmail.com";
               };
+              ai = [
+                "gemini"
+                "claude"
+              ];
               languages = [
                 { language = "nix"; }
                 { language = "nodejs"; }

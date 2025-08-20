@@ -67,21 +67,24 @@ with builtins;
             (optionals (hasAttr "packages" user) user.packages)
             ++ [
               ./fish.nix
-              ./gemini.nix
               ./gh.nix
               ./jless.nix
               ./jq.nix
               ./nq.nix
               ./somo.nix
-              ./tree.nix
               ./tabiew.nix
+              ./tree.nix
               (import ./tmux.nix {
                 isMac = isMac;
                 userName = user.name;
               })
               (import ./git.nix { gitconfig = user.gitconfig; })
-              (import ./neovim { languages = user.languages; })
+              (import ./neovim {
+                ai = user.ai;
+                languages = user.languages;
+              })
             ]
+            ++ (map (a: import ./ai/${a}.nix) user.ai)
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
             ))

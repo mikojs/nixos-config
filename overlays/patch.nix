@@ -124,6 +124,98 @@ with prev.vimUtils;
     };
   });
 
+  avante-nvim =
+    let
+      version = "0.0.27-unstable-2025-08-14";
+      src = fetchFromGitHub {
+        owner = "yetone";
+        repo = "avante.nvim";
+        rev = "be0937a459624ce1170f158f9d8660d0ade47eb4";
+        hash = "sha256-1NzzyWW2Tp91wa+Ujv2cDTv/Cb/HgA6LiDuwxVWdJwU=";
+      };
+      avante-nvim-lib = rustPlatform.buildRustPackage {
+        pname = "avante-nvim-lib";
+        inherit version src;
+
+        cargoHash = "sha256-pTWCT2s820mjnfTscFnoSKC37RE7DAPKxP71QuM+JXQ=";
+
+        nativeBuildInputs = [
+          pkg-config
+          makeWrapper
+          pkgs.perl
+        ];
+
+        buildInputs = [
+          openssl
+        ];
+
+        buildFeatures = [ "luajit" ];
+
+        checkFlags = [
+          # Disabled because they access the network.
+          "--skip=test_hf"
+          "--skip=test_public_url"
+          "--skip=test_roundtrip"
+          "--skip=test_fetch_md"
+        ];
+      };
+    in
+    vimUtils.buildVimPlugin {
+      pname = "avante.nvim";
+      inherit version src;
+
+      dependencies = with vimPlugins; [
+        dressing-nvim
+        img-clip-nvim
+        nui-nvim
+        nvim-treesitter
+        plenary-nvim
+      ];
+
+      postInstall =
+        let
+          ext = stdenv.hostPlatform.extensions.sharedLibrary;
+        in
+        ''
+          mkdir -p $out/build
+          ln -s ${avante-nvim-lib}/lib/libavante_repo_map${ext} $out/build/avante_repo_map${ext}
+          ln -s ${avante-nvim-lib}/lib/libavante_templates${ext} $out/build/avante_templates${ext}
+          ln -s ${avante-nvim-lib}/lib/libavante_tokenizers${ext} $out/build/avante_tokenizers${ext}
+          ln -s ${avante-nvim-lib}/lib/libavante_html2md${ext} $out/build/avante_html2md${ext}
+        '';
+
+      passthru = {
+        updateScript = nix-update-script {
+          extraArgs = [ "--version=branch" ];
+          attrPath = "vimPlugins.avante-nvim.avante-nvim-lib";
+        };
+
+        # needed for the update script
+        inherit avante-nvim-lib;
+      };
+
+      nvimSkipModules = [
+        # Requires setup with corresponding provider
+        "avante.providers.azure"
+        "avante.providers.copilot"
+        "avante.providers.gemini"
+        "avante.providers.ollama"
+        "avante.providers.vertex"
+        "avante.providers.vertex_claude"
+      ];
+
+      meta = {
+        description = "Neovim plugin designed to emulate the behaviour of the Cursor AI IDE";
+        homepage = "https://github.com/yetone/avante.nvim";
+        license = lib.licenses.asl20;
+        maintainers = with lib.maintainers; [
+          ttrei
+          aarnphm
+          jackcres
+        ];
+      };
+    };
+
   gemini-cli = buildNpmPackage (finalAttrs: {
     pname = "gemini-cli";
     version = "0.1.18";
@@ -182,4 +274,50 @@ with prev.vimUtils;
       mainProgram = "gemini";
     };
   });
+
+  claude-code = buildNpmPackage rec {
+    pname = "claude-code";
+    version = "1.0.80";
+
+    nodejs = nodejs_20; # required for sandboxed Nix builds on Darwin
+
+    src = fetchzip {
+      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
+      hash = "sha256-o7fG0LnTR7fGxq4VP5393tcQZi0JtPOF8Gb2cUAsevA=";
+    };
+
+    npmDepsHash = "sha256-9eVpQfcdiLyL6LWcBuVrd6XHQC5caZS9m8sNy9kaRyQ=";
+
+    postPatch = ''
+      cp ${./claude-code-package-lock.json} package-lock.json
+    '';
+
+    dontNpmBuild = true;
+
+    AUTHORIZED = "1";
+
+    # `claude-code` tries to auto-update by default, this disables that functionality.
+    # https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview#environment-variables
+    # The DEV=true env var causes claude to crash with `TypeError: window.WebSocket is not a constructor`
+    postInstall = ''
+      wrapProgram $out/bin/claude \
+        --set DISABLE_AUTOUPDATER 1 \
+        --unset DEV
+    '';
+
+    passthru.updateScript = ./update.sh;
+
+    meta = {
+      description = "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster";
+      homepage = "https://github.com/anthropics/claude-code";
+      downloadPage = "https://www.npmjs.com/package/@anthropic-ai/claude-code";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [
+        malo
+        markus1189
+        omarjatoi
+      ];
+      mainProgram = "claude";
+    };
+  };
 }

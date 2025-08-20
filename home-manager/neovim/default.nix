@@ -1,7 +1,9 @@
 {
+  ai,
   languages,
 }:
 {
+  lib,
   pkgs,
   isWSL,
   ...
@@ -13,7 +15,12 @@ let
       (
         m:
         import ./${m} {
-          inherit pkgs languages;
+          inherit
+            lib
+            pkgs
+            ai
+            languages
+            ;
         }
       )
       (
