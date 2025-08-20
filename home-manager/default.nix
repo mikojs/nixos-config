@@ -67,6 +67,7 @@ with builtins;
             (optionals (hasAttr "packages" user) user.packages)
             ++ [
               ./fish.nix
+              ./gemini.nix
               ./gh.nix
               ./jless.nix
               ./jq.nix
