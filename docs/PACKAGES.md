@@ -34,6 +34,13 @@ Tide is the ultimate Fish prompt.
 
 - [Repository](https://github.com/IlanCosman/tide)
 
+## Gemini CLI
+
+Gemini CLI is an AI agent that brings the power of Gemini directly into your terminal.
+
+- [Configuration](../home-manager/gemini.nix)
+- [Repository](https://github.com/google-gemini/gemini-cli)
+
 ## gh
 
 GitHub CLI is used to login to GitHub and control repositories.
