@@ -86,5 +86,6 @@ initialize
 Here are the packages I use.
 
 - [Common](./docs/PACKAGES.md)
+- [AI](./docs/AI.md)
 - [Languages](./docs/LANGUAGES.md)
 - [Custom commands](./docs/CUSTOM_COMMANDS.md)
