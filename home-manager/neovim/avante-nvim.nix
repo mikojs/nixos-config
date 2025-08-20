@@ -10,7 +10,6 @@
       config = ''
         require("avante_lib").load()
         require("avante").setup({
-          provider = "gemini",
           system_prompt = function()
             local hub = require("mcphub").get_hub_instance()
 

@@ -66,6 +66,7 @@ with builtins;
           imports =
             (optionals (hasAttr "packages" user) user.packages)
             ++ [
+              ./claude-code.nix
               ./fish.nix
               ./gemini.nix
               ./gh.nix
