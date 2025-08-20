@@ -1,4 +1,5 @@
 {
+  ai,
   languages,
 }:
 {
@@ -13,7 +14,7 @@ let
       (
         m:
         import ./${m} {
-          inherit pkgs languages;
+          inherit pkgs ai languages;
         }
       )
       (

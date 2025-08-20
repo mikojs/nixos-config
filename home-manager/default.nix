@@ -66,9 +66,7 @@ with builtins;
           imports =
             (optionals (hasAttr "packages" user) user.packages)
             ++ [
-              ./claude-code.nix
               ./fish.nix
-              ./gemini.nix
               ./gh.nix
               ./jless.nix
               ./jq.nix
@@ -81,8 +79,12 @@ with builtins;
                 userName = user.name;
               })
               (import ./git.nix { gitconfig = user.gitconfig; })
-              (import ./neovim { languages = user.languages; })
+              (import ./neovim {
+                ai = user.ai;
+                languages = user.languages;
+              })
             ]
+            ++ (map (a: import ./ai/${a}.nix) user.ai)
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
             ))
