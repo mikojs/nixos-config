@@ -175,7 +175,7 @@ Barbar.nvim is a tabline plugin for Neovim.
 
 Persistence.nvim is a session plugin for Neovim.
 
-- [Configuration](../home-manager/neovim/presistence-nvim.nix)
+- [Configuration](../home-manager/neovim/persistence-nvim.nix)
 - [Repository](https://github.com/folke/persistence.nvim)
 - Keybindings
 
