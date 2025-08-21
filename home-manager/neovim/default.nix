@@ -80,6 +80,11 @@ in
     "packages"
   ]);
 
+  xdg.configFile = getConfig ([
+    "xdg"
+    "configFile"
+  ]);
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;

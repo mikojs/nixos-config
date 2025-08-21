@@ -31,4 +31,12 @@
         '';
       }
     ];
+
+  xdg.configFile = with builtins; {
+    "mcphub/servers.json".text = ''
+      {
+        "mcpServers": ${readFile ../ai/mcpServers.json}
+      }
+    '';
+  };
 }
