@@ -85,6 +85,7 @@ with builtins;
                 languages = user.languages;
               })
             ]
+            ++ (if lists.length user.ai > 0 then [ ./uv.nix ] else [ ])
             ++ (map (a: import ./ai/${a}.nix { mcpServers = user.mcpServers; }) user.ai)
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
