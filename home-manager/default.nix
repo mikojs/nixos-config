@@ -81,10 +81,11 @@ with builtins;
               (import ./git.nix { gitconfig = user.gitconfig; })
               (import ./neovim {
                 ai = user.ai;
+                mcpServers = user.mcpServers;
                 languages = user.languages;
               })
             ]
-            ++ (map (a: import ./ai/${a}.nix) user.ai)
+            ++ (map (a: import ./ai/${a}.nix { mcpServers = user.mcpServers; }) user.ai)
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
             ))
