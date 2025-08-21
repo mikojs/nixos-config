@@ -60,7 +60,7 @@ let
   getConfig =
     with builtins;
     (
-      keys:
+      keys: default:
       (foldl' (
         result: config:
         let
@@ -70,24 +70,35 @@ let
             ) config keys
           );
         in
-        if data != null then result ++ data else result
-      ) [ ] configs)
+        if data != null then (if isList default then result ++ data else result // data) else result
+      ) default configs)
     );
 in
 {
-  home.packages = getConfig ([
-    "home"
-    "packages"
-  ]);
+  home.packages =
+    getConfig
+      [
+        "home"
+        "packages"
+      ]
+      [ ];
+
+  xdg.configFile = getConfig [
+    "xdg"
+    "configFile"
+  ] { };
 
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    plugins = getConfig ([
-      "programs"
-      "neovim"
-      "plugins"
-    ]);
+    plugins =
+      getConfig
+        [
+          "programs"
+          "neovim"
+          "plugins"
+        ]
+        [ ];
 
     extraConfig = ''
       set encoding=utf-8
