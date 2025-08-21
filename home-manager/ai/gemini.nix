@@ -7,11 +7,11 @@
     gemini-cli
   ];
 
-  home.file = with builtins; {
+  home.file = {
     ".gemini/settings.json".text = ''
       {
         "selectedAuthType": "oauth-personal",
-        "mcpServers": ${readFile ./mcpServers.json}
+        "mcpServers": ${import ./mcp-servers.nix { }}
       }
     '';
   };

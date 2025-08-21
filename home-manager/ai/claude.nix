@@ -7,10 +7,10 @@
     claude-code
   ];
 
-  home.file = with builtins; {
+  home.file = {
     ".claude/mcp.json".text = ''
       {
-        "mcpServers": ${readFile ./mcpServers.json}
+        "mcpServers": ${import ./mcp-servers.nix { }}
       }
     '';
   };
