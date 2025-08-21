@@ -2,6 +2,7 @@
   lib,
   pkgs,
   ai,
+  mcpServers,
   ...
 }:
 {
@@ -35,7 +36,7 @@
   xdg.configFile = {
     "mcphub/servers.json".text = ''
       {
-        "mcpServers": ${import ../ai/mcp-servers.nix { }}
+        "mcpServers": ${import ../ai/mcp-servers.nix { mcpServers = mcpServers; }}
       }
     '';
   };

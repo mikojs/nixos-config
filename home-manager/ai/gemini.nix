@@ -1,4 +1,7 @@
 {
+  mcpServers,
+}:
+{
   pkgs,
   ...
 }:
@@ -11,7 +14,7 @@
     ".gemini/settings.json".text = ''
       {
         "selectedAuthType": "oauth-personal",
-        "mcpServers": ${import ./mcp-servers.nix { }}
+        "mcpServers": ${import ./mcp-servers.nix { inherit mcpServers; }}
       }
     '';
   };

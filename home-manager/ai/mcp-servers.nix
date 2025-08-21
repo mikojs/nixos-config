@@ -1,21 +1,23 @@
 {
+  mcpServers,
   ...
 }:
-''
+builtins.toJSON (
   {
-    "memory": {
-      "args": [
-        "-y",
+    "memory" = {
+      "args" = [
+        "-y"
         "@modelcontextprotocol/server-memory"
-      ],
-      "command": "npx"
-    },
-    "sequentialthinking": {
-      "args": [
-        "-y",
+      ];
+      "command" = "npx";
+    };
+    "sequentialthinking" = {
+      "args" = [
+        "-y"
         "@modelcontextprotocol/server-sequential-thinking"
-      ],
-      "command": "npx"
-    }
+      ];
+      "command" = "npx";
+    };
   }
-''
+  // mcpServers
+)

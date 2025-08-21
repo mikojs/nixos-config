@@ -1,5 +1,6 @@
 {
   ai,
+  mcpServers,
   languages,
 }:
 {
@@ -19,6 +20,7 @@ let
             lib
             pkgs
             ai
+            mcpServers
             languages
             ;
         }
