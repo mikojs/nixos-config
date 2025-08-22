@@ -277,16 +277,16 @@ with prev.vimUtils;
 
   claude-code = buildNpmPackage rec {
     pname = "claude-code";
-    version = "1.0.80";
+    version = "1.0.85";
 
     nodejs = nodejs_20; # required for sandboxed Nix builds on Darwin
 
     src = fetchzip {
       url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-      hash = "sha256-o7fG0LnTR7fGxq4VP5393tcQZi0JtPOF8Gb2cUAsevA=";
+      hash = "sha256:0shrqaz855sf55rr101mxxflx7vdyb3rcicm1d0q5xs6i5razfh8";
     };
 
-    npmDepsHash = "sha256-9eVpQfcdiLyL6LWcBuVrd6XHQC5caZS9m8sNy9kaRyQ=";
+    npmDepsHash = "0000000000000000000000000000000000000000000000000000";
 
     postPatch = ''
       cp ${./claude-code-package-lock.json} package-lock.json
