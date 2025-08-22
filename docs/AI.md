@@ -18,7 +18,7 @@ Claude Code is an AI agent that brings the power of Claude directly into your co
 
 ### ccstatusline
 
-ccstatusline is a small tool that displays the current Claude context in your Neovim statusline. It provides a concise way to monitor the active Claude context directly within your editor.
+ccstatusline is a highly customizable statusline for Claude Code CLI with powerline support, themes, and more.
 
 - [Repository](https://github.com/sirmalloc/ccstatusline)
 
