@@ -10,6 +10,7 @@
   vimUtils,
   makeWrapper,
   pkgs,
+  ...
 }:
 let
   version = "0.0.27-unstable-2025-08-14";
