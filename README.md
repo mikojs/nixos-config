@@ -76,6 +76,7 @@ initialize
 
 - Only support `gemini` and `claude` now. Run the commands and authorize manually based on your settings.
 - To support `avante.nvim`, you need to set up the env variable like `GEMINI_API_KEY=...` or `ANTHROPIC_API_KEY=...`
+- Should double-check the [docs](./docs/AI.md) to do some manually work.
 
 ### Codeium in nvim
 

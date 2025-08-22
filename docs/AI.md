@@ -16,6 +16,16 @@ Claude Code is an AI agent that brings the power of Claude directly into your co
 - [Configuration](../home-manager/ai/claude.nix)
 - [Repository](https://github.com/anthropics/claude-code)
 
+### ccstatusline
+
+ccstatusline is a small tool that displays the current Claude context in your Neovim statusline. It provides a concise way to monitor the active Claude context directly within your editor.
+
+- [Repository](https://github.com/sirmalloc/ccstatusline)
+
+```
+npx ccstatusline@latest
+```
+
 ## MCP servers
 
 [Here](../home-manager/ai/mcp-servers.nix) are the MCP servers supported by this flake.
