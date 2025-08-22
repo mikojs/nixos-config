@@ -33,7 +33,7 @@ with prev.vimUtils;
   # FIXME: those are in unstable nixpkgs
 
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/ta/tabiew
-  tabiew = import ./tabiew/packages.nix prev;
+  tabiew = import ./tabiew.nix prev;
 
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/so/somo
   somo = import ./somo.nix prev;

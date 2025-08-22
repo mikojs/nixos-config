@@ -6,6 +6,7 @@
   installShellFiles,
   versionCheckHook,
   nix-update-script,
+  ...
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {

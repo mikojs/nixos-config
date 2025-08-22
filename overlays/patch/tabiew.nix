@@ -3,6 +3,7 @@
   fetchFromGitHub,
   rustPlatform,
   installShellFiles,
+  ...
 }:
 rustPlatform.buildRustPackage rec {
   pname = "tabiew";

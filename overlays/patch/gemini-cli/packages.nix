@@ -3,6 +3,7 @@
   buildNpmPackage,
   fetchFromGitHub,
   gitUpdater,
+  ...
 }:
 
 buildNpmPackage (finalAttrs: {
