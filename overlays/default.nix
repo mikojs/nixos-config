@@ -5,7 +5,7 @@
 }:
 {
   nixpkgs.overlays = [
-    (import ./patch.nix)
+    (import ./patch)
     (import ./custom)
     (import ./mcp-hub.nix { inherit inputs system; })
   ];
