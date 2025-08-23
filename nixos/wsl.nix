@@ -12,4 +12,6 @@ with inputs;
     enable = true;
     docker-desktop.enable = true;
   };
+
+  programs.nix-ld.enable = true;
 }
