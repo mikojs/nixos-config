@@ -2,6 +2,7 @@
   ai,
   mcpServers,
   languages,
+  ...
 }:
 {
   lib,

@@ -57,7 +57,7 @@ with builtins;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit isWSL; };
+    extraSpecialArgs = { inherit isWSL isMac; };
 
     users = listToAttrs (
       map (
@@ -74,24 +74,17 @@ with builtins;
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
-              (import ./tmux.nix {
-                isMac = isMac;
-                userName = user.name;
-              })
-              (import ./git.nix { gitconfig = user.gitconfig; })
-              (import ./neovim {
-                ai = user.ai;
-                mcpServers = user.mcpServers;
-                languages = user.languages;
-              })
+              (import ./tmux.nix user)
+              (import ./git.nix user)
+              (import ./neovim user)
             ]
             ++ (if lists.length user.ai > 0 then [ ./uv.nix ] else [ ])
-            ++ (map (a: import ./ai/${a}.nix { mcpServers = user.mcpServers; }) user.ai)
+            ++ (map (a: import ./ai/${a}.nix user) user.ai)
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
             ))
             ++ (optionals isMac [
-              (import ./kitty.nix { userName = user.name; })
+              (import ./kitty.nix user)
             ]);
 
           home.stateVersion = stateVersion;
