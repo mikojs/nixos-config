@@ -66,7 +66,7 @@ with builtins;
           imports =
             (optionals (hasAttr "packages" user) user.packages)
             ++ [
-              ./fish.nix
+              ./fish
               ./gh.nix
               ./jless.nix
               ./jq.nix
