@@ -4,23 +4,23 @@
 }:
 builtins.toJSON (
   {
-    "memory" = {
-      "command" = "npx";
-      "args" = [
+    memory = {
+      command = "npx";
+      args = [
         "-y"
         "@modelcontextprotocol/server-memory"
       ];
     };
-    "sequentialthinking" = {
-      "command" = "npx";
-      "args" = [
+    sequentialthinking = {
+      command = "npx";
+      args = [
         "-y"
         "@modelcontextprotocol/server-sequential-thinking"
       ];
     };
-    "fetch" = {
-      "command" = "uvx";
-      "args" = [ "mcp-server-fetch" ];
+    fetch = {
+      command = "uvx";
+      args = [ "mcp-server-fetch" ];
     };
   }
   // mcpServers
