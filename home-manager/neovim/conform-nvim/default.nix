@@ -1,33 +1,27 @@
 {
   pkgs,
+  lib,
   languages,
   ...
 }:
+with lib;
+with builtins;
 let
-  languagesConfig =
-    with builtins;
-    foldl' (
-      result: l:
-      let
-        language = if l.language == "postgresql" || l.language == "sqlite" then "db" else l.language;
-      in
-      if pathExists ./${language}.nix then
-        result
-        ++ [
-          (import ./${language}.nix {
-            inherit pkgs;
-          })
-        ]
-      else
-        result
-    ) [ ] languages;
+  getConfig =
+    (import ../../../lib.nix).getConfig
+      (filter pathExists (
+        lists.unique (
+          map (
+            l: if l.language == "postgresql" || l.language == "sqlite" then ./db.nix else ./${l.language}.nix
+          ) languages
+        )
+      ))
+      {
+        inherit pkgs;
+      };
 in
 {
-  home.packages =
-    with builtins;
-    foldl' (
-      result: l: if hasAttr "packages" l then result ++ l.packages else result
-    ) [ ] languagesConfig;
+  home.packages = getConfig [ "packages" ] [ ];
 
   programs.neovim.plugins =
     with pkgs.vimPlugins;
@@ -37,13 +31,11 @@ in
         plugin = conform-nvim;
         type = "lua";
         config = ''
-          ${concatStringsSep "\n" (
-            foldl' (result: l: if hasAttr "init" l then result ++ [ l.init ] else result) [ ] languagesConfig
-          )}
+          ${getConfig [ "init" ] ""}
 
           require("conform").setup({
             formatters_by_ft = {
-              ${concatStringsSep ",\n" (map (l: l.formatter) languagesConfig)}
+              ${getConfig [ "formatter" ] ""}
             },
             format_on_save = function(bufnr)
               if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
