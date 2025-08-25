@@ -5,6 +5,7 @@
   stateVersion,
   isWSL,
   isMac,
+  n8n,
   users,
   ...
 }:
@@ -57,7 +58,7 @@ with builtins;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit isWSL isMac; };
+    extraSpecialArgs = { inherit isWSL isMac n8n; };
 
     users = listToAttrs (
       map (
@@ -66,6 +67,7 @@ with builtins;
           imports =
             (optionals (hasAttr "packages" user) user.packages)
             ++ [
+              ./fish
               ./gh.nix
               ./jless.nix
               ./jq.nix
@@ -73,7 +75,6 @@ with builtins;
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
-              (import ./fish user)
               (import ./tmux.nix user)
               (import ./git.nix user)
               (import ./neovim user)

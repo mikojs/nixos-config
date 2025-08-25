@@ -4,6 +4,7 @@ inputs:
   systemModules ? [ ],
   isWSL ? false,
   isMac ? false,
+  n8n,
   users,
 }:
 let
@@ -19,6 +20,7 @@ mkSystem {
       system
       isWSL
       isMac
+      n8n
       users
       ;
 

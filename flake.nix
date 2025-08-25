@@ -27,6 +27,14 @@
     inputs:
     let
       mkSystem = import ./mkSystem.nix inputs;
+
+      n8n = {
+        postgresUser = "postgresUser";
+        postgresPassword = "postgresPassword";
+        postgresDb = "postgresDb";
+        postgresNonRootUser = "postgresNonRootUser";
+        postgresNonRootPassword = "postgresNonRootPassword";
+      };
       users = [
         {
           name = "miko";
@@ -38,13 +46,6 @@
             "gemini"
             "claude"
           ];
-          n8n = {
-            postgresUser = "postgresUser";
-            postgresPassword = "postgresPassword";
-            postgresDb = "postgresDb";
-            postgresNonRootUser = "postgresNonRootUser";
-            postgresNonRootPassword = "postgresNonRootPassword";
-          };
           languages = [
             { language = "nix"; }
             { language = "nodejs"; }
@@ -59,7 +60,7 @@
       inherit mkSystem;
 
       darwinConfigurations.mac = mkSystem {
-        inherit users;
+        inherit n8n users;
 
         system = "aarch64-darwin";
         isMac = true;
@@ -67,7 +68,7 @@
 
       nixosConfigurations = {
         wsl = mkSystem {
-          inherit users;
+          inherit n8n users;
 
           system = "x86_64-linux";
           isWSL = true;
