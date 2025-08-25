@@ -12,70 +12,50 @@
 }:
 with builtins;
 let
-  configs =
-    map
-      (
-        m:
-        import ./${m} {
-          inherit
-            lib
-            pkgs
-            ai
-            mcpServers
-            languages
-            ;
-        }
-      )
+  getConfig =
+    (import ../../lib.nix).getConfig
       (
         [
           # Colorschema
-          "onenord-nvim.nix"
+          ./onenord-nvim.nix
           # UI
-          "lualine-nvim.nix"
+          ./lualine-nvim.nix
           # Lsp
-          "nvim-treesitter.nix"
-          "nvim-cmp"
+          ./nvim-treesitter.nix
+          ./nvim-cmp
           # Editor
-          "vim-rzip.nix"
-          "which-key-nvim.nix"
-          "telescope-nvim.nix"
-          "gitsigns-nvim.nix"
-          "toggleterm-nvim.nix"
-          "barbar-nvim.nix"
-          "persistence-nvim.nix"
-          "todo-comments-nvim.nix"
+          ./vim-rzip.nix
+          ./which-key-nvim.nix
+          ./telescope-nvim.nix
+          ./gitsigns-nvim.nix
+          ./toggleterm-nvim.nix
+          ./barbar-nvim.nix
+          ./persistence-nvim.nix
+          ./todo-comments-nvim.nix
           # Viewer
-          "markview-nvim.nix"
+          ./markview-nvim.nix
           # Coding
-          "mini-nvim.nix"
+          ./mini-nvim.nix
           # Formatting
-          "conform-nvim"
+          ./conform-nvim
           # AI
-          "windsurf-nvim.nix"
-          "avante-nvim.nix"
-          "mcphub-nvim.nix"
+          ./windsurf-nvim.nix
+          ./avante-nvim.nix
+          ./mcphub-nvim.nix
         ]
-        ++ (map (l: "./languages/${l.language}.nix") (
+        ++ (map (l: ./languages/${l.language}.nix) (
           filter (l: pathExists ./languages/${l.language}.nix) languages
         ))
-      );
-
-  getConfig =
-    with builtins;
-    (
-      keys: default:
-      (foldl' (
-        result: config:
-        let
-          data = (
-            foldl' (
-              result: key: if result != null && hasAttr "${key}" result then result."${key}" else null
-            ) config keys
-          );
-        in
-        if data != null then (if isList default then result ++ data else result // data) else result
-      ) default configs)
-    );
+      )
+      {
+        inherit
+          lib
+          pkgs
+          ai
+          mcpServers
+          languages
+          ;
+      };
 in
 {
   home.packages =

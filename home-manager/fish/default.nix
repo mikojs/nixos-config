@@ -2,40 +2,12 @@
   pkgs,
   ...
 }:
-with builtins;
 let
-  configs = map (m: import m { inherit pkgs; }) ([
+  getConfig = (import ../../lib.nix).getConfig ([
     ./custom.nix
     ./nord.nix
     ./tide.nix
-  ]);
-
-  getConfig =
-    with builtins;
-    (
-      keys: default:
-      (foldl' (
-        result: config:
-        let
-          data = (
-            foldl' (
-              result: key: if result != null && hasAttr "${key}" result then result."${key}" else null
-            ) config keys
-          );
-        in
-        if data != null then
-          (
-            if isList default then
-              result ++ data
-            else if isString default then
-              result + "\n" + data
-            else
-              result // data
-          )
-        else
-          result
-      ) default configs)
-    );
+  ]) { inherit pkgs; };
 in
 {
   home.packages =
