@@ -50,8 +50,15 @@ in
         ]
         [ ];
 
-    shellAliases = {
-      nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
-    };
+    shellAliases =
+      getConfig
+        [
+          "programs"
+          "fish"
+          "shellAliases"
+        ]
+        {
+          nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
+        };
   };
 }
