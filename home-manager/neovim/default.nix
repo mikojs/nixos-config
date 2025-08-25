@@ -43,9 +43,7 @@ let
           ./avante-nvim.nix
           ./mcphub-nvim.nix
         ]
-        ++ (map (l: ./languages/${l.language}.nix) (
-          filter (l: pathExists ./languages/${l.language}.nix) languages
-        ))
+        ++ (filter pathExists (map (l: ./languages/${l.language}.nix) languages))
       )
       {
         inherit
