@@ -25,7 +25,7 @@ in
     "n8n/docker-compose.yml".text = replaceStrings rawEnv newEnv (readFile ./docker-compose.yml);
   };
 
-  shellAliases = {
+  programs.fish.shellAliases = {
     n8n = "docker compose -f ~/n8n/docker-compose.yml";
   };
 }
