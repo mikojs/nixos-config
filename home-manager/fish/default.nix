@@ -5,18 +5,26 @@
 let
   getConfig = (import ../../lib.nix).getConfig ([
     ./custom.nix
+    ./n8n
     ./nord.nix
     ./tide.nix
   ]) { inherit pkgs; };
 in
 {
-  home.packages =
-    getConfig
-      [
-        "home"
-        "packages"
-      ]
-      [ ];
+  home = {
+    packages =
+      getConfig
+        [
+          "home"
+          "packages"
+        ]
+        [ ];
+
+    file = getConfig [
+      "home"
+      "file"
+    ] { };
+  };
 
   programs.fish = {
     enable = true;
