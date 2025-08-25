@@ -21,6 +21,6 @@
   formatter = ''
     javascript = { "prettier" },
     typescript = { "prettier" },
-    typescriptreact = { "prettier" }
+    typescriptreact = { "prettier" },
   '';
 }

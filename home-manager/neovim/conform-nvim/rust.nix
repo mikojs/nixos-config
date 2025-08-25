@@ -7,5 +7,5 @@
     rustfmt
   ];
 
-  formatter = ''rust = { "rustfmt" }'';
+  formatter = ''rust = { "rustfmt" },'';
 }

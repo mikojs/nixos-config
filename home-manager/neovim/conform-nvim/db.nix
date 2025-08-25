@@ -7,5 +7,5 @@
     pgformatter
   ];
 
-  formatter = ''sql = { "pg_format" }'';
+  formatter = ''sql = { "pg_format" },'';
 }

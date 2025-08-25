@@ -7,5 +7,5 @@
     nixfmt-rfc-style
   ];
 
-  formatter = ''nix = { "nixfmt" }'';
+  formatter = ''nix = { "nixfmt" },'';
 }
