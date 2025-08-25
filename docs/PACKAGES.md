@@ -27,6 +27,7 @@ Fish is a user-friendly command line shell.
 - [Repository](https://github.com/fish-shell/fish-shell)
 - `aliases`
     - `nsf`: Run `nix-shell` with fish-shell.
+    - `n8n`: Run `n8n` server with docker compose.
 
 ### Tide
 
