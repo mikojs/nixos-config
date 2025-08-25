@@ -27,59 +27,51 @@
     inputs:
     let
       mkSystem = import ./mkSystem.nix inputs;
+
+      n8n = {
+        postgresUser = "postgresUser";
+        postgresPassword = "postgresPassword";
+        postgresDb = "postgresDb";
+        postgresNonRootUser = "postgresNonRootUser";
+        postgresNonRootPassword = "postgresNonRootPassword";
+      };
+      users = [
+        {
+          name = "miko";
+          gitconfig = {
+            userName = "Mikojs";
+            userEmail = "mikojs@gmail.com";
+          };
+          ai = [
+            "gemini"
+            "claude"
+          ];
+          languages = [
+            { language = "nix"; }
+            { language = "nodejs"; }
+            { language = "rust"; }
+            { language = "postgresql"; }
+            { language = "sqlite"; }
+          ];
+        }
+      ];
     in
     {
       inherit mkSystem;
 
       darwinConfigurations.mac = mkSystem {
+        inherit n8n users;
+
         system = "aarch64-darwin";
         isMac = true;
-        users = [
-          {
-            name = "mac";
-            gitconfig = {
-              userName = "Mikojs";
-              userEmail = "mikojs@gmail.com";
-            };
-            ai = [
-              "gemini"
-              "claude"
-            ];
-            languages = [
-              { language = "nix"; }
-              { language = "nodejs"; }
-              { language = "rust"; }
-              { language = "postgresql"; }
-              { language = "sqlite"; }
-            ];
-          }
-        ];
       };
 
       nixosConfigurations = {
         wsl = mkSystem {
+          inherit n8n users;
+
           system = "x86_64-linux";
           isWSL = true;
-          users = [
-            {
-              name = "nixos";
-              gitconfig = {
-                userName = "Mikojs";
-                userEmail = "mikojs@gmail.com";
-              };
-              ai = [
-                "gemini"
-                "claude"
-              ];
-              languages = [
-                { language = "nix"; }
-                { language = "nodejs"; }
-                { language = "rust"; }
-                { language = "postgresql"; }
-                { language = "sqlite"; }
-              ];
-            }
-          ];
         };
       };
     };

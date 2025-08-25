@@ -5,6 +5,7 @@
   stateVersion,
   isWSL,
   isMac,
+  n8n,
   users,
   ...
 }:
@@ -57,7 +58,7 @@ with builtins;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit isWSL isMac; };
+    extraSpecialArgs = { inherit isWSL isMac n8n; };
 
     users = listToAttrs (
       map (
