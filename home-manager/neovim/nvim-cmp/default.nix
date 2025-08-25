@@ -3,31 +3,26 @@
   languages,
   ...
 }:
+with builtins;
 let
-  languagesConfig =
-    with builtins;
-    foldl' (
-      result: l:
-      let
-        language = if l.language == "postgresql" || l.language == "sqlite" then "db" else l.language;
-      in
-      if pathExists ./${language}.nix then
-        result
-        ++ [
-          (import ./${language}.nix {
-            inherit pkgs;
-          })
-        ]
-      else
-        result
-    ) [ ] languages;
+  getConfig =
+    (import ../../../lib.nix).getConfig
+      (filter pathExists (
+        map (
+          l: if l.language == "postgresql" || l.language == "sqlite" then ./db.nix else ./${l.language}.nix
+        ) languages
+      ))
+      {
+        inherit pkgs;
+      };
 in
 {
   home.packages =
-    with builtins;
-    foldl' (
-      result: l: if hasAttr "packages" l then result ++ l.packages else result
-    ) [ ] languagesConfig;
+    getConfig
+      [
+        "packages"
+      ]
+      [ ];
 
   programs.neovim.plugins =
     with pkgs.vimPlugins;
@@ -179,11 +174,14 @@ in
 
           local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-          ${(with builtins; foldl' (result: l: result + l.config) "" languagesConfig)}
+          ${getConfig [ "config" ] ""}
         '';
       }
     ]
-    ++ foldl' (
-      result: l: if hasAttr "plugins" l then result ++ l.plugins else result
-    ) [ ] languagesConfig;
+    ++ (getConfig
+      [
+        "plugins"
+      ]
+      [ ]
+    );
 }
