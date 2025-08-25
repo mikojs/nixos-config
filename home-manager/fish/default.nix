@@ -6,6 +6,8 @@ with builtins;
 let
   configs = map (m: import m { inherit pkgs; }) ([
     ./custom.nix
+    ./nord.nix
+    ./tide.nix
   ]);
 
   getConfig =
@@ -22,7 +24,14 @@ let
           );
         in
         if data != null then
-          (if isList default || isString default then result ++ data else result // data)
+          (
+            if isList default then
+              result ++ data
+            else if isString default then
+              result + "\n" + data
+            else
+              result // data
+          )
         else
           result
       ) default configs)
