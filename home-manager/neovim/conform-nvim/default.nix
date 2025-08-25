@@ -1,16 +1,20 @@
 {
   pkgs,
+  lib,
   languages,
   ...
 }:
+with lib;
 with builtins;
 let
   getConfig =
     (import ../../../lib.nix).getConfig
       (filter pathExists (
-        map (
-          l: if l.language == "postgresql" || l.language == "sqlite" then ./db.nix else ./${l.language}.nix
-        ) languages
+        lists.unique (
+          map (
+            l: if l.language == "postgresql" || l.language == "sqlite" then ./db.nix else ./${l.language}.nix
+          ) languages
+        )
       ))
       {
         inherit pkgs;
