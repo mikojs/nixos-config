@@ -1,4 +1,8 @@
 {
+  n8n,
+  ...
+}:
+{
   pkgs,
   ...
 }:
@@ -8,7 +12,7 @@ let
     ./n8n
     ./nord.nix
     ./tide.nix
-  ]) { inherit pkgs; };
+  ]) { inherit pkgs n8n; };
 in
 {
   home = {

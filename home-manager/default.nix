@@ -66,7 +66,6 @@ with builtins;
           imports =
             (optionals (hasAttr "packages" user) user.packages)
             ++ [
-              ./fish
               ./gh.nix
               ./jless.nix
               ./jq.nix
@@ -74,6 +73,7 @@ with builtins;
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
+              (import ./fish user)
               (import ./tmux.nix user)
               (import ./git.nix user)
               (import ./neovim user)
