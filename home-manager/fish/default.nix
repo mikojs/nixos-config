@@ -51,12 +51,14 @@ in
           set fish_greeting
         '';
 
-    plugins = with pkgs.fishPlugins; [
-      {
-        name = "tide";
-        src = tide.src;
-      }
-    ];
+    plugins =
+      getConfig
+        [
+          "programs"
+          "fish"
+          "plugins"
+        ]
+        [ ];
 
     shellAliases = {
       nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
