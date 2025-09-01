@@ -44,6 +44,10 @@ impl Config {
         let db_parttern = Regex::new(r"^DB_(?<name>\w+)_(?<type>URL|TYPE|DESCRIPTION)$")?;
 
         for (key, value) in env::vars() {
+            if value.is_empty() {
+                continue;
+            }
+
             if let Some(caps) = db_parttern.captures(&key) {
                 let name = caps["name"].replace("_", "-").to_lowercase();
                 let r#type = caps["type"].to_string();
@@ -93,6 +97,7 @@ fn get_config() -> Result<(), ConfigError> {
     env::set_var("DB_TEST_TEST_URL", DB_DEFAULT_URL);
     env::set_var("DB_TEST_TEST_TYPE", "postgresql");
     env::set_var("DB_TEST_TEST_DESCRIPTION", "description");
+    env::set_var("DB_EMPTY_URL", "");
 
     let config = Config::new()?;
 
