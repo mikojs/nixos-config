@@ -79,7 +79,15 @@ with builtins;
               (import ./git.nix user)
               (import ./neovim user)
             ]
-            ++ (if lists.length user.ai > 0 then [ ./uv.nix ] else [ ])
+            ++ (
+              if lists.length user.ai > 0 then
+                [
+                  ./ai/uv.nix
+                  ./ai/github.nix
+                ]
+              else
+                [ ]
+            )
             ++ (map (a: import ./ai/${a}.nix user) user.ai)
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages

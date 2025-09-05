@@ -1,5 +1,6 @@
 {
   mcpServers,
+  pkgs,
   ...
 }:
 builtins.toJSON (
@@ -21,6 +22,10 @@ builtins.toJSON (
     fetch = {
       command = "uvx";
       args = [ "mcp-server-fetch" ];
+    };
+    github = {
+      command = pkgs.github-mcp-server;
+      args = [ "stdio" ];
     };
   }
   // mcpServers
