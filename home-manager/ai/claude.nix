@@ -18,4 +18,8 @@
       }
     '';
   };
+
+  programs.fish.shellAliases = {
+    ccm = "claude-code --mcp ~/.claude/mcp.json";
+  };
 }

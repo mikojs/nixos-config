@@ -15,6 +15,8 @@ Claude Code is an AI agent that brings the power of Claude directly into your co
 
 - [Configuration](../home-manager/ai/claude.nix)
 - [Repository](https://github.com/anthropics/claude-code)
+- `aliases`
+    - `ccm`: Run `claude-code` with `mcp` servers.
 
 ### ccstatusline
 
