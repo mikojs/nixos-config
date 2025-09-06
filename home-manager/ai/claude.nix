@@ -7,16 +7,18 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    claude-code
-  ];
+  home = {
+    packages = with pkgs; [
+      claude-code
+    ];
 
-  home.file = {
-    ".claude/mcp.json".text = ''
-      {
-        "mcpServers": ${import ./mcp-servers.nix { inherit pkgs mcpServers; }}
-      }
-    '';
+    file = {
+      ".claude/mcp.json".text = ''
+        {
+          "mcpServers": ${import ./mcp-servers.nix { inherit pkgs mcpServers; }}
+        }
+      '';
+    };
   };
 
   programs.fish.shellAliases = {
