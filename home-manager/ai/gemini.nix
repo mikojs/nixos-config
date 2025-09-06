@@ -16,7 +16,7 @@
       {
         "selectedAuthType": "oauth-personal",
         "disableUpdateNag": true,
-        "mcpServers": ${import ./mcp-servers.nix { inherit mcpServers; }}
+        "mcpServers": ${import ./mcp-servers.nix { inherit pkgs mcpServers; }}
       }
     '';
   };

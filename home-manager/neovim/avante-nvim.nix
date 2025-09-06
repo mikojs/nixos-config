@@ -36,7 +36,7 @@
   xdg.configFile = {
     "mcphub/servers.json".text = ''
       {
-        "mcpServers": ${import ../ai/mcp-servers.nix { inherit mcpServers; }}
+        "mcpServers": ${import ../ai/mcp-servers.nix { inherit pkgs mcpServers; }}
       }
     '';
   };

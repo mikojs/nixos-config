@@ -14,7 +14,7 @@
   home.file = {
     ".claude/mcp.json".text = ''
       {
-        "mcpServers": ${import ./mcp-servers.nix { inherit mcpServers; }}
+        "mcpServers": ${import ./mcp-servers.nix { inherit pkgs mcpServers; }}
       }
     '';
   };
