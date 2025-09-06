@@ -78,9 +78,8 @@ with builtins;
               (import ./tmux.nix user)
               (import ./git.nix user)
               (import ./neovim user)
+              (import ./ai user)
             ]
-            ++ (if lists.length user.ai > 0 then [ ./uv.nix ] else [ ])
-            ++ (map (a: import ./ai/${a}.nix user) user.ai)
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
             ))
