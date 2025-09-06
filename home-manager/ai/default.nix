@@ -1,6 +1,7 @@
 {
   ai,
   mcpServers,
+  languages,
   ...
 }:
 {
@@ -9,6 +10,7 @@
   ...
 }:
 with lib;
+with builtins;
 let
   getConfig =
     (import ../../lib.nix).getConfig
@@ -16,6 +18,9 @@ let
         (optionals (lists.length ai > 0) [
           ./uv.nix
           ./github.nix
+        ])
+        ++ (optionals (!(elem "nodejs" (map (a: a.language) languages))) [
+          ./npx.nix
         ])
         ++ (map (a: ./${a}.nix) ai)
       )
