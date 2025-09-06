@@ -5,10 +5,11 @@
   ...
 }:
 let
-  getConfig = (import ../../lib.nix).getConfig [
-    ./gemini.nix
-    ./claude.nix
-  ] { inherit pkgs mcpServers; };
+  getConfig =
+    (import ../../lib.nix).getConfig (map (a: import ./${a}.nix { inherit pkgs mcpServers; }) ai)
+      {
+        inherit pkgs mcpServers;
+      };
 
 in
 {

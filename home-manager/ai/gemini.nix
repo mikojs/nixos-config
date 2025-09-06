@@ -1,9 +1,6 @@
 {
-  mcpServers,
-  ...
-}:
-{
   pkgs,
+  mcpServers,
   ...
 }:
 {
