@@ -24,7 +24,7 @@ builtins.toJSON (
       args = [ "mcp-server-fetch" ];
     };
     github = {
-      command = pkgs.github-mcp-server;
+      command = "${pkgs.github-mcp-server}/bin/github-mcp-server";
       args = [ "stdio" ];
     };
   }
