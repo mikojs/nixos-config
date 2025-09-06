@@ -1,6 +1,6 @@
 {
-  mcpServers,
   pkgs,
+  mcpServers,
   ...
 }:
 builtins.toJSON (
