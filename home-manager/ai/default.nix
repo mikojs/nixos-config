@@ -4,9 +4,19 @@
   mcpServers,
   ...
 }:
+with builtins;
 let
   getConfig =
-    (import ../../lib.nix).getConfig (map (a: import ./${a}.nix { inherit pkgs mcpServers; }) ai)
+    (import ../../lib.nix).getConfig
+      (
+        (
+          optionals lists.length ai > 0 [
+            ./uv.nix
+            ./github.nix
+          ]
+        )
+        ++ (map (a: import ./${a}.nix { inherit pkgs mcpServers; }) ai)
+      )
       {
         inherit pkgs mcpServers;
       };
@@ -21,6 +31,7 @@ in
           "packages"
         ]
         [ ];
+
     file = getConfig [
       "home"
       "file"
