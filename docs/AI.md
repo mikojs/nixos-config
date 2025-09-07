@@ -36,3 +36,4 @@ npx ccstatusline@latest
 - [sequentialthinking](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking): An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process.
 - [fetch](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch): A Model Context Protocol server that provides web content fetching capabilities. This server enables LLMs to retrieve and process content from web pages, converting HTML to markdown for easier consumption.
 - [github-mcp-server](https://github.com/github/github-mcp-server): A Model Context Protocol server for GitHub. This server provides access to GitHub repositories and issues, allowing LLMs to interact with GitHub content.
+- [n8n-mcp](https://github.com/czlonkowski/n8n-mcp): A Model Context Protocol server for N8N. This server provides access to N8N workflows, allowing LLMs to interact with N8N content.
