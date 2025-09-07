@@ -104,11 +104,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1755878990,
-        "narHash": "sha256-pogTjHj2JxHjz5qw3XnWoTiv/c8yl+1SMbb0IeNg734=",
+        "lastModified": 1757229710,
+        "narHash": "sha256-qmvkQTKJ4Qt2SL+d9pGtmLAPVmCYAFnflf0e0BX1wYM=",
         "owner": "ravitemer",
         "repo": "mcphub.nvim",
-        "rev": "bd3dc1cf39812691c197989327cd36c41d5a1fb6",
+        "rev": "5e39057c4405bc7b83ef9fd38a37d18c9330e403",
         "type": "github"
       },
       "original": {
