@@ -19,6 +19,6 @@
   };
 
   programs.fish.shellAliases = {
-    ccm = "claude-code --mcp ~/.claude/mcp.json";
+    ccm = "claude --mcp ~/.claude/mcp.json";
   };
 }
