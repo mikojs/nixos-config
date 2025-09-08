@@ -41,5 +41,6 @@ in
 
   programs.fish.shellAliases = {
     n8n = "docker compose -f ~/.n8n/docker-compose.yml";
+    n8n-exec = "docker exec -it $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID) /bin/sh";
   };
 }
