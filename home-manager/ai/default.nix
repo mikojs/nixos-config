@@ -45,9 +45,17 @@ in
     ] { };
   };
 
-  programs.fish.shellAliases = getConfig [
-    "programs"
-    "fish"
-    "shellAliases"
-  ] { };
+  programs.fish = {
+    interactiveShellInit = "
+      if not set -q GITHUB_PERSONAL_ACCESS_TOKEN and type -q gh and gh status &> /dev/null
+        set -Ux GITHUB_PERSONAL_ACCESS_TOKEN $(gh auth token)
+      end
+    ";
+
+    shellAliases = getConfig [
+      "programs"
+      "fish"
+      "shellAliases"
+    ] { };
+  };
 }
