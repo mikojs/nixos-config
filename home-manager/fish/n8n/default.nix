@@ -22,10 +22,25 @@ in
 {
   home.file = {
     ".n8n/init-data.sh".text = replaceStrings rawEnv newEnv (readFile ./init-data.sh);
-    ".n8n/docker-compose.yml".text = replaceStrings rawEnv newEnv (readFile ./docker-compose.yml);
+    ".n8n/docker-compose.yml".text =
+      replaceStrings
+        (
+          rawEnv
+          ++ [
+            "\${HOME_DIR}"
+          ]
+        )
+        (
+          newEnv
+          ++ [
+            n8n.homeDir
+          ]
+        )
+        (readFile ./docker-compose.yml);
   };
 
   programs.fish.shellAliases = {
     n8n = "docker compose -f ~/.n8n/docker-compose.yml";
+    n8n-exec = "docker exec -it $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID) /bin/sh";
   };
 }
