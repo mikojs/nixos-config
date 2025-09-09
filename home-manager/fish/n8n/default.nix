@@ -40,7 +40,7 @@ in
   };
 
   programs.fish.shellAliases = {
-    n8n = "cat ~/.n8n/init-data.sh > ~/.n8n/_init-data.sh; docker compose -f ~/.n8n/docker-compose.yml";
+    n8n = "cat ~/.n8n/init-data.sh > ~/.n8n/_init-data.sh; chmod +x ~/.n8n/_init-data.sh; docker compose -f ~/.n8n/docker-compose.yml";
     n8n-exec = "docker exec -it $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID) /bin/sh";
   };
 }
