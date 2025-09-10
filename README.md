@@ -81,6 +81,9 @@ initialize
 ### Codeium in nvim
 
 ```nvim
+# If you have the problem with dressing UI, run this command
+:lua require("dressing").setup({ select = { enabled = false }})
+
 :Codeium Auth
 ```
 

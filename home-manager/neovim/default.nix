@@ -1,6 +1,6 @@
 {
   ai,
-  mcpServers,
+  mcpServers ? { },
   languages,
   ...
 }:

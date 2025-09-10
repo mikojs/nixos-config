@@ -25,6 +25,7 @@ ccstatusline is a highly customizable statusline for Claude Code CLI with powerl
 - [Repository](https://github.com/sirmalloc/ccstatusline)
 
 ```
+# Run it manually
 npx ccstatusline@latest
 ```
 
