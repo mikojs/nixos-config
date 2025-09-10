@@ -1,14 +1,7 @@
-name: Check Nix config
+name: Check Nix
 
 on: [push]
 
 jobs:
   check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@main
-      - uses: cachix/install-nix-action@v31
-      - name: Check Nix flake logic
-        run: nix flake check . --no-build
+    uses: mikojs/actions/.github/workflows/check-nix.yml@main
