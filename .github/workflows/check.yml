@@ -1,4 +1,4 @@
-name: Check Nix
+name: Check Nix config
 
 on: [push]
 
@@ -10,5 +10,5 @@ jobs:
       - name: Check Nix flake inputs
         uses: DeterminateSystems/flake-checker-action@main
       - uses: cachix/install-nix-action@v31
-      - name: Nix check
+      - name: Check Nix flake logic
         run: nix flake check . --no-build
