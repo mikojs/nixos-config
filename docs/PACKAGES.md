@@ -117,6 +117,13 @@ Unix command line queue utility.
 - [Configuration](../home-manager/nq.nix)
 - [Repository](https://github.com/leahneukirchen/nq)
 
+## osquery
+
+osquery is a query language and framework for operating system data collection and analysis.
+
+- [Configuration](../home-manager/osquery.nix)
+- [Repository](https://github.com/osquery/osquery)
+
 ## Somo
 
 Somo is a human-friendly alternative to netstat for socket and port monitoring on Linux and macOS.

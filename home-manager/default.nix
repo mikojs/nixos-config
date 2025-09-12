@@ -72,6 +72,7 @@ with builtins;
               ./jless.nix
               ./jq.nix
               ./nq.nix
+              ./osquery.nix
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
