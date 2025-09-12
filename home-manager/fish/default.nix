@@ -6,6 +6,7 @@
 let
   getConfig = (import ../../lib.nix).getConfig ([
     ./custom.nix
+    ./tailscale.nix
     ./n8n
     ./nord.nix
     ./tide.nix
