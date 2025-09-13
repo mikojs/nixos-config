@@ -28,6 +28,8 @@ Fish is a user-friendly command line shell.
 - `aliases`
     - `nsf`: Run `nix-shell` with fish-shell.
     - `n8n`: Run `n8n` server with docker compose.
+    - `tssh`: Run `ssh` with tailscale.
+    - `tdocker`: Run `docker` with tailscale.
 
 ### Tide
 
@@ -114,6 +116,13 @@ Unix command line queue utility.
 
 - [Configuration](../home-manager/nq.nix)
 - [Repository](https://github.com/leahneukirchen/nq)
+
+## osquery
+
+osquery is a query language and framework for operating system data collection and analysis.
+
+- [Configuration](../home-manager/osquery.nix)
+- [Repository](https://github.com/osquery/osquery)
 
 ## Somo
 
