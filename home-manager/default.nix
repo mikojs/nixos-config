@@ -69,10 +69,10 @@ with builtins;
             ++ [
               ./fish
               ./gh.nix
+              ./glances.nix
               ./jless.nix
               ./jq.nix
               ./nq.nix
-              ./osquery.nix
               ./somo.nix
               ./tabiew.nix
               ./tree.nix

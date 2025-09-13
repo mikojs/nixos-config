@@ -66,6 +66,13 @@ A syntax-highlighting pager for git and diff output.
 
 - [Repository](https://github.com/dandavison/delta)
 
+## glances
+
+Glances is a system monitor for Linux, macOS, and Windows.
+
+- [Configuration](../home-manager/glances.nix)
+- [Repository](https://github.com/nicolargo/glances)
+
 ## jless
 
 jless is a less-like pager for JSON files.
@@ -116,13 +123,6 @@ Unix command line queue utility.
 
 - [Configuration](../home-manager/nq.nix)
 - [Repository](https://github.com/leahneukirchen/nq)
-
-## osquery
-
-osquery is a query language and framework for operating system data collection and analysis.
-
-- [Configuration](../home-manager/osquery.nix)
-- [Repository](https://github.com/osquery/osquery)
 
 ## Somo
 
