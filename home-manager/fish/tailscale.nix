@@ -5,6 +5,7 @@ let
   check_pattern = ''
     if not string match -q "*@*" $argv[1]
       echo "usage: tssh <username>@<hostname> [...argv]"
+
       return
     end
   '';
@@ -15,7 +16,6 @@ in
       ${check_pattern}
 
       set -l info (string split '@' $argv[1])
-
       ssh $info[1]@$(tailscale ip -4 $info[2]) -t fish $argv[2..-1]
     end
 
@@ -23,7 +23,6 @@ in
       ${check_pattern}
 
       set -l info (string split '@' $argv[1])
-
       docker context ls -q | grep $info[2] &> /dev/null
 
       if test $status -eq 1
