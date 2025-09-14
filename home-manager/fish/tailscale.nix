@@ -16,7 +16,13 @@ in
       ${check_pattern "tssh"}
 
       set -l info (string split '@' $argv[1])
-      ssh $info[1]@$(tailscale ip -4 $info[2]) -t fish $argv[2..-1]
+
+      if test (count $argv) -gt 2
+        set -l commands (string join "; " $argv[2..-1])
+        ssh $info[1]@$(tailscale ip -4 $info[2]) "fish -c \"$commands\""
+      else
+        ssh $info[1]@$(tailscale ip -4 $info[2]) -t fish
+      end
     end
 
     function tdocker --description "tdocker <username>@<hostname> [...argv]"
