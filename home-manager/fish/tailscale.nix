@@ -32,7 +32,6 @@ in
       docker -c $info[2] $argv[2..-1]
     end
 
-    # coder
     function tcoder --description "tcoder <username>@<hostname> <push|pull> <directory>"
       ${check_pattern "tcoder"}
 
