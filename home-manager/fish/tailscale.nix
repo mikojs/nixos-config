@@ -31,5 +31,18 @@ in
 
       docker -c $info[2] $argv[2..-1]
     end
+
+    # coder
+    function tcoder --description "tcoder <username>@<hostname> <push|pull> <directory>"
+      ${check_pattern "tcoder"}
+
+      if not contains $argv[2] push pull
+        echo "usage: tcoder <username>@<hostname> <push|pull> <directory>"
+        return
+      end
+
+      set -l info (string split '@' $argv[1])
+      coder $argv[2] ssh://$info[1]@$(tailscale ip -4 $info[2]) $argv[3]
+    end
   '';
 }
