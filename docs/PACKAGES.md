@@ -45,6 +45,12 @@ GitHub CLI is used to login to GitHub and control repositories.
 - [Configuration](../home-manager/gh.nix)
 - [Repository](https://github.com/cli/cli)
 
+### gh-poi
+
+Safely clean up your local branches.
+
+- [Repository](https://github.com/seachicken/gh-poi)
+
 ## Git
 
 Git is used to manage version control.

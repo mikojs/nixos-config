@@ -36,6 +36,7 @@ let
           ./markview-nvim.nix
           # Coding
           ./mini-nvim.nix
+          ./octo-nvim.nix
           # Formatting
           ./conform-nvim
           # AI

@@ -358,6 +358,17 @@ Align text interactively
     | Enhanced setup for '\|'        | `\|`         |
     | Enhanced setup for ' '         | ` `          |
 
+## Octo.nvim
+
+Octo.nvim is a GitHub plugin for Neovim.
+
+- [Configuration](../home-manager/neovim/octo-nvim.nix)
+- [Repository](https://github.com/pwntester/octo.nvim)
+
+```nvim
+:Octo ...
+```
+
 ## Conform.nvim
 
 Conform.nvim is a formatter plugin for Neovim.
