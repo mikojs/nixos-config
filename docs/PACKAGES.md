@@ -45,12 +45,6 @@ GitHub CLI is used to login to GitHub and control repositories.
 - [Configuration](../home-manager/gh.nix)
 - [Repository](https://github.com/cli/cli)
 
-### gh-dash
-
-gh-dash is a GitHub CLI dashboard.
-
-- [Repository](https://github.com/dlvhdr/gh-dash)
-
 ### gh-poi
 
 Safely clean up your local branches.
