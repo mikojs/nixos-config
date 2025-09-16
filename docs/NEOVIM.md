@@ -142,7 +142,7 @@ Toggleterm.nvim is a terminal plugin for Neovim.
     | Toggle vertical terminal   | `<leader>Tv` |
     | Toggle horizontal terminal | `<leader>Th` |
     | Toggle tab terminal        | `<leader>Tt` |
-    | Send selection to terminal | `<leader>s`  |
+    | Send selection to terminal | `<leader>st`  |
 
 ## Barbar.nvim
 
