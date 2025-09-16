@@ -105,10 +105,8 @@ Neovim is a Vim-fork focused on extensibility and agility.
 
     | Description        | Key           |
     | ---                | ---           |
-    | Resize height      | `<leader>wh`  |
     | Increase 10 height | `<leader>wh+` |
     | Decrease 10 height | `<leader>wh-` |
-    | Resize width       | `<leader>ww`  |
     | Increase 20 width  | `<leader>ww+` |
     | Decrease 20 width  | `<leader>ww-` |
 
