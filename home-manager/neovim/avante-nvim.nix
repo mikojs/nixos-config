@@ -14,7 +14,21 @@
         plugin = avante-nvim;
         type = "lua";
         config = ''
-          require("avante_lib").load()
+          require("dressing").setup({
+            input = {
+              enabled = false,
+            },
+            select = {
+              enabled = false,
+            },
+          })
+
+          require("avante_lib").load({
+            input = {
+              provider = "native"
+            },
+          })
+
           require("avante").setup({
             ${if lists.length ai > 0 then ''provider = "${lists.head ai}",'' else ""}
             system_prompt = function()
