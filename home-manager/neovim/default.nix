@@ -110,9 +110,9 @@ in
       set foldminlines=1
     '';
 
-    extraLuaConfig = ''
+    extraLuaConfig = with lib; ''
       -- Clipboard
-      if ${toString isWSL} or os.getenv("SSH_CONNECTION") then
+      if ${boolToString isWSL} or os.getenv("SSH_CONNECTION") then
         local function paste()
           return {
             vim.split(vim.fn.getreg(""), '\n'),
