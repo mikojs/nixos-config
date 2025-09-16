@@ -19,7 +19,6 @@ A neovim plugin that provides information about npm packages.
 
     | Description               | Key          |
     | ---                       | ---          |
-    | Node packages             | `<leader>n`  |
     | Enable or disable info    | `<leader>nt` |
     | Update dependency         | `<leader>nu` |
     | Change dependency version | `<leader>nc` |
@@ -36,7 +35,6 @@ A neovim plugin that helps managing crates.io dependencies.
 
     | Description             | Key          |
     | ---                     | ---          |
-    | Crates                  | `<leader>C`  |
     | Reload data             | `<leader>CR` |
     | Enable or disable info  | `<leader>Ct` |
     | Expand crate            | `<leader>Ce` |
