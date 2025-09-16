@@ -52,7 +52,6 @@
           { "]c", next_git_hunk, desc = "Next git hunk" },
           { "[c", prev_git_hunk, desc = "Previous git hunk" },
 
-          { "<leader>g", group = "Git", mode = { "n", "v" } },
           { "<leader>gs", stage_git_hunk, desc = "Stage git hunk", mode = "v" },
           { "<leader>gr", reset_git_hunk, desc = "Reset git hunk", mode = "v" },
 

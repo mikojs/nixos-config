@@ -43,10 +43,6 @@
               }
             end,
           })
-
-          require("which-key").add({
-            { "<leader>a", group = "Avante" },
-          })
         '';
       }
     ];

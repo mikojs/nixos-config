@@ -14,7 +14,6 @@
 
         package_info.setup()
         require("which-key").add({
-          { "<leader>n", group = "Node packages" },
           { "<leader>nt", package_info.toggle, desc = "Enable or disable info" },
           { "<leader>nu", package_info.update, desc = "Update dependency" },
           { "<leader>nc", package_info.change_version, desc = "Change dependency version" },
