@@ -112,31 +112,26 @@ in
 
     extraLuaConfig = ''
       -- Clipboard
-      ${
-        if !isWSL then
-          ""
-        else
-          ''
-            local function paste()
-              return {
-                vim.split(vim.fn.getreg(""), '\n'),
-                vim.fn.getregtype(""),
-              }
-            end
+      if ${isWSL} or os.getenv("SSH_CONNECTION") then
+        local function paste()
+          return {
+            vim.split(vim.fn.getreg(""), '\n'),
+            vim.fn.getregtype(""),
+          }
+        end
 
-            vim.g.clipboard = {
-              name = "OSC 52",
-              copy = {
-                ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-                ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-              },
-              paste = {
-                ["+"] = paste,
-                ["*"] = paste,
-              },
-            }
-          ''
-      }
+        vim.g.clipboard = {
+          name = "OSC 52",
+          copy = {
+            ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+            ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+          },
+          paste = {
+            ["+"] = paste,
+            ["*"] = paste,
+          },
+        }
+      end
 
       -- Window
       require("which-key").add({
