@@ -105,23 +105,18 @@ Neovim is a Vim-fork focused on extensibility and agility.
 
     | Description        | Key           |
     | ---                | ---           |
-    | Window             | `<leader>w`   |
-    | Resize height      | `<leader>wh`  |
     | Increase 10 height | `<leader>wh+` |
     | Decrease 10 height | `<leader>wh-` |
-    | Resize width       | `<leader>ww`  |
     | Increase 20 width  | `<leader>ww+` |
     | Decrease 20 width  | `<leader>ww-` |
 
     | Description             | Key          |
     | ---                     | ---          |
-    | Copy/Conform            | `<leader>c` |
     | Copy current file path  | `<leader>cf` |
     | Copy relative file path | `<leader>cr` |
 
     | Description                      | Key          |
     | ---                              | ---          |
-    | Diagnostics                      | `<leader>d`  |
     | Toggle diagnostics virtual lines | `<leader>dt` |
 
 ## nq

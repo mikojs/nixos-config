@@ -23,7 +23,6 @@
         })
 
         require("which-key").add({
-          { "<leader>C", group = "Crates", mode = { "n", "v" } },
           { "<leader>CR", crates.reload, desc = "Reload data" },
           { "<leader>Ct", crates.toggle, desc = "Enable or disable info"  },
           { "<leader>Ce", crates.expand_plain_crate_to_inline_table, desc = "Expand crate" },

@@ -16,7 +16,6 @@
         })
 
         require("which-key").add({
-          { "<leader>s", group = "Session" },
           { "<leader>sl", function() persistence.load() end, desc ="Load session" },
           { "<leader>sc", function() persistence.select() end, desc = "Select session" },
           { "<leader>ss", function() persistence.stop() end, desc = "Stop auto-save session" },

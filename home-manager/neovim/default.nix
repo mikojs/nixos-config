@@ -135,18 +135,14 @@ in
 
       -- Window
       require("which-key").add({
-        { "<leader>w", group = "Window" },
-        { "<leader>wh", group = "Resize height" },
         { "<leader>wh+", "<Cmd>resize +10<CR>", desc = "Increase 10 height" },
         { "<leader>wh-", "<Cmd>resize -10<CR>", desc = "Decrease 10 height" },
-        { "<leader>ww", group = "Resize width" },
         { "<leader>ww+", "<Cmd>vertical resize +20<CR>", desc = "Increase 20 width" },
         { "<leader>ww-", "<Cmd>vertical resize -20<CR>", desc = "Decrease 20 width" },
       })
 
       -- Copy
       require("which-key").add({
-        { "<leader>c", group = "Copy/Conform" },
         { "<leader>cf", function() vim.fn.setreg('+', vim.fn.expand('%:p')) end, desc = "Copy current file path" },
         { "<leader>cr", function() vim.fn.setreg('+', vim.fn.expand('%')) end, desc = "Copy relative file path" },
       })
@@ -155,7 +151,6 @@ in
       vim.diagnostic.config({ virtual_lines = true })
 
       require("which-key").add({
-        { "<leader>d", group = "Diagnostics" },
         {
           "<leader>dt",
           function() vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines }) end,

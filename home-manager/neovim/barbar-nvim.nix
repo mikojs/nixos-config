@@ -52,9 +52,6 @@
           { "<A-p>", "<Cmd>BufferPin<CR>", opts, desc = "Pin tab" },
           { "<A-c>", "<Cmd>BufferClose<CR>", opts, desc = "Close tab" },
 
-          { "<leader>t", group = "Tab" },
-
-          { "<leader>ts", group = "Sort" },
           { "<leader>tsb", "<Cmd>BufferOrderByBufferNumber<CR>", opts, desc = "Sort by buffer number" },
           { "<leader>tsn", "<Cmd>BufferOrderByName<CR>", opts, desc = "Sort by name" },
           { "<leader>tsd", "<Cmd>BufferOrderByDirectory<CR>", opts, desc = "Sort by directory" },

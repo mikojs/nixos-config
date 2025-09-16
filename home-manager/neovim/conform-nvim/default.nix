@@ -47,7 +47,6 @@ in
           })
 
           require("which-key").add({
-            { "<leader>cc", group = "Conform" },
             { "<leader>ccT", function() vim.g.disable_autoformat = not vim.g.disable_autoformat end, desc = "Toggle autoformat for all files" },
             {
               "<leader>cct",

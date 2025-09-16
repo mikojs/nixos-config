@@ -33,7 +33,6 @@ nvim-cmp is a completion plugin for Neovim.
 
     | Description      | Key          |
     | ---              | ---          |
-    | LSP              | `<leader>l`  |
     | Show information | `<leader>li` |
     | Show diagnostics | `<leader>ld` |
     | Rename           | `<leader>lr` |
@@ -81,19 +80,16 @@ Telescope.nvim is a fuzzy finder for Neovim.
 
     | Description           | Key          |
     | ---                   | ---          |
-    | Diagnostics           | `<leader>d`  |
     | Show diagnostics      | `<leader>dS` |
 
     | Description           | Key          |
     | ---                   | ---          |
-    | Git                   | `<leader>g`  |
     | Show git status       | `<leader>gT` |
     | Show git stash        | `<leader>gA` |
     | Show git commit       | `<leader>gC` |
 
     | Description           | Key          |
     | ---                   | ---          |
-    | Lsp                   | `<leader>l`  |
     | Go to definition      | `<leader>lD` |
     | Go to type definition | `<leader>lT` |
     | Show references       | `<leader>lR` |
@@ -115,7 +111,6 @@ Gitsigns.nvim is a git signs plugin for Neovim.
 
     | Description            | Key          |
     | ---                    | ---          |
-    | Git                    | `<leader>g`  |
     | Stage git hunk         | `<leader>gs` |
     | Reset git hunk         | `<leader>gr` |
     | Stage git buffer       | `<leader>gS` |
@@ -137,12 +132,11 @@ Toggleterm.nvim is a terminal plugin for Neovim.
 
     | Description                | Key          |
     | ---                        | ---          |
-    | Terminal                   | `<leader>T`  |
     | Toggle terminal            | `<leader>Tn` |
     | Toggle vertical terminal   | `<leader>Tv` |
     | Toggle horizontal terminal | `<leader>Th` |
     | Toggle tab terminal        | `<leader>Tt` |
-    | Send selection to terminal | `<leader>s`  |
+    | Send selection to terminal | `<leader>st`  |
 
 ## Barbar.nvim
 
@@ -154,14 +148,12 @@ Barbar.nvim is a tabline plugin for Neovim.
 
     | Description                          | Key           |
     | ---                                  | ---           |
-    | Tab                                  | `<leader>t`   |
     | Go to previous tab                   | `<A-[>`       |
     | Go to next tab                       | `<A-]>`       |
     | Move tab left                        | `<A-,>`       |
     | Move tab right                       | `<A-.>`       |
     | Go to tab (1-9)                      | `<A-(1-9)>`   |
     | Go to last tab                       | `<A-0>`       |
-    | Sort                                 | `<leader>ts`  |
     | Sort by buffer number                | `<leader>tsb` |
     | Sort by name                         | `<leader>tsn` |
     | Sort by directory                    | `<leader>tsd` |
@@ -181,7 +173,6 @@ Persistence.nvim is a session plugin for Neovim.
 
     | Description            | Key          |
     | ---                    | ---          |
-    | Session                | `<leader>s`  |
     | Load session           | `<leader>sl` |
     | Select session         | `<leader>sc` |
     | Save auto-save session | `<leader>ss` |
@@ -384,7 +375,6 @@ Conform.nvim is a formatter plugin for Neovim.
 
     | Description                        | Key          |
     | ---                                | ---          |
-    | Conform                            | `<leader>cc`  |
     | Toggle autoformat for all files    | `<leader>ccT` |
     | Toggle autoformat for current file | `<leader>cct` |
 
