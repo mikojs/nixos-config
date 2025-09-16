@@ -112,7 +112,7 @@ in
 
     extraLuaConfig = ''
       -- Clipboard
-      if ${isWSL} or os.getenv("SSH_CONNECTION") then
+      if ${toString isWSL} or os.getenv("SSH_CONNECTION") then
         local function paste()
           return {
             vim.split(vim.fn.getreg(""), '\n'),
