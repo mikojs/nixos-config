@@ -2,7 +2,7 @@
   ...
 }:
 let
-  check_pattern = command: ''
+  checkCommandStr = command: ''
     if not string match -q "*@*" $argv[1]
       echo "usage: ${command} <username>@<hostname> [...argv]"
 
@@ -13,7 +13,7 @@ in
 {
   programs.fish.interactiveShellInit = ''
     function tssh --description "tssh <username>@<hostname> [...argv]"
-      ${check_pattern "tssh"}
+      ${checkCommandStr "tssh"}
 
       set -l info (string split '@' $argv[1])
 
@@ -26,7 +26,7 @@ in
     end
 
     function tdocker --description "tdocker <username>@<hostname> [...argv]"
-      ${check_pattern "tdocker"}
+      ${checkCommandStr "tdocker"}
 
       set -l info (string split '@' $argv[1])
       docker context ls -q | grep $info[2] &> /dev/null
@@ -39,7 +39,7 @@ in
     end
 
     function tcoder --description "tcoder <username>@<hostname> <push|pull> <directory>"
-      ${check_pattern "tcoder"}
+      ${checkCommandStr "tcoder"}
 
       if not contains $argv[2] push pull
         echo "usage: tcoder <username>@<hostname> <push|pull> <directory>"
