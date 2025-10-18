@@ -69,7 +69,6 @@ with builtins;
             ++ [
               ./fish
               ./gh.nix
-              ./fastfetch.nix
               ./jless.nix
               ./jq.nix
               ./somo.nix
