@@ -73,13 +73,6 @@ A syntax-highlighting pager for git and diff output.
 
 - [Repository](https://github.com/dandavison/delta)
 
-## glances
-
-Glances is a system monitor for Linux, macOS, and Windows.
-
-- [Configuration](../home-manager/glances.nix)
-- [Repository](https://github.com/nicolargo/glances)
-
 ## jless
 
 jless is a less-like pager for JSON files.
@@ -118,13 +111,6 @@ Neovim is a Vim-fork focused on extensibility and agility.
     | Description                      | Key          |
     | ---                              | ---          |
     | Toggle diagnostics virtual lines | `<leader>dt` |
-
-## nq
-
-Unix command line queue utility.
-
-- [Configuration](../home-manager/nq.nix)
-- [Repository](https://github.com/leahneukirchen/nq)
 
 ## Somo
 
