@@ -69,10 +69,8 @@ with builtins;
             ++ [
               ./fish
               ./gh.nix
-              ./fastfetch.nix
               ./jless.nix
               ./jq.nix
-              ./nq.nix
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
