@@ -72,7 +72,6 @@ with builtins;
               ./fastfetch.nix
               ./jless.nix
               ./jq.nix
-              ./nq.nix
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
