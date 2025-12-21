@@ -9,7 +9,7 @@
   ];
 
   config = ''
-    require("lspconfig").rust_analyzer.setup({
+    vim.lsp.config("rust_analyzer", {
       capabilities = capabilities,
       settings = {
         ["rust-analyzer"] = {
