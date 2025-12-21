@@ -21,10 +21,10 @@ with builtins;
     '';
   };
 
-  programs.git = gitconfig // {
+  programs.git = {
     enable = true;
 
-    settings = (if hasAttr "settings" gitconfig then gitconfig.settings else { }) // {
+    settings = gitconfig // {
       init.defaultBranch = "main";
       pull.rebase = false;
 
