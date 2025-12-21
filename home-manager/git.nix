@@ -25,20 +25,18 @@ with builtins;
     enable = true;
 
     settings = (if hasAttr "settings" gitconfig then gitconfig.settings else { }) // {
-      extraConfig = {
-        init.defaultBranch = "main";
-        pull.rebase = false;
+      init.defaultBranch = "main";
+      pull.rebase = false;
 
-        # delta
-        core.pager = "delta";
-        interactive.diffFilter = "delta --color-only";
-        delta.side-by-side = true;
-        delta.navigate = true;
-        delta.dark = true;
-        mege.conflictStyle = "zdiff3";
-      };
+      # delta
+      core.pager = "delta";
+      interactive.diffFilter = "delta --color-only";
+      delta.side-by-side = true;
+      delta.navigate = true;
+      delta.dark = true;
+      mege.conflictStyle = "zdiff3";
 
-      aliases = {
+      alias = {
         d = "-c pager.diff='less -R' diff";
         gr = "log --date=short --graph --pretty=format:'%C(yellow)%h%Creset %ad %C(bold green)%an%Creset %s%C(yellow)%d%Creset'";
       };
