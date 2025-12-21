@@ -6,7 +6,7 @@
 {
   home = {
     packages = with pkgs; [
-      gemini-cli
+      gemini-cli-bin
     ];
 
     file = {
