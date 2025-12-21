@@ -10,11 +10,11 @@
   ];
 
   config = ''
-    require("lspconfig").ts_ls.setup({
+    vim.lsp.config("ts_ls", {
       capabilities = capabilities,
     })
 
-    require("lspconfig").eslint.setup({
+    vim.lsp.config("eslint", {
       capabilities = capabilities,
     })
   '';

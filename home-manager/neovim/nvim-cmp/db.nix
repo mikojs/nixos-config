@@ -17,7 +17,7 @@
     local connections = vim.json.decode(db_sqls_command:read("*a"))
 
     db_sqls_command:close()
-    require("lspconfig").sqls.setup({
+    vim.lsp.config("sqls", {
       capabilities = capabilities,
       on_attach = function(client, bufnr)
         require('sqls').on_attach(client, bufnr)
