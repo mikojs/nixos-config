@@ -12,8 +12,14 @@
     file = {
       ".gemini/settings.json".text = ''
         {
-          "selectedAuthType": "oauth-personal",
-          "disableUpdateNag": true,
+          "general": {
+            "disableUpdateNag": true
+          },
+          "security": {
+            "auth": {
+              "selectedType": "oauth-personal"
+            }
+          },
           "mcpServers": ${import ./mcp-servers.nix { inherit pkgs mcpServers; }}
         }
       '';
