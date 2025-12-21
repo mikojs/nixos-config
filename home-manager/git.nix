@@ -6,6 +6,7 @@
   pkgs,
   ...
 }:
+with builtins;
 {
   home = {
     packages = with pkgs; [
