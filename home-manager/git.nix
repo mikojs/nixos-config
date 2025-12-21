@@ -23,7 +23,7 @@
   programs.git = gitconfig // {
     enable = true;
 
-    settings = {
+    settings = gitconfig.settings // {
       extraConfig = {
         init.defaultBranch = "main";
         pull.rebase = false;
