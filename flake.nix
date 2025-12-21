@@ -40,8 +40,10 @@
         {
           name = "miko";
           gitconfig = {
-            userName = "Mikojs";
-            userEmail = "mikojs@gmail.com";
+            user = {
+              name = "Mikojs";
+              email = "mikojs@gmail.com";
+            };
           };
           ai = [
             "gemini"
