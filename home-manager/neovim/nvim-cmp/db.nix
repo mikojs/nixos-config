@@ -28,5 +28,6 @@
         },
       },
     })
+    vim.lsp.enable("sqls")
   '';
 }
