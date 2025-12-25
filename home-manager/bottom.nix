@@ -3,8 +3,8 @@
   ...
 }:
 {
-  xdg.configFile = {
-    "miko/bottom.md".text = ''
+  home.file = {
+    ".docs/bottom.md".text = ''
       # Bottom
 
       Yet another cross-platform graphical process/system monitor.

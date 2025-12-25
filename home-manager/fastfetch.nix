@@ -3,8 +3,8 @@
   ...
 }:
 {
-  xdg.configFile = {
-    "miko/fastfetch.md".text = ''
+  home.file = {
+    ".docs/fastfetch.md".text = ''
       # Fastfetch
 
       A maintained, feature-rich and performance oriented, neofetch like system information tool.
