@@ -43,9 +43,24 @@
           require("telescope.actions").file_edit(prompt_bufnr)
         end
 
+        -- follow: https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#file-and-text-search-in-hidden-files-and-directories
+        local telescopeConfig = require("telescope.config")
+        local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+        table.insert(vimgrep_arguments, "--hidden")
+        table.insert(vimgrep_arguments, "-L")
+        table.insert(vimgrep_arguments, "--glob")
+        table.insert(vimgrep_arguments, "!**/.git/*")
+
         -- follow: https://github.com/nvim-telescope/telescope.nvim/issues/416
         require("telescope").setup({
+          pickers = {
+            find_files = {
+              find_command = { "rg", "--files", "--hidden", "-L", "--glob", "!**/.git/*" },
+            },
+          },
           defaults = {
+            vimgrep_arguments = vimgrep_arguments,
             mappings = {
               i = {
                 ["<CR>"] = single_or_multi_select,
