@@ -10,7 +10,7 @@
       config = ''
         require("url-open").setup({})
         require("which-key").add({
-          { "<leader>o", URLOpenUnderCursor, desc = "Open url" },
+          { "<leader>o", "<Cmd>URLOpenUnderCursor<CR>", desc = "Open url" },
         })
       '';
     }
