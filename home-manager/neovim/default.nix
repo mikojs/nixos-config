@@ -25,6 +25,7 @@ let
           ./nvim-cmp
           # Editor
           ./vim-rzip.nix
+          ./url-open.nix
           ./which-key-nvim.nix
           ./telescope-nvim.nix
           ./gitsigns-nvim.nix
