@@ -58,13 +58,20 @@ let
       };
 in
 {
-  home.packages =
-    getConfig
-      [
-        "home"
-        "packages"
-      ]
-      [ ];
+  home = {
+    file = getConfig [
+      "home"
+      "file"
+    ] { };
+
+    packages =
+      getConfig
+        [
+          "home"
+          "packages"
+        ]
+        [ ];
+  };
 
   xdg.configFile = getConfig [
     "xdg"
