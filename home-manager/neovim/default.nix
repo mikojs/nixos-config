@@ -147,6 +147,33 @@ in
         { "<leader>cr", function() vim.fn.setreg('+', vim.fn.expand('%')) end, desc = "Copy relative file path" },
       })
 
+      -- URL
+      local open_command
+      if vim.fn.has('mac') == 1 then
+        open_command = 'open'
+      elseif vim.fn.has('win32') == 1 then
+        open_command = 'start'
+      else
+        open_command = 'xdg-open'
+      end
+
+      require("which-key").add({
+        {
+          "<leader>cu",
+          function()
+            local cursor_word = vim.fn.expand('<cWORD>')
+
+            if cursor_word and (string.match(cursor_word, '^https?://') or string.match(cursor_word, '^file://')) then
+              -- Use jobstart for a non-blocking call
+              vim.fn.jobstart({ open_command, cursor_word }, { detach = true })
+            else
+              vim.notify('Not a valid URL under cursor', vim.log.levels.WARN)
+            end
+          end,
+          desc = "Open URL under cursor"
+        },
+      })
+
       -- Diagnostics
       vim.diagnostic.config({ virtual_lines = true })
 
