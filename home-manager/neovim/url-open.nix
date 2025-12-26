@@ -15,6 +15,7 @@
           | Description           | Key       |
           | ---                   | ---       |
           | Open url under cursor | <leader>o |
+
     '';
   };
 
