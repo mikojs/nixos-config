@@ -25,6 +25,7 @@ let
           ./nvim-cmp
           # Editor
           ./vim-rzip.nix
+          ./url-open.nix
           ./which-key-nvim.nix
           ./telescope-nvim.nix
           ./gitsigns-nvim.nix
@@ -57,13 +58,20 @@ let
       };
 in
 {
-  home.packages =
-    getConfig
-      [
-        "home"
-        "packages"
-      ]
-      [ ];
+  home = {
+    file = getConfig [
+      "home"
+      "file"
+    ] { };
+
+    packages =
+      getConfig
+        [
+          "home"
+          "packages"
+        ]
+        [ ];
+  };
 
   xdg.configFile = getConfig [
     "xdg"
