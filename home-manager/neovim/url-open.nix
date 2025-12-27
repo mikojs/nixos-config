@@ -7,7 +7,7 @@
     ".docs/neovim/url-open.md".text = ''
       # Neovim url-open
 
-      Minimal plugin allow you to open url under cursor in neovim without netrw with default browser of your system and highlight url
+      Minimal plugin allow you to open url under cursor in neovim without netrw with default browser of your system and highlight url.
 
       [Repository](https://github.com/sontungexpt/url-open)
 
