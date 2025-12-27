@@ -3,6 +3,36 @@
   ...
 }:
 {
+  home.file = {
+    ".docs/neovim/barbar-nvim.md".text = ''
+      # Neovim barbar.nvim
+
+      Barbar.nvim is a tabline plugin for Neovim.
+
+      [Repository](https://github.com/romgrk/barbar.nvim)
+
+      ## Keybindings
+
+      | Description                          | Key           |
+      | ---                                  | ---           |
+      | Go to previous tab                   | `<A-[>`       |
+      | Go to next tab                       | `<A-]>`       |
+      | Move tab left                        | `<A-,>`       |
+      | Move tab right                       | `<A-.>`       |
+      | Go to tab (1-9)                      | `<A-(1-9)>`   |
+      | Go to last tab                       | `<A-0>`       |
+      | Sort by buffer number                | `<leader>tsb` |
+      | Sort by name                         | `<leader>tsn` |
+      | Sort by directory                    | `<leader>tsd` |
+      | Sort by location                     | `<leader>tsl` |
+      | Sort by window number                | `<leader>tsw` |
+      | Close all tabs but current or pinned | `<leader>to`  |
+      | Close left other tabs                | `<leader>tl`  |
+      | Close right other tabs               | `<leader>tr`  |
+
+    '';
+  };
+
   programs.neovim.plugins = with pkgs.vimPlugins; [
     nvim-web-devicons
 

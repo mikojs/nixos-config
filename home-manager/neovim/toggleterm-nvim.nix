@@ -3,6 +3,27 @@
   ...
 }:
 {
+  home.file = {
+    ".docs/neovim/toggleterm-nvim.md".text = ''
+      # Neovim toggleterm.nvim
+
+      Toggleterm.nvim is a terminal plugin for Neovim.
+
+      [Repository](https://github.com/akinsho/toggleterm.nvim)
+
+      ## Keybindings
+
+      | Description                | Key          |
+      | ---                        | ---          |
+      | Toggle terminal            | `<leader>Tn` |
+      | Toggle vertical terminal   | `<leader>Tv` |
+      | Toggle horizontal terminal | `<leader>Th` |
+      | Toggle tab terminal        | `<leader>Tt` |
+      | Send selection to terminal | `<leader>st`  |
+
+    '';
+  };
+
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
       plugin = toggleterm-nvim;

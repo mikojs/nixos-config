@@ -3,10 +3,55 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    ripgrep
-    fd
-  ];
+  home = {
+    file = {
+      ".docs/neovim/telescope-nvim.md".text = ''
+        # Neovim telescope.nvim
+
+        Telescope.nvim is a fuzzy finder for Neovim.
+
+        [Repository](https://github.com/nvim-telescope/telescope.nvim)
+
+        ## Keybindings
+
+        | Description           | Key          |
+        | ---                   | ---          |
+        | Find files            | `<leader>F`  |
+        | Search with grep      | `<leader>G`  |
+        | Show buffers          | `<leader>B`  |
+        | Help                  | `<leader>?`  |
+        | Show keymaps          | `<leader>K`  |
+
+        | Description           | Key          |
+        | ---                   | ---          |
+        | Show diagnostics      | `<leader>dS` |
+
+        | Description           | Key          |
+        | ---                   | ---          |
+        | Show git status       | `<leader>gT` |
+        | Show git stash        | `<leader>gA` |
+        | Show git commit       | `<leader>gC` |
+
+        | Description           | Key          |
+        | ---                   | ---          |
+        | Go to definition      | `<leader>lD` |
+        | Go to type definition | `<leader>lT` |
+        | Show references       | `<leader>lR` |
+        | Go to implementation  | `<leader>lI` |
+
+        | Description                            | Key          |
+        | ---                                    | ---          |
+        | Find files in the docs directory       | `<leader>DF` |
+        | Search with grep in the docs directory | `<leader>DG` |
+
+      '';
+    };
+
+    packages = with pkgs; [
+      ripgrep
+      fd
+    ];
+  };
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
@@ -87,8 +132,20 @@
           { "<leader>lR", builtin.lsp_references, desc = "Show references" },
           { "<leader>lI", builtin.lsp_implementations, desc = "Go to implementations" },
 
-          { "<leader>DF", function() builtin.find_files({ cwd = "~/.docs" }) end, desc = "Find files in the docs directory" },
-          { "<leader>DG", function() builtin.live_grep({ cwd = "~/.docs" }) end, desc = "Search with grep in the docs directory" },
+          {
+            "<leader>DF",
+            function()
+              builtin.find_files({ cwd = "~/.docs", prompt_title = "Docs" })
+            end,
+            desc = "Find files in the docs directory"
+          },
+          {
+            "<leader>DG",
+            function()
+              builtin.live_grep({ cwd = "~/.docs", prompt_title = "Docs (Grep)" })
+            end,
+            desc = "Search with grep in the docs directory"
+          },
         })
       '';
     }

@@ -3,6 +3,21 @@
   ...
 }:
 {
+  home.file = {
+    ".docs/neovim/octo-nvim.md".text = ''
+      # Neovim octo.nvim
+
+      Octo.nvim is a GitHub plugin for Neovim.
+
+      [Repository](https://github.com/pwntester/octo.nvim)
+
+      ```nvim
+      :Octo ...
+      ```
+
+    '';
+  };
+
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
       plugin = octo-nvim;
