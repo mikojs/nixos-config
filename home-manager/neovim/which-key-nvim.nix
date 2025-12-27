@@ -5,7 +5,7 @@
 {
   home.file = {
     ".docs/neovim/which-key-nvim.md".text = ''
-      # Neovim which-key-nvim
+      # Neovim which-key.nvim
 
       Which-key.nvim is a plugin for Neovim that shows a popup with available keybindings.
 

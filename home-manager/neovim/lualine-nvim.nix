@@ -5,7 +5,7 @@
 {
   home.file = {
     ".docs/neovim/lualine-nvim.md".text = ''
-      # Neovim lualine-nvim
+      # Neovim lualine.nvim
 
       Lualine.nvim is a statusline plugin for Neovim.
 

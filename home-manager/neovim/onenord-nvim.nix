@@ -5,7 +5,7 @@
 {
   home.file = {
     ".docs/neovim/onenord-nvim.md".text = ''
-      # Neovim onenord-nvim
+      # Neovim onenord.nvim
 
       Onenord.nvim is a colorscheme plugin for Neovim.
 
