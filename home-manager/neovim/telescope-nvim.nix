@@ -3,10 +3,51 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    ripgrep
-    fd
-  ];
+  home = {
+    file = {
+      ".docs/neovim/telescope-nvim.md".text = ''
+        # Neovim telescope-nvim
+
+        Telescope.nvim is a fuzzy finder for Neovim.
+
+        [Repository](https://github.com/nvim-telescope/telescope.nvim)
+
+        ## Keybindings
+
+        | Description           | Key          |
+        | ---                   | ---          |
+        | Find files            | `<leader>F`  |
+        | Search with grep      | `<leader>G`  |
+        | Show buffers          | `<leader>B`  |
+        | Help                  | `<leader>?`  |
+        | Show keymaps          | `<leader>K`  |
+
+        | Description           | Key          |
+        | ---                   | ---          |
+        | Show diagnostics      | `<leader>dS` |
+
+        | Description           | Key          |
+        | ---                   | ---          |
+        | Show git status       | `<leader>gT` |
+        | Show git stash        | `<leader>gA` |
+        | Show git commit       | `<leader>gC` |
+
+        | Description           | Key          |
+        | ---                   | ---          |
+        | Go to definition      | `<leader>lD` |
+        | Go to type definition | `<leader>lT` |
+        | Show references       | `<leader>lR` |
+        | Go to implementation  | `<leader>lI` |
+        | Show document symbols | `<leader>lS` |
+
+      '';
+    };
+
+    packages = with pkgs; [
+      ripgrep
+      fd
+    ];
+  };
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
