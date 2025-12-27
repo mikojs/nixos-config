@@ -87,8 +87,20 @@
           { "<leader>lR", builtin.lsp_references, desc = "Show references" },
           { "<leader>lI", builtin.lsp_implementations, desc = "Go to implementations" },
 
-          { "<leader>DF", function() builtin.find_files({ cwd = "~/.docs" }) end, desc = "Find files in the docs directory" },
-          { "<leader>DG", function() builtin.live_grep({ cwd = "~/.docs" }) end, desc = "Search with grep in the docs directory" },
+          {
+            "<leader>DF",
+            function()
+              builtin.find_files({ cwd = "~/.docs", prompt_title = "Docs" })
+            end,
+            desc = "Find files in the docs directory"
+          },
+          {
+            "<leader>DG",
+            function()
+              builtin.live_grep({ cwd = "~/.docs", prompt_title = "Docs (Grep)" })
+            end,
+            desc = "Search with grep in the docs directory"
+          },
         })
       '';
     }
