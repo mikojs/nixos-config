@@ -6,6 +6,21 @@
   ...
 }:
 {
+  home.file = {
+    ".docs/neovim/avante-nvim.md".text = ''
+      # Neovim avante.nvim
+
+      Avante.nvim help to make Neovim more useful with the power of AI.
+
+      [Repository](https://github.com/yetone/avante.nvim)
+
+      ```nvim
+      :Avante...
+      ```
+
+    '';
+  };
+
   programs.neovim.plugins =
     with lib;
     with pkgs.vimPlugins;

@@ -21,7 +21,27 @@ let
       };
 in
 {
-  home.packages = getConfig [ "packages" ] [ ];
+  home = {
+    file = getConfig [ "file" ] {
+      ".docs/neovim/conform-nvim.md".text = ''
+        # Neovim conform.nvim
+
+        Conform.nvim is a formatter plugin for Neovim.
+
+        [Repository](https://github.com/stevearc/conform.nvim)
+
+        ## Keybindings
+
+        | Description                        | Key           |
+        | ---                                | ---           |
+        | Toggle autoformat for all files    | `<leader>ccT` |
+        | Toggle autoformat for current file | `<leader>cct` |
+
+      '';
+    };
+
+    packages = getConfig [ "packages" ] [ ];
+  };
 
   programs.neovim.plugins =
     with pkgs.vimPlugins;
