@@ -6,7 +6,7 @@
   home = {
     file = {
       ".docs/neovim/telescope-nvim.md".text = ''
-        # Neovim telescope-nvim
+        # Neovim telescope.nvim
 
         Telescope.nvim is a fuzzy finder for Neovim.
 
@@ -38,7 +38,11 @@
         | Go to type definition | `<leader>lT` |
         | Show references       | `<leader>lR` |
         | Go to implementation  | `<leader>lI` |
-        | Show document symbols | `<leader>lS` |
+
+        | Description                            | Key          |
+        | ---                                    | ---          |
+        | Find files in the docs directory       | `<leader>DF` |
+        | Search with grep in the docs directory | `<leader>DG` |
 
       '';
     };
