@@ -11,6 +11,12 @@ let
   '';
 in
 {
+  file-alias = [
+    "- `tssh`: Run `ssh` with tailscale."
+    "- `tdocker`: Run `docker` with tailscale."
+    "- `tcoder`: Run `coder` with tailscale."
+  ];
+
   programs.fish.interactiveShellInit = ''
     function tssh --description "tssh <username>@<hostname> [...argv]"
       ${checkCommandStr "tssh"}

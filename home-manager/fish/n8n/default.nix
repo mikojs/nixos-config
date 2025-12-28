@@ -20,6 +20,10 @@ let
   ];
 in
 {
+  fish-alias = [
+    "- `n8n`: Run `n8n` server with docker compose."
+  ];
+
   home.file = {
     ".n8n/init-data.sh".text = replaceStrings rawEnv newEnv (readFile ./init-data.sh);
     ".n8n/docker-compose.yml".text =

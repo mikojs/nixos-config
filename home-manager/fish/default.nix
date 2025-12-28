@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   n8n,
   ...
@@ -14,6 +15,28 @@ let
 in
 {
   home = {
+    file =
+      getConfig
+        [
+          "home"
+          "file"
+        ]
+        {
+          ".docs/fish.md".text = ''
+            # Fish
+
+            Fish is a user-friendly command line shell.
+
+            [Repository](https://github.com/fish-shell/fish-shell)
+
+            ## aliases
+
+            - `nsf`: Run `nix-shell` with fish-shell.
+            ${with lib; strings.concatStringsSep "\n" (getConfig [ "file-alias" ] [ ])}
+
+          '';
+        };
+
     packages =
       getConfig
         [
@@ -21,11 +44,6 @@ in
           "packages"
         ]
         [ ];
-
-    file = getConfig [
-      "home"
-      "file"
-    ] { };
   };
 
   programs.fish = {

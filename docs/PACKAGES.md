@@ -19,25 +19,6 @@ Docker is used to run containers.
 We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
 Please install it manually.
 
-## Fish
-
-Fish is a user-friendly command line shell.
-
-- [Configuration](../home-manager/fish.nix)
-- [Repository](https://github.com/fish-shell/fish-shell)
-- `aliases`
-    - `nsf`: Run `nix-shell` with fish-shell.
-    - `n8n`: Run `n8n` server with docker compose.
-    - `tssh`: Run `ssh` with tailscale.
-    - `tdocker`: Run `docker` with tailscale.
-    - `tcoder`: Run `coder` with tailscale.
-
-### Tide
-
-Tide is the ultimate Fish prompt.
-
-- [Repository](https://github.com/IlanCosman/tide)
-
 ## gh
 
 GitHub CLI is used to login to GitHub and control repositories.
