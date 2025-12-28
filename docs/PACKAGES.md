@@ -19,20 +19,6 @@ Docker is used to run containers.
 We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
 Please install it manually.
 
-## jless
-
-jless is a less-like pager for JSON files.
-
-- [Configuration](../home-manager/jless.nix)
-- [Repository](https://github.com/PaulJuliusMartinez/jless)
-
-## jq
-
-jq is a lightweight and flexible command-line JSON processor.
-
-- [Configuration](../home-manager/jq.nix)
-- [Repository](https://github.com/stedolan/jq)
-
 ## Neovim
 
 Neovim is a Vim-fork focused on extensibility and agility.
@@ -57,20 +43,6 @@ Neovim is a Vim-fork focused on extensibility and agility.
     | Description                      | Key          |
     | ---                              | ---          |
     | Toggle diagnostics virtual lines | `<leader>dt` |
-
-## Somo
-
-Somo is a human-friendly alternative to netstat for socket and port monitoring on Linux and macOS.
-
-- [Configuration](../home-manager/somo.nix)
-- [Repository](https://github.com/theopfr/somo)
-
-## Tabiew
-
-Tabiew is a lightweight TUI application to view and query tabular data files, such as CSV, TSV, and parquet.
-
-- [Configuration](../home-manager/tabiew.nix)
-- [Repository](https://github.com/shshemi/tabiew)
 
 ## Tmux
 
