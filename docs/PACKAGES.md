@@ -19,19 +19,6 @@ Docker is used to run containers.
 We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
 Please install it manually.
 
-## gh
-
-GitHub CLI is used to login to GitHub and control repositories.
-
-- [Configuration](../home-manager/gh.nix)
-- [Repository](https://github.com/cli/cli)
-
-### gh-poi
-
-Safely clean up your local branches.
-
-- [Repository](https://github.com/seachicken/gh-poi)
-
 ## Git
 
 Git is used to manage version control.
