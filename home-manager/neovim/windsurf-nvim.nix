@@ -3,16 +3,14 @@
   ...
 }:
 {
-  home.file = {
-    ".docs/neovim/windsurf-nvim.md".text = ''
-      # Neovim windsurf.nvim
+  home.file.".docs/neovim/windsurf-nvim.md".text = ''
+    # Neovim windsurf.nvim
 
-      Windsurf.nvim is a plugin for Neovim that provides AI code completion.
+    Windsurf.nvim is a plugin for Neovim that provides AI code completion.
 
-      [Repository](https://github.com/Exafunction/windsurf.vim)
+    [Repository](https://github.com/Exafunction/windsurf.vim)
 
-    '';
-  };
+  '';
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     plenary-nvim

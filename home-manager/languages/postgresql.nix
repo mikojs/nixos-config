@@ -8,19 +8,28 @@ let
   version = if hasAttr "version" language then "_${language.version}" else "";
 in
 {
-  home.packages =
-    with pkgs;
-    [
-      pkgs."postgresql${version}"
-      pgcli
-    ]
-    ++ (import ./db.nix { inherit pkgs; }).home.packages;
+  home = {
+    file.".docs/pgcli.md".text = ''
+      # PGcli
 
-  xdg.configFile = {
-    "pgcli/config".text = ''
-      [main]
-      use_local_timezone = False
-      keyring = False
+      A command-line interface for PostgreSQL.
+
+      [Repository](https://github.com/dbcli/pgcli)
+
     '';
+
+    packages =
+      with pkgs;
+      [
+        pkgs."postgresql${version}"
+        pgcli
+      ]
+      ++ (import ./db.nix { inherit pkgs; }).home.packages;
   };
+
+  xdg.configFile."pgcli/config".text = ''
+    [main]
+    use_local_timezone = False
+    keyring = False
+  '';
 }

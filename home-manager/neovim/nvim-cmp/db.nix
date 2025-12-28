@@ -3,6 +3,20 @@
   ...
 }:
 {
+  file.".docs/neovim/sqls-nvim.md".text = ''
+    # sqls.nvim
+
+    A neovim plugin for SQL.
+
+    [Repository](https://github.com/nanotee/sqls.nvim)
+
+    ```nvim
+    // Only in .sql files
+    :Sqls...
+    ```
+
+  '';
+
   packages = with pkgs; [
     sqls
     miko-db

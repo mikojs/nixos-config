@@ -3,22 +3,20 @@
   ...
 }:
 {
-  home.file = {
-    ".docs/neovim/todo-comments-nvim.md".text = ''
-      # Neovim todo-comments.nvim
+  home.file.".docs/neovim/todo-comments-nvim.md".text = ''
+    # Neovim todo-comments.nvim
 
-      Todo-comments.nvim is a todo comments plugin for Neovim.
+    Todo-comments.nvim is a todo comments plugin for Neovim.
 
-      [Repository](https://github.com/folke/todo-comments.nvim)
+    [Repository](https://github.com/folke/todo-comments.nvim)
 
-      ## keybindings
+    ## keybindings
 
-      | Description | Key          |
-      | ---         | ---          |
-      | Show TODOs  | `<leader>O`  |
+    | Description | Key          |
+    | ---         | ---          |
+    | Show TODOs  | `<leader>O`  |
 
-    '';
-  };
+  '';
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
