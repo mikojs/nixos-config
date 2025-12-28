@@ -19,28 +19,6 @@ Docker is used to run containers.
 We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
 Please install it manually.
 
-## Git
-
-Git is used to manage version control.
-
-- [Configuration](../home-manager/git.nix)
-- [Repository](https://github.com/git/git)
-- `aliases`
-    - `d`: Show default `git diff` output.
-    - `gr`: Show formatted git logs.
-
-### cz
-
-Commitizen is used to manage commits.
-
-- [Repository](https://github.com/commitizen-tools/commitizen)
-
-### Delta
-
-A syntax-highlighting pager for git and diff output.
-
-- [Repository](https://github.com/dandavison/delta)
-
 ## jless
 
 jless is a less-like pager for JSON files.

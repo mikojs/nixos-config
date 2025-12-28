@@ -29,7 +29,7 @@ in
 
             [Repository](https://github.com/fish-shell/fish-shell)
 
-            ## aliases
+            ## Alias
 
             - `nsf`: Run `nix-shell` with fish-shell.
             ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}

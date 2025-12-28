@@ -14,7 +14,7 @@
     '';
 
     ".docs/gh/poi.md".text = ''
-      # GH-poi
+      # GH gh-poi
 
       Safely clean up your local branches.
 
