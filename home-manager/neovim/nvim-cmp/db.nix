@@ -3,21 +3,19 @@
   ...
 }:
 {
-  file = {
-    ".docs/neovim/sqls-nvim.md".text = ''
-      # sqls.nvim
+  file.".docs/neovim/sqls-nvim.md".text = ''
+    # sqls.nvim
 
-      A neovim plugin for SQL.
+    A neovim plugin for SQL.
 
-      [Repository](https://github.com/nanotee/sqls.nvim)
+    [Repository](https://github.com/nanotee/sqls.nvim)
 
-      ```nvim
-      // Only in .sql files
-      :Sqls...
-      ```
+    ```nvim
+    // Only in .sql files
+    :Sqls...
+    ```
 
-    '';
-  };
+  '';
 
   packages = with pkgs; [
     sqls

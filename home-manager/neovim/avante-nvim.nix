@@ -6,20 +6,18 @@
   ...
 }:
 {
-  home.file = {
-    ".docs/neovim/avante-nvim.md".text = ''
-      # Neovim avante.nvim
+  home.file.".docs/neovim/avante-nvim.md".text = ''
+    # Neovim avante.nvim
 
-      Avante.nvim help to make Neovim more useful with the power of AI.
+    Avante.nvim help to make Neovim more useful with the power of AI.
 
-      [Repository](https://github.com/yetone/avante.nvim)
+    [Repository](https://github.com/yetone/avante.nvim)
 
-      ```nvim
-      :Avante...
-      ```
+    ```nvim
+    :Avante...
+    ```
 
-    '';
-  };
+  '';
 
   programs.neovim.plugins =
     with lib;
@@ -62,11 +60,9 @@
       }
     ];
 
-  xdg.configFile = {
-    "mcphub/servers.json".text = ''
-      {
-        "mcpServers": ${import ../ai/mcp-servers.nix { inherit pkgs mcpServers; }}
-      }
-    '';
-  };
+  xdg.configFile."mcphub/servers.json".text = ''
+    {
+      "mcpServers": ${import ../ai/mcp-servers.nix { inherit pkgs mcpServers; }}
+    }
+  '';
 }
