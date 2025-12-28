@@ -11,7 +11,7 @@ let
   '';
 in
 {
-  file-alias = [
+  fish-alias = [
     "- `tssh`: Run `ssh` with tailscale."
     "- `tdocker`: Run `docker` with tailscale."
     "- `tcoder`: Run `coder` with tailscale."

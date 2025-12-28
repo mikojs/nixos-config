@@ -32,7 +32,7 @@ in
             ## aliases
 
             - `nsf`: Run `nix-shell` with fish-shell.
-            ${with lib; strings.concatStringsSep "\n" (getConfig [ "file-alias" ] [ ])}
+            ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
 
           '';
         };
