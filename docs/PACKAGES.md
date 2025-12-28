@@ -56,10 +56,3 @@ Tmux is a terminal multiplexer.
 tree is a directory listing program that makes it easy to display a directory tree.
 
 - [Configuration](../home-manager/tree.nix)
-
-## Wtfutil
-
-WTF is the personal information dashboard for your terminal.
-
-- [Configuration](../home-manager/wtfutil.nix)
-- [Repository](https://github.com/wtfutil/wtf)
