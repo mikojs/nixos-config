@@ -12,6 +12,7 @@
       [Repository](https://github.com/OXY2DEV/markview.nvim)
 
       ```nvim
+      // Only in .md files
       :Markview ...
       ```
 

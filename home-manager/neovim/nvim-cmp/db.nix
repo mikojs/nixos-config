@@ -12,6 +12,7 @@
       [Repository](https://github.com/nanotee/sqls.nvim)
 
       ```nvim
+      // Only in .sql files
       :Sqls...
       ```
 
