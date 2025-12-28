@@ -4,7 +4,7 @@
 }:
 {
   file = {
-    ".docs/neovim/db/sqls-nvim.md".text = ''
+    ".docs/neovim/sqls-nvim.md".text = ''
       # sqls.nvim
 
       A neovim plugin for SQL.

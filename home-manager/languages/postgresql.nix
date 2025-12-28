@@ -10,12 +10,12 @@ in
 {
   home = {
     file = {
-      ".docs/postgresql/pgcli.md".text = ''
+      ".docs/pgcli.md".text = ''
         # PGcli
 
         A command-line interface for PostgreSQL.
 
-        [Configuration](../home-manager/languages/postgresql.nix)
+        [Repository](https://github.com/dbcli/pgcli)
 
       '';
     };

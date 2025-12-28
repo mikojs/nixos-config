@@ -4,7 +4,7 @@
 }:
 {
   home.file = {
-    ".docs/neovim/rust/crates-nvim.md".text = ''
+    ".docs/neovim/crates-nvim.md".text = ''
       # crates.nvim
 
       A neovim plugin that helps managing crates.io dependencies.

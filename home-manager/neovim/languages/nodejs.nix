@@ -4,7 +4,7 @@
 }:
 {
   home.file = {
-    ".docs/neovim/nodejs/package-info-nvim.md".text = ''
+    ".docs/neovim/package-info-nvim.md".text = ''
       # package-info.nvim
 
       A neovim plugin that provides information about npm packages.

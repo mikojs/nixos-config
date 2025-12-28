@@ -8,8 +8,8 @@
 {
   home = {
     file = {
-      ".docs/sqlite/litecli.md".text = ''
-        # litecli
+      ".docs/litecli.md".text = ''
+        # Litecli
 
         A command-line interface for SQLite.
 
