@@ -76,7 +76,6 @@ with builtins;
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
-              ./wtfutil.nix
               (import ./tmux.nix user)
               (import ./git.nix user)
               (import ./neovim user)
