@@ -109,8 +109,10 @@ with builtins;
 
                 [Repository](https://github.com/docker/cli)
 
-                We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
-                Please install it manually.
+                ${optionals isMac ''
+                  We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
+                  Please install it manually.
+                ''}
 
               '';
             };
