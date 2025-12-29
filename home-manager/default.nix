@@ -89,7 +89,32 @@ with builtins;
               (import ./kitty.nix user)
             ]);
 
-          home.stateVersion = stateVersion;
+          home = {
+            inherit stateVersion;
+
+            file = {
+              ".docs/tailscale.md".text = ''
+                # Tailscale
+
+                Tailscale is used to build a private network.
+
+                [Repository](https://github.com/tailscale/tailscale)
+
+              '';
+
+              ".docs/docker.md".text = ''
+                # Docker
+
+                Docker is used to run containers.
+
+                [Repository](https://github.com/docker/cli)
+
+                We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
+                Please install it manually.
+
+              '';
+            };
+          };
         }
       ) users
     );
