@@ -5,15 +5,30 @@
 }:
 {
   home = {
+    file = {
+      ".docs/ai/claude-code.md".text = ''
+        # Claude Code
+
+        Claude Code is an AI agent that brings the power of Claude directly into your code.
+
+        [Repository](https://github.com/anthropics/claude-code)
+
+        ## Alias
+
+        - `ccm`: Run `claude-code` with `mcp` servers.
+
+      '';
+
+      ".claude/mcp.json".text = ''
+        {
+          "mcpServers": ${import ./mcp-servers.nix { inherit pkgs mcpServers; }}
+        }
+      '';
+    };
+
     packages = with pkgs; [
       claude-code
     ];
-
-    file.".claude/mcp.json".text = ''
-      {
-        "mcpServers": ${import ./mcp-servers.nix { inherit pkgs mcpServers; }}
-      }
-    '';
   };
 
   programs.fish.shellAliases = {

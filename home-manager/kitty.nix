@@ -6,6 +6,15 @@
   ...
 }:
 {
+  home.file.".docs/kitty.md".text = ''
+    # Kitty
+
+    The fast, feature-rich, cross-platform, GPU based terminal.
+
+    [Repository](https://github.com/kovidgoyal/kitty)
+
+  '';
+
   programs.kitty = {
     enable = true;
     extraConfig =

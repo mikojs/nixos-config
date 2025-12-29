@@ -59,10 +59,40 @@ let
 in
 {
   home = {
-    file = getConfig [
-      "home"
-      "file"
-    ] { };
+    file =
+      getConfig
+        [
+          "home"
+          "file"
+        ]
+        {
+          ".docs/neovim.md".text = ''
+            # Neovim
+
+            Neovim is a Vim-fork focused on extensibility and agility.
+
+            [Repository](https://github.com/neovim/neovim)
+
+            ## Keybindings
+
+            | Description        | Key           |
+            | ---                | ---           |
+            | Increase 10 height | `<leader>wh+` |
+            | Decrease 10 height | `<leader>wh-` |
+            | Increase 20 width  | `<leader>ww+` |
+            | Decrease 20 width  | `<leader>ww-` |
+
+            | Description             | Key          |
+            | ---                     | ---          |
+            | Copy current file path  | `<leader>cf` |
+            | Copy relative file path | `<leader>cr` |
+
+            | Description                      | Key          |
+            | ---                              | ---          |
+            | Toggle diagnostics virtual lines | `<leader>dt` |
+
+          '';
+        };
 
     packages =
       getConfig

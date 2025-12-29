@@ -76,7 +76,6 @@ with builtins;
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
-              ./wtfutil.nix
               (import ./tmux.nix user)
               (import ./git.nix user)
               (import ./neovim user)
@@ -89,7 +88,38 @@ with builtins;
               (import ./kitty.nix user)
             ]);
 
-          home.stateVersion = stateVersion;
+          home = {
+            inherit stateVersion;
+
+            file = {
+              ".docs/tailscale.md".text = ''
+                # Tailscale
+
+                Tailscale is used to build a private network.
+
+                [Repository](https://github.com/tailscale/tailscale)
+
+              '';
+
+              ".docs/docker.md".text = ''
+                # Docker
+
+                Docker is used to run containers.
+                ${
+                  if isMac then
+                    ''
+
+                      We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
+                      Please install it manually.
+                    ''
+                  else
+                    ""
+                }
+                [Repository](https://github.com/docker/cli)
+
+              '';
+            };
+          };
         }
       ) users
     );

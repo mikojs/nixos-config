@@ -8,16 +8,54 @@
 }:
 {
   home = {
+    file = {
+      ".docs/git.md".text = ''
+        # Git
+
+        Git is used to manage version control.
+
+        [Repository](https://github.com/git/git)
+
+        ## Alias
+
+        - `d`: Show default `git diff` output.
+        - `gr`: Show formatted git logs.
+
+      '';
+
+      ".docs/git/commitizen.md".text = ''
+        # Git commitizen
+
+        Commitizen is used to manage commits.
+
+        [Repository](https://github.com/commitizen-tools/commitizen)
+
+        ```sh
+        git cz
+        ```
+
+      '';
+
+      ".docs/git/delta.md".text = ''
+        # Git Delta
+
+        A syntax-highlighting pager for git and diff output.
+
+        [Repository](https://github.com/dandavison/delta)
+
+      '';
+
+      ".czrc".text = ''
+        {
+          "path": "cz-conventional-changelog"
+        }
+      '';
+    };
+
     packages = with pkgs; [
       cz-cli
       delta
     ];
-
-    file.".czrc".text = ''
-      {
-        "path": "cz-conventional-changelog"
-      }
-    '';
   };
 
   programs.git = {
