@@ -43,16 +43,3 @@ Neovim is a Vim-fork focused on extensibility and agility.
     | Description                      | Key          |
     | ---                              | ---          |
     | Toggle diagnostics virtual lines | `<leader>dt` |
-
-## Tmux
-
-Tmux is a terminal multiplexer.
-
-- [Configuration](../home-manager/tmux.nix)
-- [Repository](https://github.com/tmux/tmux)
-
-## Tree
-
-tree is a directory listing program that makes it easy to display a directory tree.
-
-- [Configuration](../home-manager/tree.nix)

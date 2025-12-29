@@ -8,6 +8,15 @@
   ...
 }:
 {
+  home.file.".docs/tmux.md".text = ''
+    # Tmux
+
+    Tmux is a terminal multiplexer.
+
+    [Repository](https://github.com/tmux/tmux)
+
+  '';
+
   programs.tmux = {
     enable = true;
 
