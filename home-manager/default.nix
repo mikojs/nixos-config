@@ -105,13 +105,17 @@ with builtins;
                 # Docker
 
                 Docker is used to run containers.
+                ${
+                  if isMac then
+                    ''
 
+                      We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
+                      Please install it manually.
+                    ''
+                  else
+                    ""
+                }
                 [Repository](https://github.com/docker/cli)
-
-                ${optionals isMac ''
-                  We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
-                  Please install it manually.
-                ''}
 
               '';
             };
