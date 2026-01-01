@@ -63,20 +63,19 @@ Install the NixOS configuration.
 # If you have the problem, follow this: https://github.com/nix-darwin/nix-darwin?tab=readme-ov-file#step-2-installing-nix-darwin
 sudo darwin-rebuild switch --flake github:mikojs/nixos-config#<system name>
 # Others
-nixos-rebuild switch --flake github:mikojs/nixos-config#<system name> --use-remote-sudo
+nixos-rebuild switch --flake github:mikojs/nixos-config#<system name> --sudo
 
 # Run `initialize` command manually
 # It would auto-reun when you reopen the terminal
 initialize
 ```
 
-## After installing, you need to authorize some packages manually
+## After installing, you need to do the following manually
 
 ### AI
 
 - Only support `gemini` and `claude` now. Run the commands and authorize manually based on your settings.
 - To support `avante.nvim`, you need to set up the env variable like `GEMINI_API_KEY=...` or `ANTHROPIC_API_KEY=...`
-- Should double-check the [docs](./docs/AI.md) to do some manually work.
 
 ### Codeium in nvim
 
@@ -87,9 +86,14 @@ initialize
 :Codeium Auth
 ```
 
-Here are the packages I use.
+### Claude code statusline
 
-- [Common](./docs/PACKAGES.md)
-- [AI](./docs/AI.md)
-- [Languages](./docs/LANGUAGES.md)
-- [Custom commands](./docs/CUSTOM_COMMANDS.md)
+Ccstatusline is a highly customizable statusline for Claude Code CLI with powerline support, themes, and more.
+
+[Repository](https://github.com/sirmalloc/ccstatusline)
+
+```
+# Run it manually
+npx ccstatusline@latest
+```
+
