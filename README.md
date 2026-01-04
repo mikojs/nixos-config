@@ -63,20 +63,19 @@ Install the NixOS configuration.
 # If you have the problem, follow this: https://github.com/nix-darwin/nix-darwin?tab=readme-ov-file#step-2-installing-nix-darwin
 sudo darwin-rebuild switch --flake github:mikojs/nixos-config#<system name>
 # Others
-nixos-rebuild switch --flake github:mikojs/nixos-config#<system name> --use-remote-sudo
+nixos-rebuild switch --flake github:mikojs/nixos-config#<system name> --sudo
 
 # Run `initialize` command manually
 # It would auto-reun when you reopen the terminal
 initialize
 ```
 
-## After installing, you need to authorize some packages manually
+## After installing, you need to do the following manually
 
 ### AI
 
 - Only support `gemini` and `claude` now. Run the commands and authorize manually based on your settings.
 - To support `avante.nvim`, you need to set up the env variable like `GEMINI_API_KEY=...` or `ANTHROPIC_API_KEY=...`
-- Should double-check the [docs](./docs/AI.md) to do some manually work.
 
 ### Codeium in nvim
 
@@ -87,9 +86,35 @@ initialize
 :Codeium Auth
 ```
 
-Here are the packages I use.
+### Claude code statusline
 
-- [Common](./docs/PACKAGES.md)
-- [AI](./docs/AI.md)
-- [Languages](./docs/LANGUAGES.md)
-- [Custom commands](./docs/CUSTOM_COMMANDS.md)
+Ccstatusline is a highly customizable statusline for Claude Code CLI with powerline support, themes, and more.
+
+[Repository](https://github.com/sirmalloc/ccstatusline)
+
+```
+# Run it manually
+npx ccstatusline@latest
+```
+
+## Development
+
+### How to add a new language
+
+[Here](./home-manager/languages/) are the specific packages for each language supported by this flake.
+Basically, this flake also support those languages for `nvim-treesitter`, `nvim-cmp` and `conform.nvim`.
+
+- Add a new language file to `./home-manager/languages/`.
+- Neovim
+    - (Optional) Add a new language file to `./home-manager/neovim/languages/`.
+    - Add a new language configuration to `./home-manager/neovim/nvim-treesitter.nix`.
+    - Add a new language file to `./home-manager/neovim/nvim-cmp/`.
+    - Add a new language file to `./home-manager/neovim/conform-nvim/`.
+
+
+If the new language is a database language, please check this part first.
+Common database packages, plugins and configurations are provided in the `db` files.
+
+- [language configuration](./home-manager/languages/db.nix)
+- [nvim-cmp configuration](./home-manager/neovim/nvim-cmp/db.nix)
+- [conform.nvim configuration](./home-manager/neovim/conform-nvim/db.nix)
