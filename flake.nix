@@ -36,6 +36,10 @@
         postgresNonRootUser = "postgresNonRootUser";
         postgresNonRootPassword = "postgresNonRootPassword";
       };
+      timezones = [
+        "America/New_York"
+        "Asia/Taipei"
+      ];
       users = [
         {
           name = "miko";
@@ -63,7 +67,7 @@
       inherit mkSystem;
 
       darwinConfigurations.mac = mkSystem {
-        inherit n8n users;
+        inherit n8n timezones users;
 
         system = "aarch64-darwin";
         isMac = true;
@@ -71,7 +75,7 @@
 
       nixosConfigurations = {
         wsl = mkSystem {
-          inherit n8n users;
+          inherit n8n timezones users;
 
           system = "x86_64-linux";
           isWSL = true;

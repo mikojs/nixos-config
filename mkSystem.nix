@@ -5,6 +5,7 @@ inputs:
   isWSL ? false,
   isMac ? false,
   n8n,
+  timezones ? [ ],
   users,
 }:
 let
@@ -21,6 +22,7 @@ mkSystem {
       isWSL
       isMac
       n8n
+      timezones
       users
       ;
 

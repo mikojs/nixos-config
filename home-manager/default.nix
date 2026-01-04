@@ -6,6 +6,7 @@
   isWSL,
   isMac,
   n8n,
+  timezones,
   users,
   ...
 }:
@@ -58,7 +59,14 @@ with builtins;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit isWSL isMac n8n; };
+    extraSpecialArgs = {
+      inherit
+        isWSL
+        isMac
+        n8n
+        timezones
+        ;
+    };
 
     users = listToAttrs (
       map (
