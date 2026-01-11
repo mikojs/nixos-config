@@ -63,7 +63,7 @@
       inherit mkSystem;
 
       darwinConfigurations.mac = mkSystem {
-        inherit n8n timezones users;
+        inherit n8n users;
 
         system = "aarch64-darwin";
         isMac = true;
@@ -71,7 +71,7 @@
 
       nixosConfigurations = {
         wsl = mkSystem {
-          inherit n8n timezones users;
+          inherit n8n users;
 
           system = "x86_64-linux";
           isWSL = true;
