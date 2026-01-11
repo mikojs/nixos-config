@@ -2,6 +2,7 @@
   lib,
   pkgs,
   n8n,
+  timezones,
   ...
 }:
 let
@@ -32,6 +33,7 @@ in
             ## Alias
 
             - `nsf`: Run `nix-shell` with fish-shell.
+            - `times`: Show times in different timezones.
             ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
 
           '';
@@ -46,7 +48,7 @@ in
         [ ];
   };
 
-  programs.fish = {
+  programs.fish = with builtins; {
     enable = true;
     interactiveShellInit =
       getConfig
@@ -58,6 +60,23 @@ in
         ''
           # Disable Greeting
           set fish_greeting
+
+          ${
+            if length timezones <= 0 then
+              ""
+            else
+              ''
+                # Show times
+                function times --description "Show times in different timezones"
+                  begin
+                    echo -e "timezone,time"
+                    ${concatStringsSep "\n" (
+                      map (t: "echo -e \"${t},$(TZ=${t} date +'%Y-%m-%d %H:%M:%S')\"") timezones
+                    )}
+                  end | column -t -s ','
+                end
+              ''
+          };
         '';
 
     plugins =
