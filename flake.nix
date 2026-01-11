@@ -36,10 +36,6 @@
         postgresNonRootUser = "postgresNonRootUser";
         postgresNonRootPassword = "postgresNonRootPassword";
       };
-      timezones = [
-        "America/New_York"
-        "Asia/Taipei"
-      ];
       users = [
         {
           name = "miko";
