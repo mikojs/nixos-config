@@ -65,10 +65,10 @@ in
               ""
             else
               ''
-                # Show dates
-                function dates --description "Show dates in different timezones"
+                # Show times
+                function times --description "Show times in different timezones"
                   begin
-                    echo -e "timezone,date"
+                    echo -e "timezone,time"
                     ${concatStringsSep "\n" (
                       map (t: "echo -e \"${t},$(TZ=${t} date +'%Y-%m-%d %H:%M:%S')\"") timezones
                     )}
