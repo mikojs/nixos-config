@@ -47,7 +47,7 @@ in
         [ ];
   };
 
-  programs.fish = {
+  programs.fish = with builtins; {
     enable = true;
     interactiveShellInit =
       getConfig
@@ -59,6 +59,23 @@ in
         ''
           # Disable Greeting
           set fish_greeting
+
+          ${
+            if length timezones <= 0 then
+              ""
+            else
+              ''
+                # Show dates
+                function dates --description "Show dates in different timezones"
+                  begin
+                    echo -e "timezone,date"
+                    ${concatStringsSep "\n" (
+                      map (t: "echo -e \"${t},$(TZ=${t} date +'%Y-%m-%d %H:%M:%S')\"") timezones
+                    )}
+                  end | column -t -s ','
+                end
+              ''
+          };
         '';
 
     plugins =
@@ -77,28 +94,8 @@ in
           "fish"
           "shellAliases"
         ]
-        (
-          {
-            nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
-          }
-          // (
-            if timezones.length == 0 then
-              { }
-            else
-              with builtins;
-              {
-                dates = ''
-                  function dates --description "Show dates in different timezones"
-                    begin
-                      echo -e "timezone,date"
-                      ${strings.concatStringsSep "\n" (
-                        map (t: "echo -e \"${t},$(TZ=${t} date +'%Y-%m-%d %H:%M:%S')\"") timezones
-                      )}
-                    end | column -t -s ','
-                  end
-                '';
-              }
-          )
-        );
+        {
+          nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
+        };
   };
 }
