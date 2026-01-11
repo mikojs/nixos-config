@@ -33,6 +33,7 @@ in
             ## Alias
 
             - `nsf`: Run `nix-shell` with fish-shell.
+            - `times`: Show times in different timezones.
             ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
 
           '';
