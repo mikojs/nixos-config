@@ -81,6 +81,7 @@ with builtins;
               ./gh.nix
               ./jless.nix
               ./jq.nix
+              ./oxker.nix
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
