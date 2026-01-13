@@ -19,7 +19,7 @@ let
     n8n.postgresDb
     n8n.postgresNonRootUser
     n8n.postgresNonRootPassword
-    (if length timezones <= 0 then "America/New_York" else timezones [ 0 ])
+    (if length timezones <= 0 then "America/New_York" else (elemAt timezones 0))
   ];
 in
 {
