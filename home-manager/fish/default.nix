@@ -13,7 +13,7 @@ let
     ./n8n
     ./nord.nix
     ./tide.nix
-  ]) { inherit pkgs n8n; };
+  ]) { inherit pkgs n8n timezones; };
 in
 {
   home = {
