@@ -1,5 +1,6 @@
 {
   n8n,
+  timezones,
   ...
 }:
 with builtins;
@@ -10,6 +11,7 @@ let
     "\${POSTGRES_DB}"
     "\${POSTGRES_NON_ROOT_USER}"
     "\${POSTGRES_NON_ROOT_PASSWORD}"
+    "\${GENERIC_TIMEZONE}"
   ];
   newEnv = [
     n8n.postgresUser
@@ -17,6 +19,7 @@ let
     n8n.postgresDb
     n8n.postgresNonRootUser
     n8n.postgresNonRootPassword
+    (if length timezones <= 0 then "America/New_York" else timezones [ 0 ])
   ];
 in
 {
