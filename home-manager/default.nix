@@ -81,6 +81,7 @@ with builtins;
               ./gh.nix
               ./jless.nix
               ./jq.nix
+              ./oxker.nix
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
@@ -99,34 +100,14 @@ with builtins;
           home = {
             inherit stateVersion;
 
-            file = {
-              ".docs/tailscale.md".text = ''
-                # Tailscale
+            file.".docs/tailscale.md".text = ''
+              # Tailscale
 
-                Tailscale is used to build a private network.
+              Tailscale is used to build a private network.
 
-                [Repository](https://github.com/tailscale/tailscale)
+              [Repository](https://github.com/tailscale/tailscale)
 
-              '';
-
-              ".docs/docker.md".text = ''
-                # Docker
-
-                Docker is used to run containers.
-                ${
-                  if isMac then
-                    ''
-
-                      We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
-                      Please install it manually.
-                    ''
-                  else
-                    ""
-                }
-                [Repository](https://github.com/docker/cli)
-
-              '';
-            };
+            '';
           };
         }
       ) users
