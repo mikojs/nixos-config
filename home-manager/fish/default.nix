@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  isMac,
   n8n,
   timezones,
   ...
@@ -35,6 +36,28 @@ in
             - `nsf`: Run `nix-shell` with fish-shell.
             - `times`: Show times in different timezones.
             ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
+
+          '';
+
+          ".docs/docker.md".text = ''
+            # Docker
+
+            Docker is used to run containers.
+            ${
+              if isMac then
+                ''
+
+                  We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
+                  Please install it manually.
+                ''
+              else
+                ""
+            }
+            [Repository](https://github.com/docker/cli)
+
+            ## Alias
+
+            - `dsd`: Run `Docker system df`. Used to show docker disk usage.
 
           '';
         };
@@ -96,6 +119,7 @@ in
           "shellAliases"
         ]
         {
+          dsd = "docker system df";
           nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
         };
   };
