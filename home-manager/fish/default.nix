@@ -33,9 +33,27 @@ in
 
             ## Alias
 
-            - `nsf`: Run `nix-shell` with fish-shell.
             - `times`: Show times in different timezones.
             ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
+
+          '';
+
+          ".docs/nix.md".text = ''
+            # Nix
+
+            Nix is a package manager.
+
+            [Repository](https://github.com/NixOS/nixpkgs)
+
+            ## Search packages
+
+            - `nix search`: Search packages.
+            - Use `https://search.nixos.org/packages` to get the latest version.
+            - Use `https://lazamar.co.uk/nix-versions` to get the different versions.
+
+            ## Alias
+
+            - `nsf`: Run `nix-shell` with fish-shell.
 
           '';
 
@@ -57,7 +75,7 @@ in
 
             ## Alias
 
-            - `dsd`: Run `Docker system df`. Used to show docker disk usage.
+            - `dsd`: Run `Docker system df`. Show docker disk usage.
 
           '';
         };
