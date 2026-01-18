@@ -76,7 +76,14 @@ in
             ## Alias
 
             - `dsd`: Run `Docker system df`. Show docker disk usage.
-            ${if isMac then "- `open-docker`: Open docker." else ""}
+            ${
+              if isMac then
+                ''
+                  - `open-docker`: Open docker.
+                ''
+              else
+                ""
+            }
           '';
         };
 
