@@ -13,6 +13,7 @@ in
 {
   fish-alias = [
     "- `tssh`: Run `ssh` with tailscale."
+    "  - `tssh <username>@<hostname> forward [...ports]`: Forward local ports to remote."
     "- `tdocker`: Run `docker` with tailscale."
     "- `tcoder`: Run `coder` with tailscale."
   ];
