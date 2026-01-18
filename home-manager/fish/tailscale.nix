@@ -13,21 +13,35 @@ in
 {
   fish-alias = [
     "- `tssh`: Run `ssh` with tailscale."
+    "  - `forward [...ports]`: Forward remote ports to local."
+    "  - `exec [...commands]`: Run commands on remote."
     "- `tdocker`: Run `docker` with tailscale."
     "- `tcoder`: Run `coder` with tailscale."
   ];
 
   programs.fish.interactiveShellInit = ''
-    function tssh --description "tssh <username>@<hostname> [...argv]"
+    function tssh --description "tssh <username>@<hostname> (forward|exec|*) [...argv]"
       ${checkCommandStr "tssh"}
 
       set -l info (string split '@' $argv[1])
 
-      if test (count $argv) -gt 2
-        set -l commands (string join "; " $argv[2..-1])
-        ssh $info[1]@$(tailscale ip -4 $info[2]) "fish -c \"$commands\""
-      else
-        ssh $info[1]@$(tailscale ip -4 $info[2]) -t fish
+      switch $argv[2]
+        case forward
+          set -l ports
+
+          for port in $argv[3..-1]
+            set -a ports "-L"
+            set -a ports "$port:localhost:$port"
+          end
+
+          ssh $info[1]@$(tailscale ip -4 $info[2]) $ports -t fish
+
+        case exec
+          set -l commands (string join "; " $argv[3..-1])
+          ssh $info[1]@$(tailscale ip -4 $info[2]) "fish -c \"$commands\""
+
+        case '*'
+          ssh $info[1]@$(tailscale ip -4 $info[2]) -t fish
       end
     end
 
