@@ -23,7 +23,16 @@ in
 
       set -l info (string split '@' $argv[1])
 
-      if test (count $argv) -gt 2
+      if test $argv[2] = "forward"
+        set -l ports
+
+        for port in $argv[3..-1]
+          set -a ports "-L"
+          set -a ports "$port:localhost:$port"
+        end
+
+        ssh $info[1]@$(tailscale ip -4 $info[2]) $ports -t fish
+      else if test (count $argv) -gt 2
         set -l commands (string join "; " $argv[2..-1])
         ssh $info[1]@$(tailscale ip -4 $info[2]) "fish -c \"$commands\""
       else
