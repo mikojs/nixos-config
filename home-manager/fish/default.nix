@@ -147,6 +147,6 @@ in
           dsd = "docker system df";
           nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
         }
-      // (if isMac then { open-docker = "open -a Docker"; } else { });
+      // (if isMac then { open-docker = "open -a docker"; } else { });
   };
 }
