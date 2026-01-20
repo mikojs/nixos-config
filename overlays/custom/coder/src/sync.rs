@@ -145,6 +145,8 @@ impl Sync {
             exec("git", vec!["checkout", &current_branch])?;
         }
 
+        exec("git", vec!["fetch", "--prune"])?;
+
         Ok(())
     }
 }
