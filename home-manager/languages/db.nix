@@ -4,7 +4,7 @@
 }:
 {
   home = {
-    file.".docs/coder.md".text = ''
+    file.".docs/db.md".text = ''
       # [miko] DB
 
       Some helpful commands for working with databases.
