@@ -37,11 +37,20 @@
       '';
 
       ".docs/git/delta.md".text = ''
-        # Git Delta
+        # Git delta
 
         A syntax-highlighting pager for git and diff output.
 
         [Repository](https://github.com/dandavison/delta)
+
+      '';
+
+      ".docs/git/serie.md".text = ''
+        # Git serie
+
+        A rich git commit graph in your terminal.
+
+        [Repository](https://github.com/lusingander/serie)
 
       '';
 
