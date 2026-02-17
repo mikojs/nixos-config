@@ -55,6 +55,7 @@
     packages = with pkgs; [
       cz-cli
       delta
+      serie
     ];
   };
 
@@ -75,7 +76,7 @@
 
       alias = {
         d = "-c pager.diff='less -R' diff";
-        gr = "log --date=short --graph --pretty=format:'%C(yellow)%h%Creset %ad %C(bold green)%an%Creset %s%C(yellow)%d%Creset'";
+        gr = "!serie";
       };
     };
   };
