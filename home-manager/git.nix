@@ -76,7 +76,7 @@
 
       alias = {
         d = "-c pager.diff='less -R' diff";
-        gr = "serie";
+        gr = "!serie";
       };
     };
   };
