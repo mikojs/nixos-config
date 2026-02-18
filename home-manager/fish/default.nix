@@ -7,13 +7,18 @@
   ...
 }:
 let
-  getConfig = (import ../../lib.nix).getConfig ([
-    ./custom.nix
-    ./tailscale.nix
-    ./n8n
-    ./nord.nix
-    ./tide.nix
-  ]) { inherit pkgs n8n timezones; };
+  getConfig =
+    with lib;
+    (import ../../lib.nix).getConfig (
+      [
+        ./custom.nix
+        ./tailscale.nix
+        ./n8n
+        ./nord.nix
+        ./tide.nix
+      ]
+      ++ (optionals isMac [ ./mac.nix ])
+    ) { inherit pkgs n8n timezones; };
 in
 {
   home = {
