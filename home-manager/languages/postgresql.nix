@@ -6,17 +6,21 @@
 with builtins;
 let
   version = if hasAttr "version" language then "_${language.version}" else "";
+  db = import ./db.nix { inherit pkgs; };
 in
 {
   home = {
-    file.".docs/pgcli.md".text = ''
-      # PGcli
+    file = {
+      ".docs/pgcli.md".text = ''
+        # PGcli
 
-      A command-line interface for PostgreSQL.
+        A command-line interface for PostgreSQL.
 
-      [Repository](https://github.com/dbcli/pgcli)
+        [Repository](https://github.com/dbcli/pgcli)
 
-    '';
+      '';
+    }
+    // db.home.file;
 
     packages =
       with pkgs;
@@ -24,7 +28,7 @@ in
         pkgs."postgresql${version}"
         pgcli
       ]
-      ++ (import ./db.nix { inherit pkgs; }).home.packages;
+      ++ db.home.packages;
   };
 
   xdg.configFile."pgcli/config".text = ''
