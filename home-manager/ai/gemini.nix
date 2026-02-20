@@ -25,7 +25,7 @@
               "selectedType": "oauth-personal"
             }
           },
-          "mcpServers": ${import ./mcp-servers.nix { inherit pkgs mcpServers; }}
+          "mcpServers": ${mcpServers}
         }
       '';
     };
