@@ -44,7 +44,6 @@
 
         require("barbar").setup({
           icons = {
-            show_tab_indicators = true,
             pinned = { button = "", filename = true },
             diagnostics = {
               [vim.diagnostic.severity.ERROR] = { enabled = true, icon = " " },
