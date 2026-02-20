@@ -21,7 +21,7 @@
 
       ".claude/mcp.json".text = ''
         {
-          "mcpServers": ${import ./mcp-servers.nix { inherit pkgs mcpServers; }}
+          "mcpServers": ${mcpServers}
         }
       '';
     };

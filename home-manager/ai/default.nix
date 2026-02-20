@@ -12,10 +12,49 @@
 with lib;
 with builtins;
 let
+  useAI = lists.length ai > 0;
+
+  newMcpServers = builtins.toJSON (
+    {
+      memory = {
+        command = "npx";
+        args = [
+          "-y"
+          "@modelcontextprotocol/server-memory"
+        ];
+      };
+      sequentialthinking = {
+        command = "npx";
+        args = [
+          "-y"
+          "@modelcontextprotocol/server-sequential-thinking"
+        ];
+      };
+      fetch = {
+        command = "uvx";
+        args = [ "mcp-server-fetch" ];
+      };
+      github = {
+        command = "${pkgs.github-mcp-server}/bin/github-mcp-server";
+        args = [ "stdio" ];
+      };
+      n8n-mcp = {
+        command = "npx";
+        args = [ "n8n-mcp" ];
+        env = {
+          MCP_MODE = "stdio";
+          LOG_LEVEL = "error";
+          DISABLE_CONSOLE_OUTPUT = "true";
+        };
+      };
+    }
+    // mcpServers
+  );
+
   getConfig =
     (import ../../lib.nix).getConfig
       (
-        (optionals (lists.length ai > 0) [
+        (optionals useAI [
           ./uv.nix
           ./github.nix
         ])
@@ -25,78 +64,82 @@ let
         ++ (map (a: ./${a}.nix) ai)
       )
       {
-        inherit pkgs mcpServers;
+        inherit pkgs;
+        mcpServers = newMcpServers;
       };
 
 in
-{
-  home = {
-    file =
-      getConfig
-        [
-          "home"
-          "file"
-        ]
-        {
-          ".docs/ai/mcp/memory.md".text = ''
-            # MCP memory
+if !useAI then
+  { }
+else
+  {
+    home = {
+      file =
+        getConfig
+          [
+            "home"
+            "file"
+          ]
+          {
+            ".docs/ai/mcp/memory.md".text = ''
+              # MCP memory
 
-            A basic implementation of persistent memory using a local knowledge graph. This lets Claude remember information about the user across chats.
+              A basic implementation of persistent memory using a local knowledge graph. This lets Claude remember information about the user across chats.
 
-            [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/memory)
+              [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/memory)
 
-          '';
+            '';
 
-          ".docs/ai/mcp/sequentialthinking.md".text = ''
-            # MCP sequentialthinking
+            ".docs/ai/mcp/sequentialthinking.md".text = ''
+              # MCP sequentialthinking
 
-            An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process.
+              An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process.
 
-            [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking)
+              [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking)
 
-          '';
+            '';
 
-          ".docs/ai/mcp/fetch.md".text = ''
-            # MCP fetch
+            ".docs/ai/mcp/fetch.md".text = ''
+              # MCP fetch
 
-            A Model Context Protocol server that provides web content fetching capabilities.
-            This server enables LLMs to retrieve and process content from web pages, converting HTML to markdown for easier consumption.
+              A Model Context Protocol server that provides web content fetching capabilities.
+              This server enables LLMs to retrieve and process content from web pages, converting HTML to markdown for easier consumption.
 
-            [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch)
+              [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch)
 
-          '';
+            '';
 
-          ".docs/ai/mcp/n8n.md".text = ''
-            # MCP n8n
+            ".docs/ai/mcp/n8n.md".text = ''
+              # MCP n8n
 
-            A Model Context Protocol server for N8N. This server provides access to N8N workflows, allowing LLMs to interact with N8N content.
+              A Model Context Protocol server for N8N. This server provides access to N8N workflows, allowing LLMs to interact with N8N content.
 
-            [Repository](https://github.com/czlonkowski/n8n-mcp)
+              [Repository](https://github.com/czlonkowski/n8n-mcp)
 
-          '';
+            '';
 
-        };
+          };
 
-    packages =
-      getConfig
-        [
-          "home"
-          "packages"
-        ]
-        [ ];
-  };
+      packages =
+        getConfig
+          [
+            "home"
+            "packages"
+          ]
+          [ ];
+    };
 
-  programs.fish = {
-    interactiveShellInit = "
-      if not set -q GITHUB_PERSONAL_ACCESS_TOKEN and type -q gh and gh status &> /dev/null
-        set -Ux GITHUB_PERSONAL_ACCESS_TOKEN $(gh auth token)
-      end
-    ";
+    programs.fish = {
+      interactiveShellInit = "
+        if not set -q GITHUB_PERSONAL_ACCESS_TOKEN and type -q gh and gh status &> /dev/null
+          set -Ux GITHUB_PERSONAL_ACCESS_TOKEN $(gh auth token)
+        end
+      ";
 
-    shellAliases = getConfig [
-      "programs"
-      "fish"
-      "shellAliases"
-    ] { };
-  };
-}
+      shellAliases = getConfig [
+        "programs"
+        "fish"
+        "shellAliases"
+      ] { };
+    };
+  }

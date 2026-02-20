@@ -18,9 +18,6 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    mcphub-nvim.url = "github:ravitemer/mcphub.nvim";
-    mcp-hub.url = "github:ravitemer/mcp-hub";
   };
 
   outputs =

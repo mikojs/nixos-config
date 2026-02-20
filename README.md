@@ -74,17 +74,7 @@ initialize
 
 ### AI
 
-- Only support `gemini` and `claude` now. Run the commands and authorize manually based on your settings.
-- To support `avante.nvim`, you need to set up the env variable like `GEMINI_API_KEY=...` or `ANTHROPIC_API_KEY=...`
-
-### Codeium in nvim
-
-```nvim
-# If you have the problem with dressing UI, run this command
-:lua require("dressing").setup({ select = { enabled = false }})
-
-:Codeium Auth
-```
+Only support `gemini` and `claude` now. Run the commands and authorize manually based on your settings.
 
 ### Claude code statusline
 
@@ -95,6 +85,15 @@ Ccstatusline is a highly customizable statusline for Claude Code CLI with powerl
 ```
 # Run it manually
 npx ccstatusline@latest
+```
+
+### Codeium in nvim
+
+```nvim
+# If you have the problem with dressing UI, run this command
+:lua require("dressing").setup({ select = { enabled = false }})
+
+:Codeium Auth
 ```
 
 ## Development
