@@ -42,8 +42,6 @@ let
           ./conform-nvim
           # AI
           ./windsurf-nvim.nix
-          ./avante-nvim.nix
-          ./mcphub-nvim.nix
         ]
         ++ (filter pathExists (map (l: ./languages/${l.language}.nix) languages))
       )
