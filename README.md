@@ -74,7 +74,7 @@ initialize
 
 ### AI
 
-- Only support `gemini` and `claude` now. Run the commands and authorize manually based on your settings.
+Only support `gemini` and `claude` now. Run the commands and authorize manually based on your settings.
 
 ### Claude code statusline
 
