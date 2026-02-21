@@ -29,4 +29,12 @@ with builtins;
           result
       ) default configs)
     );
+
+  getDocs =
+    pkgs: name:
+    let
+      docs_name = [ "${name}-docs" ];
+      docs = if hasAttr docs_name pkgs then pkgs."${docs_name}" else "";
+    in
+    docs;
 }

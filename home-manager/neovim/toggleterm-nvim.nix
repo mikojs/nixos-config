@@ -19,11 +19,7 @@
     | Toggle horizontal terminal | `<leader>Th` |
     | Toggle tab terminal        | `<leader>Tt` |
     | Send selection to terminal | `<leader>st` |
-
-    ## Note
-
-    Because we use `barbar-nvim`, we need to use `gT` and `gt` to switch tabs.
-
+    ${(import ../lib.nix).getDocs pkgs "toggleterm-nvim"}
   '';
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
