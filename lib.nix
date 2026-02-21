@@ -35,5 +35,13 @@ with builtins;
     let
       note = if hasAttr "${name}-note" pkgs then pkgs."${name}-note" else "";
     in
-    "${docs}\n${note}";
+    with pkgs.lib;
+    concatStrings (
+      map (line: "${line}\n") (
+        filter (line: line != "") [
+          docs
+          note
+        ]
+      )
+    );
 }
