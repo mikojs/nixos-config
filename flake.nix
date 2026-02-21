@@ -59,6 +59,8 @@
     {
       inherit mkSystem;
 
+      getDocs = (import ./lib.nix).getDocs;
+
       darwinConfigurations.mac = mkSystem {
         inherit n8n users;
 
