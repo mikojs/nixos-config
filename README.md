@@ -45,7 +45,7 @@ Some steps are required before installing NixOS.
 - Install [nix-darwin](https://github.com/nix-darwin/nix-darwin).
 - Install [docker](https://www.docker.com/get-started).
 
-Mac built-in terminal has some problems with customization, so we don't use it.
+The macOS built-in terminal has some customization limitations, so it is not used.
 We use [Kitty](https://sw.kovidgoyal.net/kitty/) to replace it. Here is the [configuration](./home-manager/kitty.nix).
 
 ## Installation
@@ -66,7 +66,7 @@ sudo darwin-rebuild switch --flake github:mikojs/nixos-config#<system name>
 nixos-rebuild switch --flake github:mikojs/nixos-config#<system name> --sudo
 
 # Run `initialize` command manually
-# It would auto-reun when you reopen the terminal
+# It will automatically run when you reopen the terminal
 initialize
 ```
 
@@ -74,11 +74,11 @@ initialize
 
 ### AI
 
-Only support `gemini` and `claude` now. Run the commands and authorize manually based on your settings.
+Currently, only `gemini` and `claude` are supported. Run the commands and authorize them manually according to your settings.
 
 ### Claude code statusline
 
-Ccstatusline is a highly customizable statusline for Claude Code CLI with powerline support, themes, and more.
+Ccstatusline is a highly customizable statusline for the Claude Code CLI, offering powerline support, themes, and more.
 
 [Repository](https://github.com/sirmalloc/ccstatusline)
 
@@ -90,7 +90,7 @@ npx ccstatusline@latest
 ### Codeium in nvim
 
 ```nvim
-# If you have the problem with dressing UI, run this command
+# If you encounter issues with the dressing UI, run this command:
 :lua require("dressing").setup({ select = { enabled = false }})
 
 :Codeium Auth
@@ -101,7 +101,7 @@ npx ccstatusline@latest
 ### How to add a new language
 
 [Here](./home-manager/languages/) are the specific packages for each language supported by this flake.
-Basically, this flake also support those languages for `nvim-treesitter`, `nvim-cmp` and `conform.nvim`.
+This flake also provides support for these languages within `nvim-treesitter`, `nvim-cmp`, and `conform.nvim`.
 
 - Add a new language file to `./home-manager/languages/`.
 - Neovim
@@ -111,7 +111,7 @@ Basically, this flake also support those languages for `nvim-treesitter`, `nvim-
     - Add a new language file to `./home-manager/neovim/conform-nvim/`.
 
 
-If the new language is a database language, please check this part first.
+If the new language is a database language, please refer to this section first.
 Common database packages, plugins and configurations are provided in the `db` files.
 
 - [language configuration](./home-manager/languages/db.nix)
