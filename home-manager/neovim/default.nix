@@ -71,21 +71,21 @@ in
 
             ## Keybindings
 
-            | Description        | Key           |
-            | ---                | ---           |
-            | Increase 10 height | `<leader>wh+` |
-            | Decrease 10 height | `<leader>wh-` |
-            | Increase 20 width  | `<leader>ww+` |
-            | Decrease 20 width  | `<leader>ww-` |
+            | Description           | Key           |
+            | ---                   | ---           |
+            | Increase height by 10 | `<leader>wh+` |
+            | Decrease height by 10 | `<leader>wh-` |
+            | Increase width by 20  | `<leader>ww+` |
+            | Decrease width by 20  | `<leader>ww-` |
 
             | Description             | Key          |
             | ---                     | ---          |
             | Copy current file path  | `<leader>cf` |
             | Copy relative file path | `<leader>cr` |
 
-            | Description                      | Key          |
-            | ---                              | ---          |
-            | Toggle diagnostics virtual lines | `<leader>dt` |
+            | Description                     | Key          |
+            | ---                             | ---          |
+            | Toggle diagnostic virtual lines | `<leader>dt` |
 
           '';
         };
