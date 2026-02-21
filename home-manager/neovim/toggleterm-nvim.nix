@@ -4,7 +4,7 @@
 }:
 {
   home.file.".docs/neovim/toggleterm-nvim.md".text =
-    (import ../lib.nix).getDocs pkgs "toggleterm-nvim"
+    (import ../../lib.nix).getDocs pkgs "toggleterm-nvim"
       ''
         # Neovim toggleterm.nvim
 
@@ -21,7 +21,6 @@
         | Toggle horizontal terminal | `<leader>Th` |
         | Toggle tab terminal        | `<leader>Tt` |
         | Send selection to terminal | `<leader>st` |
-
       '';
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
