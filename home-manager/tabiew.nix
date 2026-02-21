@@ -15,6 +15,8 @@
       tw ...
       ```
 
+      ## Note
+
       If you need some help, you could use `:help` in the tabiew view.
 
     '';

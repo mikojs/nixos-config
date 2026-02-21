@@ -18,7 +18,11 @@
     | Toggle vertical terminal   | `<leader>Tv` |
     | Toggle horizontal terminal | `<leader>Th` |
     | Toggle tab terminal        | `<leader>Tt` |
-    | Send selection to terminal | `<leader>st`  |
+    | Send selection to terminal | `<leader>st` |
+
+    ## Note
+
+    Because we use `barbar-nvim`, we need to use `gT` and `gt` to switch tabs.
 
   '';
 
