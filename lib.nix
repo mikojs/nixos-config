@@ -31,10 +31,12 @@ with builtins;
     );
 
   getDocs =
-    pkgs: name:
+    pkgs: name: docs:
     let
-      docs_name = [ "${name}-docs" ];
-      docs = if hasAttr docs_name pkgs then pkgs."${docs_name}" else "";
+      note = if hasAttr "${name}-note" pkgs then pkgs."${name}-note" else "";
     in
-    docs;
+    ''
+      ${docs}
+      ${note}
+    '';
 }
