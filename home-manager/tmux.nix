@@ -24,6 +24,12 @@
       nord
     ];
 
+    programs.fish.interactiveShellInit = "
+      if not set -q LANG
+        set -Ux LANG en_US.UTF-8
+      end
+    ";
+
     # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
     extraConfig =
       if !isMac then "" else "set-option -g default-command /etc/profiles/per-user/${name}/bin/fish";
