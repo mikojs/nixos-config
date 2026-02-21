@@ -35,8 +35,5 @@ with builtins;
     let
       note = if hasAttr "${name}-note" pkgs then pkgs."${name}-note" else "";
     in
-    ''
-      ${docs}
-      ${note}
-    '';
+    "${docs}${note}";
 }
