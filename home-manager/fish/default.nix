@@ -43,7 +43,6 @@ in
 
                 - `times`: Show times in different timezones.
                 ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
-
               '';
             }
             {
@@ -64,7 +63,6 @@ in
                 ## Alias
 
                 - `nsf`: Run `nix-shell` with fish-shell.
-
               '';
             }
             {
@@ -88,7 +86,6 @@ in
                 ## Alias
 
                 - `dsd`: Run `Docker system df`. Show docker disk usage.
-
               '';
             }
           ]

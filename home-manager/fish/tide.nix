@@ -12,7 +12,6 @@
         Tide is the ultimate Fish prompt.
 
         [Repository](https://github.com/IlanCosman/tide)
-
       '';
     }
   ];

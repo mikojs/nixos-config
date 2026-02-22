@@ -4,7 +4,7 @@
 }:
 {
   home = {
-    file = (import ../../../lib.nix).getDocs pkgs [
+    file = (import ../../lib.nix).getDocs pkgs [
       {
         filePath = "db";
         docs = ''
@@ -14,7 +14,6 @@
           Use `--help` to see available commands.
 
           [Code](https://github.com/mikojs/nixos-config/tree/main/overlays/custom/db)
-
         '';
       }
     ];

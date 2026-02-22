@@ -11,7 +11,7 @@ in
 {
   home = {
     file =
-      (import ../../../lib.nix).getDocs pkgs [
+      (import ../../lib.nix).getDocs pkgs [
         {
           filePath = "litecli";
           docs = ''
@@ -20,7 +20,6 @@ in
             A command-line interface for SQLite.
 
             [Repository](https://github.com/dbcli/litecli)
-
           '';
         }
       ]
