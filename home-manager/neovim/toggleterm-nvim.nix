@@ -3,9 +3,10 @@
   ...
 }:
 {
-  home.file.".docs/neovim/toggleterm-nvim.md".text =
-    (import ../../lib.nix).getDocs pkgs "toggleterm-nvim"
-      ''
+  home.file = (import ../../lib.nix).getDocs pkgs [
+    {
+      filePath = "neovim/toggleterm-nvim";
+      docs = ''
         # Neovim toggleterm.nvim
 
         Toggleterm.nvim is a terminal plugin for Neovim.
@@ -22,6 +23,8 @@
         | Toggle tab terminal        | `<leader>Tt` |
         | Send selection to terminal | `<leader>st` |
       '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {

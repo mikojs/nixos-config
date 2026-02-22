@@ -31,17 +31,25 @@ with builtins;
     );
 
   getDocs =
-    pkgs: name: docs:
-    let
-      note = if hasAttr "${name}-note" pkgs then pkgs."${name}-note" else "";
-    in
+    pkgs: docs:
     with pkgs.lib;
-    concatStrings (
-      map (line: "${line}\n") (
-        filter (line: line != "") [
-          docs
-          note
-        ]
-      )
-    );
+    (foldl' (
+      result:
+      { filePath, docs }:
+      let
+        name = last (splitString "/" filePath);
+        note = if hasAttr "${name}-note" pkgs then pkgs."${name}-note" else "";
+      in
+      result
+      // {
+        ".docs/${filePath}.md".text = concatStrings (
+          map (line: "${line}\n") (
+            filter (line: line != "") [
+              docs
+              note
+            ]
+          )
+        );
+      }
+    ) { } docs);
 }
