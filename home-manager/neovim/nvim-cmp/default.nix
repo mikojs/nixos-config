@@ -55,7 +55,6 @@ in
                 | Abort            | `<C-e>`      |
                 | Confirm          | `<CR>`       |
                 | Select           | `<Tab>`      |
-
               '';
             }
           ]

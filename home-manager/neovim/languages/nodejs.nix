@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/package-info-nvim";
       docs = ''
@@ -20,7 +20,6 @@
         | Enable or disable info    | `<leader>nt` |
         | Update dependency         | `<leader>nu` |
         | Change dependency version | `<leader>nc` |
-
       '';
     }
   ];

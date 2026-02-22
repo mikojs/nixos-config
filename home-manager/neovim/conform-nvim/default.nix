@@ -39,7 +39,6 @@ in
             | ---                                | ---           |
             | Toggle autoformat for all files    | `<leader>ccT` |
             | Toggle autoformat for current file | `<leader>cct` |
-
           '';
         }
       ]

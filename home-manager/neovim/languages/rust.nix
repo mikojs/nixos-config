@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/crates-nvim";
       docs = ''
@@ -26,7 +26,6 @@
         | Open documentation      | `<leader>Cd` |
         | Open crates.io          | `<leader>Cc` |
         | Show crate details      | `<leader>Cs` |
-
       '';
     }
   ];

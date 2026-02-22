@@ -3,7 +3,7 @@
   ...
 }:
 {
-  file = (import ../../../../lib.nix).getDocs pkgs [
+  file = (import ../../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/sqls-nvim";
       docs = ''
@@ -17,7 +17,6 @@
         // Only in .sql files
         :Sqls...
         ```
-
       '';
     }
   ];
