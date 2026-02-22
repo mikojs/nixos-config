@@ -5,6 +5,11 @@
   nixpkgs.overlays = [
     (import ./patch)
     (import ./custom)
-    (import ./miko.nix)
+    (final: prev: {
+      miko = {
+        getConfig = (import ../lib.nix).getConfig;
+        getDocs = (import ../lib.nix).getDocs final;
+      };
+    })
   ];
 }
