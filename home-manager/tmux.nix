@@ -4,11 +4,12 @@
 }:
 {
   pkgs,
+  miko,
   isMac,
   ...
 }:
 {
-  home.file = (import ../lib.nix).getDocs pkgs [
+  home.file = miko.getDocs [
     {
       filePath = "tmux";
       docs = ''

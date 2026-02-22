@@ -6,13 +6,14 @@
 {
   lib,
   pkgs,
+  miko,
   isWSL,
   ...
 }:
 with builtins;
 let
   getConfig =
-    (import ../../lib.nix).getConfig
+    miko.getConfig
       (
         [
           # Colorschema
@@ -48,6 +49,7 @@ let
         inherit
           lib
           pkgs
+          miko
           ai
           languages
           ;
@@ -62,7 +64,7 @@ in
           "file"
         ]
         (
-          (import ../../lib.nix).getDocs pkgs [
+          miko.getDocs [
             {
               filePath = "neovim";
               docs = ''

@@ -1,24 +1,34 @@
 {
   lib,
   pkgs,
+  miko,
   isMac,
   n8n,
   timezones,
   ...
 }:
+with lib;
 let
   getConfig =
-    with lib;
-    (import ../../lib.nix).getConfig (
-      [
-        ./custom.nix
-        ./tailscale.nix
-        ./n8n
-        ./nord.nix
-        ./tide.nix
-      ]
-      ++ (optionals isMac [ ./mac.nix ])
-    ) { inherit pkgs n8n timezones; };
+    miko.getConfig
+      (
+        [
+          ./custom.nix
+          ./tailscale.nix
+          ./n8n
+          ./nord.nix
+          ./tide.nix
+        ]
+        ++ (optionals isMac [ ./mac.nix ])
+      )
+      {
+        inherit
+          pkgs
+          miko
+          n8n
+          timezones
+          ;
+      };
 in
 {
   home = {
@@ -29,7 +39,7 @@ in
           "file"
         ]
         (
-          (import ../../lib.nix).getDocs pkgs [
+          miko.getDocs [
             {
               filePath = "fish";
               docs = ''

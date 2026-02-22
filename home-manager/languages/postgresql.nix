@@ -1,17 +1,18 @@
 { language }:
 {
   pkgs,
+  miko,
   ...
 }:
 with builtins;
 let
   version = if hasAttr "version" language then "_${language.version}" else "";
-  db = import ./db.nix { inherit pkgs; };
+  db = import ./db.nix { inherit pkgs miko; };
 in
 {
   home = {
     file =
-      (import ../../lib.nix).getDocs pkgs [
+      miko.getDocs [
         {
           filePath = "pgcli";
           docs = ''

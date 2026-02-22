@@ -1,3 +1,8 @@
+{
+  lib,
+  pkgs,
+}:
+with lib;
 with builtins;
 {
   getConfig =
@@ -31,8 +36,7 @@ with builtins;
     );
 
   getDocs =
-    pkgs: docs:
-    with pkgs.lib;
+    docs:
     (foldl' (
       result:
       { filePath, docs }:

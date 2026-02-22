@@ -1,9 +1,10 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
-  file = (import ../../../lib.nix).getDocs pkgs [
+  file = miko.getDocs [
     {
       filePath = "neovim/sqls-nvim";
       docs = ''

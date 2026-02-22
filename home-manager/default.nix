@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  miko,
   inputs,
   stateVersion,
   isWSL,
@@ -61,6 +62,7 @@ with builtins;
     useUserPackages = true;
     extraSpecialArgs = {
       inherit
+        miko
         isWSL
         isMac
         n8n
@@ -100,7 +102,7 @@ with builtins;
           home = {
             inherit stateVersion;
 
-            file = (import ../lib.nix).getDocs pkgs [
+            file = miko.getDocs [
               {
                 filePath = "tailscale";
                 docs = ''

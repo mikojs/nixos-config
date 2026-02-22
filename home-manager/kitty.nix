@@ -1,5 +1,6 @@
 {
   pkgs,
+  miko,
   name,
   ...
 }:
@@ -7,7 +8,7 @@
   ...
 }:
 {
-  home.file = (import ../lib.nix).getDocs pkgs [
+  home.file = miko.getDocs [
     {
       filePath = "kitty";
       docs = ''

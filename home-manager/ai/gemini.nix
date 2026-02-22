@@ -1,12 +1,13 @@
 {
   pkgs,
+  miko,
   mcpServers,
   ...
 }:
 {
   home = {
     file =
-      (import ../../lib.nix).getDocs pkgs [
+      miko.getDocs [
         {
           filePath = "ai/gemini";
           docs = ''

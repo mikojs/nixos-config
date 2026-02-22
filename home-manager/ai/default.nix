@@ -7,6 +7,7 @@
 {
   lib,
   pkgs,
+  miko,
   ...
 }:
 with lib;
@@ -52,7 +53,7 @@ let
   );
 
   getConfig =
-    (import ../../lib.nix).getConfig
+    miko.getConfig
       (
         (optionals useAI [
           ./uv.nix
@@ -64,7 +65,7 @@ let
         ++ (map (a: ./${a}.nix) ai)
       )
       {
-        inherit pkgs;
+        inherit pkgs miko;
         mcpServers = newMcpServers;
       };
 
@@ -81,7 +82,7 @@ else
             "file"
           ]
           (
-            (import ../../lib.nix).getDocs pkgs [
+            miko.getDocs [
               {
                 filePath = "ai/mcp/memory";
                 docs = ''

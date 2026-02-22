@@ -3,15 +3,16 @@
 }:
 {
   pkgs,
+  miko,
   ...
 }:
 let
-  db = import ./db.nix { inherit pkgs; };
+  db = import ./db.nix { inherit pkgs miko; };
 in
 {
   home = {
     file =
-      (import ../../lib.nix).getDocs pkgs [
+      miko.getDocs [
         {
           filePath = "litecli";
           docs = ''

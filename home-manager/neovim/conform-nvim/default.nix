@@ -1,6 +1,7 @@
 {
-  pkgs,
   lib,
+  pkgs,
+  miko,
   languages,
   ...
 }:
@@ -8,7 +9,7 @@ with lib;
 with builtins;
 let
   getConfig =
-    (import ../../../lib.nix).getConfig
+    miko.getConfig
       (filter pathExists (
         lists.unique (
           map (
@@ -23,7 +24,7 @@ in
 {
   home = {
     file = getConfig [ "file" ] (
-      (import ../../../lib.nix).getDocs pkgs [
+      miko.getDocs [
         {
           filePath = "neovim/conform-nvim";
           docs = ''

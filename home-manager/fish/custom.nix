@@ -1,11 +1,12 @@
 {
   pkgs,
+  miko,
   ...
 }:
 with pkgs;
 {
   home = {
-    file = (import ../../lib.nix).getDocs pkgs [
+    file = miko.getDocs [
       {
         filePath = "initialize";
         docs = ''

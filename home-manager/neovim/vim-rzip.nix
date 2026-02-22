@@ -1,10 +1,11 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
   home = {
-    file = (import ../../lib.nix).getDocs pkgs [
+    file = miko.getDocs [
       {
         filePath = "neovim/vim-rzip";
         docs = ''

@@ -1,11 +1,12 @@
 {
   pkgs,
+  miko,
   languages,
   ...
 }:
 {
   home = {
-    file = (import ../../lib.nix).getDocs pkgs [
+    file = miko.getDocs [
       {
         filePath = "neovim/nvim-treesitter";
         docs = ''

@@ -4,12 +4,13 @@
 }:
 {
   pkgs,
+  miko,
   ...
 }:
 {
   home = {
     file =
-      (import ../lib.nix).getDocs pkgs [
+      miko.getDocs [
         {
           filePath = "git";
           docs = ''
