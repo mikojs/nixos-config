@@ -6,9 +6,10 @@
 }:
 with lib;
 with builtins;
+with pkgs.miko;
 let
-  getConfig =
-    (import ../../../lib.nix).getConfig
+  getConfigWithLanguage =
+    getConfig
       (filter pathExists (
         lists.unique (
           map (
@@ -23,45 +24,43 @@ in
 {
   home = {
     file =
-      getConfig
+      getConfigWithLanguage
         [
           "file"
         ]
-        (
-          (import ../../../lib.nix).getDocs pkgs [
-            {
-              filePath = "neovim/nvim-cmp";
-              docs = ''
-                # Neovim nvim-cmp
+        (getDocs [
+          {
+            filePath = "neovim/nvim-cmp";
+            docs = ''
+              # Neovim nvim-cmp
 
-                Nvim-cmp is a completion plugin for Neovim.
+              Nvim-cmp is a completion plugin for Neovim.
 
-                [Repository](https://github.com/hrsh7th/nvim-cmp)
+              [Repository](https://github.com/hrsh7th/nvim-cmp)
 
-                ## Keybindings
+              ## Keybindings
 
-                | Description      | Key          |
-                | ---              | ---          |
-                | Show information | `<leader>li` |
-                | Show diagnostics | `<leader>ld` |
-                | Rename           | `<leader>lr` |
+              | Description      | Key          |
+              | ---              | ---          |
+              | Show information | `<leader>li` |
+              | Show diagnostics | `<leader>ld` |
+              | Rename           | `<leader>lr` |
 
-                | Description      | Key          |
-                | ---              | ---          |
-                | Snippet          |              |
-                | Scroll up        | `<C-b>`      |
-                | Scroll down      | `<C-f>`      |
-                | Complete         | `<C-Space>`  |
-                | Abort            | `<C-e>`      |
-                | Confirm          | `<CR>`       |
-                | Select           | `<Tab>`      |
-              '';
-            }
-          ]
-        );
+              | Description      | Key          |
+              | ---              | ---          |
+              | Snippet          |              |
+              | Scroll up        | `<C-b>`      |
+              | Scroll down      | `<C-f>`      |
+              | Complete         | `<C-Space>`  |
+              | Abort            | `<C-e>`      |
+              | Confirm          | `<CR>`       |
+              | Select           | `<Tab>`      |
+            '';
+          }
+        ]);
 
     packages =
-      getConfig
+      getConfigWithLanguage
         [
           "packages"
         ]
@@ -217,11 +216,11 @@ in
 
           local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-          ${getConfig [ "config" ] ""}
+          ${getConfigWithLanguage [ "config" ] ""}
         '';
       }
     ]
-    ++ (getConfig
+    ++ (getConfigWithLanguage
       [
         "plugins"
       ]

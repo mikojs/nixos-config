@@ -3,23 +3,25 @@
   ...
 }:
 {
-  file = (import ../../../lib.nix).getDocs pkgs [
-    {
-      filePath = "neovim/sqls-nvim";
-      docs = ''
-        # sqls.nvim
+  file =
+    with pkgs.miko;
+    getDocs [
+      {
+        filePath = "neovim/sqls-nvim";
+        docs = ''
+          # sqls.nvim
 
-        A neovim plugin for SQL.
+          A neovim plugin for SQL.
 
-        [Repository](https://github.com/nanotee/sqls.nvim)
+          [Repository](https://github.com/nanotee/sqls.nvim)
 
-        ```nvim
-        // Only in .sql files
-        :Sqls...
-        ```
-      '';
-    }
-  ];
+          ```nvim
+          // Only in .sql files
+          :Sqls...
+          ```
+        '';
+      }
+    ];
 
   packages = with pkgs; [
     sqls

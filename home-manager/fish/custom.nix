@@ -5,35 +5,37 @@
 with pkgs;
 {
   home = {
-    file = (import ../../lib.nix).getDocs pkgs [
-      {
-        filePath = "initialize";
-        docs = ''
-          # [miko] Initialize
+    file =
+      with pkgs.miko;
+      getDocs [
+        {
+          filePath = "initialize";
+          docs = ''
+            # [miko] Initialize
 
-          Initialize the system with custom settings.
+            Initialize the system with custom settings.
 
-          [Code](https://github.com/mikojs/nixos-config/tree/main/overlays/custom/initialize)
+            [Code](https://github.com/mikojs/nixos-config/tree/main/overlays/custom/initialize)
 
-          ## Support packages
+            ## Support packages
 
-          - `tide`
-          - `gh`
-          - `tailscale`
-        '';
-      }
-      {
-        filePath = "coder";
-        docs = ''
-          # [miko] Coder
+            - `tide`
+            - `gh`
+            - `tailscale`
+          '';
+        }
+        {
+          filePath = "coder";
+          docs = ''
+            # [miko] Coder
 
-          Some helpful commands to sync code between machines.
-          Use `--help` to see available commands.
+            Some helpful commands to sync code between machines.
+            Use `--help` to see available commands.
 
-          [Code](https://github.com/mikojs/nixos-config/tree/main/overlays/custom/coder)
-        '';
-      }
-    ];
+            [Code](https://github.com/mikojs/nixos-config/tree/main/overlays/custom/coder)
+          '';
+        }
+      ];
 
     packages = [
       miko-initialize

@@ -3,26 +3,28 @@
   ...
 }:
 {
-  home.file = (import ../../lib.nix).getDocs pkgs [
-    {
-      filePath = "neovim/persistence-nvim";
-      docs = ''
-        # Neovim persistence.nvim
+  home.file =
+    with pkgs.miko;
+    getDocs [
+      {
+        filePath = "neovim/persistence-nvim";
+        docs = ''
+          # Neovim persistence.nvim
 
-        Persistence.nvim is a session plugin for Neovim.
+          Persistence.nvim is a session plugin for Neovim.
 
-        [Repository](https://github.com/folke/persistence.nvim)
+          [Repository](https://github.com/folke/persistence.nvim)
 
-        ## Keybindings
+          ## Keybindings
 
-        | Description            | Key          |
-        | ---                    | ---          |
-        | Load session           | `<leader>sl` |
-        | Select session         | `<leader>sc` |
-        | Save auto-save session | `<leader>ss` |
-      '';
-    }
-  ];
+          | Description            | Key          |
+          | ---                    | ---          |
+          | Load session           | `<leader>sl` |
+          | Select session         | `<leader>sc` |
+          | Save auto-save session | `<leader>ss` |
+        '';
+      }
+    ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {

@@ -7,18 +7,20 @@
   ...
 }:
 {
-  home.file = (import ../lib.nix).getDocs pkgs [
-    {
-      filePath = "kitty";
-      docs = ''
-        # Kitty
+  home.file =
+    with pkgs.miko;
+    getDocs [
+      {
+        filePath = "kitty";
+        docs = ''
+          # Kitty
 
-        The fast, feature-rich, cross-platform, GPU based terminal.
+          The fast, feature-rich, cross-platform, GPU based terminal.
 
-        [Repository](https://github.com/kovidgoyal/kitty)
-      '';
-    }
-  ];
+          [Repository](https://github.com/kovidgoyal/kitty)
+        '';
+      }
+    ];
 
   programs.kitty = {
     enable = true;

@@ -4,18 +4,20 @@
 }:
 {
   home = {
-    file = (import ../lib.nix).getDocs pkgs [
-      {
-        filePath = "somo";
-        docs = ''
-          # Somo
+    file =
+      with pkgs.miko;
+      getDocs [
+        {
+          filePath = "somo";
+          docs = ''
+            # Somo
 
-          Somo is a human-friendly alternative to netstat for socket and port monitoring on Linux and macOS.
+            Somo is a human-friendly alternative to netstat for socket and port monitoring on Linux and macOS.
 
-          [Repository](https://github.com/theopfr/somo)
-        '';
-      }
-    ];
+            [Repository](https://github.com/theopfr/somo)
+          '';
+        }
+      ];
 
     packages = with pkgs; [
       somo

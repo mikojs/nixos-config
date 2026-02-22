@@ -4,16 +4,18 @@
 }:
 {
   home = {
-    file = (import ../lib.nix).getDocs pkgs [
-      {
-        filePath = "tree";
-        docs = ''
-          # Tree
+    file =
+      with pkgs.miko;
+      getDocs [
+        {
+          filePath = "tree";
+          docs = ''
+            # Tree
 
-          tree is a directory listing program that makes it easy to display a directory tree.
-        '';
-      }
-    ];
+            tree is a directory listing program that makes it easy to display a directory tree.
+          '';
+        }
+      ];
 
     packages = with pkgs; [
       tree

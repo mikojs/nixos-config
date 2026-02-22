@@ -6,9 +6,10 @@
 }:
 with lib;
 with builtins;
+with pkgs.miko;
 let
   getConfig =
-    (import ../../../lib.nix).getConfig
+    getConfig
       (filter pathExists (
         lists.unique (
           map (
@@ -22,27 +23,25 @@ let
 in
 {
   home = {
-    file = getConfig [ "file" ] (
-      (import ../../../lib.nix).getDocs pkgs [
-        {
-          filePath = "neovim/conform-nvim";
-          docs = ''
-            # Neovim conform.nvim
+    file = getConfig [ "file" ] (getDocs [
+      {
+        filePath = "neovim/conform-nvim";
+        docs = ''
+          # Neovim conform.nvim
 
-            Conform.nvim is a formatter plugin for Neovim.
+          Conform.nvim is a formatter plugin for Neovim.
 
-            [Repository](https://github.com/stevearc/conform.nvim)
+          [Repository](https://github.com/stevearc/conform.nvim)
 
-            ## Keybindings
+          ## Keybindings
 
-            | Description                        | Key           |
-            | ---                                | ---           |
-            | Toggle autoformat for all files    | `<leader>ccT` |
-            | Toggle autoformat for current file | `<leader>cct` |
-          '';
-        }
-      ]
-    );
+          | Description                        | Key           |
+          | ---                                | ---           |
+          | Toggle autoformat for all files    | `<leader>ccT` |
+          | Toggle autoformat for current file | `<leader>cct` |
+        '';
+      }
+    ]);
 
     packages = getConfig [ "packages" ] [ ];
   };

@@ -6,7 +6,8 @@
 {
   home = {
     file =
-      (import ../../lib.nix).getDocs pkgs [
+      with pkgs.miko;
+      getDocs [
         {
           filePath = "ai/claude-code";
           docs = ''

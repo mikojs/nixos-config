@@ -100,18 +100,20 @@ with builtins;
           home = {
             inherit stateVersion;
 
-            file = (import ../lib.nix).getDocs pkgs [
-              {
-                filePath = "tailscale";
-                docs = ''
-                  # Tailscale
+            file =
+              with pkgs.miko;
+              getDocs [
+                {
+                  filePath = "tailscale";
+                  docs = ''
+                    # Tailscale
 
-                  Tailscale is used to build a private network.
+                    Tailscale is used to build a private network.
 
-                  [Repository](https://github.com/tailscale/tailscale)
-                '';
-              }
-            ];
+                    [Repository](https://github.com/tailscale/tailscale)
+                  '';
+                }
+              ];
           };
         }
       ) users

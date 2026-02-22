@@ -9,7 +9,8 @@
 let
   getConfig =
     with lib;
-    (import ../../lib.nix).getConfig (
+    with pkgs.miko;
+    getConfig (
       [
         ./custom.nix
         ./tailscale.nix
@@ -29,7 +30,8 @@ in
           "file"
         ]
         (
-          (import ../../lib.nix).getDocs pkgs [
+          with pkgs.miko;
+          getDocs [
             {
               filePath = "fish";
               docs = ''
