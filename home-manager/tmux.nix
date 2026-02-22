@@ -8,14 +8,19 @@
   ...
 }:
 {
-  home.file.".docs/tmux.md".text = ''
-    # Tmux
+  home.file = (import ../../lib.nix).getDocs pkgs [
+    {
+      filePath = "tmux";
+      docs = ''
+        # Tmux
 
-    Tmux is a terminal multiplexer.
+        Tmux is a terminal multiplexer.
 
-    [Repository](https://github.com/tmux/tmux)
+        [Repository](https://github.com/tmux/tmux)
 
-  '';
+      '';
+    }
+  ];
 
   programs = {
     tmux = {

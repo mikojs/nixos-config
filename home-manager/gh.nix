@@ -3,25 +3,30 @@
   ...
 }:
 {
-  home.file = {
-    ".docs/gh.md".text = ''
-      # GH
+  home.file = (import ../../lib.nix).getDocs pkgs [
+    {
+      filePath = "gh";
+      docs = ''
+        # GH
 
-      GitHub CLI is used to login to GitHub and control repositories.
+        GitHub CLI is used to login to GitHub and control repositories.
 
-      [Repository](https://github.com/cli/cli)
+        [Repository](https://github.com/cli/cli)
 
-    '';
+      '';
+    }
+    {
+      filePath = "gh/poi";
+      docs = ''
+        # GH gh-poi
 
-    ".docs/gh/poi.md".text = ''
-      # GH gh-poi
+        Safely clean up your local branches.
 
-      Safely clean up your local branches.
+        [Repository](https://github.com/seachicken/gh-poi)
 
-      [Repository](https://github.com/seachicken/gh-poi)
-
-    '';
-  };
+      '';
+    }
+  ];
 
   programs.gh = {
     enable = true;

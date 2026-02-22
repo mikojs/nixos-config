@@ -61,34 +61,39 @@ in
           "home"
           "file"
         ]
-        {
-          ".docs/neovim.md".text = ''
-            # Neovim
+        (
+          (import ../../lib.nix).getDocs pkgs [
+            {
+              filePath = "neovim";
+              docs = ''
+                # Neovim
 
-            Neovim is a Vim-fork focused on extensibility and agility.
+                Neovim is a Vim-fork focused on extensibility and agility.
 
-            [Repository](https://github.com/neovim/neovim)
+                [Repository](https://github.com/neovim/neovim)
 
-            ## Keybindings
+                ## Keybindings
 
-            | Description           | Key           |
-            | ---                   | ---           |
-            | Increase height by 10 | `<leader>wh+` |
-            | Decrease height by 10 | `<leader>wh-` |
-            | Increase width by 20  | `<leader>ww+` |
-            | Decrease width by 20  | `<leader>ww-` |
+                | Description           | Key           |
+                | ---                   | ---           |
+                | Increase height by 10 | `<leader>wh+` |
+                | Decrease height by 10 | `<leader>wh-` |
+                | Increase width by 20  | `<leader>ww+` |
+                | Decrease width by 20  | `<leader>ww-` |
 
-            | Description             | Key          |
-            | ---                     | ---          |
-            | Copy current file path  | `<leader>cf` |
-            | Copy relative file path | `<leader>cr` |
+                | Description             | Key          |
+                | ---                     | ---          |
+                | Copy current file path  | `<leader>cf` |
+                | Copy relative file path | `<leader>cr` |
 
-            | Description                     | Key          |
-            | ---                             | ---          |
-            | Toggle diagnostic virtual lines | `<leader>dt` |
+                | Description                     | Key          |
+                | ---                             | ---          |
+                | Toggle diagnostic virtual lines | `<leader>dt` |
 
-          '';
-        };
+              '';
+            }
+          ]
+        );
 
     packages =
       getConfig

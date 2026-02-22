@@ -27,34 +27,39 @@ in
         [
           "file"
         ]
-        {
-          ".docs/neovim/nvim-cmp.md".text = ''
-            # Neovim nvim-cmp
+        (
+          (import ../../../lib.nix).getDocs pkgs [
+            {
+              filePath = "neovim/nvim-cmp";
+              docs = ''
+                # Neovim nvim-cmp
 
-            Nvim-cmp is a completion plugin for Neovim.
+                Nvim-cmp is a completion plugin for Neovim.
 
-            [Repository](https://github.com/hrsh7th/nvim-cmp)
+                [Repository](https://github.com/hrsh7th/nvim-cmp)
 
-            ## Keybindings
+                ## Keybindings
 
-            | Description      | Key          |
-            | ---              | ---          |
-            | Show information | `<leader>li` |
-            | Show diagnostics | `<leader>ld` |
-            | Rename           | `<leader>lr` |
+                | Description      | Key          |
+                | ---              | ---          |
+                | Show information | `<leader>li` |
+                | Show diagnostics | `<leader>ld` |
+                | Rename           | `<leader>lr` |
 
-            | Description      | Key          |
-            | ---              | ---          |
-            | Snippet          |              |
-            | Scroll up        | `<C-b>`      |
-            | Scroll down      | `<C-f>`      |
-            | Complete         | `<C-Space>`  |
-            | Abort            | `<C-e>`      |
-            | Confirm          | `<CR>`       |
-            | Select           | `<Tab>`      |
+                | Description      | Key          |
+                | ---              | ---          |
+                | Snippet          |              |
+                | Scroll up        | `<C-b>`      |
+                | Scroll down      | `<C-f>`      |
+                | Complete         | `<C-Space>`  |
+                | Abort            | `<C-e>`      |
+                | Confirm          | `<CR>`       |
+                | Select           | `<Tab>`      |
 
-          '';
-        };
+              '';
+            }
+          ]
+        );
 
     packages =
       getConfig

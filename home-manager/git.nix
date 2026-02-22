@@ -8,52 +8,61 @@
 }:
 {
   home = {
-    file = {
-      ".docs/git.md".text = ''
-        # Git
+    file = ((import ../../lib.nix).getDocs pkgs [
+      {
+        filePath = "git";
+        docs = ''
+          # Git
 
-        Git is used to manage version control.
+          Git is used to manage version control.
 
-        [Repository](https://github.com/git/git)
+          [Repository](https://github.com/git/git)
 
-        ## Alias
+          ## Alias
 
-        - `d`: Show default `git diff` output.
-        - `gr`: Show formatted git logs.
+          - `d`: Show default `git diff` output.
+          - `gr`: Show formatted git logs.
 
-      '';
+        '';
+      }
+      {
+        filePath = "git/commitizen";
+        docs = ''
+          # Git commitizen
 
-      ".docs/git/commitizen.md".text = ''
-        # Git commitizen
+          Commitizen is used to manage commits.
 
-        Commitizen is used to manage commits.
+          [Repository](https://github.com/commitizen-tools/commitizen)
 
-        [Repository](https://github.com/commitizen-tools/commitizen)
+          ```sh
+          git cz
+          ```
 
-        ```sh
-        git cz
-        ```
+        '';
+      }
+      {
+        filePath = "git/delta";
+        docs = ''
+          # Git delta
 
-      '';
+          A syntax-highlighting pager for git and diff output.
 
-      ".docs/git/delta.md".text = ''
-        # Git delta
+          [Repository](https://github.com/dandavison/delta)
 
-        A syntax-highlighting pager for git and diff output.
+        '';
+      }
+      {
+        filePath = "git/serie";
+        docs = ''
+          # Git serie
 
-        [Repository](https://github.com/dandavison/delta)
+          A rich git commit graph in your terminal.
 
-      '';
+          [Repository](https://github.com/lusingander/serie)
 
-      ".docs/git/serie.md".text = ''
-        # Git serie
-
-        A rich git commit graph in your terminal.
-
-        [Repository](https://github.com/lusingander/serie)
-
-      '';
-
+        '';
+      }
+    ]) // {
       ".czrc".text = ''
         {
           "path": "cz-conventional-changelog"

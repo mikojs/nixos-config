@@ -80,45 +80,51 @@ else
             "home"
             "file"
           ]
-          {
-            ".docs/ai/mcp/memory.md".text = ''
-              # MCP memory
+          (
+            (import ../../lib.nix).getDocs pkgs [
+              {
+                filePath = "ai/mcp/memory";
+                docs = ''
+                  # MCP memory
 
-              A basic implementation of persistent memory using a local knowledge graph. This lets Claude remember information about the user across chats.
+                  A basic implementation of persistent memory using a local knowledge graph. This lets Claude remember information about the user across chats.
 
-              [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/memory)
+                  [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/memory)
+                '';
+              }
+              {
+                filePath = "ai/mcp/sequentialthinking";
+                docs = ''
+                  # MCP sequentialthinking
 
-            '';
+                  An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process.
 
-            ".docs/ai/mcp/sequentialthinking.md".text = ''
-              # MCP sequentialthinking
+                  [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking)
+                '';
+              }
+              {
+                filePath = "ai/mcp/fetch";
+                docs = ''
+                  # MCP fetch
 
-              An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process.
+                  A Model Context Protocol server that provides web content fetching capabilities.
+                  This server enables LLMs to retrieve and process content from web pages, converting HTML to markdown for easier consumption.
 
-              [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking)
+                  [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch)
+                '';
+              }
+              {
+                filePath = "ai/mcp/n8n";
+                docs = ''
+                  # MCP n8n
 
-            '';
+                  A Model Context Protocol server for N8N. This server provides access to N8N workflows, allowing LLMs to interact with N8N content.
 
-            ".docs/ai/mcp/fetch.md".text = ''
-              # MCP fetch
-
-              A Model Context Protocol server that provides web content fetching capabilities.
-              This server enables LLMs to retrieve and process content from web pages, converting HTML to markdown for easier consumption.
-
-              [Repository](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch)
-
-            '';
-
-            ".docs/ai/mcp/n8n.md".text = ''
-              # MCP n8n
-
-              A Model Context Protocol server for N8N. This server provides access to N8N workflows, allowing LLMs to interact with N8N content.
-
-              [Repository](https://github.com/czlonkowski/n8n-mcp)
-
-            '';
-
-          };
+                  [Repository](https://github.com/czlonkowski/n8n-mcp)
+                '';
+              }
+            ]
+          );
 
       packages =
         getConfig
