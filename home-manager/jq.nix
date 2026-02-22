@@ -1,23 +1,22 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
   home = {
-    file =
-      with pkgs.miko;
-      getDocs [
-        {
-          filePath = "jq";
-          docs = ''
-            # JQ
+    file = miko.getDocs [
+      {
+        filePath = "jq";
+        docs = ''
+          # JQ
 
-            JQ is a lightweight and flexible command-line JSON processor.
+          JQ is a lightweight and flexible command-line JSON processor.
 
-            [Repository](https://github.com/stedolan/jq)
-          '';
-        }
-      ];
+          [Repository](https://github.com/stedolan/jq)
+        '';
+      }
+    ];
 
     packages = with pkgs; [
       jq

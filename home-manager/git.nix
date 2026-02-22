@@ -4,13 +4,13 @@
 }:
 {
   pkgs,
+  miko,
   ...
 }:
 {
   home = {
     file =
-      with pkgs.miko;
-      getDocs [
+      miko.getDocs [
         {
           filePath = "git";
           docs = ''

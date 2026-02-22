@@ -4,24 +4,23 @@
 }:
 {
   pkgs,
+  miko,
   isMac,
   ...
 }:
 {
-  home.file =
-    with pkgs.miko;
-    getDocs [
-      {
-        filePath = "tmux";
-        docs = ''
-          # Tmux
+  home.file = miko.getDocs [
+    {
+      filePath = "tmux";
+      docs = ''
+        # Tmux
 
-          Tmux is a terminal multiplexer.
+        Tmux is a terminal multiplexer.
 
-          [Repository](https://github.com/tmux/tmux)
-        '';
-      }
-    ];
+        [Repository](https://github.com/tmux/tmux)
+      '';
+    }
+  ];
 
   programs = {
     tmux = {

@@ -1,5 +1,4 @@
-with builtins;
-{
+pkgs: with builtins; {
   getConfig =
     modules: inputs:
     let
@@ -31,8 +30,7 @@ with builtins;
     );
 
   getDocs =
-    pkgs: docs:
-    with pkgs.lib;
+    docs:
     (foldl' (
       result:
       { filePath, docs }:

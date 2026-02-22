@@ -1,32 +1,31 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
-  home.file =
-    with pkgs.miko;
-    getDocs [
-      {
-        filePath = "gh";
-        docs = ''
-          # GH
+  home.file = miko.getDocs [
+    {
+      filePath = "gh";
+      docs = ''
+        # GH
 
-          GitHub CLI is used to login to GitHub and control repositories.
+        GitHub CLI is used to login to GitHub and control repositories.
 
-          [Repository](https://github.com/cli/cli)
-        '';
-      }
-      {
-        filePath = "gh/poi";
-        docs = ''
-          # GH gh-poi
+        [Repository](https://github.com/cli/cli)
+      '';
+    }
+    {
+      filePath = "gh/poi";
+      docs = ''
+        # GH gh-poi
 
-          Safely clean up your local branches.
+        Safely clean up your local branches.
 
-          [Repository](https://github.com/seachicken/gh-poi)
-        '';
-      }
-    ];
+        [Repository](https://github.com/seachicken/gh-poi)
+      '';
+    }
+  ];
 
   programs.gh = {
     enable = true;

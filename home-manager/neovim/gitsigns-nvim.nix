@@ -1,42 +1,41 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
-  home.file =
-    with pkgs.miko;
-    getDocs [
-      {
-        filePath = "neovim/gitsigns-nvim";
-        docs = ''
-          # Neovim gitsigns.nvim
+  home.file = miko.getDocs [
+    {
+      filePath = "neovim/gitsigns-nvim";
+      docs = ''
+        # Neovim gitsigns.nvim
 
-          Gitsigns.nvim is a git signs plugin for Neovim.
+        Gitsigns.nvim is a git signs plugin for Neovim.
 
-          [Repository](https://github.com/lewis6991/gitsigns.nvim)
+        [Repository](https://github.com/lewis6991/gitsigns.nvim)
 
-          ## Keybindings
+        ## Keybindings
 
-          | Description            | Key          |
-          | ---                    | ---          |
-          | Next git hunk          | `]c`         |
-          | Previous git hunk      | `[c`         |
+        | Description            | Key          |
+        | ---                    | ---          |
+        | Next git hunk          | `]c`         |
+        | Previous git hunk      | `[c`         |
 
-          | Description            | Key          |
-          | ---                    | ---          |
-          | Stage git hunk         | `<leader>gs` |
-          | Reset git hunk         | `<leader>gr` |
-          | Stage git buffer       | `<leader>gS` |
-          | Undo stage git hunk    | `<leader>gu` |
-          | Reset git buffer       | `<leader>gR` |
-          | Preview git hunk       | `<leader>gp` |
-          | Diff this              | `<leader>gd` |
-          | Diff this (cached)     | `<leader>gD` |
-          | Blame line             | `<leader>gb` |
-          | Toggle deleted         | `<leader>gt` |
-        '';
-      }
-    ];
+        | Description            | Key          |
+        | ---                    | ---          |
+        | Stage git hunk         | `<leader>gs` |
+        | Reset git hunk         | `<leader>gr` |
+        | Stage git buffer       | `<leader>gS` |
+        | Undo stage git hunk    | `<leader>gu` |
+        | Reset git buffer       | `<leader>gR` |
+        | Preview git hunk       | `<leader>gp` |
+        | Diff this              | `<leader>gd` |
+        | Diff this (cached)     | `<leader>gD` |
+        | Blame line             | `<leader>gb` |
+        | Toggle deleted         | `<leader>gt` |
+      '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {

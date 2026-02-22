@@ -1,22 +1,21 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
-  home.file =
-    with pkgs.miko;
-    getDocs [
-      {
-        filePath = "neovim/windsurf-nvim";
-        docs = ''
-          # Neovim windsurf.nvim
+  home.file = miko.getDocs [
+    {
+      filePath = "neovim/windsurf-nvim";
+      docs = ''
+        # Neovim windsurf.nvim
 
-          Windsurf.nvim is a plugin for Neovim that provides AI code completion.
+        Windsurf.nvim is a plugin for Neovim that provides AI code completion.
 
-          [Repository](https://github.com/Exafunction/windsurf.vim)
-        '';
-      }
-    ];
+        [Repository](https://github.com/Exafunction/windsurf.vim)
+      '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     plenary-nvim

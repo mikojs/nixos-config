@@ -3,6 +3,7 @@
 }:
 {
   pkgs,
+  miko,
   ...
 }:
 let
@@ -11,8 +12,7 @@ in
 {
   home = {
     file =
-      with pkgs.miko;
-      getDocs [
+      miko.getDocs [
         {
           filePath = "litecli";
           docs = ''

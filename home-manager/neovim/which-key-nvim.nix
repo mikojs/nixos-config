@@ -1,22 +1,21 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
-  home.file =
-    with pkgs.miko;
-    getDocs [
-      {
-        filePath = "neovim/which-key-nvim";
-        docs = ''
-          # Neovim which-key.nvim
+  home.file = miko.getDocs [
+    {
+      filePath = "neovim/which-key-nvim";
+      docs = ''
+        # Neovim which-key.nvim
 
-          Which-key.nvim is a plugin for Neovim that shows a popup with available keybindings.
+        Which-key.nvim is a plugin for Neovim that shows a popup with available keybindings.
 
-          [Repository](https://github.com/folke/which-key.nvim)
-        '';
-      }
-    ];
+        [Repository](https://github.com/folke/which-key.nvim)
+      '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {

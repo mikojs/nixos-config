@@ -1,208 +1,207 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
-  home.file =
-    with pkgs.miko;
-    getDocs [
-      {
-        filePath = "neovim/mini-nvim";
-        docs = ''
-          # Neovim mini.nvim
+  home.file = miko.getDocs [
+    {
+      filePath = "neovim/mini-nvim";
+      docs = ''
+        # Neovim mini.nvim
 
-          Mini.nvim is a plugin for Neovim that provides small utilities.
+        Mini.nvim is a plugin for Neovim that provides small utilities.
 
-          [Repository](https://github.com/echasnovski/mini.nvim)
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-icons";
-        docs = ''
-          # Mini.nvim mini.icons
+        [Repository](https://github.com/echasnovski/mini.nvim)
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-icons";
+      docs = ''
+        # Mini.nvim mini.icons
 
-          Mini.icons is an icon provider.
+        Mini.icons is an icon provider.
 
-          [Repository](https://github.com/echasnovski/mini.icons)
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-notify";
-        docs = ''
-          # Mini.nvim mini.notify
+        [Repository](https://github.com/echasnovski/mini.icons)
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-notify";
+      docs = ''
+        # Mini.nvim mini.notify
 
-          Mini.notify is a notification plugin for Neovim.
+        Mini.notify is a notification plugin for Neovim.
 
-          [Repository](https://github.com/echasnovski/mini.notify)
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-trailspace";
-        docs = ''
-          # Mini.nvim mini.trailspace
+        [Repository](https://github.com/echasnovski/mini.notify)
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-trailspace";
+      docs = ''
+        # Mini.nvim mini.trailspace
 
-          Mini.trailspace is a trailing space highlighter.
+        Mini.trailspace is a trailing space highlighter.
 
-          [Repository](https://github.com/echasnovski/mini.trailspace)
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-files";
-        docs = ''
-          # Mini.nvim mini.files
+        [Repository](https://github.com/echasnovski/mini.trailspace)
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-files";
+      docs = ''
+        # Mini.nvim mini.files
 
-          Mini.files is a file explorer for Neovim.
+        Mini.files is a file explorer for Neovim.
 
-          [Repository](https://github.com/echasnovski/mini.files)
+        [Repository](https://github.com/echasnovski/mini.files)
 
-          ## Keybindings
+        ## Keybindings
 
-          | Description         | Key         |
-          | ---                 | ---         |
-          | Manipulate files    | `<leader>f` |
-          | Close explorer      | `q`         |
-          | Go into directory   | `l`         |
-          | Go out of directory | `h`         |
-          | Reset file explorer | `<BS>`      |
-          | Sync file explorer  | `=`         |
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-ai";
-        docs = ''
-          # Mini.nvim mini.ai
+        | Description         | Key         |
+        | ---                 | ---         |
+        | Manipulate files    | `<leader>f` |
+        | Close explorer      | `q`         |
+        | Go into directory   | `l`         |
+        | Go out of directory | `h`         |
+        | Reset file explorer | `<BS>`      |
+        | Sync file explorer  | `=`         |
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-ai";
+      docs = ''
+        # Mini.nvim mini.ai
 
-          Mini.ai is a textobject plugin for Neovim.
+        Mini.ai is a textobject plugin for Neovim.
 
-          [Repository](https://github.com/echasnovski/mini.ai)
+        [Repository](https://github.com/echasnovski/mini.ai)
 
-          ## Keybindings
+        ## Keybindings
 
-          | Description                    | Key  |
-          | ---                            | ---  |
-          | Find arround textobject        | `a`  |
-          | Find inside textobject         | `i`  |
-          | Go to left arround textobject  | `g[` |
-          | Go to right arround textobject | `g]` |
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-surround";
-        docs = ''
-          # Mini.nvim mini.surround
+        | Description                    | Key  |
+        | ---                            | ---  |
+        | Find arround textobject        | `a`  |
+        | Find inside textobject         | `i`  |
+        | Go to left arround textobject  | `g[` |
+        | Go to right arround textobject | `g]` |
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-surround";
+      docs = ''
+        # Mini.nvim mini.surround
 
-          Mini.surround is a surround plugin for Neovim.
+        Mini.surround is a surround plugin for Neovim.
 
-          [Repository](https://github.com/echasnovski/mini.surround)
+        [Repository](https://github.com/echasnovski/mini.surround)
 
-          ## Keybindings
+        ## Keybindings
 
-          | Description                                | Key  |
-          | ---                                        | ---  |
-          | Add surrounding in Normal and Visual modes | `sa` |
-          | Delete surrounding                         | `sd` |
-          | Find surrounding (to the right)            | `sf` |
-          | Find surrounding (to the left)             | `sF` |
-          | Highlight surrounding                      | `sh` |
-          | Replace surrounding                        | `sr` |
-          | Update n_lines                             | `sn` |
-          | Suffix to search with "prev" method        | `l`  |
-          | Suffix to search with "next" method        | `n`  |
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-bracketed";
-        docs = ''
-          # Mini.nvim mini.bracketed
+        | Description                                | Key  |
+        | ---                                        | ---  |
+        | Add surrounding in Normal and Visual modes | `sa` |
+        | Delete surrounding                         | `sd` |
+        | Find surrounding (to the right)            | `sf` |
+        | Find surrounding (to the left)             | `sF` |
+        | Highlight surrounding                      | `sh` |
+        | Replace surrounding                        | `sr` |
+        | Update n_lines                             | `sn` |
+        | Suffix to search with "prev" method        | `l`  |
+        | Suffix to search with "next" method        | `n`  |
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-bracketed";
+      docs = ''
+        # Mini.nvim mini.bracketed
 
-          Go forward/backward with square brackets
+        Go forward/backward with square brackets
 
-          [Repository](https://github.com/echasnovski/mini.bracketed)
+        [Repository](https://github.com/echasnovski/mini.bracketed)
 
-          ## Keybindings
+        ## Keybindings
 
-          | Description                                       | Key                 |
-          | ---                                               | ---                 |
-          | Buffer                                            | `[B` `[b` `]b` `]B` |
-          | Comment block                                     | `[C` `[c` `]c` `]C` |
-          | Conflict marker                                   | `[X` `[x` `]x` `]X` |
-          | Diagnostic                                        | `[D` `[d` `]d` `]D` |
-          | File on disk                                      | `[F` `[f` `]f` `]F` |
-          | Indent change                                     | `[I` `[i` `]i` `]I` |
-          | Jump from jumplist                                | `[J` `[j` `]j` `]J` |
-          | Location from location list                       | `[L` `[l` `]l` `]L` |
-          | Old files                                         | `[O` `[o` `]o` `]O` |
-          | Quickfix entry from quickfix list                 | `[Q` `[q` `]q` `]Q` |
-          | Tree-sitter node and parents                      | `[T` `[t` `]t` `]T` |
-          | Undo states from specially tracked linear history | `[U` `[u` `]u` `]U` |
-          | Window in current tab                             | `[W` `[w` `]w` `]W` |
-          | Yank selection replacing latest put region        | `[Y` `[y` `]y` `]Y` |
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-comment";
-        docs = ''
-          # Mini.nvim mini.comment
+        | Description                                       | Key                 |
+        | ---                                               | ---                 |
+        | Buffer                                            | `[B` `[b` `]b` `]B` |
+        | Comment block                                     | `[C` `[c` `]c` `]C` |
+        | Conflict marker                                   | `[X` `[x` `]x` `]X` |
+        | Diagnostic                                        | `[D` `[d` `]d` `]D` |
+        | File on disk                                      | `[F` `[f` `]f` `]F` |
+        | Indent change                                     | `[I` `[i` `]i` `]I` |
+        | Jump from jumplist                                | `[J` `[j` `]j` `]J` |
+        | Location from location list                       | `[L` `[l` `]l` `]L` |
+        | Old files                                         | `[O` `[o` `]o` `]O` |
+        | Quickfix entry from quickfix list                 | `[Q` `[q` `]q` `]Q` |
+        | Tree-sitter node and parents                      | `[T` `[t` `]t` `]T` |
+        | Undo states from specially tracked linear history | `[U` `[u` `]u` `]U` |
+        | Window in current tab                             | `[W` `[w` `]w` `]W` |
+        | Yank selection replacing latest put region        | `[Y` `[y` `]y` `]Y` |
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-comment";
+      docs = ''
+        # Mini.nvim mini.comment
 
-          Comment lines
+        Comment lines
 
-          [Repository](https://github.com/echasnovski/mini.comment)
+        [Repository](https://github.com/echasnovski/mini.comment)
 
-          ## Keybindings
+        ## Keybindings
 
-          | Description                    | Key   |
-          | ---                            | ---   |
-          | Toggle comment                 | `gc`  |
-          | Toggle comment on current line | `gcc` |
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-move";
-        docs = ''
-          # Mini.nvim mini.move
+        | Description                    | Key   |
+        | ---                            | ---   |
+        | Toggle comment                 | `gc`  |
+        | Toggle comment on current line | `gcc` |
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-move";
+      docs = ''
+        # Mini.nvim mini.move
 
-          Move any selection in any direction
+        Move any selection in any direction
 
-          [Repository](https://github.com/echasnovski/mini.move)
+        [Repository](https://github.com/echasnovski/mini.move)
 
-          Keybindings
+        Keybindings
 
-          | Description | Key     |
-          | ---         | ---     |
-          | Move left   | `<M-h>` |
-          | Move right  | `<M-l>` |
-          | Move down   | `<M-j>` |
-          | Move up     | `<M-k>` |
-        '';
-      }
-      {
-        filePath = "neovim/mini-nvim/mini-align";
-        docs = ''
-          ### Mini.nvim mini.align
+        | Description | Key     |
+        | ---         | ---     |
+        | Move left   | `<M-h>` |
+        | Move right  | `<M-l>` |
+        | Move down   | `<M-j>` |
+        | Move up     | `<M-k>` |
+      '';
+    }
+    {
+      filePath = "neovim/mini-nvim/mini-align";
+      docs = ''
+        ### Mini.nvim mini.align
 
-          Align text interactively
+        Align text interactively
 
-          [Repository](https://github.com/echasnovski/mini.align)
+        [Repository](https://github.com/echasnovski/mini.align)
 
-          ## Keybindings
+        ## Keybindings
 
-          | Description                           | Key  |
-          | ---                                   | ---  |
-          | Align text interactively              | `ga` |
-          | Align text interactively with preview | `gA` |
+        | Description                           | Key  |
+        | ---                                   | ---  |
+        | Align text interactively              | `ga` |
+        | Align text interactively with preview | `gA` |
 
-          | Description             | Key  |
-          | ---                     | ---  |
-          | Enter split pattern     | `s`  |
-          | Choose justify side     | `j`  |
-          | Enter merge delimiter   | `m`  |
-          | Enhanced setup for '='  | `=`  |
-          | Enhanced setup for ','  | `,`  |
-          | Enhanced setup for '\|' | `\|` |
-          | Enhanced setup for ' '  | ` `  |
-        '';
-      }
-    ];
+        | Description             | Key  |
+        | ---                     | ---  |
+        | Enter split pattern     | `s`  |
+        | Choose justify side     | `j`  |
+        | Enter merge delimiter   | `m`  |
+        | Enhanced setup for '='  | `=`  |
+        | Enhanced setup for ','  | `,`  |
+        | Enhanced setup for '\|' | `\|` |
+        | Enhanced setup for ' '  | ` `  |
+      '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {

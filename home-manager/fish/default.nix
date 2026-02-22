@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  miko,
   isMac,
   n8n,
   timezones,
@@ -8,10 +9,9 @@
 }:
 with pkgs.miko;
 let
-  allConfigs =
+  getConfig =
     with lib;
-    with pkgs.miko;
-    getConfig (
+    miko.getConfig (
       [
         ./custom.nix
         ./tailscale.nix
@@ -25,74 +25,76 @@ in
 {
   home = {
     file =
-      allConfigs
+      getConfig
         [
           "home"
           "file"
         ]
-        (getDocs [
-          {
-            filePath = "fish";
-            docs = ''
-              # Fish
+        (
+          miko.getDocs [
+            {
+              filePath = "fish";
+              docs = ''
+                # Fish
 
-              Fish is a user-friendly command line shell.
+                Fish is a user-friendly command line shell.
 
-              [Repository](https://github.com/fish-shell/fish-shell)
+                [Repository](https://github.com/fish-shell/fish-shell)
 
-              ## Alias
+                ## Alias
 
-              - `times`: Show times in different timezones.
-              ${with lib; strings.concatStringsSep "\n" (allConfigs [ "fish-alias" ] [ ])}
-            '';
-          }
-          {
-            filePath = "nix";
-            docs = ''
-              # Nix
+                - `times`: Show times in different timezones.
+                ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
+              '';
+            }
+            {
+              filePath = "nix";
+              docs = ''
+                # Nix
 
-              Nix is a package manager.
+                Nix is a package manager.
 
-              [Repository](https://github.com/NixOS/nixpkgs)
+                [Repository](https://github.com/NixOS/nixpkgs)
 
-              ## Search packages
+                ## Search packages
 
-              - `nix search`: Search packages.
-              - Use `https://search.nixos.org/packages` to get the latest version.
-              - Use `https://lazamar.co.uk/nix-versions` to get the different versions.
+                - `nix search`: Search packages.
+                - Use `https://search.nixos.org/packages` to get the latest version.
+                - Use `https://lazamar.co.uk/nix-versions` to get the different versions.
 
-              ## Alias
+                ## Alias
 
-              - `nsf`: Run `nix-shell` with fish-shell.
-            '';
-          }
-          {
-            filePath = "docker";
-            docs = ''
-              # Docker
+                - `nsf`: Run `nix-shell` with fish-shell.
+              '';
+            }
+            {
+              filePath = "docker";
+              docs = ''
+                # Docker
 
-              Docker is used to run containers.
-              ${
-                if isMac then
-                  ''
+                Docker is used to run containers.
+                ${
+                  if isMac then
+                    ''
 
-                    We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
-                    Please install it manually.
-                  ''
-                else
-                  ""
-              }
-              [Repository](https://github.com/docker/cli)
+                      We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
+                      Please install it manually.
+                    ''
+                  else
+                    ""
+                }
+                [Repository](https://github.com/docker/cli)
 
-              ## Alias
+                ## Alias
 
-              - `dsd`: Run `Docker system df`. Show docker disk usage.
-            '';
-          }
-        ]);
+                - `dsd`: Run `Docker system df`. Show docker disk usage.
+              '';
+            }
+          ]
+        );
 
     packages =
-      allConfigs
+      getConfig
         [
           "home"
           "packages"
@@ -103,7 +105,7 @@ in
   programs.fish = with builtins; {
     enable = true;
     interactiveShellInit =
-      allConfigs
+      getConfig
         [
           "programs"
           "fish"
@@ -132,7 +134,7 @@ in
         '';
 
     plugins =
-      allConfigs
+      getConfig
         [
           "programs"
           "fish"
@@ -141,7 +143,7 @@ in
         [ ];
 
     shellAliases =
-      allConfigs
+      getConfig
         [
           "programs"
           "fish"

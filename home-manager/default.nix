@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  miko,
   inputs,
   stateVersion,
   isWSL,
@@ -61,6 +62,7 @@ with builtins;
     useUserPackages = true;
     extraSpecialArgs = {
       inherit
+        miko
         isWSL
         isMac
         n8n
@@ -100,20 +102,18 @@ with builtins;
           home = {
             inherit stateVersion;
 
-            file =
-              with pkgs.miko;
-              getDocs [
-                {
-                  filePath = "tailscale";
-                  docs = ''
-                    # Tailscale
+            file = miko.getDocs [
+              {
+                filePath = "tailscale";
+                docs = ''
+                  # Tailscale
 
-                    Tailscale is used to build a private network.
+                  Tailscale is used to build a private network.
 
-                    [Repository](https://github.com/tailscale/tailscale)
-                  '';
-                }
-              ];
+                  [Repository](https://github.com/tailscale/tailscale)
+                '';
+              }
+            ];
           };
         }
       ) users

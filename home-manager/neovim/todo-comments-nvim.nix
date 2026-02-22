@@ -1,28 +1,27 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
-  home.file =
-    with pkgs.miko;
-    getDocs [
-      {
-        filePath = "neovim/todo-comments-nvim";
-        docs = ''
-          # Neovim todo-comments.nvim
+  home.file = miko.getDocs [
+    {
+      filePath = "neovim/todo-comments-nvim";
+      docs = ''
+        # Neovim todo-comments.nvim
 
-          Todo-comments.nvim is a todo comments plugin for Neovim.
+        Todo-comments.nvim is a todo comments plugin for Neovim.
 
-          [Repository](https://github.com/folke/todo-comments.nvim)
+        [Repository](https://github.com/folke/todo-comments.nvim)
 
-          ## Keybindings
+        ## Keybindings
 
-          | Description | Key          |
-          | ---         | ---          |
-          | Show TODOs  | `<leader>O`  |
-        '';
-      }
-    ];
+        | Description | Key          |
+        | ---         | ---          |
+        | Show TODOs  | `<leader>O`  |
+      '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {

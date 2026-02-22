@@ -1,13 +1,13 @@
 {
   pkgs,
+  miko,
   mcpServers,
   ...
 }:
 {
   home = {
     file =
-      with pkgs.miko;
-      getDocs [
+      miko.getDocs [
         {
           filePath = "ai/claude-code";
           docs = ''

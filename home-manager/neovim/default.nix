@@ -6,14 +6,14 @@
 {
   lib,
   pkgs,
+  miko,
   isWSL,
   ...
 }:
 with builtins;
-with pkgs.miko;
 let
-  allConfigs =
-    getConfig
+  getConfig =
+    miko.getConfig
       (
         [
           # Colorschema
@@ -57,44 +57,46 @@ in
 {
   home = {
     file =
-      allConfigs
+      getConfig
         [
           "home"
           "file"
         ]
-        (getDocs [
-          {
-            filePath = "neovim";
-            docs = ''
-              # Neovim
+        (
+          miko.getDocs [
+            {
+              filePath = "neovim";
+              docs = ''
+                # Neovim
 
-              Neovim is a Vim-fork focused on extensibility and agility.
+                Neovim is a Vim-fork focused on extensibility and agility.
 
-              [Repository](https://github.com/neovim/neovim)
+                [Repository](https://github.com/neovim/neovim)
 
-              ## Keybindings
+                ## Keybindings
 
-              | Description           | Key           |
-              | ---                   | ---           |
-              | Increase height by 10 | `<leader>wh+` |
-              | Decrease height by 10 | `<leader>wh-` |
-              | Increase width by 20  | `<leader>ww+` |
-              | Decrease width by 20  | `<leader>ww-` |
+                | Description           | Key           |
+                | ---                   | ---           |
+                | Increase height by 10 | `<leader>wh+` |
+                | Decrease height by 10 | `<leader>wh-` |
+                | Increase width by 20  | `<leader>ww+` |
+                | Decrease width by 20  | `<leader>ww-` |
 
-              | Description             | Key          |
-              | ---                     | ---          |
-              | Copy current file path  | `<leader>cf` |
-              | Copy relative file path | `<leader>cr` |
+                | Description             | Key          |
+                | ---                     | ---          |
+                | Copy current file path  | `<leader>cf` |
+                | Copy relative file path | `<leader>cr` |
 
-              | Description                     | Key          |
-              | ---                             | ---          |
-              | Toggle diagnostic virtual lines | `<leader>dt` |
-            '';
-          }
-        ]);
+                | Description                     | Key          |
+                | ---                             | ---          |
+                | Toggle diagnostic virtual lines | `<leader>dt` |
+              '';
+            }
+          ]
+        );
 
     packages =
-      allConfigs
+      getConfig
         [
           "home"
           "packages"
@@ -102,7 +104,7 @@ in
         [ ];
   };
 
-  xdg.configFile = allConfigs [
+  xdg.configFile = getConfig [
     "xdg"
     "configFile"
   ] { };
@@ -111,7 +113,7 @@ in
     enable = true;
     defaultEditor = true;
     plugins =
-      allConfigs
+      getConfig
         [
           "programs"
           "neovim"

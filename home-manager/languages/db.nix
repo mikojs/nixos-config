@@ -1,24 +1,23 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
   home = {
-    file =
-      with pkgs.miko;
-      getDocs [
-        {
-          filePath = "db";
-          docs = ''
-            # [miko] DB
+    file = miko.getDocs [
+      {
+        filePath = "db";
+        docs = ''
+          # [miko] DB
 
-            Some helpful commands for working with databases.
-            Use `--help` to see available commands.
+          Some helpful commands for working with databases.
+          Use `--help` to see available commands.
 
-            [Code](https://github.com/mikojs/nixos-config/tree/main/overlays/custom/db)
-          '';
-        }
-      ];
+          [Code](https://github.com/mikojs/nixos-config/tree/main/overlays/custom/db)
+        '';
+      }
+    ];
 
     packages = with pkgs; [
       miko-db
