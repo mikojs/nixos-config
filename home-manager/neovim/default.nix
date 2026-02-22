@@ -49,6 +49,7 @@ let
         inherit
           lib
           pkgs
+          miko
           ai
           languages
           ;

@@ -18,7 +18,7 @@ let
         )
       ))
       {
-        inherit pkgs;
+        inherit pkgs miko;
       };
 in
 {
