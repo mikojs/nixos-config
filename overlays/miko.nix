@@ -1,4 +1,10 @@
-pkgs: with builtins; {
+{
+  lib,
+  pkgs,
+}:
+with lib;
+with builtins;
+{
   getConfig =
     modules: inputs:
     let
