@@ -10,19 +10,21 @@ let
 in
 {
   home = {
-    file = (import ../../../lib.nix).getDocs pkgs [
-      {
-        filePath = "pgcli";
-        docs = ''
-          # PGcli
+    file =
+      (import ../../../lib.nix).getDocs pkgs [
+        {
+          filePath = "pgcli";
+          docs = ''
+            # PGcli
 
-          A command-line interface for PostgreSQL.
+            A command-line interface for PostgreSQL.
 
-          [Repository](https://github.com/dbcli/pgcli)
+            [Repository](https://github.com/dbcli/pgcli)
 
-        '';
-      }
-    ] // db.home.file;
+          '';
+        }
+      ]
+      // db.home.file;
 
     packages =
       with pkgs;
