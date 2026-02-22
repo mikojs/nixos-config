@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/lualine-nvim";
       docs = ''
@@ -12,7 +12,6 @@
         Lualine.nvim is a statusline plugin for Neovim.
 
         [Repository](https://github.com/nvim-lualine/lualine.nvim)
-
       '';
     }
   ];

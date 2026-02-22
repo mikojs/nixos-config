@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/octo-nvim";
       docs = ''
@@ -16,7 +16,6 @@
         ```nvim
         :Octo ...
         ```
-
       '';
     }
   ];

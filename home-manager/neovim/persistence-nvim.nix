@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/persistence-nvim";
       docs = ''
@@ -20,7 +20,6 @@
         | Load session           | `<leader>sl` |
         | Select session         | `<leader>sc` |
         | Save auto-save session | `<leader>ss` |
-
       '';
     }
   ];

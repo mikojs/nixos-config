@@ -89,7 +89,6 @@ in
                 | Description                     | Key          |
                 | ---                             | ---          |
                 | Toggle diagnostic virtual lines | `<leader>dt` |
-
               '';
             }
           ]

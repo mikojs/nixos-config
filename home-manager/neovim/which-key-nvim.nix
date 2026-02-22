@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/which-key-nvim";
       docs = ''
@@ -12,7 +12,6 @@
         Which-key.nvim is a plugin for Neovim that shows a popup with available keybindings.
 
         [Repository](https://github.com/folke/which-key.nvim)
-
       '';
     }
   ];

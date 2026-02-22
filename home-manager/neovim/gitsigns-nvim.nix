@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/gitsigns-nvim";
       docs = ''
@@ -32,7 +32,6 @@
         | Diff this (cached)     | `<leader>gD` |
         | Blame line             | `<leader>gb` |
         | Toggle deleted         | `<leader>gt` |
-
       '';
     }
   ];

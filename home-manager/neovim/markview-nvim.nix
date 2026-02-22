@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/markview-nvim";
       docs = ''
@@ -17,7 +17,6 @@
         // Only in .md files
         :Markview ...
         ```
-
       '';
     }
   ];

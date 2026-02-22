@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/barbar-nvim";
       docs = ''
@@ -31,7 +31,6 @@
         | Close all tabs but current or pinned | `<leader>to`  |
         | Close left other tabs                | `<leader>tl`  |
         | Close right other tabs               | `<leader>tr`  |
-
       '';
     }
   ];

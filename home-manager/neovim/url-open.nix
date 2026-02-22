@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/url-open";
       docs = ''
@@ -18,7 +18,6 @@
         | Description           | Key       |
         | ---                   | ---       |
         | Open url under cursor | <leader>o |
-
       '';
     }
   ];

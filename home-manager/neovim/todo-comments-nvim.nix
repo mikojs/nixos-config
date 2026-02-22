@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/todo-comments-nvim";
       docs = ''
@@ -18,7 +18,6 @@
         | Description | Key          |
         | ---         | ---          |
         | Show TODOs  | `<leader>O`  |
-
       '';
     }
   ];

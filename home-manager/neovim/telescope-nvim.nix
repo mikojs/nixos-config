@@ -4,7 +4,7 @@
 }:
 {
   home = {
-    file = (import ../../../lib.nix).getDocs pkgs [
+    file = (import ../../lib.nix).getDocs pkgs [
       {
         filePath = "neovim/telescope-nvim";
         docs = ''
@@ -45,10 +45,10 @@
           | ---                                    | ---          |
           | Find files in the docs directory       | `<leader>DF` |
           | Search with grep in the docs directory | `<leader>DG` |
-
         '';
       }
     ];
+
     packages = with pkgs; [
       ripgrep
       fd

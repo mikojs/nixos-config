@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/onenord-nvim";
       docs = ''
@@ -12,7 +12,6 @@
         Onenord.nvim is a colorscheme plugin for Neovim.
 
         [Repository](https://github.com/rmehri01/onenord.nvim)
-
       '';
     }
   ];

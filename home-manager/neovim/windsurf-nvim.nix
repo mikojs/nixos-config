@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/windsurf-nvim";
       docs = ''
@@ -12,7 +12,6 @@
         Windsurf.nvim is a plugin for Neovim that provides AI code completion.
 
         [Repository](https://github.com/Exafunction/windsurf.vim)
-
       '';
     }
   ];

@@ -4,7 +4,7 @@
 }:
 {
   home = {
-    home.file = (import ../../../lib.nix).getDocs pkgs [
+    home.file = (import ../../lib.nix).getDocs pkgs [
       {
         filePath = "neovim/vim-rzip";
         docs = ''
@@ -13,7 +13,6 @@
           Vim-rzip is a plugin for Neovim that provides a wrapper for zip files.
 
           [Repository](https://github.com/lbrayner/vim-rzip)
-
         '';
       }
     ];

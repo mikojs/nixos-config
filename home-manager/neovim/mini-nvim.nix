@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../../lib.nix).getDocs pkgs [
+  home.file = (import ../../lib.nix).getDocs pkgs [
     {
       filePath = "neovim/mini-nvim";
       docs = ''
@@ -12,7 +12,6 @@
         Mini.nvim is a plugin for Neovim that provides small utilities.
 
         [Repository](https://github.com/echasnovski/mini.nvim)
-
       '';
     }
     {
@@ -23,7 +22,6 @@
         Mini.icons is an icon provider.
 
         [Repository](https://github.com/echasnovski/mini.icons)
-
       '';
     }
     {
@@ -34,7 +32,6 @@
         Mini.notify is a notification plugin for Neovim.
 
         [Repository](https://github.com/echasnovski/mini.notify)
-
       '';
     }
     {
@@ -45,7 +42,6 @@
         Mini.trailspace is a trailing space highlighter.
 
         [Repository](https://github.com/echasnovski/mini.trailspace)
-
       '';
     }
     {
@@ -67,7 +63,6 @@
         | Go out of directory | `h`         |
         | Reset file explorer | `<BS>`      |
         | Sync file explorer  | `=`         |
-
       '';
     }
     {
@@ -87,7 +82,6 @@
         | Find inside textobject         | `i`  |
         | Go to left arround textobject  | `g[` |
         | Go to right arround textobject | `g]` |
-
       '';
     }
     {
@@ -112,7 +106,6 @@
         | Update n_lines                             | `sn` |
         | Suffix to search with "prev" method        | `l`  |
         | Suffix to search with "next" method        | `n`  |
-
       '';
     }
     {
@@ -142,7 +135,6 @@
         | Undo states from specially tracked linear history | `[U` `[u` `]u` `]U` |
         | Window in current tab                             | `[W` `[w` `]w` `]W` |
         | Yank selection replacing latest put region        | `[Y` `[y` `]y` `]Y` |
-
       '';
     }
     {
@@ -160,7 +152,6 @@
         | ---                            | ---   |
         | Toggle comment                 | `gc`  |
         | Toggle comment on current line | `gcc` |
-
       '';
     }
     {
@@ -180,7 +171,6 @@
         | Move right  | `<M-l>` |
         | Move down   | `<M-j>` |
         | Move up     | `<M-k>` |
-
       '';
     }
     {
@@ -208,7 +198,6 @@
         | Enhanced setup for ','  | `,`  |
         | Enhanced setup for '\|' | `\|` |
         | Enhanced setup for ' '  | ` `  |
-
       '';
     }
   ];
