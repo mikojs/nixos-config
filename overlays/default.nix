@@ -4,7 +4,7 @@
   ...
 }:
 {
-  _module.args.miko = (import ../lib.nix) { inherit lib pkgs; };
+  _module.args.miko = import ./miko.nix { inherit lib pkgs; };
 
   nixpkgs.overlays = [
     (import ./patch)
