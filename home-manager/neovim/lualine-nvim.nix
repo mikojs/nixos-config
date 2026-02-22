@@ -3,14 +3,18 @@
   ...
 }:
 {
-  home.file.".docs/neovim/lualine-nvim.md".text = ''
-    # Neovim lualine.nvim
+  home.file = (import ../../lib.nix).getDocs pkgs [
+    {
+      filePath = "neovim/lualine-nvim";
+      docs = ''
+        # Neovim lualine.nvim
 
-    Lualine.nvim is a statusline plugin for Neovim.
+        Lualine.nvim is a statusline plugin for Neovim.
 
-    [Repository](https://github.com/nvim-lualine/lualine.nvim)
-
-  '';
+        [Repository](https://github.com/nvim-lualine/lualine.nvim)
+      '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {

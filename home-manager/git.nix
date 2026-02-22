@@ -8,58 +8,65 @@
 }:
 {
   home = {
-    file = {
-      ".docs/git.md".text = ''
-        # Git
-
-        Git is used to manage version control.
-
-        [Repository](https://github.com/git/git)
-
-        ## Alias
-
-        - `d`: Show default `git diff` output.
-        - `gr`: Show formatted git logs.
-
-      '';
-
-      ".docs/git/commitizen.md".text = ''
-        # Git commitizen
-
-        Commitizen is used to manage commits.
-
-        [Repository](https://github.com/commitizen-tools/commitizen)
-
-        ```sh
-        git cz
-        ```
-
-      '';
-
-      ".docs/git/delta.md".text = ''
-        # Git delta
-
-        A syntax-highlighting pager for git and diff output.
-
-        [Repository](https://github.com/dandavison/delta)
-
-      '';
-
-      ".docs/git/serie.md".text = ''
-        # Git serie
-
-        A rich git commit graph in your terminal.
-
-        [Repository](https://github.com/lusingander/serie)
-
-      '';
-
-      ".czrc".text = ''
+    file =
+      (import ../lib.nix).getDocs pkgs [
         {
-          "path": "cz-conventional-changelog"
+          filePath = "git";
+          docs = ''
+            # Git
+
+            Git is used to manage version control.
+
+            [Repository](https://github.com/git/git)
+
+            ## Alias
+
+            - `d`: Show default `git diff` output.
+            - `gr`: Show formatted git logs.
+          '';
         }
-      '';
-    };
+        {
+          filePath = "git/commitizen";
+          docs = ''
+            # Git commitizen
+
+            Commitizen is used to manage commits.
+
+            [Repository](https://github.com/commitizen-tools/commitizen)
+
+            ```sh
+            git cz
+            ```
+          '';
+        }
+        {
+          filePath = "git/delta";
+          docs = ''
+            # Git delta
+
+            A syntax-highlighting pager for git and diff output.
+
+            [Repository](https://github.com/dandavison/delta)
+          '';
+        }
+        {
+          filePath = "git/serie";
+          docs = ''
+            # Git serie
+
+            A rich git commit graph in your terminal.
+
+            [Repository](https://github.com/lusingander/serie)
+          '';
+        }
+      ]
+      // {
+        ".czrc".text = ''
+          {
+            "path": "cz-conventional-changelog"
+          }
+        '';
+      };
 
     packages = with pkgs; [
       cz-cli

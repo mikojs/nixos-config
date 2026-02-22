@@ -3,14 +3,18 @@
   ...
 }:
 {
-  home.file.".docs/neovim/onenord-nvim.md".text = ''
-    # Neovim onenord.nvim
+  home.file = (import ../../lib.nix).getDocs pkgs [
+    {
+      filePath = "neovim/onenord-nvim";
+      docs = ''
+        # Neovim onenord.nvim
 
-    Onenord.nvim is a colorscheme plugin for Neovim.
+        Onenord.nvim is a colorscheme plugin for Neovim.
 
-    [Repository](https://github.com/rmehri01/onenord.nvim)
-
-  '';
+        [Repository](https://github.com/rmehri01/onenord.nvim)
+      '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {

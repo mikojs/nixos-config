@@ -3,28 +3,32 @@
   ...
 }:
 {
-  home.file.".docs/neovim/crates-nvim.md".text = ''
-    # crates.nvim
+  home.file = (import ../../../lib.nix).getDocs pkgs [
+    {
+      filePath = "neovim/crates-nvim";
+      docs = ''
+        # crates.nvim
 
-    A neovim plugin that helps managing crates.io dependencies.
+        A neovim plugin that helps managing crates.io dependencies.
 
-    [Repository](https://github.com/saecki/crates.nvim)
+        [Repository](https://github.com/saecki/crates.nvim)
 
-    ## Keybindings
+        ## Keybindings
 
-    | Description             | Key          |
-    | ---                     | ---          |
-    | Reload data             | `<leader>CR` |
-    | Enable or disable info  | `<leader>Ct` |
-    | Expand crate            | `<leader>Ce` |
-    | Upgrade crate           | `<leader>Cu` |
-    | Open homepage           | `<leader>Ch` |
-    | Open repository         | `<leader>Cr` |
-    | Open documentation      | `<leader>Cd` |
-    | Open crates.io          | `<leader>Cc` |
-    | Show crate details      | `<leader>Cs` |
-
-  '';
+        | Description             | Key          |
+        | ---                     | ---          |
+        | Reload data             | `<leader>CR` |
+        | Enable or disable info  | `<leader>Ct` |
+        | Expand crate            | `<leader>Ce` |
+        | Upgrade crate           | `<leader>Cu` |
+        | Open homepage           | `<leader>Ch` |
+        | Open repository         | `<leader>Cr` |
+        | Open documentation      | `<leader>Cd` |
+        | Open crates.io          | `<leader>Cc` |
+        | Show crate details      | `<leader>Cs` |
+      '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {

@@ -28,62 +28,68 @@ in
           "home"
           "file"
         ]
-        {
-          ".docs/fish.md".text = ''
-            # Fish
+        (
+          (import ../../lib.nix).getDocs pkgs [
+            {
+              filePath = "fish";
+              docs = ''
+                # Fish
 
-            Fish is a user-friendly command line shell.
+                Fish is a user-friendly command line shell.
 
-            [Repository](https://github.com/fish-shell/fish-shell)
+                [Repository](https://github.com/fish-shell/fish-shell)
 
-            ## Alias
+                ## Alias
 
-            - `times`: Show times in different timezones.
-            ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
-
-          '';
-
-          ".docs/nix.md".text = ''
-            # Nix
-
-            Nix is a package manager.
-
-            [Repository](https://github.com/NixOS/nixpkgs)
-
-            ## Search packages
-
-            - `nix search`: Search packages.
-            - Use `https://search.nixos.org/packages` to get the latest version.
-            - Use `https://lazamar.co.uk/nix-versions` to get the different versions.
-
-            ## Alias
-
-            - `nsf`: Run `nix-shell` with fish-shell.
-
-          '';
-
-          ".docs/docker.md".text = ''
-            # Docker
-
-            Docker is used to run containers.
-            ${
-              if isMac then
-                ''
-
-                  We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
-                  Please install it manually.
-                ''
-              else
-                ""
+                - `times`: Show times in different timezones.
+                ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
+              '';
             }
-            [Repository](https://github.com/docker/cli)
+            {
+              filePath = "nix";
+              docs = ''
+                # Nix
 
-            ## Alias
+                Nix is a package manager.
 
-            - `dsd`: Run `Docker system df`. Show docker disk usage.
+                [Repository](https://github.com/NixOS/nixpkgs)
 
-          '';
-        };
+                ## Search packages
+
+                - `nix search`: Search packages.
+                - Use `https://search.nixos.org/packages` to get the latest version.
+                - Use `https://lazamar.co.uk/nix-versions` to get the different versions.
+
+                ## Alias
+
+                - `nsf`: Run `nix-shell` with fish-shell.
+              '';
+            }
+            {
+              filePath = "docker";
+              docs = ''
+                # Docker
+
+                Docker is used to run containers.
+                ${
+                  if isMac then
+                    ''
+
+                      We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
+                      Please install it manually.
+                    ''
+                  else
+                    ""
+                }
+                [Repository](https://github.com/docker/cli)
+
+                ## Alias
+
+                - `dsd`: Run `Docker system df`. Show docker disk usage.
+              '';
+            }
+          ]
+        );
 
     packages =
       getConfig

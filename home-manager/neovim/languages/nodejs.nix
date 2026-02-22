@@ -3,22 +3,26 @@
   ...
 }:
 {
-  home.file.".docs/neovim/package-info-nvim.md".text = ''
-    # package-info.nvim
+  home.file = (import ../../../lib.nix).getDocs pkgs [
+    {
+      filePath = "neovim/package-info-nvim";
+      docs = ''
+        # package-info.nvim
 
-    A neovim plugin that provides information about npm packages.
+        A neovim plugin that provides information about npm packages.
 
-    [Repository](https://github.com/vuki656/package-info.nvim)
+        [Repository](https://github.com/vuki656/package-info.nvim)
 
-    ## Keybindings
+        ## Keybindings
 
-    | Description               | Key          |
-    | ---                       | ---          |
-    | Enable or disable info    | `<leader>nt` |
-    | Update dependency         | `<leader>nu` |
-    | Change dependency version | `<leader>nc` |
-
-  '';
+        | Description               | Key          |
+        | ---                       | ---          |
+        | Enable or disable info    | `<leader>nt` |
+        | Update dependency         | `<leader>nu` |
+        | Change dependency version | `<leader>nc` |
+      '';
+    }
+  ];
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     nui-nvim

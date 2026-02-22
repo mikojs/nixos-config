@@ -10,17 +10,20 @@ let
 in
 {
   home = {
-    file = {
-      ".docs/litecli.md".text = ''
-        # Litecli
+    file =
+      (import ../../lib.nix).getDocs pkgs [
+        {
+          filePath = "litecli";
+          docs = ''
+            # Litecli
 
-        A command-line interface for SQLite.
+            A command-line interface for SQLite.
 
-        [Repository](https://github.com/dbcli/litecli)
-
-      '';
-    }
-    // db.home.file;
+            [Repository](https://github.com/dbcli/litecli)
+          '';
+        }
+      ]
+      // db.home.file;
 
     packages =
       with pkgs;

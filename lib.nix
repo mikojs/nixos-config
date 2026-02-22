@@ -29,4 +29,27 @@ with builtins;
           result
       ) default configs)
     );
+
+  getDocs =
+    pkgs: docs:
+    with pkgs.lib;
+    (foldl' (
+      result:
+      { filePath, docs }:
+      let
+        name = last (splitString "/" filePath);
+        note = if hasAttr "${name}-note" pkgs then pkgs."${name}-note" else "";
+      in
+      result
+      // {
+        ".docs/${filePath}.md".text = concatStrings (
+          map (line: "${line}\n") (
+            filter (line: line != "") [
+              docs
+              note
+            ]
+          )
+        );
+      }
+    ) { } docs);
 }

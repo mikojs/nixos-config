@@ -5,14 +5,18 @@
 }:
 {
   home = {
-    file.".docs/neovim/nvim-treesitter.md".text = ''
-      # Neovim nvim-treesitter
+    file = (import ../../lib.nix).getDocs pkgs [
+      {
+        filePath = "neovim/nvim-treesitter";
+        docs = ''
+          # Neovim nvim-treesitter
 
-      Nvim-treesitter is a syntax highlighting plugin for Neovim.
+          Nvim-treesitter is a syntax highlighting plugin for Neovim.
 
-      [Repository](https://github.com/nvim-treesitter/nvim-treesitter)
-
-    '';
+          [Repository](https://github.com/nvim-treesitter/nvim-treesitter)
+        '';
+      }
+    ];
 
     packages = with pkgs; [ libgccjit ];
   };
