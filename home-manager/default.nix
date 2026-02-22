@@ -100,7 +100,7 @@ with builtins;
           home = {
             inherit stateVersion;
 
-            file = (import ../../lib.nix).getDocs pkgs [
+            file = (import ../lib.nix).getDocs pkgs [
               {
                 filePath = "tailscale";
                 docs = ''

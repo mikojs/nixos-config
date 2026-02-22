@@ -4,7 +4,7 @@
 }:
 {
   home = {
-    file = (import ../../lib.nix).getDocs pkgs [
+    file = (import ../lib.nix).getDocs pkgs [
       {
         filePath = "oxker";
         docs = ''
@@ -13,7 +13,6 @@
           A simple tui to view & control docker containers.
 
           [Repository](https://github.com/mrjackwills/oxker)
-
         '';
       }
     ];

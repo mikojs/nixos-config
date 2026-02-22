@@ -4,7 +4,7 @@
 }:
 {
   home = {
-    file = (import ../../lib.nix).getDocs pkgs [
+    file = (import ../lib.nix).getDocs pkgs [
       {
         filePath = "jless";
         docs = ''
@@ -13,7 +13,6 @@
           Jless is a less-like pager for JSON files.
 
           [Repository](https://github.com/PaulJuliusMartinez/jless)
-
         '';
       }
     ];

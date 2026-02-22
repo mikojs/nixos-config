@@ -4,14 +4,13 @@
 }:
 {
   home = {
-    file = (import ../../lib.nix).getDocs pkgs [
+    file = (import ../lib.nix).getDocs pkgs [
       {
         filePath = "tree";
         docs = ''
           # Tree
 
           tree is a directory listing program that makes it easy to display a directory tree.
-
         '';
       }
     ];

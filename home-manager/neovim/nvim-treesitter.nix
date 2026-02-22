@@ -5,7 +5,7 @@
 }:
 {
   home = {
-    home.file = (import ../../lib.nix).getDocs pkgs [
+    file = (import ../../lib.nix).getDocs pkgs [
       {
         filePath = "neovim/nvim-treesitter";
         docs = ''

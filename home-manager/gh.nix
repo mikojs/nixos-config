@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home.file = (import ../../lib.nix).getDocs pkgs [
+  home.file = (import ../lib.nix).getDocs pkgs [
     {
       filePath = "gh";
       docs = ''
@@ -12,7 +12,6 @@
         GitHub CLI is used to login to GitHub and control repositories.
 
         [Repository](https://github.com/cli/cli)
-
       '';
     }
     {
@@ -23,7 +22,6 @@
         Safely clean up your local branches.
 
         [Repository](https://github.com/seachicken/gh-poi)
-
       '';
     }
   ];

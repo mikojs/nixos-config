@@ -1,4 +1,5 @@
 {
+  pkgs,
   name,
   ...
 }:
@@ -6,7 +7,7 @@
   ...
 }:
 {
-  home.file = (import ../../lib.nix).getDocs pkgs [
+  home.file = (import ../lib.nix).getDocs pkgs [
     {
       filePath = "kitty";
       docs = ''
@@ -15,7 +16,6 @@
         The fast, feature-rich, cross-platform, GPU based terminal.
 
         [Repository](https://github.com/kovidgoyal/kitty)
-
       '';
     }
   ];

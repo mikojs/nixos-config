@@ -8,7 +8,7 @@
   ...
 }:
 {
-  home.file = (import ../../lib.nix).getDocs pkgs [
+  home.file = (import ../lib.nix).getDocs pkgs [
     {
       filePath = "tmux";
       docs = ''
@@ -17,7 +17,6 @@
         Tmux is a terminal multiplexer.
 
         [Repository](https://github.com/tmux/tmux)
-
       '';
     }
   ];

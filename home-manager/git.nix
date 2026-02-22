@@ -9,7 +9,7 @@
 {
   home = {
     file =
-      ((import ../../lib.nix).getDocs pkgs [
+      (import ../lib.nix).getDocs pkgs [
         {
           filePath = "git";
           docs = ''
@@ -23,7 +23,6 @@
 
             - `d`: Show default `git diff` output.
             - `gr`: Show formatted git logs.
-
           '';
         }
         {
@@ -38,7 +37,6 @@
             ```sh
             git cz
             ```
-
           '';
         }
         {
@@ -49,7 +47,6 @@
             A syntax-highlighting pager for git and diff output.
 
             [Repository](https://github.com/dandavison/delta)
-
           '';
         }
         {
@@ -60,10 +57,9 @@
             A rich git commit graph in your terminal.
 
             [Repository](https://github.com/lusingander/serie)
-
           '';
         }
-      ])
+      ]
       // {
         ".czrc".text = ''
           {
