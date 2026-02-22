@@ -7,7 +7,7 @@
   ...
 }:
 let
-  db = import ./db.nix { inherit pkgs; };
+  db = import ./db.nix { inherit pkgs miko; };
 in
 {
   home = {
