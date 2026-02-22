@@ -1,0 +1,60 @@
+final: prev:
+with prev;
+with lib;
+with builtins;
+{
+  miko = "test";
+  # miko = {
+  #   getConfig =
+  #     modules: inputs:
+  #     let
+  #       configs = map (m: import m inputs) modules;
+  #     in
+  #     (
+  #       keys: default:
+  #       (foldl' (
+  #         result: config:
+  #         let
+  #           data = (
+  #             foldl' (
+  #               result: key: if result != null && hasAttr "${key}" result then result."${key}" else null
+  #             ) config keys
+  #           );
+  #         in
+  #         if data != null then
+  #           (
+  #             if isList default then
+  #               result ++ data
+  #             else if isString default then
+  #               result + "\n" + data
+  #             else
+  #               result // data
+  #           )
+  #         else
+  #           result
+  #       ) default configs)
+  #     );
+  #
+  #   getDocs =
+  #     docs:
+  #     (foldl' (
+  #       result:
+  #       { filePath, docs }:
+  #       let
+  #         name = last (splitString "/" filePath);
+  #         note = if hasAttr "${name}-note" final then final."${name}-note" else "";
+  #       in
+  #       result
+  #       // {
+  #         ".docs/${filePath}.md".text = concatStrings (
+  #           map (line: "${line}\n") (
+  #             filter (line: line != "") [
+  #               docs
+  #               note
+  #             ]
+  #           )
+  #         );
+  #       }
+  #     ) { } docs);
+  # };
+}
