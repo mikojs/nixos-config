@@ -8,7 +8,7 @@ with lib;
 with builtins;
 with pkgs.miko;
 let
-  getConfig =
+  allConfigs =
     getConfig
       (filter pathExists (
         lists.unique (
@@ -23,7 +23,7 @@ let
 in
 {
   home = {
-    file = getConfig [ "file" ] (getDocs [
+    file = allConfigs [ "file" ] (getDocs [
       {
         filePath = "neovim/conform-nvim";
         docs = ''
@@ -43,7 +43,7 @@ in
       }
     ]);
 
-    packages = getConfig [ "packages" ] [ ];
+    packages = allConfigs [ "packages" ] [ ];
   };
 
   programs.neovim.plugins =
@@ -54,11 +54,11 @@ in
         plugin = conform-nvim;
         type = "lua";
         config = ''
-          ${getConfig [ "init" ] ""}
+          ${allConfigs [ "init" ] ""}
 
           require("conform").setup({
             formatters_by_ft = {
-              ${getConfig [ "formatter" ] ""}
+              ${allConfigs [ "formatter" ] ""}
             },
             format_on_save = function(bufnr)
               if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
