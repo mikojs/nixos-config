@@ -7,20 +7,18 @@
   timezones,
   ...
 }:
-with pkgs.miko;
+with lib;
 let
-  getConfig =
-    with lib;
-    miko.getConfig (
-      [
-        ./custom.nix
-        ./tailscale.nix
-        ./n8n
-        ./nord.nix
-        ./tide.nix
-      ]
-      ++ (optionals isMac [ ./mac.nix ])
-    ) { inherit pkgs n8n timezones; };
+  getConfig = miko.getConfig (
+    [
+      ./custom.nix
+      ./tailscale.nix
+      ./n8n
+      ./nord.nix
+      ./tide.nix
+    ]
+    ++ (optionals isMac [ ./mac.nix ])
+  ) { inherit pkgs n8n timezones; };
 in
 {
   home = {
