@@ -4,7 +4,7 @@
 }:
 {
   home = {
-    file = (import ../../../lib.nix).getDocs pkgs [
+    file = (import ../../lib.nix).getDocs pkgs [
       {
         filePath = "ai/mcp/github";
         docs = ''
