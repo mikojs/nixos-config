@@ -1,10 +1,9 @@
 {
-  pkgs,
-  miko,
   name,
   ...
 }:
 {
+  miko,
   ...
 }:
 {
