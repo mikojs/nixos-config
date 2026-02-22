@@ -8,7 +8,7 @@ with lib;
 with builtins;
 with pkgs.miko;
 let
-  getConfigWithLanguage =
+  allConfigs =
     getConfig
       (filter pathExists (
         lists.unique (
@@ -24,7 +24,7 @@ in
 {
   home = {
     file =
-      getConfigWithLanguage
+      allConfigs
         [
           "file"
         ]
@@ -60,7 +60,7 @@ in
         ]);
 
     packages =
-      getConfigWithLanguage
+      allConfigs
         [
           "packages"
         ]
@@ -216,11 +216,11 @@ in
 
           local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-          ${getConfigWithLanguage [ "config" ] ""}
+          ${allConfigs [ "config" ] ""}
         '';
       }
     ]
-    ++ (getConfigWithLanguage
+    ++ (allConfigs
       [
         "plugins"
       ]

@@ -12,7 +12,7 @@
 with builtins;
 with pkgs.miko;
 let
-  getConfigWithLanguage =
+  allConfigs =
     getConfig
       (
         [
@@ -57,7 +57,7 @@ in
 {
   home = {
     file =
-      getConfigWithLanguage
+      allConfigs
         [
           "home"
           "file"
@@ -94,7 +94,7 @@ in
         ]);
 
     packages =
-      getConfigWithLanguage
+      allConfigs
         [
           "home"
           "packages"
@@ -102,7 +102,7 @@ in
         [ ];
   };
 
-  xdg.configFile = getConfigWithLanguage [
+  xdg.configFile = allConfigs [
     "xdg"
     "configFile"
   ] { };
@@ -111,7 +111,7 @@ in
     enable = true;
     defaultEditor = true;
     plugins =
-      getConfigWithLanguage
+      allConfigs
         [
           "programs"
           "neovim"

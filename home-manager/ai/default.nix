@@ -52,7 +52,7 @@ let
     // mcpServers
   );
 
-  getConfigWithLanguage =
+  allConfigs =
     getConfig
       (
         (optionals useAI [
@@ -76,7 +76,7 @@ else
   {
     home = {
       file =
-        getConfigWithLanguage
+        allConfigs
           [
             "home"
             "file"
@@ -126,7 +126,7 @@ else
           ]);
 
       packages =
-        getConfigWithLanguage
+        allConfigs
           [
             "home"
             "packages"
@@ -141,7 +141,7 @@ else
         end
       ";
 
-      shellAliases = getConfigWithLanguage [
+      shellAliases = allConfigs [
         "programs"
         "fish"
         "shellAliases"
