@@ -35,6 +35,7 @@ in
           n8n.postgresNonRootPassword
         ]
         (readFile ./init-data.sh);
+
     ".n8n/docker-compose.yml".source = (pkgs.formats.yaml { }).generate "docker-compose.yml" {
       volumes = {
         db_storage = null;
@@ -78,7 +79,8 @@ in
             "DB_POSTGRESDB_DATABASE=${data.postgresDb}"
             "DB_POSTGRESDB_USER=${data.postgresNonRootUser}"
             "DB_POSTGRESDB_PASSWORD=${data.postgresNonRootPassword}"
-          ];
+          ]
+          ++ (optionals (hasAttr "environment" n8n) n8n.environment);
           ports = [ "5678:5678" ];
           links = [ "postgres" ];
           volumes = [
