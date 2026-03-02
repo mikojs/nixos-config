@@ -11,20 +11,22 @@ with builtins;
   programs.fish.interactiveShellInit = ''
     set -g agents
 
-    for agent in $(ls ~/.agents)
-      for ai in ${concatStringsSep " " ai}
-        if not test -e ~/.agents/$agent/$(string upper $ai).md
-          continue
+    if test -d ~/.agents
+      for agent in $(ls ~/.agents)
+        for ai in ${concatStringsSep " " ai}
+          if not test -e ~/.agents/$agent/$(string upper $ai).md
+            continue
+          end
+
+          set -a agents "$ai@$agent"
         end
-
-        set -a agents "$ai@$agent"
       end
-    end
 
-    for agent in $agents
-      set -l info (string split '@' $agent)
+      for agent in $agents
+        set -l info (string split '@' $agent)
 
-      complete -c aa -f -n "__fish_use_subcommand" -a $agent -d "Run the $info[1] as $info[2] agent."
+        complete -c aa -f -n "__fish_use_subcommand" -a $agent -d "Run the $info[1] as $info[2] agent."
+      end
     end
 
     function aa --description "aa <ai@agent> [...argv]"
