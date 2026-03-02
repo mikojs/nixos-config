@@ -21,7 +21,11 @@ with builtins;
       end
     end
 
-    complete -c aa -a $(string join " " $agents)
+    for agent in $agents
+      set -l info (string split '@' $agent)
+
+      complete -c aa -f -n "__fish_use_subcommand" -a $agent -d "Run the $info[1] as $info[2] agent."
+    end
 
     function aa --description "aa <ai@agent> [...argv]"
       if not contains $argv[1] $agents
