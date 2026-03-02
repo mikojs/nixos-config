@@ -1,26 +1,18 @@
 {
+  lib,
   n8n,
   timezones,
   ...
 }:
+with lib;
 with builtins;
 let
-  rawEnv = [
-    "\${POSTGRES_USER}"
-    "\${POSTGRES_PASSWORD}"
-    "\${POSTGRES_DB}"
-    "\${POSTGRES_NON_ROOT_USER}"
-    "\${POSTGRES_NON_ROOT_PASSWORD}"
-    "\${GENERIC_TIMEZONE}"
-  ];
-  newEnv = [
-    n8n.postgresUser
-    n8n.postgresPassword
-    n8n.postgresDb
-    n8n.postgresNonRootUser
-    n8n.postgresNonRootPassword
-    (if length timezones <= 0 then "America/New_York" else (elemAt timezones 0))
-  ];
+  data = n8n // {
+    genericTimezone = (if length timezones <= 0 then "America/New_York" else (elemAt timezones 0));
+  };
+  keys = (attrNames data);
+  rawEnv = map (key: "\${${toUpper (replaceStrings upperChars (map (c: "_${c}") upperChars))}}") keys;
+  newEnv = map (key: data."${key}") keys;
 in
 {
   fish-alias = [
@@ -29,21 +21,7 @@ in
 
   home.file = {
     ".n8n/init-data.sh".text = replaceStrings rawEnv newEnv (readFile ./init-data.sh);
-    ".n8n/docker-compose.yml".text =
-      replaceStrings
-        (
-          rawEnv
-          ++ [
-            "\${HOME_DIR}"
-          ]
-        )
-        (
-          newEnv
-          ++ [
-            n8n.homeDir
-          ]
-        )
-        (readFile ./docker-compose.yml);
+    ".n8n/docker-compose.yml".text = replaceStrings rawEnv newEnv (readFile ./docker-compose.yml);
   };
 
   programs.fish.shellAliases = {

@@ -23,6 +23,7 @@ let
       )
       {
         inherit
+          lib
           pkgs
           miko
           n8n
