@@ -23,7 +23,7 @@ let
           ./nord.nix
           ./tide.nix
         ]
-        ++ (optionals (lists.length ai > 0) [ ./agent.nix ])
+        ++ (optionals (lists.length ai > 0) [ ./agents.nix ])
         ++ (optionals isMac [ ./mac.nix ])
       )
       {
