@@ -76,17 +76,6 @@ initialize
 
 Currently, only `gemini` and `claude` are supported. Run the commands and authorize them manually according to your settings.
 
-### Claude code statusline
-
-Ccstatusline is a highly customizable statusline for the Claude Code CLI, offering powerline support, themes, and more.
-
-[Repository](https://github.com/sirmalloc/ccstatusline)
-
-```
-# Run it manually
-npx ccstatusline@latest
-```
-
 ### Codeium in nvim
 
 ```nvim
