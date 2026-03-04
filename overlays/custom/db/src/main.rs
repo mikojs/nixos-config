@@ -3,12 +3,12 @@ use std::io::{self, Error as IoError};
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Shell};
 use show::{Show, ShowError};
-use sqls::{Sqls, SqlsError};
+use sqlls::{Sqlls, SqllsError};
 use thiserror::Error;
 
 mod config;
 mod show;
-mod sqls;
+mod sqlls;
 
 #[derive(Error, Debug)]
 enum MainError {
@@ -16,16 +16,16 @@ enum MainError {
     Io(#[from] IoError),
     #[error("ShowError: {0}")]
     Show(#[from] ShowError),
-    #[error("SqlsError: {0}")]
-    Sqls(#[from] SqlsError),
+    #[error("SqllsError: {0}")]
+    Sqlls(#[from] SqllsError),
 }
 
 #[derive(Subcommand)]
 enum Commands {
     /// Show database url
     Show(Show),
-    /// Generate sqls config
-    Sqls(Sqls),
+    /// Generate sqlls config
+    Sqlls(Sqlls),
 }
 
 /// Parse database information from environment variables
@@ -60,7 +60,7 @@ fn main() -> Result<(), MainError> {
     } else {
         match cli.commands {
             Some(Commands::Show(show)) => show.run()?,
-            Some(Commands::Sqls(sqls)) => sqls.run()?,
+            Some(Commands::Sqlls(sqlls)) => sqlls.run()?,
             _ => Cli::command().print_help()?,
         }
     }
