@@ -6,7 +6,7 @@ use thiserror::Error;
 use crate::config::{Config, ConfigError, DbConfig, DbType};
 
 #[derive(Error, Debug)]
-pub enum SqllsError {
+pub enum SqlsError {
     #[error("ConfigError: {0}")]
     Config(#[from] ConfigError),
     #[error("SerdeJsonError: {0}")]
@@ -17,13 +17,13 @@ pub enum SqllsError {
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct SqllsDbConfig {
+pub struct SqlsDbConfig {
     driver: DbType,
     data_source_name: String,
 }
 
-impl TryFrom<DbConfig> for SqllsDbConfig {
-    type Error = SqllsError;
+impl TryFrom<DbConfig> for SqlsDbConfig {
+    type Error = SqlsError;
 
     fn try_from(value: DbConfig) -> Result<Self, Self::Error> {
         Ok(Self {
@@ -31,39 +31,39 @@ impl TryFrom<DbConfig> for SqllsDbConfig {
             data_source_name: value
                 .url
                 .map(|url| url.to_string())
-                .ok_or(SqllsError::UrlNotFound)?,
+                .ok_or(SqlsError::UrlNotFound)?,
         })
     }
 }
 
 #[derive(Serialize)]
-pub struct SqllsConfig(Vec<SqllsDbConfig>);
+pub struct SqlsConfig(Vec<SqlsDbConfig>);
 
-impl TryFrom<Config> for SqllsConfig {
-    type Error = SqllsError;
+impl TryFrom<Config> for SqlsConfig {
+    type Error = SqlsError;
 
     fn try_from(value: Config) -> Result<Self, Self::Error> {
-        let mut sqlls_config: Vec<SqllsDbConfig> = Vec::new();
+        let mut sqls_config: Vec<SqlsDbConfig> = Vec::new();
 
         for db_config in value.list() {
             if db_config.url.is_some() {
-                sqlls_config.push(db_config.try_into()?);
+                sqls_config.push(db_config.try_into()?);
             }
         }
 
-        Ok(Self(sqlls_config))
+        Ok(Self(sqls_config))
     }
 }
 
 #[derive(Args)]
-pub struct Sqlls {}
+pub struct Sqls {}
 
-impl Sqlls {
-    pub fn run(&self) -> Result<(), SqllsError> {
+impl Sqls {
+    pub fn run(&self) -> Result<(), SqlsError> {
         let config = Config::new()?;
-        let sqlls_config: SqllsConfig = config.try_into()?;
+        let sqls_config: SqlsConfig = config.try_into()?;
 
-        println!("{}", serde_json::to_string_pretty(&sqlls_config)?);
+        println!("{}", serde_json::to_string_pretty(&sqls_config)?);
         Ok(())
     }
 }
