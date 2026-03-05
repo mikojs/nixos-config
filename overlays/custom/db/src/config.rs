@@ -91,6 +91,9 @@ impl Config {
 #[cfg(test)]
 const DB_DEFAULT_URL: &str = "postgresql://postgres:postgres@localhost/postgres";
 
+#[cfg(test)]
+use std::collections::HashMap;
+
 #[test]
 fn get_config() -> Result<(), ConfigError> {
     env::set_var("DB_DEFAULT_URL", DB_DEFAULT_URL);
@@ -99,26 +102,22 @@ fn get_config() -> Result<(), ConfigError> {
     env::set_var("DB_TEST_TEST_DESCRIPTION", "description");
     env::set_var("DB_EMPTY_URL", "");
 
-    let config = Config::new()?;
+    let mut tested_config = HashMap::new();
 
-    if let Some(default_config) = config.list().first() {
-        assert_eq!(default_config.name, "default");
-        assert_eq!(default_config.url, Some(Url::parse(DB_DEFAULT_URL)?));
-    } else {
-        unreachable!("not found default config");
-    };
+    for config in Config::new()?.list() {
+        tested_config.insert(config.name.clone(), true);
+        match config.name.as_str() {
+            "default" => assert_eq!(config.url, Some(Url::parse(DB_DEFAULT_URL)?)),
+            "test-test" => {
+                assert_eq!(config.url, Some(Url::parse(DB_DEFAULT_URL)?));
+                assert_eq!(config.r#type, Some(DbType::Postgresql));
+                assert_eq!(config.description, Some("description".to_string()));
+            }
+            _ => unreachable!("unknown config name {}", config.name),
+        }
+    }
 
-    if let Some(test_test_config) = config.list().get(1) {
-        assert_eq!(test_test_config.name, "test-test");
-        assert_eq!(test_test_config.url, Some(Url::parse(DB_DEFAULT_URL)?));
-        assert_eq!(test_test_config.r#type, Some(DbType::Postgresql));
-        assert_eq!(
-            test_test_config.description,
-            Some("description".to_string())
-        );
-    } else {
-        unreachable!("not found test-test config");
-    };
+    assert_eq!(tested_config.len(), 2);
 
     Ok(())
 }
