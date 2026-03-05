@@ -1,26 +1,52 @@
 {
   pkgs,
+  miko,
   ...
 }:
 {
+  file = miko.getDocs [
+    {
+      filePath = "neovim/sqls-nvim";
+      docs = ''
+        # sqls.nvim
+
+        A neovim plugin for SQL.
+
+        [Repository](https://github.com/nanotee/sqls.nvim)
+
+        ```nvim
+        // Only in .sql files
+        :Sqls...
+        ```
+      '';
+    }
+  ];
+
   packages = with pkgs; [
-    sql-language-server
+    sqls
     miko-db
   ];
 
-  config = ''
-    local db_sqlls_command = io.popen("db sqlls")
-    local connections = vim.json.decode(db_sqlls_command:read("*a"))
+  plugins = with pkgs.vimPlugins; [
+    sqls-nvim
+  ];
 
-    db_sqlls_command:close()
-    vim.lsp.config("sqlls", {
+  config = ''
+    local db_sqls_command = io.popen("db sqls")
+    local connections = vim.json.decode(db_sqls_command:read("*a"))
+
+    db_sqls_command:close()
+    vim.lsp.config("sqls", {
       capabilities = capabilities,
+      on_attach = function(client, bufnr)
+        require('sqls').on_attach(client, bufnr)
+      end,
       settings = {
-        sqlLanguageServer = {
+        sqls = {
           connections = connections,
         },
       },
     })
-    vim.lsp.enable('sqlls')
+    vim.lsp.enable("sqls")
   '';
 }
