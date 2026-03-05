@@ -10,7 +10,7 @@ vimUtils.buildVimPlugin {
     owner = "lbrayner";
     repo = "vim-rzip";
     rev = "f65400fed27b27c7cff7ef8d428c4e5ff749bf28";
-    sha256 = "sha256-D5k8rAwC1vpdbm0MBsJ9vc2vs2Mq3e8ZTtHDycw2cYs=";
+    sha256 = "sha256-xy7rNqDVqlGapKClrP5BhfOORlMzHOQ8oIc8FdZT/AE=";
   };
   meta.homepage = "https://github.com/lbrayner/vim-rzip/";
   meta.hydraPlatforms = [ ];
