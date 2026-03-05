@@ -38,9 +38,6 @@
     db_sqls_command:close()
     vim.lsp.config("sqls", {
       capabilities = capabilities,
-      on_attach = function(client, bufnr)
-        require('sqls').on_attach(client, bufnr)
-      end,
       settings = {
         sqls = {
           connections = connections,

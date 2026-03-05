@@ -5,12 +5,12 @@
 }:
 vimUtils.buildVimPlugin {
   pname = "sqls.nvim";
-  version = "2025-03-27";
+  version = "2025-09-03";
   src = fetchFromGitHub {
     owner = "nanotee";
     repo = "sqls.nvim";
-    rev = "af156c2c7d6bca6384d0881f4a3d6de4cedcd482";
-    sha256 = "sha256-D5k8rAwC1vpdbm0MBsJ9vc2vs2Mq3e8ZTtHDycw2cYs=";
+    rev = "bfb7b4090268f6163c408577070da4cc9d7450fd";
+    sha256 = "sha256-PLt4SjPBgTtxAghwffsNICQ0b5AQRrdCrZ7tEHccXIc=";
   };
   meta.homepage = "https://github.com/nanotee/sqls.nvim/";
   meta.hydraPlatforms = [ ];
