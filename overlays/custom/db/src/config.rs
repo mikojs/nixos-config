@@ -90,6 +90,8 @@ impl Config {
 
 #[cfg(test)]
 const DB_DEFAULT_URL: &str = "postgresql://postgres:postgres@localhost/postgres";
+#[cfg(test)]
+const DB_SQLITE_URL: &str = "file:foo.db";
 
 #[cfg(test)]
 use std::collections::HashMap;
@@ -100,6 +102,8 @@ fn get_config() -> Result<(), ConfigError> {
     env::set_var("DB_TEST_TEST_URL", DB_DEFAULT_URL);
     env::set_var("DB_TEST_TEST_TYPE", "postgresql");
     env::set_var("DB_TEST_TEST_DESCRIPTION", "description");
+    env::set_var("DB_SQLITE_URL", DB_SQLITE_URL);
+    env::set_var("DB_SQLITE_TYPE", "sqlite3");
     env::set_var("DB_EMPTY_URL", "");
 
     let mut tested_config = HashMap::new();
@@ -113,11 +117,15 @@ fn get_config() -> Result<(), ConfigError> {
                 assert_eq!(config.r#type, Some(DbType::Postgresql));
                 assert_eq!(config.description, Some("description".to_string()));
             }
+            "sqlite" => {
+                assert_eq!(config.url, Some(Url::parse(DB_SQLITE_URL)?));
+                assert_eq!(config.r#type, Some(DbType::Sqlite));
+            }
             _ => unreachable!("unknown config name {}", config.name),
         }
     }
 
-    assert_eq!(tested_config.len(), 2);
+    assert_eq!(tested_config.len(), 3);
 
     Ok(())
 }

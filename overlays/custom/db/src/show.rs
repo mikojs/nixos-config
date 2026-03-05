@@ -72,7 +72,11 @@ impl Show {
     pub fn run(&self) -> Result<(), ShowError> {
         let url = self.db_config.url.as_ref().ok_or(ShowError::NotFound)?;
 
-        println!("{}", url);
+        if url.scheme() == "file" {
+            println!("{}", url.path());
+        } else {
+            println!("{}", url);
+        }
         Ok(())
     }
 }
