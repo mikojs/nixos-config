@@ -20,12 +20,14 @@
     local nodePath = ""
 
     if yarn_lib then
-      nodePath = yarn_lib
+      nodePath = ".yarn/sdks"
     end
 
     vim.lsp.config("eslint", {
       capabilities = capabilities,
-      settings = { nodePath },
+      settings = {
+        nodePath = nodePath,
+      },
     })
     vim.lsp.enable("eslint")
   '';
