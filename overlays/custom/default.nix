@@ -1,31 +1,46 @@
 final: prev:
 with prev;
-buildMikoRustPkgs {
-  prefix = "miko-";
-  config = [
-    {
-      name = "initialize";
-      hasGenerate = false;
-    }
-    {
-      name = "coder";
-      github = {
-        owner = "mikojs";
-        repo = "coder";
-        rev = "42665979ae3baee6dfa8482bdbc56a35b23f3bea";
-        sha256 = "";
-      };
-      cargoHash = "";
-    }
-    {
-      name = "db";
-      github = {
-        owner = "mikojs";
-        repo = "db";
-        rev = "34422f433a7b608891a0441a5b09adc12237d141";
-        sha256 = "";
-      };
-      cargoHash = "";
-    }
+with lib;
+with builtins;
+let
+  custom-pkg-names = [
+    "initialize"
   ];
+
+  custom-pkgs = listToAttrs (
+    map (
+      name:
+      nameValuePair "miko-${name}" (
+        with rustPlatform;
+        buildRustPackage {
+          inherit name;
+          src = ./.;
+
+          cargoLock = {
+            lockFile = ./Cargo.lock;
+          };
+
+          buildPhase = ''
+            cargo build --release -p ${name}
+          '';
+
+          installPhase = ''
+            mkdir -p $out/bin
+            cp -r target/release/${name} $out/bin
+          '';
+        }
+      )
+    ) custom-pkg-names
+  );
+in
+custom-pkgs
+// {
+  miko-fish.interactiveShellInit = concatStrings (
+    map (name: ''
+      # ${name}
+      if type -q ${name}
+        ${name} ${if name == "initialize" then "" else "--generate fish | source"}
+      end
+    '') custom-pkg-names
+  );
 }
