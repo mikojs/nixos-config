@@ -13,56 +13,65 @@ with builtins;
         map (
           {
             name,
-            pkgName ? "${prefix}-${name}",
+            pkgName ? "${prefix}${name}",
+            github ? "",
             ...
           }:
           nameValuePair pkgName (
             with rustPlatform;
-            buildRustPackage {
-              inherit name;
-              src = ./.;
+            if github == "" then
+              buildRustPackage {
+                inherit name;
 
-              cargoLock = {
-                lockFile = ./Cargo.lock;
-              };
+                src = ./.;
 
-              buildPhase = ''
-                cargo build --release -p ${name}
-              '';
+                cargoLock = {
+                  lockFile = ./Cargo.lock;
+                };
 
-              installPhase = ''
-                mkdir -p $out/bin
-                cp -r target/release/${name} $out/bin
-              '';
-            }
+                buildPhase = ''
+                  cargo build --release -p ${name}
+                '';
+
+                installPhase = ''
+                  mkdir -p $out/bin
+                  cp -r target/release/${name} $out/bin
+                '';
+              }
+            else
+              buildRustPackage {
+                inherit name;
+
+                src = fetchFromGitHub github;
+              }
           )
         ) config
       );
     in
     custom-pkgs
     // {
-      "${prefix}-fish".interactiveShellInit = concatStrings (
+      "${prefix}fish".interactiveShellInit = concatStrings (
         map
           (
             {
               name,
-              skipGenerate ? false,
+              hasGernerate ? true,
               ...
             }:
             ''
               # ${name}
               if type -q ${name}
-                ${name} ${if skipGenerate then "" else "--generate fish | source"}
+                ${name} ${if !hasGernerate then "" else "--generate fish | source"}
               end
             ''
           )
           (
             filter (
               {
-                shouldInit ? false,
+                shellInit ? true,
                 ...
               }:
-              shouldInit
+              shellInit
             ) config
           )
       );
