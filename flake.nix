@@ -18,6 +18,16 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    miko-coder = {
+      url = "github:mikojs/coder";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    miko-dbb = {
+      url = "github:mikojs/db";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
