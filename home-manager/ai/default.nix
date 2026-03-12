@@ -22,13 +22,10 @@ if !useAI then
 else
   {
     home = {
-      file =
-        getConfig
-          [
-            "home"
-            "file"
-          ]
-          [ ];
+      file = getConfig [
+        "home"
+        "file"
+      ] { };
 
       packages =
         getConfig
