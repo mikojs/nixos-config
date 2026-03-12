@@ -1,7 +1,6 @@
 {
   pkgs,
   miko,
-  mcpServers,
   ...
 }:
 {
@@ -30,7 +29,6 @@
                 "selectedType": "oauth-personal"
               }
             },
-            "mcpServers": ${mcpServers}
           }
         '';
       };

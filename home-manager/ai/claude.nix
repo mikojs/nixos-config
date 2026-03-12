@@ -1,42 +1,25 @@
 {
   pkgs,
   miko,
-  mcpServers,
   ...
 }:
 {
   home = {
-    file =
-      miko.getDocs [
-        {
-          filePath = "ai/claude-code";
-          docs = ''
-            # Claude Code
+    file = miko.getDocs [
+      {
+        filePath = "ai/claude-code";
+        docs = ''
+          # Claude Code
 
-            Claude Code is an AI agent that brings the power of Claude directly into your code.
+          Claude Code is an AI agent that brings the power of Claude directly into your code.
 
-            [Repository](https://github.com/anthropics/claude-code)
-
-            ## Alias
-
-            - `ccm`: Run `claude-code` with `mcp` servers.
-          '';
-        }
-      ]
-      // {
-        ".claude/mcp.json".text = ''
-          {
-            "mcpServers": ${mcpServers}
-          }
+          [Repository](https://github.com/anthropics/claude-code)
         '';
-      };
+      }
+    ];
 
     packages = with pkgs; [
       claude-code
     ];
-  };
-
-  programs.fish.shellAliases = {
-    ccm = "claude --mcp-config ~/.claude/mcp.json";
   };
 }
