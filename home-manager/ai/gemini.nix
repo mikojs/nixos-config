@@ -3,6 +3,7 @@
   miko,
   ...
 }:
+with builtins;
 {
   home = {
     file =
@@ -19,18 +20,16 @@
         }
       ]
       // {
-        ".gemini/settings.json".text = ''
-          {
-            "general": {
-              "disableUpdateNag": true
-            },
-            "security": {
-              "auth": {
-                "selectedType": "oauth-personal"
-              }
-            },
-          }
-        '';
+        ".gemini/settings.json".text = toJSON {
+          "general" = {
+            "disableUpdateNag" = true;
+          };
+          "security" = {
+            "auth" = {
+              "selectedType" = "oauth-personal";
+            };
+          };
+        };
       };
 
     packages = with pkgs; [

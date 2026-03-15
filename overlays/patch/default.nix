@@ -17,4 +17,7 @@ with prev.vimUtils;
 
   # https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/by-name/cl/claude-code
   claude-code = import ./claude-code prev;
+
+  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/ge/gemini-cli-bin/package.nix
+  gemini = import ./gemini.nix prev;
 }
