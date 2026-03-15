@@ -13,5 +13,8 @@ with prev.vimUtils;
 
     # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/se/serie/package.nix
     serie = import ./serie.nix prev;
+
+    # https://github.com/NixOS/nixpkgs/tree/nixos-unstable/pkgs/by-name/cl/claude-code
+    claude-code = import ./claude-code prev;
   };
 }
