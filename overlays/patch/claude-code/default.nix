@@ -12,6 +12,7 @@
   bubblewrap,
   procps,
   socat,
+  ...
 }:
 buildNpmPackage (finalAttrs: {
   pname = "claude-code";
