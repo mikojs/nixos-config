@@ -5,8 +5,8 @@
   testers,
   gitMinimal,
   serie,
+  ...
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "serie";
   version = "0.6.1";
