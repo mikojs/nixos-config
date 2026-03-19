@@ -59,7 +59,7 @@ in
                 ## Alias
 
                 - `find_files`: Find all files included the dot files in current directory.
-                ${if length timezones <= 0 then "" else -"`times`: Show times in different timezones."}
+                ${if length timezones <= 0 then "" else "- `times`: Show times in different timezones."}
                 ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
               '';
             }

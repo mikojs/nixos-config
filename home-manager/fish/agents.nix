@@ -62,7 +62,7 @@ with builtins;
 
     function ac --description "ac <source> <target folder>"
       set -l source_path ~/.agents/$argv[1]
-      set -l target_path argv[2]
+      set -l target_path $argv[2]
 
       set -l file_name (string split '/' $source_path)[-1]
       set -l file_extension (string split '.' $file_name)[-1]
