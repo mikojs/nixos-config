@@ -58,7 +58,8 @@ in
 
                 ## Alias
 
-                - `times`: Show times in different timezones.
+                - `find_files`: Find all files included the dot files in current directory.
+                ${if length timezones <= 0 then "" else "- `times`: Show times in different timezones."}
                 ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
               '';
             }
@@ -129,6 +130,16 @@ in
         ''
           # Disable Greeting
           set fish_greeting
+
+          function find_files --description "Find all files included the dot files in current directory"
+            for file in $(ls -A $argv[1])
+              if test -d $argv[1]/$file
+                find_files $argv[1]/$file
+              else
+                echo $argv[1]/$file
+              end
+            end
+          end
 
           ${
             if length timezones <= 0 then
