@@ -131,8 +131,7 @@ in
           # Disable Greeting
           set fish_greeting
 
-          # Find all files included the dot files in current directory
-          function find_files
+          function find_files --description "Find all files included the dot files in current directory"
             for file in $(ls -A $argv[1])
               if test -d $argv[1]/$file
                 find_files $argv[1]/$file

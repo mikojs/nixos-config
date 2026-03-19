@@ -30,11 +30,21 @@ with builtins;
       end
 
       set -l root_dir $(realpath ~/.agents)
+      set -l folders
 
       for file_path in $(find_files ~/.agents)
         set -l relative_path (string replace "$root_dir/" "" $file_path)
+        set -l folder $(dirname $relative_path)
 
         complete -c ac -f -n "__fish_use_subcommand" -a $relative_path
+
+        if not contains $folder $folders
+          set -a folders $folder
+        end
+      end
+
+      for folder in $folders
+        complete -c ac -f -n "__fish_use_subcommand" -a $folder
       end
     end
 
@@ -63,6 +73,22 @@ with builtins;
     function ac --description "ac <source> <target folder>"
       set -l source_path ~/.agents/$argv[1]
       set -l target_path $argv[2]
+
+      if test -d $source_path
+        set -l root_dir $(realpath ~/.agents)
+
+        for file_path in $(find_files $source_path)
+          set -l relative_path (string replace "$root_dir/$argv[1]/" "" $file_path)
+          set -l folder $(dirname $relative_path)
+
+          if not test -d $target_path/$folder
+            mkdir -p $target_path/$folder
+          end
+
+          echo "copy: $argv[1]/$relative_path"
+          ac $argv[1]/$relative_path $target_path/$folder
+        end
+      end
 
       set -l file_name (string split '/' $source_path)[-1]
       set -l file_extension (string split '.' $file_name)[-1]
