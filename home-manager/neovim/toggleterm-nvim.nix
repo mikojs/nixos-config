@@ -16,13 +16,13 @@
 
         ## Keybindings
 
-        | Description                        | Key          |
-        | ---                               | ---          |
-        | Toggle terminal                   | `<leader>Tn` |
-        | Toggle vertical terminal          | `<leader>Tv` |
-        | Toggle horizontal terminal        | `<leader>Th` |
-        | Toggle tab terminal               | `<leader>Tt` |
-        | Send selection to terminal        | `<leader>st` |
+        | Description                            | Key          |
+        | ---                                    | ---          |
+        | Toggle terminal                        | `<leader>Tn` |
+        | Toggle vertical terminal               | `<leader>Tv` |
+        | Toggle horizontal terminal             | `<leader>Th` |
+        | Toggle tab terminal                    | `<leader>Tt` |
+        | Send selection to terminal             | `<leader>st` |
         | Send file ref (path:lines) to terminal | `<leader>sl` |
       '';
     }
