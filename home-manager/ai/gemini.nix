@@ -3,7 +3,6 @@
   miko,
   ...
 }:
-with builtins;
 {
   home = {
     file = miko.getDocs [
