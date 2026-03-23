@@ -51,24 +51,6 @@ function render_bar
     set_color normal
 end
 
-# --- Single line: left info + right-aligned progress bars ---
-# Build plain-text left string to measure visible width
-set -l left_plain "📁 $DIRNAME | 🤖 $MODEL"
-test -n "$VERSION"; and set left_plain "$left_plain v$VERSION"
-set left_plain "$left_plain | 🕐 $DURATION_FMT | "
-if test -n "$BRANCH"
-    set left_plain "$left_plain⎇  $BRANCH "
-end
-set left_plain "$left_plain+$LINES_ADD -$LINES_DEL"
-# 📁 🤖 🕐 are wide emojis (2 cols each), but string length counts 1 codepoint → +3
-set -l left_width (math (string length $left_plain) + 3)
-
-# Right side fixed visible width: 4+14+3+3+14+3+3+14 = 58
-set -l TERM_WIDTH (tput cols; or echo 80)
-set -l pad (math $TERM_WIDTH - $left_width - 58)
-test $pad -lt 1; and set pad 1
-
-# Print left
 set_color blue;   printf "📁 %s" $DIRNAME
 set_color normal; printf " | "
 set_color cyan;   printf "🤖 %s" $MODEL
@@ -86,11 +68,7 @@ end
 set_color green;  printf "+%d" $LINES_ADD
 set_color normal; printf " "
 set_color red;    printf "-%d" $LINES_DEL
-
-# Padding to push bars right
-printf "%*s" $pad ""
-
-# Print bars
+set_color normal; printf " | "
 set_color blue;   printf "CTX "
 render_bar (math -s0 $PCT_CTX)
 set_color normal; printf "   "
