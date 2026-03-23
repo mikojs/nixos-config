@@ -6,7 +6,7 @@ with builtins;
 {
   fish-alias = [
     "- `aa`: Run the agent in the agent folder."
-    "- `ac`: Copy the agent file to the target folder."
+    "- `aac`: Copy the agent file to the target folder."
   ];
 
   programs.fish.interactiveShellInit = ''
@@ -36,7 +36,7 @@ with builtins;
         set -l relative_path (string replace "$root_dir/" "" $file_path)
         set -l folder $(dirname $relative_path)
 
-        complete -c ac -f -n "__fish_use_subcommand" -a $relative_path
+        complete -c aac -f -n "__fish_use_subcommand" -a $relative_path
 
         if not contains $folder $folders
           set -a folders $folder
@@ -44,7 +44,7 @@ with builtins;
       end
 
       for folder in $folders
-        complete -c ac -f -n "__fish_use_subcommand" -a $folder
+        complete -c aac -f -n "__fish_use_subcommand" -a $folder
       end
     end
 
@@ -70,7 +70,7 @@ with builtins;
       cd $current
     end
 
-    function ac --description "ac <source> <target folder>"
+    function aac --description "aac <source> <target folder>"
       set -l source_path ~/.agents/$argv[1]
       set -l target_path $argv[2]
 
@@ -86,7 +86,7 @@ with builtins;
           end
 
           echo "copy: $argv[1]/$relative_path"
-          ac $argv[1]/$relative_path $target_path/$folder
+          aac $argv[1]/$relative_path $target_path/$folder
         end
       end
 

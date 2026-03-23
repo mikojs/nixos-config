@@ -23,13 +23,10 @@ with builtins;
         ".claude/settings.json".text = toJSON {
           "statusLine" = {
             "type" = "command";
-            "command" = "~/.claude/claude-statusline.fish";
+            "command" = "fish ~/.claude/claude-statusline.fish";
           };
         };
-        ".claude/claude-statusline.fish" = {
-          text = (readFile ./claude-statusline.fish);
-          executable = true;
-        };
+        ".claude/claude-statusline.fish".text = (readFile ./claude-statusline.fish);
       };
 
     packages = with pkgs; [
