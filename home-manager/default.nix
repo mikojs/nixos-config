@@ -82,6 +82,7 @@ with builtins;
               ./gh.nix
               ./jless.nix
               ./jq.nix
+              ./mermaid.nix
               ./oxker.nix
               ./somo.nix
               ./tabiew.nix
