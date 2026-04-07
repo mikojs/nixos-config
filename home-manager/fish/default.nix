@@ -1,8 +1,4 @@
 {
-  ai,
-  ...
-}:
-{
   lib,
   pkgs,
   miko,
@@ -23,7 +19,6 @@ let
           ./nord.nix
           ./tide.nix
         ]
-        ++ (optionals (lists.length ai > 0) [ ./agents.nix ])
         ++ (optionals isMac [ ./mac.nix ])
       )
       {
@@ -33,7 +28,6 @@ let
           miko
           n8n
           timezones
-          ai
           ;
       };
 in

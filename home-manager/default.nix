@@ -87,7 +87,7 @@ with builtins;
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
-              (import ./fish user)
+              ./fish
               (import ./tmux.nix user)
               (import ./git.nix user)
               (import ./neovim user)
