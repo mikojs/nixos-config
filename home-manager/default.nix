@@ -79,6 +79,7 @@ with builtins;
             ++ [
               ./bottom.nix
               ./fastfetch.nix
+              ./fish
               ./gh.nix
               ./jless.nix
               ./jq.nix
@@ -87,11 +88,10 @@ with builtins;
               ./somo.nix
               ./tabiew.nix
               ./tree.nix
-              ./fish
-              (import ./tmux.nix user)
+              (import ./ai user)
               (import ./git.nix user)
               (import ./neovim user)
-              (import ./ai user)
+              (import ./tmux.nix user)
             ]
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
