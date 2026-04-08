@@ -5,6 +5,7 @@ with prev.vimUtils;
   vimPlugins = vimPlugins // {
     sqls-nvim = import ./sqls-nvim.nix prev;
     vim-rzip = import ./vim-rzip.nix prev;
+    smux = import ./smux.nix prev;
 
     # FIXME: those are in unstable nixpkgs
 
