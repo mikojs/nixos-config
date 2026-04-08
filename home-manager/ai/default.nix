@@ -33,6 +33,10 @@ else
             "home"
             "packages"
           ]
-          [ ];
+          [ pkgs.smux ];
     };
+
+    programs.tmux.extraConfig = ''
+      ${builtins.readFile pkgs.smux.configPath}
+    '';
   }
