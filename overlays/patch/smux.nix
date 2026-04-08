@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.configPath = "${finalAttrs.finalPackage}/share/smux/tmux.conf";
+  passthru.config = "source-file ${finalAttrs.finalPackage}/share/smux/tmux.conf";
 
   meta = {
     description = "tmux config with built-in terminal automation and agent-to-agent communication";

@@ -37,6 +37,6 @@ else
     };
 
     programs.tmux.extraConfig = ''
-      ${readFile pkgs.smux.configPath}
+      ${pkgs.smux.config}
     '';
   }
