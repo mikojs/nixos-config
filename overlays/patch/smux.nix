@@ -22,11 +22,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     install -Dm755 scripts/tmux-bridge $out/bin/tmux-bridge
     install -Dm644 .tmux.conf $out/share/smux/tmux.conf
+    cp -r skills/smux $out/share/smux/skills
 
     runHook postInstall
   '';
 
-  passthru.config = "source-file ${finalAttrs.finalPackage}/share/smux/tmux.conf";
+  passthru = {
+    config = "source-file ${finalAttrs.finalPackage}/share/smux/tmux.conf";
+    skillDir = "${finalAttrs.finalPackage}/share/smux/skills";
+  };
 
   meta = {
     description = "tmux config with built-in terminal automation and agent-to-agent communication";

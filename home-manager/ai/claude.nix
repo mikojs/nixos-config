@@ -20,6 +20,7 @@ with builtins;
         }
       ]
       // {
+        ".claude/skills/smux".source = pkgs.smux.skillDir;
         ".claude/settings.json".text = toJSON {
           "statusLine" = {
             "type" = "command";
