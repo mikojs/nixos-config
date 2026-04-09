@@ -12,6 +12,8 @@ with prev.vimUtils;
     nvim-lspconfig = import ./nvim-lspconfig.nix prev;
   };
 
+  # FIXME: those are in unstable nixpkgs
+
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/se/serie/package.nix
   serie = import ./serie.nix prev;
 
