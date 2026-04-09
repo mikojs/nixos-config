@@ -22,10 +22,26 @@ if !useAI then
 else
   {
     home = {
-      file = getConfig [
-        "home"
-        "file"
-      ] { };
+      file =
+        getConfig
+          [
+            "home"
+            "file"
+          ]
+          (
+            miko.getDocs [
+              {
+                filePath = "smux";
+                docs = ''
+                  # Smux
+
+                  Tmux config with built-in terminal automation and agent-to-agent communication
+
+                  [Repository](https://github.com/ShawnPana/smux)
+                '';
+              }
+            ]
+          );
 
       packages =
         getConfig
@@ -33,6 +49,10 @@ else
             "home"
             "packages"
           ]
-          [ ];
+          [ pkgs.smux ];
     };
+
+    programs.tmux.extraConfig = ''
+      ${pkgs.smux.config}
+    '';
   }
