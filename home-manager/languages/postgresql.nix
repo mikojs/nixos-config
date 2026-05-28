@@ -35,6 +35,8 @@ in
       ++ db.home.packages;
   };
 
+  programs.fish.interactiveShellInit = db.programs.fish.interactiveShellInit;
+
   xdg.configFile."pgcli/config".text = ''
     [main]
     use_local_timezone = False
