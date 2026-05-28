@@ -42,5 +42,12 @@ with pkgs;
     ];
   };
 
-  programs.fish.interactiveShellInit = miko-fish.interactiveShellInit;
+  programs.fish.interactiveShellInit = ''
+    ${miko-fish.interactiveShellInit}
+
+    # coder
+    if type -q coder
+      coder --generate fish | source
+    end
+  '';
 }
