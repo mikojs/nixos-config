@@ -34,4 +34,6 @@ in
       ]
       ++ db.home.packages;
   };
+
+  programs.fish.interactiveShellInit = db.programs.fish.interactiveShellInit;
 }

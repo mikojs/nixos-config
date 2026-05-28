@@ -23,4 +23,11 @@
       miko-db
     ];
   };
+
+  programs.fish.interactiveShellInit = ''
+    # db
+    if type -q db
+      db --generate fish | source
+    end
+  '';
 }
