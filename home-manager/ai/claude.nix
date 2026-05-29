@@ -30,7 +30,7 @@ with builtins;
       };
 
     packages = with pkgs; [
-      claude-code-bin
+      claude-code
     ];
   };
 }
