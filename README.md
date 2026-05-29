@@ -106,3 +106,48 @@ Common database packages, plugins and configurations are provided in the `db` fi
 - [language configuration](./home-manager/languages/db.nix)
 - [nvim-cmp configuration](./home-manager/neovim/nvim-cmp/db.nix)
 - [conform.nvim configuration](./home-manager/neovim/conform-nvim/db.nix)
+
+## Upgrade
+
+### Routine upgrade
+
+Each package under `overlays/patch/` mirrors its counterpart in nixpkgs unstable.
+To upgrade, find the package in [nixpkgs unstable](https://github.com/NixOS/nixpkgs/tree/nixos-unstable) and copy the updated code into the corresponding patch file.
+
+The upstream source path for each patch is noted as a comment in `overlays/patch/default.nix`.
+
+### NixOS pkgs major version upgrade
+
+When a new NixOS stable release is published (e.g. 25.05 → 25.11), all related dependencies need to be updated in sync.
+
+1. **Update the version strings in `flake.nix`**
+
+   Replace the version in all three inputs (using `25.11` as an example):
+
+   ```nix
+   nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+   nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+   home-manager.url = "github:nix-community/home-manager/release-25.11";
+   ```
+
+2. **Update `stateVersion` in `mkSystem.nix`**
+
+   ```nix
+   stateVersion = "25.11";
+   ```
+
+3. **Update the lock file and apply the configuration**
+
+   ```bash
+   nix flake update
+   ```
+
+4. **Remove patches in `overlays/patch/` that are no longer needed**
+
+   After a major upgrade, some patches may have landed in the new nixpkgs.
+   Once confirmed, remove the corresponding patch files together with their entries in `overlays/patch/default.nix`.
+
+5. **Handle breaking API changes**
+
+   The new nixpkgs or upstream packages may introduce breaking changes.
+   Check the build log carefully after running `nixos-rebuild switch` and fix issues one by one.
