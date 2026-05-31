@@ -150,7 +150,7 @@ in
       set foldminlines=1
     '';
 
-    extraLuaConfig = with lib; ''
+    initLua = with lib; ''
       -- Clipboard
       if ${boolToString isWSL} or os.getenv("SSH_CONNECTION") then
         local function paste()

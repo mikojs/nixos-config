@@ -4,7 +4,7 @@
 }:
 {
   packages = with pkgs; [
-    nixfmt-rfc-style
+    nixfmt
   ];
 
   formatter = ''nix = { "nixfmt" },'';
