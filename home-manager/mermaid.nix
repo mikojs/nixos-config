@@ -19,7 +19,7 @@
     ];
 
     packages = with pkgs; [
-      nodePackages.mermaid-cli
+      mermaid-cli
     ];
   };
 }
