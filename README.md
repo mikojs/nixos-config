@@ -122,18 +122,18 @@ When a new NixOS stable release is published (e.g. 25.05 → 25.11), all related
 
 1. **Update the version strings in `flake.nix`**
 
-   Replace the version in all three inputs (using `26.05` as an example):
+   Replace the version in all three inputs (using `25.11` as an example):
 
    ```nix
-   nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-   nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
-   home-manager.url = "github:nix-community/home-manager/release-26.05";
+   nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+   nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+   home-manager.url = "github:nix-community/home-manager/release-25.11";
    ```
 
 2. **Update `stateVersion` in `mkSystem.nix`**
 
    ```nix
-   stateVersion = "26.05";
+   stateVersion = "25.11";
    ```
 
 3. **Update the lock file and apply the configuration**
