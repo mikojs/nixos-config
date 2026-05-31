@@ -81,11 +81,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780233740,
-        "narHash": "sha256-2v/tQ0o8mnOiMSWHq6e4UHViz35VWXCFmYh+k3lGZGs=",
+        "lastModified": 1780251036,
+        "narHash": "sha256-NVQ0PlGNU9dvL18PtgQJXa8DsoICHwOtrOsurJKKcAs=",
         "owner": "mikojs",
         "repo": "coder",
-        "rev": "5d5587ad26152a867f5089d81405e9d5e49c8a5c",
+        "rev": "76c35fba03c3ace0d79058f856f17772cf1c383f",
         "type": "github"
       },
       "original": {
@@ -102,11 +102,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780234258,
-        "narHash": "sha256-QFGu9IcXhkswt9Uum18/OG/hQNM6K+GPXwxOLl1D2fE=",
+        "lastModified": 1780251173,
+        "narHash": "sha256-br2fFSioutxmZJL482bZat0TD0o98Dz2eZqdPkt87Uo=",
         "owner": "mikojs",
         "repo": "db",
-        "rev": "56df22f959b4aafc9f01e5ee39a1671266972dba",
+        "rev": "d0297469bacd59722c764afe9b814c216fd21acd",
         "type": "github"
       },
       "original": {
