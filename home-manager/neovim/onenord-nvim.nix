@@ -20,8 +20,9 @@
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
       plugin = onenord-nvim;
+      type = "lua";
       config = ''
-        colorscheme onenord
+	require('onenord').setup()
       '';
     }
   ];
