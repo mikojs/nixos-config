@@ -96,12 +96,15 @@ in
         );
 
     packages =
+      with pkgs.tree-sitter-grammars;
       getConfig
         [
           "home"
           "packages"
         ]
-        [ ];
+        [
+          tree-sitter-nix
+        ];
   };
 
   xdg.configFile = getConfig [
@@ -189,33 +192,6 @@ in
           desc = "Toggle diagnostics virtual lines"
         },
       })
-
-      -- treesitter
-      ${concatStringsSep "\n" (
-        with pkgs.tree-sitter-grammars;
-        foldl' (
-          result: l:
-          if l.language == "nodejs" then
-            result
-            ++ [
-              "vim.treesitter.language.add('javascript', { path = '${tree-sitter-javascript}' })"
-              "vim.treesitter.language.add('typescript', { path = '${tree-sitter-typescript}' })"
-              "vim.treesitter.language.add('tsx', { path = '${tree-sitter-tsx}' })"
-            ]
-          else if l.language == "postgresql" || l.language == "sqlite" then
-            result
-            ++ [
-              "vim.treesitter.language.add('sql', { path = '${tree-sitter-sql}' })"
-            ]
-          else
-            result
-            ++ [
-              "vim.treesitter.language.add('${l.language}', { path = '${
-                pkgs.tree-sitter-grammars."tree-sitter-${l.language}"
-              }' })"
-            ]
-        ) [ ] languages
-      )}
     '';
   };
 }
