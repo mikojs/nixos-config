@@ -22,7 +22,7 @@
       plugin = onenord-nvim;
       type = "lua";
       config = ''
-	require('onenord').setup()
+        require('onenord').setup()
       '';
     }
   ];
