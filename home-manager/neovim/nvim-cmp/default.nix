@@ -104,7 +104,6 @@ in
               { name = "nvim_lsp" },
               { name = "vsnip" },
               { name = "path" },
-              { name = "nvim_treesitter" },
             }, {
               { name = "buffer" },
             }),

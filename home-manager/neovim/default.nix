@@ -53,6 +53,44 @@ let
           languages
           ;
       };
+
+  tsLanguages = foldl' (
+    result: l:
+    if l.language == "nodejs" then
+      result
+      ++ [
+        "javascript"
+        "typescript"
+        "tsx"
+      ]
+    else if l.language == "postgresql" || l.language == "sqlite" then
+      result ++ [ "sql" ]
+    else
+      result ++ [ "${l.language}" ]
+  ) [ ] languages;
+
+  mkNativeTs = lang: [
+    (pkgs.runCommand "${lang}-parser" { } ''
+      mkdir -p $out/parser
+
+      if [ -f "${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/parser" ]; then
+        ln -s ${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/parser $out/parser/${lang}.so
+      fi
+    '')
+
+    (pkgs.runCommand "${lang}-queries" { } ''
+      mkdir -p $out/queries/${lang}
+
+      if [ -d "${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/queries" ]; then
+        ln -s ${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/queries/* $out/queries/${lang}/
+      fi
+    '')
+  ];
+
+  nativeTsGrammars = pkgs.symlinkJoin {
+    name = "neovim-native-ts-${concatStringsSep "-" tsLanguages}-grammars";
+    paths = builtins.concatMap mkNativeTs tsLanguages;
+  };
 in
 {
   home = {
@@ -96,15 +134,12 @@ in
         );
 
     packages =
-      with pkgs.tree-sitter-grammars;
       getConfig
         [
           "home"
           "packages"
         ]
-        [
-          tree-sitter-nix
-        ];
+        [ ];
   };
 
   xdg.configFile = getConfig [
@@ -123,6 +158,8 @@ in
           "plugins"
         ]
         [ ];
+
+    extraPackages = [ nativeTsGrammars ];
 
     extraConfig = ''
       set encoding=utf-8
@@ -191,6 +228,15 @@ in
           function() vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines }) end,
           desc = "Toggle diagnostics virtual lines"
         },
+      })
+
+      -- Tree-sitter
+      vim.opt.runtimepath:append("${nativeTsGrammars}")
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { ${concatStringsSep ", " (map (l: "'${l}'") tsLanguages)} },
+        callback = function(args)
+          pcall(vim.treesitter.start, args.buf)
+        end,
       })
     '';
   };
