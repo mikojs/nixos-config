@@ -189,6 +189,28 @@ in
           desc = "Toggle diagnostics virtual lines"
         },
       })
+
+      -- treesitter
+      ${concatStringsSep "\n" (
+        with pkgs.tree-sitter-grammars;
+        fold' (
+          result: l:
+          if l.language == "nodejs" then
+            result
+            ++ [
+              tree-sitter-javascript
+              tree-sitter-typescript
+              tree-sitter-tsx
+            ]
+          else if l.language == "postgresql" || l.language == "sqlite" then
+            result
+            ++ [
+              tree-sitter-sql
+            ]
+          else
+            result ++ [ p."${l.language}" ]
+        ) [ ] languages
+      )}
     '';
   };
 }
