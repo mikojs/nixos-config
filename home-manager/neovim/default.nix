@@ -201,7 +201,7 @@ in
       require("which-key").add({
         {
           "<leader>dt",
-
+          function() vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines }) end,
           desc = "Toggle diagnostics virtual lines"
         },
       })
