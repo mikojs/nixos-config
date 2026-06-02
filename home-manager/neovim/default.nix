@@ -54,7 +54,7 @@ let
           ;
       };
 
-  tsLanguages =
+  treesitterLanguages =
     with pkgs.tree-sitter-grammars;
     foldl' (
       result: l:
@@ -71,7 +71,7 @@ let
         result ++ [ pkgs.tree-sitter-grammars."tree-sitter-${l.language}" ]
     ) [ ] languages;
 
-  treesitterPlugins = map pkgs.neovimUtils.grammarToPlugin tsLanguages;
+  treesitterPlugins = map pkgs.neovimUtils.grammarToPlugin treesitterLanguages;
 in
 {
   home = {
@@ -208,7 +208,7 @@ in
 
       -- Tree-sitter
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { ${concatStringsSep ", " (map (l: "'${l}'") tsLanguages)} },
+        pattern = { ${concatStringsSep ", " (map (l: "'${l}'") treesitterLanguages)} },
         callback = function(args)
           pcall(vim.treesitter.start, args.buf)
         end,
