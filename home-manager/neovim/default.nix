@@ -205,14 +205,6 @@ in
           desc = "Toggle diagnostics virtual lines"
         },
       })
-
-      -- Tree-sitter
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { ${concatStringsSep ", " (map (l: "'${l}'") treesitterLanguages)} },
-        callback = function(args)
-          pcall(vim.treesitter.start, args.buf)
-        end,
-      })
     '';
   };
 }
