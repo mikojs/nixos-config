@@ -54,43 +54,24 @@ let
           ;
       };
 
-  tsLanguages = foldl' (
-    result: l:
-    if l.language == "nodejs" then
-      result
-      ++ [
-        "javascript"
-        "typescript"
-        "tsx"
-      ]
-    else if l.language == "postgresql" || l.language == "sqlite" then
-      result ++ [ "sql" ]
-    else
-      result ++ [ "${l.language}" ]
-  ) [ ] languages;
+  tsLanguages =
+    with pkgs.tree-sitter-grammars;
+    foldl' (
+      result: l:
+      if l.language == "nodejs" then
+        result
+        ++ [
+          tree-sitter-javascript
+          tree-sitter-typescript
+          tree-sitter-tsx
+        ]
+      else if l.language == "postgresql" || l.language == "sqlite" then
+        result ++ [ tree-sitter-sql ]
+      else
+        result ++ [ pkgs.tree-sitter-grammars."tree-sitter-${l.language}" ]
+    ) [ ] languages;
 
-  mkNativeTs = lang: [
-    (pkgs.runCommand "${lang}-parser" { } ''
-      mkdir -p $out/parser
-
-      if [ -f "${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/parser" ]; then
-        ln -s ${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/parser $out/parser/${lang}.so
-      fi
-    '')
-
-    (pkgs.runCommand "${lang}-queries" { } ''
-      mkdir -p $out/queries/${lang}
-
-      if [ -d "${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/queries" ]; then
-        ln -s ${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/queries/* $out/queries/${lang}/
-      fi
-    '')
-  ];
-
-  nativeTsGrammars = pkgs.symlinkJoin {
-    name = "neovim-native-ts-${concatStringsSep "-" tsLanguages}-grammars";
-    paths = builtins.concatMap mkNativeTs tsLanguages;
-  };
+  treesitterPlugins = map pkgs.neovimUtils.grammarToPlugin tsLanguages;
 in
 {
   home = {
@@ -150,16 +131,11 @@ in
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    plugins =
-      getConfig
-        [
-          "programs"
-          "neovim"
-          "plugins"
-        ]
-        [ ];
-
-    extraPackages = [ nativeTsGrammars ];
+    plugins = getConfig [
+      "programs"
+      "neovim"
+      "plugins"
+    ] treesitterPlugins;
 
     extraConfig = ''
       set encoding=utf-8
@@ -225,13 +201,12 @@ in
       require("which-key").add({
         {
           "<leader>dt",
-          function() vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines }) end,
+
           desc = "Toggle diagnostics virtual lines"
         },
       })
 
       -- Tree-sitter
-      vim.opt.runtimepath:append("${nativeTsGrammars}")
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { ${concatStringsSep ", " (map (l: "'${l}'") tsLanguages)} },
         callback = function(args)
