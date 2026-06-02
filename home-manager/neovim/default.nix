@@ -54,24 +54,24 @@ let
           ;
       };
 
-  treesitterPlugins =
+  tsLanguages =
     with pkgs.tree-sitter-grammars;
-    map pkgs.neovimUtils.grammarToPlugin (
-      foldl' (
-        result: l:
-        if l.language == "nodejs" then
-          result
-          ++ [
-            tree-sitter-javascript
-            tree-sitter-typescript
-            tree-sitter-tsx
-          ]
-        else if l.language == "postgresql" || l.language == "sqlite" then
-          result ++ [ tree-sitter-sql ]
-        else
-          result ++ [ pkgs.tree-sitter-grammars."tree-sitter-${l.language}" ]
-      ) [ ] languages
-    );
+    foldl' (
+      result: l:
+      if l.language == "nodejs" then
+        result
+        ++ [
+          tree-sitter-javascript
+          tree-sitter-typescript
+          tree-sitter-tsx
+        ]
+      else if l.language == "postgresql" || l.language == "sqlite" then
+        result ++ [ tree-sitter-sql ]
+      else
+        result ++ [ pkgs.tree-sitter-grammars."tree-sitter-${l.language}" ]
+    ) [ ] languages;
+
+  treesitterPlugins = map pkgs.neovimUtils.grammarToPlugin tsLanguages;
 in
 {
   home = {
