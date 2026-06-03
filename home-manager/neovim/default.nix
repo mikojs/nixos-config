@@ -54,24 +54,53 @@ let
           ;
       };
 
-  treesitterPlugins =
-    with pkgs.tree-sitter-grammars;
-    map pkgs.neovimUtils.grammarToPlugin (
-      foldl' (
-        result: l:
-        if l.language == "nodejs" then
-          result
-          ++ [
-            tree-sitter-javascript
-            tree-sitter-typescript
-            tree-sitter-tsx
-          ]
-        else if l.language == "postgresql" || l.language == "sqlite" then
-          result ++ [ tree-sitter-sql ]
-        else
-          result ++ [ pkgs.tree-sitter-grammars."tree-sitter-${l.language}" ]
-      ) [ ] languages
-    );
+  # FIXME: https://github.com/nix-community/nixvim/discussions/4304
+  treesitterPlugins = pkgs.vimUtils.buildVimPlugin {
+    name = "treesitter-plugins";
+
+    doCheck = false;
+
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-treesitter";
+      repo = "nvim-treesitter";
+      rev = "main";
+      sha256 = "sha256-PQR6tFt4lCrAZNQG7BLMD1IiCKja9wDS1S4laGJf/HE=";
+    };
+
+    postInstall = ''
+      rm -rf $out/*
+      rm -rf $out/.* 2>/dev/null || true
+
+      mkdir -p $out/parser
+      mkdir -p $out/queries
+
+      ${pkgs.lib.concatMapStringsSep "\n"
+        (lang: ''
+          ln -s ${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/parser $out/parser/${lang}.so
+
+          if [ -d "runtime/queries/${lang}" ]; then
+            cp -r "runtime/queries/${lang}" $out/queries/${lang}
+          fi
+        '')
+        (
+          foldl' (
+            result: l:
+            if l.language == "nodejs" then
+              result
+              ++ [
+                "javascript"
+                "typescript"
+                "tsx"
+              ]
+            else if l.language == "postgresql" || l.language == "sqlite" then
+              result ++ [ "sql" ]
+            else
+              result ++ [ l.language ]
+          ) [ ] languages
+        )
+      }
+    '';
+  };
 in
 {
   home = {
@@ -131,11 +160,14 @@ in
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    plugins = getConfig [
-      "programs"
-      "neovim"
-      "plugins"
-    ] treesitterPlugins;
+    plugins =
+      getConfig
+        [
+          "programs"
+          "neovim"
+          "plugins"
+        ]
+        [ treesitterPlugins ];
 
     extraConfig = ''
       set encoding=utf-8
