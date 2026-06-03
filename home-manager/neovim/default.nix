@@ -21,7 +21,6 @@ let
           # UI
           ./lualine-nvim.nix
           # Lsp
-          ./nvim-treesitter.nix
           ./nvim-cmp
           # Editor
           ./vim-rzip.nix
@@ -54,6 +53,54 @@ let
           languages
           ;
       };
+
+  # FIXME: https://github.com/nix-community/nixvim/discussions/4304
+  treesitterPlugins = pkgs.vimUtils.buildVimPlugin {
+    name = "treesitter-plugins";
+
+    doCheck = false;
+
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-treesitter";
+      repo = "nvim-treesitter";
+      rev = "main";
+      sha256 = "sha256-PQR6tFt4lCrAZNQG7BLMD1IiCKja9wDS1S4laGJf/HE=";
+    };
+
+    postInstall = ''
+      rm -rf $out/*
+      rm -rf $out/.* 2>/dev/null || true
+
+      mkdir -p $out/parser
+      mkdir -p $out/queries
+
+      ${pkgs.lib.concatMapStringsSep "\n"
+        (lang: ''
+          ln -s ${pkgs.tree-sitter-grammars."tree-sitter-${lang}"}/parser $out/parser/${lang}.so
+
+          if [ -d "runtime/queries/${lang}" ]; then
+            cp -r "runtime/queries/${lang}" $out/queries/${lang}
+          fi
+        '')
+        (
+          foldl' (
+            result: l:
+            if l.language == "nodejs" then
+              result
+              ++ [
+                "javascript"
+                "typescript"
+                "tsx"
+              ]
+            else if l.language == "postgresql" || l.language == "sqlite" then
+              result ++ [ "sql" ]
+            else
+              result ++ [ l.language ]
+          ) [ ] languages
+        )
+      }
+    '';
+  };
 in
 {
   home = {
@@ -120,7 +167,7 @@ in
           "neovim"
           "plugins"
         ]
-        [ ];
+        [ treesitterPlugins ];
 
     extraConfig = ''
       set encoding=utf-8
@@ -141,13 +188,6 @@ in
 
       " disable compatibility
       set nocompatible
-
-      " fold
-      set foldmethod=expr
-      set foldexpr=nvim_treesitter#foldexpr()
-      set foldtext=getline(v:foldstart).'...'.trim(getline(v:foldend))
-      set foldnestmax=3
-      set foldminlines=1
     '';
 
     initLua = with lib; ''
@@ -197,6 +237,11 @@ in
           desc = "Toggle diagnostics virtual lines"
         },
       })
+
+      -- fold
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.o.foldlevel = 99
     '';
   };
 }
