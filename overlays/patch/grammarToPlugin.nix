@@ -16,14 +16,11 @@ let
   };
 in
 drv.overrideAttrs (oldAttrs: {
-  postInstall = (oldAttrs.postInstall or "") + ''
-    if [ -f "${tsQueries}/runtime/queries/${lang}/folds.scm" ]; then
-      mkdir -p $out/queries/${lang}
-      cp "${tsQueries}/runtime/queries/${lang}/folds.scm" $out/queries/${lang}/folds.scm
-    fi
-
-    if [ -f "$out/queries/${lang}/highlights.scm" ]; then
-      sed -i '/(#is-not? local)/d' "$out/queries/${lang}/highlights.scm"
+  postPhases = (oldAttrs.postPhases or [ ]) ++ [ "overrideNvimQueries" ];
+  overrideNvimQueries = ''
+    if [ -d "${tsQueries}/runtime/queries/${lang}" ]; then
+      rm -rf $out/queries/${lang}
+      cp -r "${tsQueries}/runtime/queries/${lang}" $out/queries/${lang}
     fi
   '';
 })
