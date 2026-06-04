@@ -114,6 +114,12 @@ in
 
   programs.fish = with builtins; {
     enable = true;
+
+    # FIXME: https://github.com/IlanCosman/tide/pull/626
+    shellInit = ''
+      set fish_key_bindings fish_default_key_bindings
+    '';
+
     interactiveShellInit =
       getConfig
         [
