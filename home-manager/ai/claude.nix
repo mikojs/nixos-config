@@ -2,15 +2,11 @@
   lib,
   pkgs,
   miko,
-  ai,
-  rtkInitFiles,
+  aiInitFiles,
   ...
 }:
 with lib;
 with builtins;
-let
-  claude = lists.findFirst (x: x.name == "claude") null ai;
-in
 {
   home = {
     file =
@@ -27,21 +23,10 @@ in
         }
       ]
       // {
-        ".claude/settings.json".text = toJSON (
-          {
-            "statusLine" = {
-              "type" = "command";
-              "command" = "fish ~/.claude/claude-statusline.fish";
-            };
-          }
-          // fromJSON (readFile "${rtkInitFiles}/.claude/settings.json")
-        );
-        ".claude/claude-statusline.fish".text = readFile ./claude-statusline.fish;
-        ".claude/RTK.md".text = readFile "${rtkInitFiles}/.claude/RTK.md";
-        ".claude/CLAUDE.md".text = ''
-          ${if hasAttr "claudeMD" claude then claude.claudeMD else ""}
-          ${readFile "${rtkInitFiles}/.claude/CLAUDE.md"}
-        '';
+        ".claude/settings.json".source = "${aiInitFiles}/.claude/settings.json";
+        ".claude/claude-statusline.fish".source = ./claude-statusline.fish;
+        ".claude/RTK.md".source = "${aiInitFiles}/.claude/RTK.md";
+        ".claude/CLAUDE.md".source = "${aiInitFiles}/.claude/CLAUDE.md";
       };
 
     packages = with pkgs; [

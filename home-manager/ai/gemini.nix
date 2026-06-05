@@ -2,15 +2,11 @@
   lib,
   pkgs,
   miko,
-  ai,
-  rtkInitFiles,
+  aiInitFiles,
   ...
 }:
 with lib;
 with builtins;
-let
-  gemini = lists.findFirst (x: x.name == "gemini") null ai;
-in
 {
   home = {
     file =
@@ -27,13 +23,9 @@ in
         }
       ]
       // {
-        ".gemini/hooks/.rtk-hook.sha256".text = readFile "${rtkInitFiles}/.gemini/hooks/.rtk-hook.sha256";
-        ".gemini/hooks/rtk-hook-gemini.sh".text =
-          readFile "${rtkInitFiles}/.gemini/hooks/rtk-hook-gemini.sh";
-        ".gemini/GEMINI.md".text = ''
-          ${if hasAttr "geminiMD" gemini then gemini.geminiMD else ""}
-          ${readFile "${rtkInitFiles}/.gemini/GEMINI.md"}
-        '';
+        ".gemini/hooks/.rtk-hook.sha256".source = "${aiInitFiles}/.gemini/hooks/.rtk-hook.sha256";
+        ".gemini/hooks/rtk-hook-gemini.sh".source = "${aiInitFiles}/.gemini/hooks/rtk-hook-gemini.sh";
+        ".gemini/GEMINI.md".source = "${aiInitFiles}/.gemini/GEMINI.md";
       };
 
     packages = with pkgs; [
@@ -47,7 +39,7 @@ in
       echo '{}' > ~/.gemini/settings.json
     end
 
-    jq '. * ${readFile "${rtkInitFiles}/.gemini/settings.json"}' ~/.gemini/settings.json > /tmp/gemini.json
+    jq -s add ${aiInitFiles}/.gemini/settings.json ~/.gemini/settings.json > /tmp/gemini.json
     cp /tmp/gemini.json ~/.gemini/settings.json
   ";
 }

@@ -13,8 +13,8 @@ with lib;
 with builtins;
 let
   useAI = lists.length ai > 0;
-  rtkInitFiles =
-    pkgs.runCommand "rtk-init-files"
+  aiInitFiles =
+    pkgs.runCommand "ai-init-files"
       {
         nativeBuildInputs = [ pkgs.rtk ];
       }
@@ -23,7 +23,33 @@ let
         ${concatStringsSep "\n" (
           map (a: ''
             mkdir -p $HOME/.${a.name}
-            ${if a.name == "gemini" then "rtk init -g --auto-patch --gemini" else "rtk init -g --auto-patch"}
+
+            ${
+              if hasAttr "${a.name}MD" a then
+                "echo ${a."${a.name}MD"} > $HOME/.${a.name}/${toUpper a.name}.md"
+              else
+                ""
+            }
+
+            ${
+              if a.name == "gemini" then
+                "rtk init -g --auto-patch --gemini"
+              else if a.name == "claude" then
+                ''
+                  echo '${
+                    toJSON ({
+                      "statusLine" = {
+                        "type" = "command";
+                        "command" = "fish ~/.claude/claude-statusline.fish";
+                      };
+                    })
+                  }' > $HOME/.claude/settings.json
+                  rtk init -g --auto-patch
+                  rm $HOME/.claude/settings.json.bak
+                ''
+              else
+                ""
+            }
           '') ai
         )}
       '';
@@ -32,8 +58,7 @@ let
       lib
       pkgs
       miko
-      ai
-      rtkInitFiles
+      aiInitFiles
       ;
   };
 in
@@ -79,8 +104,9 @@ else
         "interactiveShellInit"
       ] ""}
 
-      for storePath in (find ${rtkInitFiles} -type f)
-        set -l relPath (string replace -- "${rtkInitFiles}" "$HOME" $storePath)
+      # check rtk files
+      for storePath in (find ${aiInitFiles} -type f)
+        set -l relPath (string replace -- "${aiInitFiles}" "$HOME" $storePath)
 
         if string match -q "*/.config/rtk/filters.toml" $relPath
           continue
