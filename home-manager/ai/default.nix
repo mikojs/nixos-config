@@ -76,6 +76,10 @@ else
 
         if not test -e $relPath
           echo "⚠ RTK: $relPath missing, run home-manager switch"
+        else if string match -q "*/settings.json" $relPath
+          if not jq -e '[.. | strings | select(contains("rtk"))] | any' $relPath > /dev/null 2>&1
+            echo "⚠ RTK: $relPath exists but rtk hook is missing"
+          end
         end
       end
     '';
