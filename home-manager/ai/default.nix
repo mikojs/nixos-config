@@ -27,14 +27,29 @@ let
 
             ${
               if hasAttr "${a.name}MD" a then
-                "echo ${a."${a.name}MD"} > $HOME/.${a.name}/${toUpper a.name}.md"
+                ''echo "${a."${a.name}MD"}" > $HOME/.${a.name}/${toUpper a.name}.md''
               else
                 ""
             }
 
             ${
               if a.name == "gemini" then
-                "rtk init -g --auto-patch --gemini"
+                ''
+                  rtk init -g --auto-patch --gemini
+
+                  # FIXME: https://github.com/rtk-ai/rtk/issues/834
+                  mv $HOME/.gemini/GEMINI.md $HOME/.gemini/RTK.md
+                  ${
+                    if hasAttr "geminiMD" a then
+                      ''
+                        echo "${a.geminiMD}
+
+                        @RTK.md" > $HOME/.gemini/GEMINI.md
+                      ''
+                    else
+                      ''echo "@RTK.md" > $HOME/.gemini/GEMINI.md''
+                  }
+                ''
               else if a.name == "claude" then
                 ''
                   echo '${

@@ -22,6 +22,7 @@
       // {
         ".gemini/hooks/.rtk-hook.sha256".source = "${aiInitFiles}/.gemini/hooks/.rtk-hook.sha256";
         ".gemini/hooks/rtk-hook-gemini.sh".source = "${aiInitFiles}/.gemini/hooks/rtk-hook-gemini.sh";
+        ".gemini/RTK.md".source = "${aiInitFiles}/.gemini/RTK.md";
         ".gemini/GEMINI.md".source = "${aiInitFiles}/.gemini/GEMINI.md";
       };
 
