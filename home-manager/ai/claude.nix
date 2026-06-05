@@ -1,12 +1,9 @@
 {
-  lib,
   pkgs,
   miko,
   aiInitFiles,
   ...
 }:
-with lib;
-with builtins;
 {
   home = {
     file =

@@ -1,12 +1,9 @@
 {
-  lib,
   pkgs,
   miko,
   aiInitFiles,
   ...
 }:
-with lib;
-with builtins;
 {
   home = {
     file =
@@ -34,7 +31,7 @@ with builtins;
   };
 
   programs.fish.interactiveShellInit = "
-    # Add rtk gemini settings
+    # Add ai gemini settings
     if not test -f ~/.gemini/settings.json
       echo '{}' > ~/.gemini/settings.json
     end

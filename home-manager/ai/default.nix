@@ -20,6 +20,7 @@ let
       }
       ''
         export HOME=$out
+
         ${concatStringsSep "\n" (
           map (a: ''
             mkdir -p $HOME/.${a.name}
@@ -52,14 +53,11 @@ let
             }
           '') ai
         )}
+
+        rm $HOME/.config/rtk/filters.toml
       '';
   getConfig = miko.getConfig (map (a: ./${a.name}.nix) ai) {
-    inherit
-      lib
-      pkgs
-      miko
-      aiInitFiles
-      ;
+    inherit pkgs miko aiInitFiles;
   };
 in
 if !useAI then
@@ -104,19 +102,15 @@ else
         "interactiveShellInit"
       ] ""}
 
-      # check rtk files
+      # check ai files
       for storePath in (find ${aiInitFiles} -type f)
         set -l relPath (string replace -- "${aiInitFiles}" "$HOME" $storePath)
 
-        if string match -q "*/.config/rtk/filters.toml" $relPath
-          continue
-        end
-
         if not test -e $relPath
-          echo "⚠ RTK: $relPath missing, run home-manager switch"
-        else if string match -q "*/settings.json" $relPath
+          echo "⚠ AI: $relPath missing, run home-manager switch"
+        else if string match -q "*/.gemini/settings.json" $relPath
           if not jq -e '[.. | strings | select(contains("rtk"))] | any' $relPath > /dev/null 2>&1
-            echo "⚠ RTK: $relPath exists but rtk hook is missing"
+            echo "⚠ AI: $relPath exists but rtk hook is missing"
           end
         end
       end
