@@ -22,13 +22,19 @@ let
         export HOME=$out
         ${concatStringsSep "\n" (
           map (a: ''
-            mkdir -p $HOME/.${a}
-            ${if a == "gemini" then "rtk init -g --auto-patch --gemini" else "rtk init -g --auto-patch"}
+            mkdir -p $HOME/.${a.name}
+            ${if a.name == "gemini" then "rtk init -g --auto-patch --gemini" else "rtk init -g --auto-patch"}
           '') ai
         )}
       '';
-  getConfig = miko.getConfig (map (a: ./${a}.nix) ai) {
-    inherit pkgs miko rtkInitFiles;
+  getConfig = miko.getConfig (map (a: ./${a.name}.nix) ai) {
+    inherit
+      lib
+      pkgs
+      miko
+      ai
+      rtkInitFiles
+      ;
   };
 in
 if !useAI then
@@ -67,6 +73,12 @@ else
     };
 
     programs.fish.interactiveShellInit = ''
+      ${getConfig [
+        "programs"
+        "fish"
+        "interactiveShellInit"
+      ] ""}
+
       for storePath in (find ${rtkInitFiles} -type f)
         set -l relPath (string replace -- "${rtkInitFiles}" "$HOME" $storePath)
 

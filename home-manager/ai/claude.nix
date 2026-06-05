@@ -1,10 +1,16 @@
 {
+  lib,
   pkgs,
   miko,
+  ai,
   rtkInitFiles,
   ...
 }:
+with lib;
 with builtins;
+let
+  claude = lists.findFirst (x: x.name == "claude") null ai;
+in
 {
   home = {
     file =
@@ -32,8 +38,10 @@ with builtins;
         );
         ".claude/claude-statusline.fish".text = readFile ./claude-statusline.fish;
         ".claude/RTK.md".text = readFile "${rtkInitFiles}/.claude/RTK.md";
-        # TODO: support customized
-        ".claude/CLAUDE.md".text = readFile "${rtkInitFiles}/.claude/CLAUDE.md";
+        ".claude/CLAUDE.md".text = ''
+          ${if hasAttr "claudeMD" claude then claude.claudeMD else ""}
+          ${readFile "${rtkInitFiles}/.claude/CLAUDE.md"}
+        '';
       };
 
     packages = with pkgs; [
