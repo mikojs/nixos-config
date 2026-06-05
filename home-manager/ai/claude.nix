@@ -12,7 +12,8 @@ let
       }
       ''
         export HOME=$out
-        rtk init --global
+        mkdir -p $HOME/.claude
+        rtk init -g --auto-patch
       '';
   rtkSettings = builtins.fromJSON (builtins.readFile "${rtkInitFiles}/.claude/settings.json");
 in
