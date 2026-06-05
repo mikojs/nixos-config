@@ -54,7 +54,7 @@ let
           '') ai
         )}
 
-        rm $HOME/.config/rtk/filters.toml
+        rm -rf $HOME/.config/rtk/filters.toml
       '';
   getConfig = miko.getConfig (map (a: ./${a.name}.nix) ai) {
     inherit pkgs miko aiInitFiles;
