@@ -30,7 +30,10 @@ with builtins;
           }
           // fromJSON (readFile "${rtkInitFiles}/.claude/settings.json")
         );
-        ".claude/claude-statusline.fish".text = (readFile ./claude-statusline.fish);
+        ".claude/claude-statusline.fish".text = readFile ./claude-statusline.fish;
+        ".claude/RTK.md".text = readFile "${rtkInitFiles}/.claude/RTK.md";
+        # TODO: support customized
+        ".claude/CLAUDE.md".text = readFile "${rtkInitFiles}/.claude/CLAUDE.md";
       };
 
     packages = with pkgs; [

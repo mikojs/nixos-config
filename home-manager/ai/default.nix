@@ -70,6 +70,10 @@ else
       for storePath in (find ${rtkInitFiles} -type f)
         set -l relPath (string replace -- "${rtkInitFiles}" "$HOME" $storePath)
 
+        if string match -q "*/.config/rtk/filters.toml" $relPath
+          continue
+        end
+
         if not test -e $relPath
           echo "⚠ RTK: $relPath missing, run home-manager switch"
         end
