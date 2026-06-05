@@ -42,19 +42,20 @@ else
             "home"
             "file"
           ]
-          miko.getConfig
-          [
-            {
-              filePath = "ai/rtk";
-              docs = ''
-                # RTK
+          (
+            miko.getDocs [
+              {
+                filePath = "ai/rtk";
+                docs = ''
+                  # RTK
 
-                CLI proxy that reduces LLM token consumption by 60-90% on common dev commands. Single Rust binary, zero dependencies
+                  CLI proxy that reduces LLM token consumption by 60-90% on common dev commands. Single Rust binary, zero dependencies
 
-                [Repository](https://github.com/rtk-ai/rtk/)
-              '';
-            }
-          ];
+                  [Repository](https://github.com/rtk-ai/rtk/)
+                '';
+              }
+            ]
+          );
 
       packages =
         getConfig
@@ -65,8 +66,14 @@ else
           [ pkgs.rtk ];
     };
 
-    # TODO: add rtk checking
-    programs.fish.interactiveShellInit = "
-    ";
+    programs.fish.interactiveShellInit = ''
+      for storePath in (find ${rtkInitFiles} -type f)
+        set -l relPath (string replace -- "${rtkInitFiles}" "$HOME" $storePath)
+
+        if not test -e $relPath
+          echo "⚠ RTK: $relPath missing, run home-manager switch"
+        end
+      end
+    '';
 
   }
