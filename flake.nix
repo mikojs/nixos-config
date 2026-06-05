@@ -53,8 +53,8 @@
             };
           };
           ai = [
-            "gemini"
-            "claude"
+            { name = "gemini"; }
+            { name = "claude"; }
           ];
           languages = [
             { language = "nix"; }

@@ -1,9 +1,9 @@
 {
   pkgs,
   miko,
+  aiInitFiles,
   ...
 }:
-with builtins;
 {
   home = {
     file =
@@ -20,13 +20,10 @@ with builtins;
         }
       ]
       // {
-        ".claude/settings.json".text = toJSON {
-          "statusLine" = {
-            "type" = "command";
-            "command" = "fish ~/.claude/claude-statusline.fish";
-          };
-        };
-        ".claude/claude-statusline.fish".text = (readFile ./claude-statusline.fish);
+        ".claude/settings.json".source = "${aiInitFiles}/.claude/settings.json";
+        ".claude/claude-statusline.fish".source = ./claude-statusline.fish;
+        ".claude/RTK.md".source = "${aiInitFiles}/.claude/RTK.md";
+        ".claude/CLAUDE.md".source = "${aiInitFiles}/.claude/CLAUDE.md";
       };
 
     packages = with pkgs; [
