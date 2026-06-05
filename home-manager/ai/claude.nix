@@ -1,22 +1,10 @@
 {
   pkgs,
   miko,
+  rtkInitFiles,
   ...
 }:
 with builtins;
-let
-  rtkInitFiles =
-    pkgs.runCommand "rtk-init-files"
-      {
-        nativeBuildInputs = [ pkgs.rtk ];
-      }
-      ''
-        export HOME=$out
-        mkdir -p $HOME/.claude
-        rtk init -g --auto-patch
-      '';
-  rtkSettings = builtins.fromJSON (builtins.readFile "${rtkInitFiles}/.claude/settings.json");
-in
 {
   home = {
     file =
@@ -40,7 +28,7 @@ in
               "command" = "fish ~/.claude/claude-statusline.fish";
             };
           }
-          // rtkSettings
+          // fromJSON (readFile "${rtkInitFiles}/.claude/settings.json")
         );
         ".claude/claude-statusline.fish".text = (readFile ./claude-statusline.fish);
       };
