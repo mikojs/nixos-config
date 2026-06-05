@@ -4,6 +4,18 @@
   ...
 }:
 with builtins;
+let
+  rtkInitFiles =
+    pkgs.runCommand "rtk-init-files"
+      {
+        nativeBuildInputs = [ pkgs.rtk ];
+      }
+      ''
+        export HOME=$out
+        rtk init --global
+      '';
+  rtkSettings = builtins.fromJSON (builtins.readFile "${rtkInitFiles}/.claude/settings.json");
+in
 {
   home = {
     file =
@@ -20,12 +32,15 @@ with builtins;
         }
       ]
       // {
-        ".claude/settings.json".text = toJSON {
-          "statusLine" = {
-            "type" = "command";
-            "command" = "fish ~/.claude/claude-statusline.fish";
-          };
-        };
+        ".claude/settings.json".text = toJSON (
+          {
+            "statusLine" = {
+              "type" = "command";
+              "command" = "fish ~/.claude/claude-statusline.fish";
+            };
+          }
+          // rtkSettings
+        );
         ".claude/claude-statusline.fish".text = (readFile ./claude-statusline.fish);
       };
 
