@@ -36,10 +36,25 @@ if !useAI then
 else
   {
     home = {
-      file = getConfig [
-        "home"
-        "file"
-      ] { };
+      file =
+        getConfig
+          [
+            "home"
+            "file"
+          ]
+          miko.getConfig
+          [
+            {
+              filePath = "ai/rtk";
+              docs = ''
+                # RTK
+
+                CLI proxy that reduces LLM token consumption by 60-90% on common dev commands. Single Rust binary, zero dependencies
+
+                [Repository](https://github.com/rtk-ai/rtk/)
+              '';
+            }
+          ];
 
       packages =
         getConfig
@@ -49,4 +64,9 @@ else
           ]
           [ pkgs.rtk ];
     };
+
+    # TODO: add rtk checking
+    programs.fish.interactiveShellInit = "
+    ";
+
   }
