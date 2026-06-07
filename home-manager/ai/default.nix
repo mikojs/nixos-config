@@ -71,9 +71,18 @@ let
 
         rm -rf $HOME/.config/rtk/filters.toml
       '';
-  getConfig = miko.getConfig (map (a: ./${a.name}.nix) ai) {
-    inherit pkgs miko aiInitFiles;
-  };
+  getConfig =
+    miko.getConfig
+      (
+        [
+          ./rtk.nix
+          ./gitnexus.nix
+        ]
+        ++ (map (a: ./${a.name}.nix) ai)
+      )
+      {
+        inherit pkgs miko aiInitFiles;
+      };
 in
 if !useAI then
   { }
