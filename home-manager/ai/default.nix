@@ -77,6 +77,7 @@ let
         [
           ./rtk.nix
           ./gitnexus.nix
+          ./obsidian.nix
         ]
         ++ (map (a: ./${a.name}.nix) ai)
       )
