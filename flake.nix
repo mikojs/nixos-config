@@ -60,7 +60,6 @@
           ai = [
             { name = "gemini"; }
             { name = "claude"; }
-            { name = "gitnexus"; }
           ];
           languages = [
             { language = "nix"; }
