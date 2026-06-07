@@ -19,6 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     miko-db = {
       url = "github:mikojs/db";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +60,7 @@
           ai = [
             { name = "gemini"; }
             { name = "claude"; }
+            { name = "gitnexus"; }
           ];
           languages = [
             { language = "nix"; }
