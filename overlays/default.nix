@@ -8,7 +8,6 @@
   _module.args.miko = import ./miko.nix { inherit lib pkgs; };
 
   nixpkgs.overlays = [
-    # TODO: remove it after nixos pkgs support GitNexus
     inputs.llm-agents.overlays.default
     inputs.miko-db.overlays.default
     inputs.miko-coder.overlays.default
