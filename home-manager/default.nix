@@ -81,6 +81,7 @@ with builtins;
               ./fastfetch.nix
               ./fish
               ./gh.nix
+              ./glow.nix
               ./jless.nix
               ./jq.nix
               ./mermaid.nix
