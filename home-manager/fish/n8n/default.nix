@@ -15,7 +15,7 @@ in
 {
   fish-alias = [
     "- `n8n`: Run `n8n` server with docker compose."
-    "- `n8n-export`: Export all n8n workflows to `./workflows/` (one file per workflow)."
+    "- `n8n-export`: Export all n8n workflows to `./workflows/`."
     "- `n8n-import`: Import n8n workflows from `./workflows/`."
   ];
 
