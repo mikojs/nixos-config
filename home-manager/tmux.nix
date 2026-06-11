@@ -35,10 +35,18 @@
         if !isMac then "" else "set-option -g default-command /etc/profiles/per-user/${name}/bin/fish";
     };
 
-    fish.interactiveShellInit = "
+    fish.interactiveShellInit = ''
       if not set -q LANG
         set -Ux LANG en_US.UTF-8
       end
-    ";
+
+      # Show tmux panes
+      function times --description "Show tmux panes"
+        begin
+          echo -e "session,pane,command"
+          tmux list-panes -a -F "#{session_name},#{window_index}.#{pane_index},#{pane_current_command}"
+        end | column -t -s ','
+      end
+    '';
   };
 }
