@@ -38,6 +38,6 @@
     end
 
     jq -s add ${aiInitFiles}/.gemini/settings.json ~/.gemini/settings.json > /tmp/gemini.json
-    cp /tmp/gemini.json ~/.gemini/settings.json
+    mv /tmp/gemini.json ~/.gemini/settings.json
   ";
 }
