@@ -53,12 +53,15 @@ let
               else if a.name == "claude" then
                 ''
                   echo '${
-                    toJSON ({
-                      "statusLine" = {
-                        "type" = "command";
-                        "command" = "fish ~/.claude/claude-statusline.fish";
-                      };
-                    })
+                    toJSON (
+                      {
+                        "statusLine" = {
+                          "type" = "command";
+                          "command" = "fish ~/.claude/claude-statusline.fish";
+                        };
+                      }
+                      // (if hasAttr "settings" a then a.settings else { })
+                    )
                   }' > $HOME/.claude/settings.json
                   rtk init -g --auto-patch
                   rm $HOME/.claude/settings.json.bak
