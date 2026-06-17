@@ -98,8 +98,8 @@ in
     shellAliases = {
       n8n = "cat ~/.n8n/init-data.sh > ~/.n8n/_init-data.sh; chmod +x ~/.n8n/_init-data.sh; docker compose -f ~/.n8n/docker-compose.yml";
       n8n-exec = "docker exec -it $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID) /bin/sh";
-      n8n-export = "docker exec $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID) n8n export:workflow --all --backup --output=/tmp/n8n-workflows && docker cp $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID):/tmp/n8n-workflows ./workflows";
-      n8n-import = "docker cp ./workflows/. $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID):/tmp/n8n-workflows && docker exec $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID) n8n import:workflow --separate --input=/tmp/n8n-workflows";
+      n8n-export = "docker exec $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID) sh -c 'rm -rf /tmp/n8n-workflows && n8n export:workflow --all --backup --output=/tmp/n8n-workflows' && docker cp $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID):/tmp/n8n-workflows ./workflows";
+      n8n-import = "docker exec $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID) rm -rf /tmp/n8n-workflows && docker cp ./workflows/. $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID):/tmp/n8n-workflows && docker exec $(docker ps -f name=n8n-n8n-1 --format json | jq -r .ID) n8n import:workflow --separate --input=/tmp/n8n-workflows";
     };
   };
 }
