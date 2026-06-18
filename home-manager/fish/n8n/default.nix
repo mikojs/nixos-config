@@ -90,7 +90,8 @@ in
           ];
           depends_on.postgres.condition = "service_healthy";
         };
-      };
+      }
+      // (if hasAttr "services" n8n then n8n.services else { });
     };
   };
 
