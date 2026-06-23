@@ -83,8 +83,22 @@
             echo "⚡ Inside tmux. Executing command directly..."
             eval $argv
           else
-            echo "🆕 Creating a new default tmux session and executing..."
-            tmux new-session "$argv; exec $SHELL"
+            set -l git_root (git rev-parse --show-toplevel 2>/dev/null)
+
+            if test -n "$git_root"
+              set -l git_session (basename $git_root)
+              echo "🆕 Git repo detected. Using session [$git_session]..."
+
+              if tmux has-session -t $git_session 2>/dev/null
+                tmux split-window -t $git_session -h "$argv; exec $SHELL"
+                tmux attach-session -t $git_session
+              else
+                tmux new-session -s $git_session "$argv; exec $SHELL"
+              end
+            else
+              echo "🆕 Creating a new default tmux session and executing..."
+              tmux new-session "$argv; exec $SHELL"
+            end
           end
         end
       end
