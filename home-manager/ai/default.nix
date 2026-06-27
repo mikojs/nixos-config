@@ -23,7 +23,7 @@ let
 
         ${concatStringsSep "\n" (
           map (a: ''
-            mkdir -p $HOME/.${a.name}
+            mkdir -p $HOME/.${if a.name == "antigravity" then "gemini" else a.name}
 
             ${
               if a.name == "antigravity" then
