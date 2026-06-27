@@ -23,34 +23,26 @@ let
 
         ${concatStringsSep "\n" (
           map (a: ''
-            mkdir -p $HOME/.${a.name}
+            mkdir -p $HOME/.${if a.name == "antigravity" then "gemini" else a.name}
 
             ${
-              if hasAttr "${a.name}MD" a then
+              if a.name == "antigravity" then
+                ''
+                  echo "# Global Execution Constraints
+
+                  - **RTK Dependency:** This environment strictly enforces local token optimization via RTK. You must check for the existence of \`.agents/rules/antigravity-rtk-rules.md\` in the current working directory.
+                  - **Graceful Failure:** If you are blocked by the global hook due to a missing RTK configuration, do not attempt to bypass it. Instead, output the following message verbatim to the user: 'Please run \`rtk init --agent antigravity\` manually in your local terminal to complete the project setup.'
+                  ${if hasAttr "geminiMD" a then "
+${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
+                ''
+              else if hasAttr "${a.name}MD" a then
                 ''echo "${a."${a.name}MD"}" > $HOME/.${a.name}/${toUpper a.name}.md''
               else
                 ""
             }
 
             ${
-              if a.name == "gemini" then
-                ''
-                  rtk init -g --auto-patch --gemini
-
-                  # FIXME: https://github.com/rtk-ai/rtk/issues/834
-                  mv $HOME/.gemini/GEMINI.md $HOME/.gemini/RTK.md
-                  ${
-                    if hasAttr "geminiMD" a then
-                      ''
-                        echo "${a.geminiMD}
-
-                        @RTK.md" > $HOME/.gemini/GEMINI.md
-                      ''
-                    else
-                      ''echo "@RTK.md" > $HOME/.gemini/GEMINI.md''
-                  }
-                ''
-              else if a.name == "claude" then
+              if a.name == "claude" then
                 ''
                   echo '${
                     toJSON (
@@ -120,10 +112,6 @@ else
 
         if not test -e $relPath
           echo "⚠ AI: $relPath missing, run home-manager switch"
-        else if string match -q "*/.gemini/settings.json" $relPath
-          if not jq -e '[.. | strings | select(contains("rtk"))] | any' $relPath > /dev/null 2>&1
-            echo "⚠ AI: $relPath exists but rtk hook is missing"
-          end
         end
       end
     '';

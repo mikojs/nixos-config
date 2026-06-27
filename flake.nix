@@ -59,7 +59,7 @@
             };
           };
           ai = [
-            { name = "gemini"; }
+            { name = "antigravity"; }
             { name = "claude"; }
           ];
           languages = [
