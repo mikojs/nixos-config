@@ -4,6 +4,7 @@
   aiInitFiles,
   ...
 }:
+with builtins;
 {
   home = {
     file =
@@ -18,11 +19,11 @@
         }
       ]
       // {
-        ".claude/GEMINI.md".source = "${aiInitFiles}/.gemini/GEMINI.md";
+        ".gemini/GEMINI.md".source = "${aiInitFiles}/.antigravity/GEMINI.md";
       };
 
     packages = with pkgs; [
-      antigravity
+      llm-agents.antigravity-cli
     ];
   };
 }

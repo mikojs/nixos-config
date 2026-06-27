@@ -22,43 +22,46 @@ let
         export HOME=$out
 
         ${concatStringsSep "\n" (
-          map (
-            a:
-            let
-              name = if a.name == "antigravity" then "gemini" else a.name;
-            in
-            ''
-              mkdir -p $HOME/.${name}
+          map (a: ''
+            mkdir -p $HOME/.${a.name}
 
-              ${
-                if hasAttr "${name}MD" a then
-                  ''echo "${a."${name}MD"}" > $HOME/.${name}/${toUpper name}.md''
-                else
-                  ""
-              }
+            ${
+              if a.name == "antigravity" then
+                ''
+                  echo "# Global Execution Constraints
 
-              ${
-                if name == "claude" then
-                  ''
-                    echo '${
-                      toJSON (
-                        {
-                          "statusLine" = {
-                            "type" = "command";
-                            "command" = "fish ~/.claude/claude-statusline.fish";
-                          };
-                        }
-                        // (if hasAttr "settings" a then a.settings else { })
-                      )
-                    }' > $HOME/.claude/settings.json
-                    rtk init -g --auto-patch
-                    rm $HOME/.claude/settings.json.bak
-                  ''
-                else
-                  ""
-              }
-            ''
-          ) ai
+                  - **RTK Dependency:** This environment strictly enforces local token optimization via RTK. You must check for the existence of \`.agents/rules/antigravity-rtk-rules.md\` in the current working directory.
+                  - **Graceful Failure:** If you are blocked by the global hook due to a missing RTK configuration, do not attempt to bypass it. Instead, output the following message verbatim to the user:
+                    'Please run \`rtk init --agent antigravity\` manually in your local terminal to complete the project setup.'
+                  ${if hasAttr "geminiMD" a then a.geminiMD else ""}" > $HOME/.${a.name}/GEMINI.md
+                ''
+              else if hasAttr "${a.name}MD" a then
+                ''echo "${a."${a.name}MD"}" > $HOME/.${a.name}/${toUpper a.name}.md''
+              else
+                ""
+            }
+
+            ${
+              if a.name == "claude" then
+                ''
+                  echo '${
+                    toJSON (
+                      {
+                        "statusLine" = {
+                          "type" = "command";
+                          "command" = "fish ~/.claude/claude-statusline.fish";
+                        };
+                      }
+                      // (if hasAttr "settings" a then a.settings else { })
+                    )
+                  }' > $HOME/.claude/settings.json
+                  rtk init -g --auto-patch
+                  rm $HOME/.claude/settings.json.bak
+                ''
+              else
+                ""
+            }
+          '') ai
         )}
 
         rm -rf $HOME/.config/rtk/filters.toml
@@ -109,10 +112,6 @@ else
 
         if not test -e $relPath
           echo "⚠ AI: $relPath missing, run home-manager switch"
-        else if string match -q "*/.antigravity/settings.json" $relPath
-          if not jq -e '[.. | strings | select(contains("rtk"))] | any' $relPath > /dev/null 2>&1
-            echo "⚠ AI: $relPath exists but rtk hook is missing"
-          end
         end
       end
     '';
