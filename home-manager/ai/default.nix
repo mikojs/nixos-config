@@ -31,9 +31,9 @@ let
                   echo "# Global Execution Constraints
 
                   - **RTK Dependency:** This environment strictly enforces local token optimization via RTK. You must check for the existence of \`.agents/rules/antigravity-rtk-rules.md\` in the current working directory.
-                  - **Graceful Failure:** If you are blocked by the global hook due to a missing RTK configuration, do not attempt to bypass it. Instead, output the following message verbatim to the user:
-                    'Please run \`rtk init --agent antigravity\` manually in your local terminal to complete the project setup.'
-                  ${if hasAttr "geminiMD" a then a.geminiMD else ""}" > $HOME/.${a.name}/GEMINI.md
+                  - **Graceful Failure:** If you are blocked by the global hook due to a missing RTK configuration, do not attempt to bypass it. Instead, output the following message verbatim to the user: 'Please run \`rtk init --agent antigravity\` manually in your local terminal to complete the project setup.'
+                  ${if hasAttr "geminiMD" a then "
+${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
                 ''
               else if hasAttr "${a.name}MD" a then
                 ''echo "${a."${a.name}MD"}" > $HOME/.${a.name}/${toUpper a.name}.md''

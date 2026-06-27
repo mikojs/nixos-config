@@ -14,12 +14,12 @@ with builtins;
           docs = ''
             # Antigravity
 
-            Antigravity is an AI agent that brings the power of Antigravity directly into your terminal.
+            Antigravity is an AI agent that brings the power of Gemini directly into your terminal.
           '';
         }
       ]
       // {
-        ".gemini/GEMINI.md".source = "${aiInitFiles}/.antigravity/GEMINI.md";
+        ".gemini/GEMINI.md".source = "${aiInitFiles}/.gemini/GEMINI.md";
       };
 
     packages = with pkgs; [
