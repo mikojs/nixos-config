@@ -74,7 +74,7 @@ initialize
 
 ### AI
 
-Currently, only `gemini` and `claude` are supported. Run the commands and authorize them manually according to your settings.
+Currently, only `antigravity` and `claude` are supported. Run the commands and authorize them manually according to your settings.
 
 ### Codeium in nvim
 

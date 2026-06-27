@@ -22,54 +22,43 @@ let
         export HOME=$out
 
         ${concatStringsSep "\n" (
-          map (a: ''
-            mkdir -p $HOME/.${a.name}
+          map (
+            a:
+            let
+              name = if a.name == "antigravity" then "gemini" else a.name;
+            in
+            ''
+              mkdir -p $HOME/.${name}
 
-            ${
-              if hasAttr "${a.name}MD" a then
-                ''echo "${a."${a.name}MD"}" > $HOME/.${a.name}/${toUpper a.name}.md''
-              else
-                ""
-            }
+              ${
+                if hasAttr "${name}MD" a then
+                  ''echo "${a."${name}MD"}" > $HOME/.${name}/${toUpper name}.md''
+                else
+                  ""
+              }
 
-            ${
-              if a.name == "gemini" then
-                ''
-                  rtk init -g --auto-patch --gemini
-
-                  # FIXME: https://github.com/rtk-ai/rtk/issues/834
-                  mv $HOME/.gemini/GEMINI.md $HOME/.gemini/RTK.md
-                  ${
-                    if hasAttr "geminiMD" a then
-                      ''
-                        echo "${a.geminiMD}
-
-                        @RTK.md" > $HOME/.gemini/GEMINI.md
-                      ''
-                    else
-                      ''echo "@RTK.md" > $HOME/.gemini/GEMINI.md''
-                  }
-                ''
-              else if a.name == "claude" then
-                ''
-                  echo '${
-                    toJSON (
-                      {
-                        "statusLine" = {
-                          "type" = "command";
-                          "command" = "fish ~/.claude/claude-statusline.fish";
-                        };
-                      }
-                      // (if hasAttr "settings" a then a.settings else { })
-                    )
-                  }' > $HOME/.claude/settings.json
-                  rtk init -g --auto-patch
-                  rm $HOME/.claude/settings.json.bak
-                ''
-              else
-                ""
-            }
-          '') ai
+              ${
+                if name == "claude" then
+                  ''
+                    echo '${
+                      toJSON (
+                        {
+                          "statusLine" = {
+                            "type" = "command";
+                            "command" = "fish ~/.claude/claude-statusline.fish";
+                          };
+                        }
+                        // (if hasAttr "settings" a then a.settings else { })
+                      )
+                    }' > $HOME/.claude/settings.json
+                    rtk init -g --auto-patch
+                    rm $HOME/.claude/settings.json.bak
+                  ''
+                else
+                  ""
+              }
+            ''
+          ) ai
         )}
 
         rm -rf $HOME/.config/rtk/filters.toml
@@ -120,7 +109,7 @@ else
 
         if not test -e $relPath
           echo "⚠ AI: $relPath missing, run home-manager switch"
-        else if string match -q "*/.gemini/settings.json" $relPath
+        else if string match -q "*/.antigravity/settings.json" $relPath
           if not jq -e '[.. | strings | select(contains("rtk"))] | any' $relPath > /dev/null 2>&1
             echo "⚠ AI: $relPath exists but rtk hook is missing"
           end
