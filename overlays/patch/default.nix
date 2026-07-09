@@ -6,4 +6,6 @@ with prev.vimUtils;
     sqls-nvim = import ./sqls-nvim.nix prev;
     vim-rzip = import ./vim-rzip.nix prev;
   };
+
+  oxker = import ./oxker.nix prev;
 }

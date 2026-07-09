@@ -65,6 +65,8 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
         )}
 
         rm -rf $HOME/.config/rtk/filters.toml
+        rm -rf $HOME/Library/Application Support/rtk/filters.toml
+        rm -rf $HOME/Library/Application Support/rtk/.hook_warn_last
       '';
   getConfig =
     miko.getConfig
