@@ -98,6 +98,11 @@ let
           ) [ ] languages
         )
       }
+
+      # tree-sitter-sql v0.3.11 does not define these node types
+      if [ -f "$out/queries/sql/highlights.scm" ]; then
+        sed -i '/(keyword_constraints)\|(keyword_include)\|(keyword_split)\|(keyword_tablets)\|(keyword_while)/d' $out/queries/sql/highlights.scm
+      fi
     '';
   };
 in
