@@ -17,6 +17,11 @@
         ```nvim
         // Only in .sql files
         :Sqls...
+
+        // Load a database connection dynamically
+        // Usage: SqlsLoad <alias> <shell-command-that-outputs-connection-url>
+        // Example: SqlsLoad mydb echo postgresql://localhost/mydb
+        :SqlsLoad <alias> <cmd...>
         ```
       '';
     }
