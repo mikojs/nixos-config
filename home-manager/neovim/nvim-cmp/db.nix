@@ -24,7 +24,6 @@
 
   packages = with pkgs; [
     sqls
-    miko-db
   ];
 
   plugins = with pkgs.vimPlugins; [
