@@ -6,34 +6,24 @@
   miko,
   ...
 }:
-let
-  db = import ./db.nix { inherit pkgs miko; };
-in
 {
   home = {
-    file =
-      miko.getDocs [
-        {
-          filePath = "litecli";
-          docs = ''
-            # Litecli
+    file = miko.getDocs [
+      {
+        filePath = "litecli";
+        docs = ''
+          # Litecli
 
-            A command-line interface for SQLite.
+          A command-line interface for SQLite.
 
-            [Repository](https://github.com/dbcli/litecli)
-          '';
-        }
-      ]
-      // db.home.file;
+          [Repository](https://github.com/dbcli/litecli)
+        '';
+      }
+    ];
 
-    packages =
-      with pkgs;
-      [
-        sqlite
-        litecli
-      ]
-      ++ db.home.packages;
+    packages = with pkgs; [
+      sqlite
+      litecli
+    ];
   };
-
-  programs.fish.interactiveShellInit = db.programs.fish.interactiveShellInit;
 }

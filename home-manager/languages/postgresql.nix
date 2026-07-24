@@ -7,35 +7,27 @@
 with builtins;
 let
   version = if hasAttr "version" language then "_${language.version}" else "";
-  db = import ./db.nix { inherit pkgs miko; };
 in
 {
   home = {
-    file =
-      miko.getDocs [
-        {
-          filePath = "pgcli";
-          docs = ''
-            # PGcli
+    file = miko.getDocs [
+      {
+        filePath = "pgcli";
+        docs = ''
+          # PGcli
 
-            A command-line interface for PostgreSQL.
+          A command-line interface for PostgreSQL.
 
-            [Repository](https://github.com/dbcli/pgcli)
-          '';
-        }
-      ]
-      // db.home.file;
+          [Repository](https://github.com/dbcli/pgcli)
+        '';
+      }
+    ];
 
-    packages =
-      with pkgs;
-      [
-        pkgs."postgresql${version}"
-        pgcli
-      ]
-      ++ db.home.packages;
+    packages = with pkgs; [
+      pkgs."postgresql${version}"
+      pgcli
+    ];
   };
-
-  programs.fish.interactiveShellInit = db.programs.fish.interactiveShellInit;
 
   xdg.configFile."pgcli/config".text = ''
     [main]

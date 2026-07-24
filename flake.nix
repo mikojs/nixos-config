@@ -25,11 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    miko-db = {
-      url = "github:mikojs/db";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     miko-coder = {
       url = "github:mikojs/coder";
       inputs.nixpkgs.follows = "nixpkgs";
