@@ -4,10 +4,6 @@ shell fish
 # force macos option key as alt
 macos_option_as_alt yes
 
-# pass scroll events to grabbed apps
-mouse_map wheel_up_grab send_mouse_event
-mouse_map wheel_down_grab send_mouse_event
-
 # font
 font_family MesloLGS Nerd Font Mono
 font_size 13.0
