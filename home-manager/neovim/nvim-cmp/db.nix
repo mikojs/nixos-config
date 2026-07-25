@@ -45,6 +45,13 @@
         vim.api.nvim_create_user_command("SqlsLoad", function(opts)
           local alias = opts.fargs[1]
           local cmd = table.concat(opts.fargs, " ", 2)
+
+          if cmd == "" then
+            vim.notify("SqlsLoad: missing command argument", vim.log.levels.ERROR)
+
+            return
+          end
+
           local url = vim.fn.system(cmd)
 
           if vim.v.shell_error ~= 0 then
@@ -54,6 +61,12 @@
           end
 
           url = url:gsub("%s+$", "")
+
+          if url == "" then
+            vim.notify("SqlsLoad: command returned empty output", vim.log.levels.ERROR)
+
+            return
+          end
 
           local scheme = url:match("^(%w+)://")
           local driver_map = {
