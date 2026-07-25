@@ -27,6 +27,9 @@ with builtins;
       {
         SHELL = "fish";
         EDITOR = "nvim";
+        # https://code.claude.com/docs/zh-TW/fullscreen#enable-fullscreen-rendering
+        # kitty needs this to set up fullscreen
+        CLAUDE_CODE_NO_FLICKER = "1";
       }
     else
       { }
