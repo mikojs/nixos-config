@@ -75,6 +75,7 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
           ./rtk.nix
           ./gitnexus.nix
           ./obsidian.nix
+          ./docker-sbx.nix
         ]
         ++ (map (a: ./${a.name}.nix) ai)
       )
@@ -87,30 +88,10 @@ if !useAI then
 else
   {
     home = {
-      file =
-        getConfig
-          [
-            "home"
-            "file"
-          ]
-          (
-            miko.getDocs [
-              {
-                filePath = "docker-sbx";
-                docs = ''
-                  # Docker SBX
-
-                  Safe environments for agents. Docker Sandboxes delivers isolated
-                  environments with restricted filesystem, network, and tool access,
-                  enabling autonomous agent operation while protecting your system and data.
-
-                  The main program is `sbx`.
-
-                  [Repository](https://docs.docker.com/reference/cli/sbx/)
-                '';
-              }
-            ]
-          );
+      file = getConfig [
+        "home"
+        "file"
+      ] { };
 
       packages =
         getConfig
@@ -118,7 +99,7 @@ else
             "home"
             "packages"
           ]
-          [ pkgs.docker-sbx ];
+          [ ];
     };
 
     programs.fish.interactiveShellInit = ''
