@@ -7,5 +7,6 @@ with prev.vimUtils;
     vim-rzip = import ./vim-rzip.nix prev;
   };
 
+  oxker = import ./oxker.nix prev;
   obsidian = import ./obsidian.nix prev;
 }
