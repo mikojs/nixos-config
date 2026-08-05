@@ -24,7 +24,7 @@
   };
 
   programs.fish.interactiveShellInit = ''
-    function ga --description "ga (-c|--claude) (-v|--antigravity) (-a|--all)"
+    function ga --description "ga (-c|--claude) (-v|--antigravity) (-a|--all) — analyze the repo and configure gitnexus MCP"
       # 1. Parse arguments
       argparse 'c/claude' 'v/antigravity' 'a/all' -- $argv
       or return
