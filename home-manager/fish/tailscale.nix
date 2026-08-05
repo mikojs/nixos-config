@@ -4,9 +4,9 @@
 let
   checkCommandStr = command: ''
     if not string match -q "*@*" $argv[1]
-      echo "usage: ${command} <username>@<hostname> [...argv]"
+      echo "${command}: usage: ${command} <username>@<hostname> [...argv]" >&2
 
-      return
+      return 2
     end
   '';
 in
@@ -20,7 +20,7 @@ in
   ];
 
   programs.fish.interactiveShellInit = ''
-    function tssh --description "tssh <username>@<hostname> (forward|exec|*) [...argv]"
+    function tssh --description "tssh <username>@<hostname> (forward|exec|*) [...argv] — run ssh over tailscale"
       ${checkCommandStr "tssh"}
 
       set -l info (string split '@' $argv[1])
@@ -45,7 +45,7 @@ in
       end
     end
 
-    function tdocker --description "tdocker <username>@<hostname> [...argv]"
+    function tdocker --description "tdocker <username>@<hostname> [...argv] — run docker over tailscale"
       ${checkCommandStr "tdocker"}
 
       set -l info (string split '@' $argv[1])
@@ -58,12 +58,12 @@ in
       docker -c $info[2] $argv[2..-1]
     end
 
-    function tcoder --description "tcoder <username>@<hostname> <push|pull> <directory>"
+    function tcoder --description "tcoder <username>@<hostname> <push|pull> <directory> — run coder over tailscale"
       ${checkCommandStr "tcoder"}
 
       if not contains $argv[2] push pull
-        echo "usage: tcoder <username>@<hostname> <push|pull> <directory>"
-        return
+        echo "tcoder: usage: tcoder <username>@<hostname> <push|pull> <directory>" >&2
+        return 2
       end
 
       set -l info (string split '@' $argv[1])

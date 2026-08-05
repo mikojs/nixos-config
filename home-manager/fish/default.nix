@@ -131,7 +131,7 @@ in
           # Disable Greeting
           set fish_greeting
 
-          function find_files --description "Find all files included the dot files in current directory"
+          function find_files --description "find_files <dir> — find all files including dotfiles in a directory"
             for file in $(ls -A $argv[1])
               if test -d $argv[1]/$file
                 find_files $argv[1]/$file
@@ -147,7 +147,7 @@ in
             else
               ''
                 # Show times
-                function times --description "Show times in different timezones"
+                function times --description "times — show times in different timezones"
                   begin
                     echo -e "timezone,time"
                     ${concatStringsSep "\n" (
