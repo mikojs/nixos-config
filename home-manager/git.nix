@@ -94,7 +94,7 @@
 
       alias = {
         d = "-c pager.diff='less -R' diff";
-        gr = "!f() { git tag -l | xargs -r git tag -d && serie; }; f";
+        gr = "!f() { git tag -l | xargs -r git tag -d && serie \"$@\"; }; f";
       };
     };
   };
