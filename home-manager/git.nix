@@ -82,6 +82,7 @@
     settings = gitconfig // {
       init.defaultBranch = "main";
       pull.rebase = false;
+      remote.origin.tagOpt = "--no-tags";
 
       # delta
       core.pager = "delta";
@@ -93,7 +94,7 @@
 
       alias = {
         d = "-c pager.diff='less -R' diff";
-        gr = "!serie";
+        gr = "!f() { git tag -l | xargs -r git tag -d && serie; }; f";
       };
     };
   };
