@@ -1,4 +1,4 @@
-# FIXME: oxker has testing problem in Mac
+# FIXME: https://github.com/mrjackwills/oxker/issues/73
 {
   oxker,
   ...

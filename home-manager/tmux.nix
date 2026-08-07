@@ -41,7 +41,7 @@
       end
 
       # Run a command in tmux
-      function tm --description "tm <command> [-s session_name]"
+      function tm --description "tm <command> [-s session_name] — run a command in a tmux session"
         argparse 's/session=' -- $argv
         or return 1
 
@@ -104,7 +104,7 @@
       end
 
       # Show tmux panes
-      function tmls --description "Show tmux panes"
+      function tmls --description "tmls — show tmux panes"
         begin
           echo -e "session,pane,command"
           tmux list-panes -a -F "#{session_name},#{window_index}.#{pane_index},#{pane_current_command}"

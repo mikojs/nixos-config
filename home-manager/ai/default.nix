@@ -75,6 +75,7 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
           ./rtk.nix
           ./gitnexus.nix
           ./obsidian.nix
+          ./docker-sbx.nix
         ]
         ++ (map (a: ./${a.name}.nix) ai)
       )
