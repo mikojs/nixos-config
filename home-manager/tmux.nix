@@ -9,31 +9,50 @@
   ...
 }:
 {
-  home.file = miko.getDocs [
-    {
-      filePath = "tmux";
-      docs = ''
-        # Tmux
+  home.file =
+    miko.getDocs [
+      {
+        filePath = "tmux";
+        docs = ''
+          # Tmux
 
-        Tmux is a terminal multiplexer.
+          Tmux is a terminal multiplexer.
 
-        [Repository](https://github.com/tmux/tmux)
-      '';
-    }
-  ];
+          [Repository](https://github.com/tmux/tmux)
+        '';
+      }
+      {
+        filePath = "tmux-powerline";
+        docs = ''
+          # Tmux Powerline
+
+          A tmux status bar plugin with extensible segments.
+
+          [Repository](https://github.com/erikw/tmux-powerline)
+
+          ## Customize
+
+          - Nord color theme (`~/.config/tmux-powerline/themes/nord.sh`)
+          - Claude approval notifications segment (`~/.config/tmux-powerline/segments/claude_approvals.sh`)
+        '';
+      }
+    ]
+    // {
+      ".config/tmux-powerline/themes/nord.sh".source = ./tmux-powerline-nord.sh;
+      ".config/tmux-powerline/segments/claude_approvals.sh".source = ./tmux-powerline-claude-approvals.sh;
+    };
 
   programs = {
     tmux = {
       enable = true;
 
       plugins = with pkgs.tmuxPlugins; [
-        nord
+        tmux-powerline
       ];
 
       # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
       extraConfig = ''
         ${if !isMac then "" else "set-option -g default-command /etc/profiles/per-user/${name}/bin/fish;"}
-        set-option -ga status-right "#[fg=yellow,bold]#(count=$(wc -l < /tmp/claude-approvals 2>/dev/null || echo 0); [ $count -gt 0 ] && echo \" ⚡ $count\")"
         bind-key A display-popup -E "fish ~/.claude/hooks/approval-list.fish"
       '';
     };
