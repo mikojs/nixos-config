@@ -58,8 +58,8 @@
               eval $argv
             else
               if tmux has-session -t $_flag_session 2>/dev/null
-                echo "🔄 Switching to existing session [$_flag_session] and splitting pane..."
-                tmux split-window -t $_flag_session -h "$argv; exec $SHELL"
+                echo "🔄 Switching to existing session [$_flag_session] and creating new window..."
+                tmux new-window -t $_flag_session "$argv; exec $SHELL"
               else
                 echo "🆕 Session [$_flag_session] not found. Creating it automatically..."
                 tmux new-session -d -s $_flag_session "$argv; exec $SHELL"
@@ -69,8 +69,8 @@
             end
           else
             if tmux has-session -t $_flag_session 2>/dev/null
-              echo "🔄 Session [$_flag_session] exists. Splitting pane and attaching..."
-              tmux split-window -t $_flag_session -h "$argv; exec $SHELL"
+              echo "🔄 Session [$_flag_session] exists. Creating new window and attaching..."
+              tmux new-window -t $_flag_session "$argv; exec $SHELL"
               tmux attach-session -t $_flag_session
             else
               echo "🆕 Session [$_flag_session] not found. Creating and attaching..."
@@ -90,7 +90,7 @@
               echo "🆕 Git repo detected. Using session [$git_session]..."
 
               if tmux has-session -t $git_session 2>/dev/null
-                tmux split-window -t $git_session -h "$argv; exec $SHELL"
+                tmux new-window -t $git_session "$argv; exec $SHELL"
                 tmux attach-session -t $git_session
               else
                 tmux new-session -s $git_session "$argv; exec $SHELL"
