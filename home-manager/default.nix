@@ -80,6 +80,7 @@ with builtins;
           imports =
             (optionals (hasAttr "packages" user) user.packages)
             ++ [
+              ./agent-browser.nix
               ./bottom.nix
               ./fastfetch.nix
               ./fish
