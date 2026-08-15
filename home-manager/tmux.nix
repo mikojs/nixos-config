@@ -38,6 +38,7 @@
       }
     ]
     // {
+      ".config/tmux-powerline/config.sh".source = ./tmux-powerline-config.sh;
       ".config/tmux-powerline/themes/nord.sh".source = ./tmux-powerline-nord.sh;
       ".config/tmux-powerline/segments/claude_approvals.sh".source = ./tmux-powerline-claude-approvals.sh;
     };
