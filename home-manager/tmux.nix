@@ -31,8 +31,11 @@
       ];
 
       # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
-      extraConfig =
-        if !isMac then "" else "set-option -g default-command /etc/profiles/per-user/${name}/bin/fish";
+      extraConfig = ''
+        ${if !isMac then "" else "set-option -g default-command /etc/profiles/per-user/${name}/bin/fish;"}
+        set-option -ga status-right "#[fg=yellow,bold]#(count=$(wc -l < /tmp/claude-approvals 2>/dev/null || echo 0); [ $count -gt 0 ] && echo \" ⚡ $count\")"
+        bind-key A display-popup -E "fish ~/.claude/hooks/approval-list.fish"
+      '';
     };
 
     fish.interactiveShellInit = ''

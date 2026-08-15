@@ -51,6 +51,19 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
                           "type" = "command";
                           "command" = "fish ~/.claude/claude-statusline.fish";
                         };
+                        "hooks" = {
+                          "PreToolUse" = [
+                            {
+                              "matcher" = "";
+                              "hooks" = [
+                                {
+                                  "type" = "command";
+                                  "command" = "fish ~/.claude/hooks/approval.fish";
+                                }
+                              ];
+                            }
+                          ];
+                        };
                       }
                       // (if hasAttr "settings" a then a.settings else { })
                     )
