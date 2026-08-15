@@ -52,9 +52,9 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
                           "command" = "fish ~/.claude/claude-statusline.fish";
                         };
                         "hooks" = {
-                          "PreToolUse" = [
+                          "Notification" = [
                             {
-                              "matcher" = "";
+                              "matcher" = "permission_prompt";
                               "hooks" = [
                                 {
                                   "type" = "command";
