@@ -14,6 +14,10 @@
           Graph-powered code intelligence for AI agents. Index any codebase and query via MCP or CLI.
 
           [Repository](https://github.com/abhigyanpatwari/GitNexus)
+
+          ## Alias
+
+          - `ga`: Analyze the repo and configure the GitNexus MCP server for Claude and/or Antigravity.
         '';
       }
     ];

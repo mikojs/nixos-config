@@ -8,54 +8,51 @@
   isMac,
   ...
 }:
+let
+  getConfig = miko.getConfig [
+    ./tmux-powerline
+  ] { inherit pkgs miko; };
+in
 {
   home.file =
-    miko.getDocs [
-      {
-        filePath = "tmux";
-        docs = ''
-          # Tmux
+    getConfig
+      [
+        "home"
+        "file"
+      ]
+      (
+        miko.getDocs [
+          {
+            filePath = "tmux";
+            docs = ''
+              # Tmux
 
-          Tmux is a terminal multiplexer.
+              Tmux is a terminal multiplexer.
 
-          [Repository](https://github.com/tmux/tmux)
-        '';
-      }
-      {
-        filePath = "tmux-powerline";
-        docs = ''
-          # Tmux Powerline
+              [Repository](https://github.com/tmux/tmux)
 
-          A tmux status bar plugin with extensible segments.
+              ## Alias
 
-          [Repository](https://github.com/erikw/tmux-powerline)
-
-          ## Customize
-
-          - Nord color theme (`~/.config/tmux-powerline/themes/nord.sh`)
-          - Claude approval notifications segment (`~/.config/tmux-powerline/segments/claude_approvals.sh`)
-        '';
-      }
-    ]
-    // {
-      ".config/tmux-powerline/config.sh".source = ./tmux-powerline-config.sh;
-      ".config/tmux-powerline/themes/nord.sh".source = ./tmux-powerline-nord.sh;
-      ".config/tmux-powerline/segments/claude_approvals.sh".source = ./tmux-powerline-claude-approvals.sh;
-    };
+              - `tm`: Run a command in a tmux session, creating or attaching to it as needed.
+              - `tmls`: Show tmux panes.
+            '';
+          }
+        ]
+      );
 
   programs = {
     tmux = {
       enable = true;
 
-      plugins = with pkgs.tmuxPlugins; [
-        tmux-powerline
+      plugins = getConfig [
+        "programs"
+        "tmux"
+        "plugins"
       ];
 
       # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
-      extraConfig = ''
-        ${if !isMac then "" else "set-option -g default-command /etc/profiles/per-user/${name}/bin/fish;"}
-        bind-key A display-popup -E "fish ~/.claude/hooks/approval-list.fish"
-      '';
+      extraConfig =
+        if !isMac then "" else "set-option -g default-command /etc/profiles/per-user/${name}/bin/fish";
     };
 
     fish.interactiveShellInit = ''
