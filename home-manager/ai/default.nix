@@ -77,7 +77,7 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
           ./obsidian.nix
           ./docker-sbx.nix
         ]
-        ++ (map (a: ./${a.name}.nix) ai)
+        ++ (map (a: ./${a.name}) ai)
       )
       {
         inherit pkgs miko aiInitFiles;

@@ -21,7 +21,7 @@
       ]
       // {
         ".claude/settings.json".source = "${aiInitFiles}/.claude/settings.json";
-        ".claude/claude-statusline.fish".source = ./claude-statusline.fish;
+        ".claude/statusline.fish".source = ./statusline.fish;
         ".claude/RTK.md".source = "${aiInitFiles}/.claude/RTK.md";
         ".claude/CLAUDE.md".source = "${aiInitFiles}/.claude/CLAUDE.md";
       };
