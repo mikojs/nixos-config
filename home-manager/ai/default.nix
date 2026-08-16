@@ -46,26 +46,28 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
                 ''
                   echo '${
                     toJSON (
-                      {
-                        "statusLine" = {
-                          "type" = "command";
-                          "command" = "fish ~/.claude/statusline.fish";
+                      let
+                        basic = {
+                          "statusLine" = {
+                            "type" = "command";
+                            "command" = "fish ~/.claude/statusline.fish";
+                          };
+                          "hooks" = {
+                            "Notification" = [
+                              {
+                                "matcher" = "permission_prompt";
+                                "hooks" = [
+                                  {
+                                    "type" = "command";
+                                    "command" = "fish ~/.claude/approval/hook.fish";
+                                  }
+                                ];
+                              }
+                            ];
+                          };
                         };
-                        "hooks" = {
-                          "Notification" = [
-                            {
-                              "matcher" = "permission_prompt";
-                              "hooks" = [
-                                {
-                                  "type" = "command";
-                                  "command" = "fish ~/.claude/approval/hook.fish";
-                                }
-                              ];
-                            }
-                          ];
-                        };
-                      }
-                      // (if hasAttr "settings" a then a.settings else { })
+                      in
+                      (if hasAttr "settings" a then a.settings basic else basic)
                     )
                   }' > $HOME/.claude/settings.json
                   rtk init -g --auto-patch
