@@ -115,21 +115,28 @@ else
           [ ];
     };
 
-    programs.fish.interactiveShellInit = ''
-      ${getConfig [
+    programs = {
+      tmux.extraConfig = getConfig [
         "programs"
-        "fish"
-        "interactiveShellInit"
-      ] ""}
+        "tmux"
+        "extraConfig"
+      ] "";
 
-      # check ai files
-      for storePath in (find ${aiInitFiles} -type f)
-        set -l relPath (string replace -- "${aiInitFiles}" "$HOME" $storePath)
+      fish.interactiveShellInit = ''
+        ${getConfig [
+          "programs"
+          "fish"
+          "interactiveShellInit"
+        ] ""}
 
-        if not test -e $relPath
-          echo "⚠ AI: $relPath missing, run home-manager switch"
+        # check ai files
+        for storePath in (find ${aiInitFiles} -type f)
+          set -l relPath (string replace -- "${aiInitFiles}" "$HOME" $storePath)
+
+          if not test -e $relPath
+            echo "⚠ AI: $relPath missing, run home-manager switch"
+          end
         end
-      end
-    '';
-
+      '';
+    };
   }

@@ -17,9 +17,12 @@
 
             [Repository](https://github.com/anthropics/claude-code)
 
-            ## Tmux-powerline customize
+            ## Tmux customize
 
-            - Claude approval notifications segment (`~/.config/tmux-powerline/segments/claude.sh`)
+            - Keybindings
+              - A: Claude approval list
+            - Tmux Powerline
+              - Claude approval notifications segment (`~/.config/tmux-powerline/segments/claude.sh`)
           '';
         }
       ]
