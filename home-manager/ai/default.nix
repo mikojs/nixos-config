@@ -58,7 +58,7 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
                               "hooks" = [
                                 {
                                   "type" = "command";
-                                  "command" = "fish ~/.claude/hooks/approval.fish";
+                                  "command" = "fish ~/.claude/approval/hook.fish";
                                 }
                               ];
                             }
