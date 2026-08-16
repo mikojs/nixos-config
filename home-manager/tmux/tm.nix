@@ -7,7 +7,7 @@
     - `tmls`: Show tmux panes.
   '';
 
-  programs.interactiveShellInit = ''
+  programs.fish.interactiveShellInit = ''
     function tm --description "tm <command> [-s session_name] — run a command in a tmux session"
       argparse 's/session=' -- $argv
       or return 1

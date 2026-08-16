@@ -11,32 +11,43 @@
 let
   getConfig = miko.getConfig [
     ./tm.nix
+    ./tmux-powerline
   ] { inherit pkgs miko; };
 in
 {
-  home.file = miko.getDocs [
-    {
-      filePath = "tmux";
-      docs = ''
-        # Tmux
+  home.file =
+    getConfig
+      [
+        "home"
+        "file"
+      ]
+      (
+        miko.getDocs [
+          {
+            filePath = "tmux";
+            docs = ''
+              # Tmux
 
-        Tmux is a terminal multiplexer.
+              Tmux is a terminal multiplexer.
 
-        [Repository](https://github.com/tmux/tmux)
+              [Repository](https://github.com/tmux/tmux)
 
-        # Alias
-        ${getConfig [ "fish-alias" ] ""}
-      '';
-    }
-  ];
+              ## Alias
+              ${getConfig [ "fish-alias" ] ""}
+            '';
+          }
+        ]
+      );
 
   programs = {
     tmux = {
       enable = true;
 
-      plugins = with pkgs.tmuxPlugins; [
-        nord
-      ];
+      plugins = getConfig [
+        "programs"
+        "tmux"
+        "plugins"
+      ] [ ];
 
       # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
       extraConfig =

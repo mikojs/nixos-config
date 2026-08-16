@@ -49,7 +49,20 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
                       {
                         "statusLine" = {
                           "type" = "command";
-                          "command" = "fish ~/.claude/claude-statusline.fish";
+                          "command" = "fish ~/.claude/statusline.fish";
+                        };
+                        "hooks" = {
+                          "Notification" = [
+                            {
+                              "matcher" = "permission_prompt";
+                              "hooks" = [
+                                {
+                                  "type" = "command";
+                                  "command" = "fish ~/.claude/approval/hook.fish";
+                                }
+                              ];
+                            }
+                          ];
                         };
                       }
                       // (if hasAttr "settings" a then a.settings else { })
@@ -102,21 +115,28 @@ else
           [ ];
     };
 
-    programs.fish.interactiveShellInit = ''
-      ${getConfig [
+    programs = {
+      tmux.extraConfig = getConfig [
         "programs"
-        "fish"
-        "interactiveShellInit"
-      ] ""}
+        "tmux"
+        "extraConfig"
+      ] "";
 
-      # check ai files
-      for storePath in (find ${aiInitFiles} -type f)
-        set -l relPath (string replace -- "${aiInitFiles}" "$HOME" $storePath)
+      fish.interactiveShellInit = ''
+        ${getConfig [
+          "programs"
+          "fish"
+          "interactiveShellInit"
+        ] ""}
 
-        if not test -e $relPath
-          echo "⚠ AI: $relPath missing, run home-manager switch"
+        # check ai files
+        for storePath in (find ${aiInitFiles} -type f)
+          set -l relPath (string replace -- "${aiInitFiles}" "$HOME" $storePath)
+
+          if not test -e $relPath
+            echo "⚠ AI: $relPath missing, run home-manager switch"
+          end
         end
-      end
-    '';
-
+      '';
+    };
   }
