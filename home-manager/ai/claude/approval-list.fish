@@ -6,7 +6,7 @@ if not test -s /tmp/claude-approvals
 end
 
 set -l lines (cat /tmp/claude-approvals)
-set -l selected (printf '%s\n' $lines | gum choose --header "⚡ Pending approvals — select to jump")
+set -l selected (printf '%s\n' $lines | gum choose --header "⚡ Pending approvals — select to jump" --padding "0 1")
 
 if test -n "$selected"
     set -l index (contains -i -- "$selected" $lines)
