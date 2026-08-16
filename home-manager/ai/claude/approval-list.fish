@@ -1,8 +1,7 @@
 #!/etc/profiles/per-user/nixos/bin/fish
 
 if not test -s /tmp/claude-approvals
-    gum style --border rounded --padding "1 2" "No pending approvals"
-    sleep 2
+    tmux display-message "No pending approvals"
     exit 0
 end
 
