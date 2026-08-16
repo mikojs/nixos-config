@@ -49,7 +49,7 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
                       {
                         "statusLine" = {
                           "type" = "command";
-                          "command" = "fish ~/.claude/claude-statusline.fish";
+                          "command" = "fish ~/.claude/statusline.fish";
                         };
                         "hooks" = {
                           "Notification" = [

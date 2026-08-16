@@ -6,10 +6,12 @@ if not test -s /tmp/claude-approvals
     exit 0
 end
 
-set -l selected (cat /tmp/claude-approvals | gum choose --header "⚡ Pending approvals — select to jump")
+set -l lines (cat /tmp/claude-approvals)
+set -l selected (printf '%s\n' $lines | gum choose --header "⚡ Pending approvals — select to jump")
 
 if test -n "$selected"
-    grep -v "^$selected\$" /tmp/claude-approvals > /tmp/claude-approvals.tmp
+    set -l index (contains -i -- "$selected" $lines)
+    printf '%s\n' $lines | sed "$index"d > /tmp/claude-approvals.tmp
     mv /tmp/claude-approvals.tmp /tmp/claude-approvals
 
     set -l parts (string split ':' $selected)

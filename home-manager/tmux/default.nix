@@ -47,7 +47,7 @@ in
         "programs"
         "tmux"
         "plugins"
-      ];
+      ] [ ];
 
       # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
       extraConfig =
