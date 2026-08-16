@@ -18,7 +18,6 @@
           ## Customize
 
           - Nord color theme (`~/.config/tmux-powerline/themes/nord.sh`)
-          - Claude approval notifications segment (`~/.config/tmux-powerline/segments/claude_approvals.sh`)
         '';
       }
     ]
