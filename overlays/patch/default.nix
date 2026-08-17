@@ -8,5 +8,4 @@ with prev.vimUtils;
   };
 
   oxker = import ./oxker.nix prev;
-  obsidian = import ./obsidian.nix prev;
 }
