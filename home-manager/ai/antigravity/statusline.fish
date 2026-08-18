@@ -9,14 +9,11 @@ set -l VERSION   (echo $input | jq -r '.version // ""')
 set -l DIR       (echo $input | jq -r '.workspace.current_dir // .cwd // "."')
 set -l PCT_CTX   (echo $input | jq -r '.context_window.used_percentage // 0')
 set -l PLAN_TIER (echo $input | jq -r '.plan_tier // ""')
-set -l BRANCH    (echo $input | jq -r '.vcs.branch // ""')
+set -l GEMINI_FRAC  (echo $input | jq -r '.quota."gemini-weekly".remaining_fraction // 1')
+set -l GEMINI_RESET (echo $input | jq -r '.quota."gemini-weekly".reset_in_seconds // 0')
 
 # --- Derived values ---
 set -l DIRNAME (basename $DIR)
-
-if test -z "$BRANCH"
-    set BRANCH (git -C $DIR branch --show-current 2>/dev/null)
-end
 
 # --- Bar renderer ---
 # Usage: render_bar PERCENTAGE
@@ -60,21 +57,15 @@ if test -n "$VERSION"
     set_color brblack; printf "v%s" $VERSION
 end
 set_color normal; printf " | "
-if test -n "$BRANCH"
-    set_color cyan;   printf "⎇  %s" $BRANCH
-    set_color normal; printf " | "
-end
 set_color blue;   printf "CTX "
 render_bar (math -s0 $PCT_CTX)
 
-for key in (echo $input | jq -r '.quota | keys[]?')
-    set -l frac (echo $input | jq -r --arg k $key '.quota[$k].remaining_fraction // 1')
-    set -l pct  (math -s0 "(1 - $frac) * 100")
-    set -l label (string upper (string split -m1 -- "-" $key)[1])
-
-    set_color normal; printf "   "
-    set_color blue;   printf "%s " $label
-    render_bar $pct
+set_color normal; printf "   "
+set_color blue;   printf "7D "
+render_bar (math -s0 "(1 - $GEMINI_FRAC) * 100")
+if test $GEMINI_RESET -gt 0
+    set_color normal; printf " "
+    set_color brblack; printf "(resets %dd)" (math -s0 $GEMINI_RESET / 86400)
 end
 
 if test -n "$PLAN_TIER"
