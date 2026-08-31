@@ -15,6 +15,12 @@ where the real documentation lives, and what will bite them.
 1. `# Title` — what the user would call the tool, not the Nix attribute name.
 2. One sentence saying what it is. Upstream's own tagline is fine.
 
+Both must be literal text, and so must the link. Interpolation belongs inside a
+`## <topic>` section — the generated alias lists in `home-manager/fish/default.nix`
+and `home-manager/tmux/default.nix` do exactly this. An entry whose title, sentence,
+or link only appears on one branch of an `if` is a doc that silently changes shape
+per host.
+
 ## Links
 
 **An entry that packages an external tool must carry an upstream link** — a user who
