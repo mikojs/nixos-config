@@ -33,7 +33,7 @@
 
             Commitizen is used to manage commits.
 
-            [Repository](https://github.com/commitizen-tools/commitizen)
+            [Repository](https://github.com/commitizen/cz-cli)
 
             ```sh
             git cz

@@ -15,6 +15,8 @@ with builtins;
             # Antigravity
 
             Antigravity is an AI agent that brings the power of Gemini directly into your terminal.
+
+            [Website](https://antigravity.google/)
           '';
         }
       ]

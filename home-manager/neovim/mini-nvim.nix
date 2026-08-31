@@ -177,7 +177,7 @@
     {
       filePath = "neovim/mini-nvim/mini-align";
       docs = ''
-        ### Mini.nvim mini.align
+        # Mini.nvim mini.align
 
         Align text interactively
 

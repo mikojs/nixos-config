@@ -31,7 +31,7 @@ with pkgs;
           Some helpful commands to sync code between machines.
           Use `--help` to see available commands.
 
-          [Code](https://github.com/mikojs/nixos-config/tree/main/overlays/custom/coder)
+          [Repository](https://github.com/mikojs/coder)
         '';
       }
     ];
