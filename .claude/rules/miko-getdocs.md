@@ -56,7 +56,7 @@ tool's default, a gotcha — belongs in the doc, not only in a commit message. T
 to put it:
 
 - **A `## <topic>` section in the `docs` string** — for behaviour this repo itself
-  configures, e.g. the `ssm` wrapper in `user-packages/awscli.nix`.
+  configures, e.g. the `## Tmux customize` keybindings in `home-manager/ai/claude`.
 - **A `<name>-note` overlay attribute** — `getDocs` appends `pkgs.<name>-note` to the
   generated file when it exists, `<name>` being the last segment of `filePath`. This is
   how a repo annotates a doc it does not own; in `hsuting/nixos-config` these live in
