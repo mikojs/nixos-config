@@ -7,5 +7,7 @@
     nixfmt
   ];
 
+  support = [ "- `nixfmt`: Formats Nix." ];
+
   formatter = ''nix = { "nixfmt" },'';
 }

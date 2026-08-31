@@ -46,6 +46,11 @@
           | ---                                    | ---          |
           | Find files in the docs directory       | `<leader>DF` |
           | Search with grep in the docs directory | `<leader>DG` |
+
+          ## Support packages
+
+          - `ripgrep`: Grep pickers shell out to `rg`.
+          - `fd`: File pickers shell out to `fd`.
         '';
       }
     ];

@@ -23,6 +23,10 @@
               - A: Claude approval list
             - Tmux Powerline
               - Claude approval notifications segment (`~/.config/tmux-powerline/segments/claude.sh`)
+
+            ## Support packages
+
+            - `gum`: The approval list (`~/.claude/approval/list.fish`) uses `gum choose` to render its picker.
           '';
         }
       ]

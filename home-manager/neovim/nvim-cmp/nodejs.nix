@@ -9,6 +9,12 @@
     vscode-langservers-extracted
   ];
 
+  support = [
+    "- `typescript`: Provides `tsc`, which the TypeScript language server needs."
+    "- `typescript-language-server`: TypeScript and JavaScript language server."
+    "- `vscode-langservers-extracted`: Provides the `eslint` language server."
+  ];
+
   # FIXME: https://github.com/neovim/nvim-lspconfig/issues/3858
   config = ''
     vim.lsp.config("ts_ls", {

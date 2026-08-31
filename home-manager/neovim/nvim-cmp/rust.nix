@@ -8,6 +8,11 @@
     clippy
   ];
 
+  support = [
+    "- `rust-analyzer`: Rust language server."
+    "- `clippy`: The linter rust-analyzer runs as its `check` command."
+  ];
+
   config = ''
     vim.lsp.config("rust_analyzer", {
       capabilities = capabilities,

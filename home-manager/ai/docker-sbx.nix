@@ -17,7 +17,7 @@
 
           The main program is `sbx`.
 
-          [Repository](https://docs.docker.com/reference/cli/sbx/)
+          [Website](https://docs.docker.com/reference/cli/sbx/)
         '';
       }
     ];

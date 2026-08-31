@@ -31,6 +31,8 @@
     sqls
   ];
 
+  support = [ "- `sqls`: SQL language server." ];
+
   plugins = with pkgs.vimPlugins; [
     sqls-nvim
   ];

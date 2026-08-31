@@ -20,6 +20,8 @@ let
       {
         inherit pkgs miko;
       };
+
+  support = getConfig [ "support" ] [ ];
 in
 {
   home = {
@@ -56,6 +58,17 @@ in
                 | Abort            | `<C-e>`      |
                 | Confirm          | `<CR>`       |
                 | Select           | `<Tab>`      |
+                ${
+                  if length support <= 0 then
+                    ""
+                  else
+                    ''
+
+                      ## Support packages
+
+                      ${concatStringsSep "\n" support}
+                    ''
+                }
               '';
             }
           ]

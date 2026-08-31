@@ -12,6 +12,16 @@ in
   home = {
     file = miko.getDocs [
       {
+        filePath = "postgresql";
+        docs = ''
+          # PostgreSQL
+
+          Powerful, open source object-relational database system.
+
+          [Website](https://www.postgresql.org)
+        '';
+      }
+      {
         filePath = "pgcli";
         docs = ''
           # PGcli
