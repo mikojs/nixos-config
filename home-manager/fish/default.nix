@@ -83,9 +83,13 @@ in
                 # Docker
 
                 Docker is used to run containers.
+
+                [Repository](https://github.com/docker/cli)
                 ${
                   if isMac then
                     ''
+
+                      ## MacOS
 
                       We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
                       Please install it manually.
@@ -93,8 +97,6 @@ in
                   else
                     ""
                 }
-                [Repository](https://github.com/docker/cli)
-
                 ## Alias
 
                 - `dsd`: Run `Docker system df`. Show docker disk usage.
