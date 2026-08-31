@@ -20,6 +20,8 @@ let
       {
         inherit pkgs;
       };
+
+  support = getConfig [ "support" ] [ ];
 in
 {
   home = {
@@ -40,6 +42,17 @@ in
             | ---                                | ---           |
             | Toggle autoformat for all files    | `<leader>ccT` |
             | Toggle autoformat for current file | `<leader>cct` |
+            ${
+              if length support <= 0 then
+                ""
+              else
+                ''
+
+                  ## Support packages
+
+                  ${concatStringsSep "\n" support}
+                ''
+            }
           '';
         }
       ]

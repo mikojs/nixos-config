@@ -7,5 +7,7 @@
     rustfmt
   ];
 
+  support = [ "- `rustfmt`: Formats Rust." ];
+
   formatter = ''rust = { "rustfmt" },'';
 }

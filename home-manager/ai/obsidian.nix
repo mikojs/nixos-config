@@ -11,9 +11,9 @@
         docs = ''
           # Obsidian
 
-          CLI notes manager that integrates with LLMs. Open source and free.
+          Powerful knowledge base that works on top of a local folder of plain text Markdown files.
 
-          [Repository](https://github.com/obsidianmd/obsidian-releases)
+          [Website](https://obsidian.md)
         '';
       }
     ];

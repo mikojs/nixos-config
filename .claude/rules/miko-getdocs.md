@@ -35,8 +35,19 @@ folder on GitHub.
 
 ## Adding a package
 
-Anything added to `home.packages` gets a `getDocs` entry in the same file. Without one
-the user has a binary on their PATH and nothing telling them where it came from.
+Anything added to `home.packages` is accounted for in the same file. Without that the
+user has a binary on their PATH and nothing telling them where it came from.
+
+Two ways to account for one:
+
+- **Its own `getDocs` entry** — for a package the user reaches for directly.
+- **A line under `## Support packages`** in the entry for the package it backs — for a
+  language server, a formatter, or a CLI the parent shells out to. One line, saying what
+  pulls it in: `` - `ripgrep`: Grep pickers shell out to `rg`. ``
+
+Where the backing packages depend on the host's languages, the language modules each
+carry their own `support` lines and the parent interpolates the list — see
+`neovim/conform-nvim` and `neovim/nvim-cmp`.
 
 ## Warnings and reminders
 
