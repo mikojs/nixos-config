@@ -66,12 +66,6 @@ in
 
                 [Repository](https://github.com/NixOS/nixpkgs)
 
-                ## Search packages
-
-                - `nix search`: Search packages.
-                - Use `https://search.nixos.org/packages` to get the latest version.
-                - Use `https://lazamar.co.uk/nix-versions` to get the different versions.
-
                 ## Alias
 
                 - `nsf`: Run `nix-shell` with fish-shell.
@@ -89,7 +83,7 @@ in
                   if isMac then
                     ''
 
-                      ## MacOS
+                      ## Gotcha
 
                       We don't support it in MacOS. [Here](https://github.com/nix-darwin/nix-darwin/issues/112) are details.
                       Please install it manually.

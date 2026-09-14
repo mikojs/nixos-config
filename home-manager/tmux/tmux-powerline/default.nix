@@ -15,7 +15,7 @@
 
           [Repository](https://github.com/erikw/tmux-powerline)
 
-          ## Customize
+          ## Appearance
 
           - Nord color theme (`~/.config/tmux-powerline/themes/nord.sh`)
         '';
