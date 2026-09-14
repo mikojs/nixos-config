@@ -164,7 +164,7 @@
 
         [Repository](https://github.com/echasnovski/mini.move)
 
-        Keybindings
+        ## Keybindings
 
         | Description | Key     |
         | ---         | ---     |
