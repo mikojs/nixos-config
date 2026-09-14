@@ -32,7 +32,7 @@ in
 
           [Website](https://classic.yarnpkg.com/)
 
-          ## Version
+          ## Gotcha
 
           This is Yarn Classic (1.x). Run `yarn set version berry` in a project that needs Yarn 2+.
         '';
