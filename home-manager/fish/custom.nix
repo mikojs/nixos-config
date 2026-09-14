@@ -18,9 +18,9 @@ with pkgs;
 
           ## Support packages
 
-          - `tide`
-          - `gh`
-          - `tailscale`
+          - `tide`: Runs `tide configure` to set up the fish prompt.
+          - `gh`: Runs `gh auth login` to authenticate the GitHub CLI.
+          - `tailscale`: Runs `tailscale login` to join the tailnet as root.
         '';
       }
       {
