@@ -14,6 +14,10 @@
           Yet another cross-platform graphical process/system monitor.
 
           [Repository](https://github.com/ClementTsang/bottom)
+
+          ## Alias
+
+          - `btm`: Run bottom.
         '';
       }
     ];
