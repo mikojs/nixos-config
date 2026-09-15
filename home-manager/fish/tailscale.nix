@@ -13,16 +13,16 @@ let
 in
 {
   fish-alias = [
-    "- `tssh`: Run `ssh` with tailscale — see `~/.docs/commands/tssh.md`."
+    "- `tssh`: Run `ssh` with tailscale — see `~/.docs/fish/tssh.md`."
     "  - `forward [...ports]`: Forward remote ports to local."
     "  - `exec [...commands]`: Run commands on remote."
-    "- `tdocker`: Run `docker` with tailscale — see `~/.docs/commands/tdocker.md`."
-    "- `tcoder`: Run `coder` with tailscale — see `~/.docs/commands/tcoder.md`."
+    "- `tdocker`: Run `docker` with tailscale — see `~/.docs/fish/tdocker.md`."
+    "- `tcoder`: Run `coder` with tailscale — see `~/.docs/fish/tcoder.md`."
   ];
 
   home.file = miko.getDocs [
     {
-      filePath = "commands/tssh";
+      filePath = "fish/tssh";
       docs = ''
         # tssh
 
@@ -38,7 +38,7 @@ in
       '';
     }
     {
-      filePath = "commands/tdocker";
+      filePath = "fish/tdocker";
       docs = ''
         # tdocker
 
@@ -54,7 +54,7 @@ in
       '';
     }
     {
-      filePath = "commands/tcoder";
+      filePath = "fish/tcoder";
       docs = ''
         # tcoder
 
