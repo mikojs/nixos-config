@@ -1,4 +1,5 @@
 {
+  miko,
   ...
 }:
 let
@@ -12,11 +13,61 @@ let
 in
 {
   fish-alias = [
-    "- `tssh`: Run `ssh` with tailscale."
+    "- `tssh`: Run `ssh` with tailscale — see `~/.docs/commands/tssh.md`."
     "  - `forward [...ports]`: Forward remote ports to local."
     "  - `exec [...commands]`: Run commands on remote."
-    "- `tdocker`: Run `docker` with tailscale."
-    "- `tcoder`: Run `coder` with tailscale."
+    "- `tdocker`: Run `docker` with tailscale — see `~/.docs/commands/tdocker.md`."
+    "- `tcoder`: Run `coder` with tailscale — see `~/.docs/commands/tcoder.md`."
+  ];
+
+  home.file = miko.getDocs [
+    {
+      filePath = "commands/tssh";
+      docs = ''
+        # tssh
+
+        SSH into a Tailscale node.
+
+        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/fish/tailscale.nix)
+
+        ```sh
+        tssh <user>@<host>                        # interactive shell
+        tssh <user>@<host> forward <port> [...]   # forward ports to local
+        tssh <user>@<host> exec <cmd> [...]       # run commands remotely
+        ```
+      '';
+    }
+    {
+      filePath = "commands/tdocker";
+      docs = ''
+        # tdocker
+
+        Run Docker against a remote Tailscale node via an SSH context.
+
+        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/fish/tailscale.nix)
+
+        ```sh
+        tdocker <user>@<host> <docker args...>
+        ```
+
+        Creates a Docker context for the host on first use.
+      '';
+    }
+    {
+      filePath = "commands/tcoder";
+      docs = ''
+        # tcoder
+
+        Sync a git repository to/from a remote Tailscale node using `miko-coder`.
+
+        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/fish/tailscale.nix)
+
+        ```sh
+        tcoder <user>@<host> push <dir>
+        tcoder <user>@<host> pull <dir>
+        ```
+      '';
+    }
   ];
 
   programs.fish.interactiveShellInit = ''
