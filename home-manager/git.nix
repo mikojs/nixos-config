@@ -58,6 +58,11 @@
             A rich git commit graph in your terminal.
 
             [Repository](https://github.com/lusingander/serie)
+
+            ## Gotcha
+
+            - `gr` (the `git` alias) purges local tags before running serie — serie
+              errors out when there are too many tags.
           '';
         }
       ]

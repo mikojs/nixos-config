@@ -17,7 +17,9 @@
 
           ## Alias
 
-          - `ga`: Analyze the repo and configure the GitNexus MCP server for Claude and/or Antigravity.
+          - `ga (-c|--claude) (-v|--antigravity) (-a|--all)`: Analyze the repo and
+            configure the GitNexus MCP server for Claude and/or Antigravity. With no
+            flag, both are configured.
         '';
       }
     ];
