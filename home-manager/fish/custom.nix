@@ -31,6 +31,13 @@ with pkgs;
           Helpful commands to sync code between machines.
 
           [Repository](https://github.com/mikojs/coder)
+
+          ```sh
+          coder sync <bundle>            # apply a bundle to the local repo
+          coder push <ssh_url> <dir>     # bundle local branches, scp to remote, sync there
+          coder pull <ssh_url> <dir>     # bundle remote branches, scp to local, sync here
+          coder --generate fish          # print fish completion script
+          ```
         '';
       }
     ];
