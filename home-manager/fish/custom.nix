@@ -38,6 +38,11 @@ with pkgs;
           coder pull <ssh_url> <dir>     # bundle remote branches, scp to local, sync here
           coder --generate fish          # print fish completion script
           ```
+
+          ## Gotcha
+
+          - `coder push` runs `coder sync` on the remote machine over SSH, so `coder`
+            must already be installed there — it is not bundled or installed for you.
         '';
       }
     ];
