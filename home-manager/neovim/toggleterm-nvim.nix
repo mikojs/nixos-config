@@ -24,6 +24,7 @@
         | Toggle tab terminal                    | `<leader>Tt` |
         | Send selection to terminal             | `<leader>st` |
         | Send file ref (path:lines) to terminal | `<leader>sl` |
+        | Exit terminal mode                     | `<Esc>`      |
       '';
     }
   ];

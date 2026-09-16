@@ -16,6 +16,11 @@
         The fast, feature-rich, cross-platform, GPU based terminal.
 
         [Repository](https://github.com/kovidgoyal/kitty)
+
+        ## Gotcha
+
+        - On macOS, Option is remapped to Alt (`macos_option_as_alt yes`), which
+          disables the default Option-based accented-character input.
       '';
     }
   ];

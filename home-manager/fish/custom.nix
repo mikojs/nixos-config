@@ -28,8 +28,7 @@ with pkgs;
         docs = ''
           # [miko] Coder
 
-          Some helpful commands to sync code between machines.
-          Use `--help` to see available commands.
+          Helpful commands to sync code between machines.
 
           [Repository](https://github.com/mikojs/coder)
         '';

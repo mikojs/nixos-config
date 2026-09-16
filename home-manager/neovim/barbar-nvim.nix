@@ -24,6 +24,8 @@
         | Move tab right                       | `<A-.>`       |
         | Go to tab (1-9)                      | `<A-(1-9)>`   |
         | Go to last tab                       | `<A-0>`       |
+        | Pin tab                              | `<A-p>`       |
+        | Close tab                            | `<A-c>`       |
         | Sort by buffer number                | `<leader>tsb` |
         | Sort by name                         | `<leader>tsn` |
         | Sort by directory                    | `<leader>tsd` |

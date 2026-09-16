@@ -11,7 +11,7 @@
         docs = ''
           # RTK
 
-          CLI proxy that reduces LLM token consumption by 60-90% on common dev commands. Single Rust binary, zero dependencies
+          CLI proxy that reduces LLM token consumption by 60-90% on common dev commands, shipped as a single dependency-free Rust binary.
 
           [Repository](https://github.com/rtk-ai/rtk/)
         '';

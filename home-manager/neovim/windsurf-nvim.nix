@@ -13,6 +13,12 @@
         Windsurf.nvim is a plugin for Neovim that provides AI code completion.
 
         [Repository](https://github.com/Exafunction/windsurf.vim)
+
+        ## Keybindings
+
+        | Description       | Key      |
+        | ---               | ---      |
+        | Accept suggestion | `<A-CR>` |
       '';
     }
   ];

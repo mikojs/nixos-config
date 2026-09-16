@@ -20,7 +20,7 @@
         | ---                    | ---          |
         | Load session           | `<leader>sl` |
         | Select session         | `<leader>sc` |
-        | Save auto-save session | `<leader>ss` |
+        | Stop auto-save session | `<leader>ss` |
       '';
     }
   ];
