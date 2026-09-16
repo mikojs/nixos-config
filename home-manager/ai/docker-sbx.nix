@@ -11,13 +11,15 @@
         docs = ''
           # Docker SBX
 
-          Safe environments for agents. Docker Sandboxes delivers isolated
-          environments with restricted filesystem, network, and tool access,
-          enabling autonomous agent operation while protecting your system and data.
-
-          The main program is `sbx`.
+          Docker Sandboxes delivers isolated environments with restricted
+          filesystem, network, and tool access, enabling autonomous agent
+          operation while protecting your system and data.
 
           [Website](https://docs.docker.com/reference/cli/sbx/)
+
+          ## Gotcha
+
+          - The installed binary is `sbx`, not `docker-sbx`.
         '';
       }
     ];
