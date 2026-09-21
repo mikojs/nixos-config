@@ -7,7 +7,7 @@
   home = {
     file = miko.getDocs [
       {
-        filePath = "ai/ntn";
+        filePath = "ntn";
         docs = ''
           # Notion CLI
 
