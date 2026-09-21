@@ -29,6 +29,7 @@ fn main() -> Result<(), MainError> {
                     ConfigType::Tide => "Do you want to initialize a new Tide configure?",
                     ConfigType::Gh => "Do you want to login Github CLI?",
                     ConfigType::Tailscale => "Do you want to login Tailscale with the root user?",
+                    ConfigType::Ntn => "Do you want to login Notion CLI?",
                 },
                 OPTIONS.to_vec(),
             )
@@ -40,6 +41,7 @@ fn main() -> Result<(), MainError> {
                         ConfigType::Tide => "fish",
                         ConfigType::Gh => "gh",
                         ConfigType::Tailscale => "sudo",
+                        ConfigType::Ntn => "ntn",
                     };
                     let command_args = match config_type {
                         ConfigType::Tide => vec!["-c", "tide configure"]
@@ -50,6 +52,9 @@ fn main() -> Result<(), MainError> {
                             .into_iter()
                             .map(|v| v.to_string())
                             .collect(),
+                        ConfigType::Ntn => {
+                            vec!["login"].into_iter().map(|v| v.to_string()).collect()
+                        }
                         ConfigType::Tailscale => {
                             let mut command_args: Vec<String> = vec!["tailscale", "login"]
                                 .into_iter()

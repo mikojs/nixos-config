@@ -27,6 +27,7 @@ pub enum ConfigType {
     Tide,
     Gh,
     Tailscale,
+    Ntn,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
@@ -36,6 +37,7 @@ pub struct Config {
     tide_is_initialized: bool,
     gh_is_initialized: bool,
     tailscale_is_initialized: bool,
+    ntn_is_initialized: bool,
 }
 
 impl Config {
@@ -58,6 +60,8 @@ impl Config {
         config.tailscale_is_initialized = config.tailscale_is_initialized
             || !String::from_utf8(Command::new("tailscale").arg("status").output()?.stdout)?
                 .contains("Logged out");
+        config.ntn_is_initialized = config.ntn_is_initialized
+            || Command::new("ntn").arg("whoami").output()?.status.success();
 
         Ok(config)
     }
@@ -67,6 +71,7 @@ impl Config {
             ConfigType::Tide => self.tide_is_initialized,
             ConfigType::Gh => self.gh_is_initialized,
             ConfigType::Tailscale => self.tailscale_is_initialized,
+            ConfigType::Ntn => self.ntn_is_initialized,
         }
     }
 
@@ -75,6 +80,7 @@ impl Config {
             ConfigType::Tide => self.tide_is_initialized = true,
             ConfigType::Gh => self.gh_is_initialized = true,
             ConfigType::Tailscale => self.tailscale_is_initialized = true,
+            ConfigType::Ntn => self.ntn_is_initialized = true,
         }
     }
 

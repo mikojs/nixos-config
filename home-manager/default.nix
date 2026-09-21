@@ -89,6 +89,7 @@ with builtins;
               ./jless.nix
               ./jq.nix
               ./mermaid.nix
+              ./ntn.nix
               ./oxker.nix
               ./somo.nix
               ./tabiew.nix
