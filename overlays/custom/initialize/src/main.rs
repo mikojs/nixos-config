@@ -52,10 +52,9 @@ fn main() -> Result<(), MainError> {
                             .into_iter()
                             .map(|v| v.to_string())
                             .collect(),
-                        ConfigType::Ntn => vec!["login"]
-                            .into_iter()
-                            .map(|v| v.to_string())
-                            .collect(),
+                        ConfigType::Ntn => {
+                            vec!["login"].into_iter().map(|v| v.to_string()).collect()
+                        }
                         ConfigType::Tailscale => {
                             let mut command_args: Vec<String> = vec!["tailscale", "login"]
                                 .into_iter()
