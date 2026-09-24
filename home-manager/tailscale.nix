@@ -14,13 +14,13 @@ in
 {
   home.file = miko.getDocs [
     {
-      filePath = "fish/tssh";
+      filePath = "tssh";
       docs = ''
         # tssh
 
         SSH into a Tailscale node.
 
-        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/fish/tailscale.nix)
+        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/tailscale.nix)
 
         ```sh
         tssh <user>@<host>                        # interactive shell
@@ -30,13 +30,13 @@ in
       '';
     }
     {
-      filePath = "fish/tdocker";
+      filePath = "tdocker";
       docs = ''
         # tdocker
 
         Run Docker against a remote Tailscale node via an SSH context.
 
-        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/fish/tailscale.nix)
+        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/tailscale.nix)
 
         ```sh
         tdocker <user>@<host> <docker args...>
@@ -46,13 +46,13 @@ in
       '';
     }
     {
-      filePath = "fish/tcoder";
+      filePath = "tcoder";
       docs = ''
         # tcoder
 
         Sync a git repository to/from a remote Tailscale node using `miko-coder`.
 
-        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/fish/tailscale.nix)
+        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/tailscale.nix)
 
         ```sh
         tcoder <user>@<host> push <dir>

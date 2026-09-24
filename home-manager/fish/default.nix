@@ -3,7 +3,6 @@
   pkgs,
   miko,
   isMac,
-  n8n,
   timezones,
   ...
 }:
@@ -14,8 +13,6 @@ let
       (
         [
           ./custom.nix
-          ./tailscale.nix
-          ./n8n
           ./nord.nix
           ./tide.nix
         ]
@@ -26,8 +23,6 @@ let
           lib
           pkgs
           miko
-          n8n
-          timezones
           ;
       };
 in

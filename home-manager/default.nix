@@ -89,10 +89,12 @@ with builtins;
               ./jless.nix
               ./jq.nix
               ./mermaid.nix
+              ./n8n
               ./ntn.nix
               ./oxker.nix
               ./somo.nix
               ./tabiew.nix
+              ./tailscale.nix
               ./tree.nix
               (import ./ai user)
               (import ./git.nix user)

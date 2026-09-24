@@ -17,7 +17,7 @@ in
   home.file =
     miko.getDocs [
       {
-        filePath = "fish/n8n";
+        filePath = "n8n";
         docs = ''
           # n8n
 
@@ -25,7 +25,7 @@ in
 
           [Website](https://n8n.io)
 
-          [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/fish/n8n/default.nix)
+          [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/n8n/default.nix)
 
           ```sh
           n8n [...docker compose args]   # start/manage the n8n stack
