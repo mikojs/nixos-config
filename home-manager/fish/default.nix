@@ -10,14 +10,11 @@ with lib;
 let
   getConfig =
     miko.getConfig
-      (
-        [
-          ./custom.nix
-          ./nord.nix
-          ./tide.nix
-        ]
-        ++ (optionals isMac [ ./mac.nix ])
-      )
+      [
+        ./custom.nix
+        ./nord.nix
+        ./tide.nix
+      ]
       {
         inherit
           lib
@@ -49,7 +46,18 @@ in
 
                 - `find_files`: Find all files included the dot files in current directory.
                 ${if length timezones <= 0 then "" else "- `times`: Show times in different timezones."}
-                ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
+                ${
+                  if isMac then
+                    ''
+
+                      ## Gotcha
+
+                      - `ssh` is overridden to run `kitty +kitten ssh` on macOS instead of the
+                        plain OpenSSH client, needed for terminfo to work correctly over SSH.
+                    ''
+                  else
+                    ""
+                }
               '';
             }
             {
@@ -166,9 +174,12 @@ in
           "fish"
           "shellAliases"
         ]
-        {
-          dsd = "docker system df";
-          nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
-        };
+        (
+          {
+            dsd = "docker system df";
+            nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
+          }
+          // (optionalAttrs isMac { ssh = "kitty +kitten ssh"; })
+        );
   };
 }
