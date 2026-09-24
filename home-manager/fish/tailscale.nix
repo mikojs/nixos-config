@@ -1,25 +1,17 @@
 {
+  pkgs,
   miko,
   ...
 }:
 let
   checkCommandStr = command: ''
-    if not string match -q "*@*" $argv[1]
+    if [[ "''${1:-}" != *@* ]]; then
       echo "${command}: usage: ${command} <username>@<hostname> [...argv]" >&2
-
-      return 2
-    end
+      exit 2
+    fi
   '';
 in
 {
-  fish-alias = [
-    "- `tssh`: Run `ssh` with tailscale — see `~/.docs/fish/tssh.md`."
-    "  - `forward [...ports]`: Forward remote ports to local."
-    "  - `exec [...commands]`: Run commands on remote."
-    "- `tdocker`: Run `docker` with tailscale — see `~/.docs/fish/tdocker.md`."
-    "- `tcoder`: Run `coder` with tailscale — see `~/.docs/fish/tcoder.md`."
-  ];
-
   home.file = miko.getDocs [
     {
       filePath = "fish/tssh";
@@ -70,55 +62,64 @@ in
     }
   ];
 
-  programs.fish.interactiveShellInit = ''
-    function tssh --description "tssh <username>@<hostname> (forward|exec|*) [...argv] — run ssh over tailscale"
+  home.packages = [
+    (pkgs.writeShellScriptBin "tssh" ''
+      set -euo pipefail
+
       ${checkCommandStr "tssh"}
+      user="''${1%%@*}"
+      host="''${1#*@}"
 
-      set -l info (string split '@' $argv[1])
+      case "''${2:-}" in
+        forward)
+          ports=()
 
-      switch $argv[2]
-        case forward
-          set -l ports
+          for port in "''${@:3}"; do
+            ports+=("-L" "$port:localhost:$port")
+          done
 
-          for port in $argv[3..-1]
-            set -a ports "-L"
-            set -a ports "$port:localhost:$port"
-          end
+          exec ${pkgs.openssh}/bin/ssh "$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "''${ports[@]}" -t fish
+          ;;
 
-          ssh $info[1]@$(tailscale ip -4 $info[2]) $ports -t fish
+        exec)
+          printf -v commands '%s; ' "''${@:3}"
+          commands="''${commands%; }"
+          ${pkgs.openssh}/bin/ssh "$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "fish -c \"$commands\""
+          ;;
 
-        case exec
-          set -l commands (string join "; " $argv[3..-1])
-          ssh $info[1]@$(tailscale ip -4 $info[2]) "fish -c \"$commands\""
+        *)
+          exec ${pkgs.openssh}/bin/ssh "$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" -t fish
+          ;;
+      esac
+    '')
 
-        case '*'
-          ssh $info[1]@$(tailscale ip -4 $info[2]) -t fish
-      end
-    end
+    (pkgs.writeShellScriptBin "tdocker" ''
+      set -euo pipefail
 
-    function tdocker --description "tdocker <username>@<hostname> [...argv] — run docker over tailscale"
       ${checkCommandStr "tdocker"}
+      user="''${1%%@*}"
+      host="''${1#*@}"
 
-      set -l info (string split '@' $argv[1])
-      docker context ls -q | grep $info[2] &> /dev/null
+      if ! ${pkgs.docker}/bin/docker context ls -q | ${pkgs.gnugrep}/bin/grep -q "$host"; then
+        ${pkgs.docker}/bin/docker context create "$host" --docker "host=ssh://$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")"
+      fi
 
-      if test $status -eq 1
-        docker context create $info[2] --docker host=ssh://$info[1]@$(tailscale ip -4 $info[2])
-      end
+      exec ${pkgs.docker}/bin/docker -c "$host" "''${@:2}"
+    '')
 
-      docker -c $info[2] $argv[2..-1]
-    end
+    (pkgs.writeShellScriptBin "tcoder" ''
+      set -euo pipefail
 
-    function tcoder --description "tcoder <username>@<hostname> <push|pull> <directory> — run coder over tailscale"
       ${checkCommandStr "tcoder"}
-
-      if not contains $argv[2] push pull
+      if [[ "''${2:-}" != "push" && "''${2:-}" != "pull" ]]; then
         echo "tcoder: usage: tcoder <username>@<hostname> <push|pull> <directory>" >&2
-        return 2
-      end
+        exit 2
+      fi
 
-      set -l info (string split '@' $argv[1])
-      coder $argv[2] ssh://$info[1]@$(tailscale ip -4 $info[2]) $argv[3]
-    end
-  '';
+      user="''${1%%@*}"
+      host="''${1#*@}"
+
+      exec ${pkgs.miko-coder}/bin/coder "$2" "ssh://$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "$3"
+    '')
+  ];
 }
