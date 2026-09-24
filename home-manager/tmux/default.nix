@@ -15,39 +15,49 @@ let
   ] { inherit pkgs miko; };
 in
 {
-  home.file =
-    getConfig
-      [
-        "home"
-        "file"
-      ]
-      (
-        miko.getDocs [
-          {
-            filePath = "tmux";
-            docs = ''
-              # Tmux
-
-              Tmux is a terminal multiplexer.
-
-              [Repository](https://github.com/tmux/tmux)
-
-              ## Alias
-              ${getConfig [ "fish-alias" ] ""}
-            '';
-          }
+  home = {
+    file =
+      getConfig
+        [
+          "home"
+          "file"
         ]
-      );
+        (
+          miko.getDocs [
+            {
+              filePath = "tmux";
+              docs = ''
+                # Tmux
+
+                Tmux is a terminal multiplexer.
+
+                [Repository](https://github.com/tmux/tmux)
+              '';
+            }
+          ]
+        );
+
+    packages =
+      getConfig
+        [
+          "home"
+          "packages"
+        ]
+        [ ];
+  };
 
   programs = {
     tmux = {
       enable = true;
 
-      plugins = getConfig [
-        "programs"
-        "tmux"
-        "plugins"
-      ] [ ];
+      plugins =
+        getConfig
+          [
+            "programs"
+            "tmux"
+            "plugins"
+          ]
+          [ ];
 
       # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
       extraConfig =

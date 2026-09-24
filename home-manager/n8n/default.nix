@@ -1,0 +1,132 @@
+{
+  lib,
+  pkgs,
+  miko,
+  n8n,
+  timezones,
+  ...
+}:
+with lib;
+with builtins;
+let
+  data = n8n // {
+    genericTimezone = (if length timezones <= 0 then "America/New_York" else (elemAt timezones 0));
+  };
+in
+{
+  home.file =
+    miko.getDocs [
+      {
+        filePath = "n8n";
+        docs = ''
+          # n8n
+
+          Self-hosted workflow automation, run via Docker Compose.
+
+          [Website](https://n8n.io)
+
+          [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/n8n/default.nix)
+
+          ```sh
+          n8n [...docker compose args]   # start/manage the n8n stack
+          n8n-exec                        # open a shell inside the running n8n container
+          n8n-export                      # export all n8n workflows to ./workflows/
+          n8n-import                      # import n8n workflows from ./workflows/
+          ```
+        '';
+      }
+    ]
+    // {
+      ".n8n/init-data.sh".text =
+        replaceStrings
+          [
+            "\${POSTGRES_USER}"
+            "\${POSTGRES_PASSWORD}"
+            "\${POSTGRES_DB}"
+            "\${POSTGRES_NON_ROOT_USER}"
+            "\${POSTGRES_NON_ROOT_PASSWORD}"
+          ]
+          [
+            n8n.postgresUser
+            n8n.postgresPassword
+            n8n.postgresDb
+            n8n.postgresNonRootUser
+            n8n.postgresNonRootPassword
+          ]
+          (readFile ./init-data.sh);
+
+      ".n8n/docker-compose.yml".source = (pkgs.formats.yaml { }).generate "docker-compose.yml" {
+        volumes = {
+          db_storage = null;
+          n8n_storage = null;
+        };
+
+        services = {
+          postgres = {
+            image = "postgres:16";
+            restart = "always";
+            environment = [
+              "POSTGRES_USER=${data.postgresUser}"
+              "POSTGRES_PASSWORD=${data.postgresPassword}"
+              "POSTGRES_DB=${data.postgresDb}"
+              "POSTGRES_NON_ROOT_USER=${data.postgresNonRootUser}"
+              "POSTGRES_NON_ROOT_PASSWORD=${data.postgresNonRootPassword}"
+              "GENERIC_TIMEZONE=${data.genericTimezone}"
+            ];
+            volumes = [
+              "db_storage:/var/lib/postgresql/data"
+              "./_init-data.sh:/docker-entrypoint-initdb.d/init-data.sh"
+            ];
+            healthcheck = {
+              test = [
+                "CMD-SHELL"
+                "pg_isready -h localhost -U ${data.postgresUser} -d ${data.postgresDb}"
+              ];
+              interval = "5s";
+              timeout = "5s";
+              retries = 10;
+            };
+          };
+
+          n8n = {
+            image = "docker.n8n.io/n8nio/n8n";
+            restart = "always";
+            environment = [
+              "DB_TYPE=postgresdb"
+              "DB_POSTGRESDB_HOST=postgres"
+              "DB_POSTGRESDB_PORT=5432"
+              "DB_POSTGRESDB_DATABASE=${data.postgresDb}"
+              "DB_POSTGRESDB_USER=${data.postgresNonRootUser}"
+              "DB_POSTGRESDB_PASSWORD=${data.postgresNonRootPassword}"
+            ]
+            ++ (optionals (hasAttr "environment" n8n) n8n.environment);
+            ports = [ "5678:5678" ];
+            links = [ "postgres" ];
+            volumes = [
+              "n8n_storage:/home/node/.n8n"
+            ];
+            depends_on.postgres.condition = "service_healthy";
+          };
+        }
+        // (if hasAttr "services" n8n then n8n.services else { });
+      };
+    };
+
+  home.packages = [
+    (pkgs.writeShellScriptBin "n8n" ''
+      cat ~/.n8n/init-data.sh > ~/.n8n/_init-data.sh; chmod +x ~/.n8n/_init-data.sh; exec ${pkgs.docker}/bin/docker compose -f ~/.n8n/docker-compose.yml "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "n8n-exec" ''
+      exec ${pkgs.docker}/bin/docker exec -it "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" /bin/sh "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "n8n-export" ''
+      ${pkgs.docker}/bin/docker exec "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" sh -c 'rm -rf /tmp/n8n-workflows && n8n export:workflow --all --backup --output=/tmp/n8n-workflows' && exec ${pkgs.docker}/bin/docker cp "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID):/tmp/n8n-workflows/." ./workflows "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "n8n-import" ''
+      ${pkgs.docker}/bin/docker exec "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" rm -rf /tmp/n8n-workflows && ${pkgs.docker}/bin/docker cp ./workflows/. "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID):/tmp/n8n-workflows" && exec ${pkgs.docker}/bin/docker exec "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" n8n import:workflow --separate --input=/tmp/n8n-workflows "$@"
+    '')
+  ];
+}

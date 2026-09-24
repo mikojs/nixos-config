@@ -83,16 +83,20 @@ with builtins;
               ./agent-browser.nix
               ./bottom.nix
               ./fastfetch.nix
+              ./find-files.nix
               ./fish
               ./gh.nix
               ./glow.nix
               ./jless.nix
               ./jq.nix
               ./mermaid.nix
+              ./n8n
               ./ntn.nix
               ./oxker.nix
               ./somo.nix
               ./tabiew.nix
+              ./tailscale.nix
+              ./times.nix
               ./tree.nix
               (import ./ai user)
               (import ./git.nix user)

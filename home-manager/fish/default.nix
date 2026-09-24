@@ -3,31 +3,22 @@
   pkgs,
   miko,
   isMac,
-  n8n,
-  timezones,
   ...
 }:
 with lib;
 let
   getConfig =
     miko.getConfig
-      (
-        [
-          ./custom.nix
-          ./tailscale.nix
-          ./n8n
-          ./nord.nix
-          ./tide.nix
-        ]
-        ++ (optionals isMac [ ./mac.nix ])
-      )
+      [
+        ./custom.nix
+        ./nord.nix
+        ./tide.nix
+      ]
       {
         inherit
           lib
           pkgs
           miko
-          n8n
-          timezones
           ;
       };
 in
@@ -49,12 +40,18 @@ in
                 Fish is a user-friendly command line shell.
 
                 [Repository](https://github.com/fish-shell/fish-shell)
+                ${
+                  if isMac then
+                    ''
 
-                ## Alias
+                      ## Gotcha
 
-                - `find_files`: Find all files included the dot files in current directory.
-                ${if length timezones <= 0 then "" else "- `times`: Show times in different timezones."}
-                ${with lib; strings.concatStringsSep "\n" (getConfig [ "fish-alias" ] [ ])}
+                      - `ssh` is overridden to run `kitty +kitten ssh` on macOS instead of the
+                        plain OpenSSH client, needed for terminfo to work correctly over SSH.
+                    ''
+                  else
+                    ""
+                }
               '';
             }
             {
@@ -126,33 +123,6 @@ in
         ''
           # Disable Greeting
           set fish_greeting
-
-          function find_files --description "find_files <dir> — find all files including dotfiles in a directory"
-            for file in $(ls -A $argv[1])
-              if test -d $argv[1]/$file
-                find_files $argv[1]/$file
-              else
-                echo $argv[1]/$file
-              end
-            end
-          end
-
-          ${
-            if length timezones <= 0 then
-              ""
-            else
-              ''
-                # Show times
-                function times --description "times — show times in different timezones"
-                  begin
-                    echo -e "timezone,time"
-                    ${concatStringsSep "\n" (
-                      map (t: "echo -e \"${t},$(TZ=${t} date +'%Y-%m-%d %H:%M:%S')\"") timezones
-                    )}
-                  end | column -t -s ','
-                end
-              ''
-          };
         '';
 
     plugins =
@@ -171,9 +141,12 @@ in
           "fish"
           "shellAliases"
         ]
-        {
-          dsd = "docker system df";
-          nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
-        };
+        (
+          {
+            dsd = "docker system df";
+            nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
+          }
+          // (optionalAttrs isMac { ssh = "kitty +kitten ssh"; })
+        );
   };
 }
