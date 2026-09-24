@@ -3,7 +3,6 @@
   pkgs,
   miko,
   isMac,
-  timezones,
   ...
 }:
 with lib;
@@ -41,11 +40,6 @@ in
                 Fish is a user-friendly command line shell.
 
                 [Repository](https://github.com/fish-shell/fish-shell)
-
-                ## Alias
-
-                - `find_files`: Find all files included the dot files in current directory.
-                ${if length timezones <= 0 then "" else "- `times`: Show times in different timezones."}
                 ${
                   if isMac then
                     ''
@@ -129,33 +123,6 @@ in
         ''
           # Disable Greeting
           set fish_greeting
-
-          function find_files --description "find_files <dir> — find all files including dotfiles in a directory"
-            for file in $(ls -A $argv[1])
-              if test -d $argv[1]/$file
-                find_files $argv[1]/$file
-              else
-                echo $argv[1]/$file
-              end
-            end
-          end
-
-          ${
-            if length timezones <= 0 then
-              ""
-            else
-              ''
-                # Show times
-                function times --description "times — show times in different timezones"
-                  begin
-                    echo -e "timezone,time"
-                    ${concatStringsSep "\n" (
-                      map (t: "echo -e \"${t},$(TZ=${t} date +'%Y-%m-%d %H:%M:%S')\"") timezones
-                    )}
-                  end | column -t -s ','
-                end
-              ''
-          };
         '';
 
     plugins =
