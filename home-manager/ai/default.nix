@@ -13,6 +13,7 @@ with lib;
 with builtins;
 let
   useAI = lists.length ai > 0;
+  claudeStatusLine = import ./claude/statusline.nix { inherit pkgs; };
   aiInitFiles =
     pkgs.runCommand "ai-init-files"
       {
@@ -50,7 +51,7 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
                         basic = {
                           "statusLine" = {
                             "type" = "command";
-                            "command" = "fish ~/.claude/statusline.fish";
+                            "command" = "${claudeStatusLine}/bin/claude-statusline";
                           };
                           "hooks" = {
                             "Notification" = [

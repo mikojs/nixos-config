@@ -33,7 +33,6 @@
       ]
       // {
         ".claude/settings.json".source = "${aiInitFiles}/.claude/settings.json";
-        ".claude/statusline.fish".source = ./statusline.fish;
         ".claude/approval/hook.fish".source = ./approval-hook.fish;
         ".claude/approval/list.fish".source = ./approval-list.fish;
         ".claude/RTK.md".source = "${aiInitFiles}/.claude/RTK.md";
