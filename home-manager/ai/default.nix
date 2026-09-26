@@ -13,8 +13,7 @@ with lib;
 with builtins;
 let
   useAI = lists.length ai > 0;
-  claudeStatusLine = import ./claude/statusline.nix { inherit pkgs; };
-  claudeApprovalHook = import ./claude/approval-hook.nix { inherit pkgs; };
+  claudeSettings = import ./claude/settings.nix { inherit pkgs; };
   aiInitFiles =
     pkgs.runCommand "ai-init-files"
       {
@@ -47,30 +46,7 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
               if a.name == "claude" then
                 ''
                   echo '${
-                    toJSON (
-                      let
-                        basic = {
-                          "statusLine" = {
-                            "type" = "command";
-                            "command" = "${claudeStatusLine}/bin/claude-statusline";
-                          };
-                          "hooks" = {
-                            "Notification" = [
-                              {
-                                "matcher" = "permission_prompt";
-                                "hooks" = [
-                                  {
-                                    "type" = "command";
-                                    "command" = "${claudeApprovalHook}/bin/claude-approval-hook";
-                                  }
-                                ];
-                              }
-                            ];
-                          };
-                        };
-                      in
-                      (if hasAttr "settings" a then a.settings basic else basic)
-                    )
+                    toJSON (if hasAttr "settings" a then a.settings claudeSettings else claudeSettings)
                   }' > $HOME/.claude/settings.json
                   rtk init -g --auto-patch
                   rm $HOME/.claude/settings.json.bak
