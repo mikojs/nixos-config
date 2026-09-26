@@ -4,6 +4,9 @@
   aiInitFiles,
   ...
 }:
+let
+  approvalList = import ./approval-list.nix { inherit pkgs; };
+in
 {
   home = {
     file =
@@ -24,17 +27,11 @@
             ## Appearance
 
             - Tmux Powerline: Claude approval notifications segment (`~/.config/tmux-powerline/segments/claude.sh`)
-
-            ## Support packages
-
-            - `gum`: The approval list (`~/.claude/approval/list.fish`) uses `gum choose` to render its picker.
           '';
         }
       ]
       // {
         ".claude/settings.json".source = "${aiInitFiles}/.claude/settings.json";
-        ".claude/approval/hook.fish".source = ./approval-hook.fish;
-        ".claude/approval/list.fish".source = ./approval-list.fish;
         ".claude/RTK.md".source = "${aiInitFiles}/.claude/RTK.md";
         ".claude/CLAUDE.md".source = "${aiInitFiles}/.claude/CLAUDE.md";
         ".config/tmux-powerline/segments/claude.sh".source = ./tmux-powerline-claude.sh;
@@ -42,11 +39,10 @@
 
     packages = with pkgs; [
       claude-code
-      gum
     ];
   };
 
   programs.tmux.extraConfig = ''
-    bind-key A display-popup -E "fish ~/.claude/approval/list.fish"
+    bind-key A display-popup -E "${approvalList}/bin/claude-approval-list"
   '';
 }

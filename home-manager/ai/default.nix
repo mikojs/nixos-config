@@ -14,6 +14,7 @@ with builtins;
 let
   useAI = lists.length ai > 0;
   claudeStatusLine = import ./claude/statusline.nix { inherit pkgs; };
+  claudeApprovalHook = import ./claude/approval-hook.nix { inherit pkgs; };
   aiInitFiles =
     pkgs.runCommand "ai-init-files"
       {
@@ -60,7 +61,7 @@ ${a.geminiMD}" else ""}" > $HOME/.gemini/GEMINI.md
                                 "hooks" = [
                                   {
                                     "type" = "command";
-                                    "command" = "fish ~/.claude/approval/hook.fish";
+                                    "command" = "${claudeApprovalHook}/bin/claude-approval-hook";
                                   }
                                 ];
                               }
