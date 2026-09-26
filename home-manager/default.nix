@@ -83,7 +83,7 @@ with builtins;
               ./agent-browser.nix
               ./bottom.nix
               ./fastfetch.nix
-              ./find-files.nix
+              ./fd.nix
               ./fish
               ./gh.nix
               ./glow.nix
