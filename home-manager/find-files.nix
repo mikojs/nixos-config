@@ -23,21 +23,27 @@
   ];
 
   home.packages = [
-    (pkgs.writeShellScriptBin "find-files" ''
-      find-files() {
-        local dir="$1"
-        local file
+    (pkgs.writeShellApplication {
+      name = "find-files";
 
-        for file in $(ls -A "$dir"); do
-          if [ -d "$dir/$file" ]; then
-            find-files "$dir/$file"
-          else
-            echo "$dir/$file"
-          fi
-        done
-      }
+      text = ''
+        shopt -s dotglob nullglob
 
-      find-files "''${1:-.}"
-    '')
+        find-files() {
+          local dir="$1"
+          local file
+
+          for file in "$dir"/*; do
+            if [ -d "$file" ]; then
+              find-files "$file"
+            else
+              echo "$file"
+            fi
+          done
+        }
+
+        find-files "''${1:-.}"
+      '';
+    })
   ];
 }
