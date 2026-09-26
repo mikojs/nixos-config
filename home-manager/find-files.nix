@@ -27,8 +27,6 @@
       name = "find-files";
 
       text = ''
-        # Glob rather than iterate `ls` output: dotglob keeps the dotfiles `ls -A`
-        # listed, nullglob makes an empty directory expand to nothing.
         shopt -s dotglob nullglob
 
         find-files() {

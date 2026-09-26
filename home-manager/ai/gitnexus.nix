@@ -63,8 +63,6 @@
             enable_claude=true
             enable_antigravity=true
           else
-            # Spelled out as `if`s rather than `[[ … ]] && …`, whose non-zero exit on
-            # the unselected flag would trip errexit.
             if [[ "$flag_claude" == true ]]; then
               enable_claude=true
             fi
