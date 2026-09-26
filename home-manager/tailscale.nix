@@ -63,63 +63,72 @@ in
   ];
 
   home.packages = [
-    (pkgs.writeShellScriptBin "tssh" ''
-      set -euo pipefail
+    (pkgs.writeShellApplication {
+      name = "tssh";
 
-      ${checkCommandStr "tssh"}
-      user="''${1%%@*}"
-      host="''${1#*@}"
+      text = ''
+        ${checkCommandStr "tssh"}
+        user="''${1%%@*}"
+        host="''${1#*@}"
 
-      case "''${2:-}" in
-        forward)
-          ports=()
+        case "''${2:-}" in
+          forward)
+            ports=()
 
-          for port in "''${@:3}"; do
-            ports+=("-L" "$port:localhost:$port")
-          done
+            for port in "''${@:3}"; do
+              ports+=("-L" "$port:localhost:$port")
+            done
 
-          exec ${pkgs.openssh}/bin/ssh "$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "''${ports[@]}" -t fish
-          ;;
+            exec ${pkgs.openssh}/bin/ssh "$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "''${ports[@]}" -t fish
+            ;;
 
-        exec)
-          printf -v commands '%s; ' "''${@:3}"
-          commands="''${commands%; }"
-          ${pkgs.openssh}/bin/ssh "$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "fish -c \"$commands\""
-          ;;
+          exec)
+            printf -v commands '%s; ' "''${@:3}"
+            commands="''${commands%; }"
+            # Expanding "$commands" locally is the point: it is assembled here from
+            # argv and handed to the remote fish as one command string.
+            # shellcheck disable=SC2029
+            ${pkgs.openssh}/bin/ssh "$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "fish -c \"$commands\""
+            ;;
 
-        *)
-          exec ${pkgs.openssh}/bin/ssh "$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" -t fish
-          ;;
-      esac
-    '')
+          *)
+            exec ${pkgs.openssh}/bin/ssh "$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" -t fish
+            ;;
+        esac
+      '';
+    })
 
-    (pkgs.writeShellScriptBin "tdocker" ''
-      set -euo pipefail
+    (pkgs.writeShellApplication {
+      name = "tdocker";
 
-      ${checkCommandStr "tdocker"}
-      user="''${1%%@*}"
-      host="''${1#*@}"
+      text = ''
+        ${checkCommandStr "tdocker"}
+        user="''${1%%@*}"
+        host="''${1#*@}"
 
-      if ! ${pkgs.docker}/bin/docker context ls -q | ${pkgs.gnugrep}/bin/grep -q "$host"; then
-        ${pkgs.docker}/bin/docker context create "$host" --docker "host=ssh://$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")"
-      fi
+        if ! ${pkgs.docker}/bin/docker context ls -q | ${pkgs.gnugrep}/bin/grep -q "$host"; then
+          ${pkgs.docker}/bin/docker context create "$host" --docker "host=ssh://$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")"
+        fi
 
-      exec ${pkgs.docker}/bin/docker -c "$host" "''${@:2}"
-    '')
+        exec ${pkgs.docker}/bin/docker -c "$host" "''${@:2}"
+      '';
+    })
 
-    (pkgs.writeShellScriptBin "tcoder" ''
-      set -euo pipefail
+    (pkgs.writeShellApplication {
+      name = "tcoder";
 
-      ${checkCommandStr "tcoder"}
-      if [[ "''${2:-}" != "push" && "''${2:-}" != "pull" ]]; then
-        echo "tcoder: usage: tcoder <username>@<hostname> <push|pull> <directory>" >&2
-        exit 2
-      fi
+      text = ''
+        ${checkCommandStr "tcoder"}
+        if [[ "''${2:-}" != "push" && "''${2:-}" != "pull" ]]; then
+          echo "tcoder: usage: tcoder <username>@<hostname> <push|pull> <directory>" >&2
+          exit 2
+        fi
 
-      user="''${1%%@*}"
-      host="''${1#*@}"
+        user="''${1%%@*}"
+        host="''${1#*@}"
 
-      exec ${pkgs.miko-coder}/bin/coder "$2" "ssh://$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "$3"
-    '')
+        exec ${pkgs.miko-coder}/bin/coder "$2" "ssh://$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "$3"
+      '';
+    })
   ];
 }

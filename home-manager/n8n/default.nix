@@ -113,20 +113,36 @@ in
     };
 
   home.packages = [
-    (pkgs.writeShellScriptBin "n8n" ''
-      cat ~/.n8n/init-data.sh > ~/.n8n/_init-data.sh; chmod +x ~/.n8n/_init-data.sh; exec ${pkgs.docker}/bin/docker compose -f ~/.n8n/docker-compose.yml "$@"
-    '')
+    (pkgs.writeShellApplication {
+      name = "n8n";
 
-    (pkgs.writeShellScriptBin "n8n-exec" ''
-      exec ${pkgs.docker}/bin/docker exec -it "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" /bin/sh "$@"
-    '')
+      text = ''
+        cat ~/.n8n/init-data.sh > ~/.n8n/_init-data.sh; chmod +x ~/.n8n/_init-data.sh; exec ${pkgs.docker}/bin/docker compose -f ~/.n8n/docker-compose.yml "$@"
+      '';
+    })
 
-    (pkgs.writeShellScriptBin "n8n-export" ''
-      ${pkgs.docker}/bin/docker exec "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" sh -c 'rm -rf /tmp/n8n-workflows && n8n export:workflow --all --backup --output=/tmp/n8n-workflows' && exec ${pkgs.docker}/bin/docker cp "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID):/tmp/n8n-workflows/." ./workflows "$@"
-    '')
+    (pkgs.writeShellApplication {
+      name = "n8n-exec";
 
-    (pkgs.writeShellScriptBin "n8n-import" ''
-      ${pkgs.docker}/bin/docker exec "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" rm -rf /tmp/n8n-workflows && ${pkgs.docker}/bin/docker cp ./workflows/. "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID):/tmp/n8n-workflows" && exec ${pkgs.docker}/bin/docker exec "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" n8n import:workflow --separate --input=/tmp/n8n-workflows "$@"
-    '')
+      text = ''
+        exec ${pkgs.docker}/bin/docker exec -it "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" /bin/sh "$@"
+      '';
+    })
+
+    (pkgs.writeShellApplication {
+      name = "n8n-export";
+
+      text = ''
+        ${pkgs.docker}/bin/docker exec "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" sh -c 'rm -rf /tmp/n8n-workflows && n8n export:workflow --all --backup --output=/tmp/n8n-workflows' && exec ${pkgs.docker}/bin/docker cp "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID):/tmp/n8n-workflows/." ./workflows "$@"
+      '';
+    })
+
+    (pkgs.writeShellApplication {
+      name = "n8n-import";
+
+      text = ''
+        ${pkgs.docker}/bin/docker exec "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" rm -rf /tmp/n8n-workflows && ${pkgs.docker}/bin/docker cp ./workflows/. "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID):/tmp/n8n-workflows" && exec ${pkgs.docker}/bin/docker exec "$(${pkgs.docker}/bin/docker ps -f name=n8n-n8n-1 --format json | ${pkgs.jq}/bin/jq -r .ID)" n8n import:workflow --separate --input=/tmp/n8n-workflows "$@"
+      '';
+    })
   ];
 }

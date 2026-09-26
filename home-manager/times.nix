@@ -25,13 +25,15 @@ optionalAttrs (length timezones > 0) {
   ];
 
   home.packages = [
-    (pkgs.writeShellScriptBin "times" ''
-      {
-        echo "timezone,time"
-        ${concatStringsSep "\n" (
-          map (t: ''echo "${t},$(TZ=${t} date +'%Y-%m-%d %H:%M:%S')"'') timezones
-        )}
-      } | column -t -s ','
-    '')
+    (pkgs.writeShellApplication {
+      name = "times";
+
+      text = ''
+        {
+          echo "timezone,time"
+          ${concatStringsSep "\n" (map (t: ''echo "${t},$(TZ=${t} date +'%Y-%m-%d %H:%M:%S')"'') timezones)}
+        } | column -t -s ','
+      '';
+    })
   ];
 }
