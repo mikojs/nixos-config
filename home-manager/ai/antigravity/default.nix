@@ -4,7 +4,9 @@
   aiInitFiles,
   ...
 }:
-with builtins;
+let
+  statusline = import ./statusline.nix { inherit pkgs; };
+in
 {
   home = {
     file =
@@ -22,7 +24,6 @@ with builtins;
       ]
       // {
         ".gemini/GEMINI.md".source = "${aiInitFiles}/.gemini/GEMINI.md";
-        ".gemini/statusline.fish".source = ./statusline.fish;
       };
 
     packages = with pkgs; [
@@ -32,7 +33,7 @@ with builtins;
 
   programs.fish.interactiveShellInit = ''
     set -l antigravity_settings ~/.gemini/antigravity-cli/settings.json
-    set -l desired_statusline_command "fish ~/.gemini/statusline.fish"
+    set -l desired_statusline_command "${statusline}/bin/antigravity-statusline"
 
     if test -f $antigravity_settings
       jq --arg cmd "$desired_statusline_command" \
