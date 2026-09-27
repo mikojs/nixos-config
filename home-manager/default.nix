@@ -87,6 +87,7 @@ with builtins;
               ./fish
               ./gh.nix
               ./glow.nix
+              ./initialize.nix
               ./jless.nix
               ./jq.nix
               ./mermaid.nix

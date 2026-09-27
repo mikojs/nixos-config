@@ -1,3 +1,0 @@
-[workspace]
-members = [ "initialize" ]
-resolver = "2"
