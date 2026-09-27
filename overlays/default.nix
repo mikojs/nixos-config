@@ -11,6 +11,5 @@
     inputs.llm-agents.overlays.shared-nixpkgs
     inputs.miko-coder.overlays.default
     (import ./patch)
-    (import ./custom)
   ];
 }
