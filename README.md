@@ -85,6 +85,62 @@ Currently, only `antigravity` and `claude` are supported. Run the commands and a
 :Codeium Auth
 ```
 
+## Using `mkSystem`
+
+`mkSystem` (defined in [`mkSystem.nix`](./mkSystem.nix)) builds a `nixosConfigurations`
+or `darwinConfigurations` entry from this flake's shared modules
+(`overlays`, `nixos`, `home-manager`). It is also exported as a flake output, so other
+flakes can reuse it instead of duplicating the module wiring.
+
+```nix
+mkSystem {
+  system = "x86_64-linux"; # required, e.g. "x86_64-linux" or "aarch64-darwin"
+  n8n = { ... };           # required, n8n settings passed through to modules
+  users = [ ... ];         # required, user list passed through to modules
+
+  systemModules = [ ]; # optional, extra modules to include, default: [ ]
+  isWSL = false;        # optional, adds ./nixos/wsl.nix, default: false
+  isMac = false;        # optional, builds with nix-darwin instead of NixOS, default: false
+  timezones = [ ];       # optional, default: [ ]
+  self = inputs.self;    # optional, default: this repo's own flake `self`
+}
+```
+
+This repo's own `flake.nix` calls it without `self`, so it defaults to this repo's own
+`self`:
+
+```nix
+nixosConfigurations.wsl = mkSystem {
+  inherit n8n users;
+  system = "x86_64-linux";
+  isWSL = true;
+};
+```
+
+### Reusing `mkSystem` from another flake
+
+Every system built with `mkSystem` records the git commit it was built from in
+`system.configurationRevision`, viewable after a build with:
+
+```bash
+nixos-version --configuration-revision
+```
+
+Since `self` defaults to this repo's own flake `self`, a different flake importing
+`mkSystem` must pass its own `self` explicitly — otherwise the recorded revision will
+be this repo's commit instead of the caller's:
+
+```nix
+# some-other-repo/flake.nix
+outputs = { self, mikojs-nixos-config, ... }@inputs:
+{
+  nixosConfigurations.foo = mikojs-nixos-config.mkSystem {
+    inherit self n8n users;
+    system = "x86_64-linux";
+  };
+};
+```
+
 ## Development
 
 ### How to add a new language
