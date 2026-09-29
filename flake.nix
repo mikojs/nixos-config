@@ -37,7 +37,6 @@
       mkSystem = import ./mkSystem.nix inputs;
 
       n8n = {
-        homeDir = "/home/miko";
         postgresUser = "postgresUser";
         postgresPassword = "postgresPassword";
         postgresDb = "postgresDb";

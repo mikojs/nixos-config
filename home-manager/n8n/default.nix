@@ -104,7 +104,8 @@ in
             links = [ "postgres" ];
             volumes = [
               "n8n_storage:/home/node/.n8n"
-            ];
+            ]
+            ++ (optionals (hasAttr "volumes" n8n) n8n.volumes);
             depends_on.postgres.condition = "service_healthy";
           };
         }
