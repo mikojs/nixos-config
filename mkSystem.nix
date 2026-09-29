@@ -7,6 +7,7 @@ inputs:
   n8n,
   timezones ? [ ],
   users,
+  self ? inputs.self,
 }:
 let
   mkSystem = if isMac then inputs.nix-darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
@@ -17,7 +18,6 @@ mkSystem {
 
   specialArgs = {
     inherit
-      inputs
       system
       isWSL
       isMac
@@ -26,6 +26,7 @@ mkSystem {
       users
       ;
 
+    inputs = inputs // { inherit self; };
     stateVersion = "26.05";
   };
 
