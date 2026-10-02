@@ -25,6 +25,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # FIXME: remove it after nixos upgrade > 26.05
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     miko-coder = {
       url = "github:mikojs/coder";
       inputs.nixpkgs.follows = "nixpkgs";
