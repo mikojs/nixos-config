@@ -9,5 +9,4 @@ with prev.vimUtils;
 
   oxker = import ./oxker.nix prev;
   ntn = import ./ntn.nix prev;
-  rtk = import ./rtk.nix prev;
 }
