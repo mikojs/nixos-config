@@ -2,7 +2,6 @@
   lib,
   pkgs,
   miko,
-  isMac,
   ...
 }:
 with lib;
@@ -41,7 +40,7 @@ in
 
                 [Repository](https://github.com/fish-shell/fish-shell)
                 ${
-                  if isMac then
+                  if pkgs.stdenv.isDarwin then
                     ''
 
                       ## Gotcha
@@ -77,7 +76,7 @@ in
 
                 [Repository](https://github.com/docker/cli)
                 ${
-                  if isMac then
+                  if pkgs.stdenv.isDarwin then
                     ''
 
                       ## Gotcha
@@ -146,7 +145,7 @@ in
             dsd = "docker system df";
             nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
           }
-          // (optionalAttrs isMac { ssh = "kitty +kitten ssh"; })
+          // (optionalAttrs pkgs.stdenv.isDarwin { ssh = "kitty +kitten ssh"; })
         );
   };
 }

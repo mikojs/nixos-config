@@ -19,7 +19,6 @@ mkSystem {
   specialArgs = {
     inherit
       system
-      isWSL
       isMac
       n8n
       timezones
