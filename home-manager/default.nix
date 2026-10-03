@@ -4,7 +4,6 @@
   miko,
   inputs,
   stateVersion,
-  isWSL,
   isMac,
   n8n,
   timezones,
@@ -66,8 +65,6 @@ with builtins;
     extraSpecialArgs = {
       inherit
         miko
-        isWSL
-        isMac
         n8n
         timezones
         ;

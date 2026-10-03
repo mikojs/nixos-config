@@ -5,7 +5,6 @@
 {
   pkgs,
   miko,
-  isMac,
   ...
 }:
 let
@@ -61,7 +60,7 @@ in
 
       # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
       extraConfig =
-        if !isMac then "" else "set-option -g default-command /etc/profiles/per-user/${name}/bin/fish";
+        if !pkgs.stdenv.isDarwin then "" else "set-option -g default-command /etc/profiles/per-user/${name}/bin/fish";
     };
 
     fish.interactiveShellInit = ''

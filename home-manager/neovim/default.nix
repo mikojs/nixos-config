@@ -7,7 +7,6 @@
   lib,
   pkgs,
   miko,
-  isWSL,
   ...
 }:
 with builtins;
@@ -194,9 +193,9 @@ in
       set nocompatible
     '';
 
-    initLua = with lib; ''
+    initLua = ''
       -- Clipboard
-      if ${boolToString isWSL} or os.getenv("SSH_CONNECTION") then
+      if vim.fn.has('wsl') == 1 or os.getenv("SSH_CONNECTION") then
         local function paste()
           return {
             vim.split(vim.fn.getreg(""), '\n'),
