@@ -26,17 +26,18 @@ in
         }
       ]
       // {
-        # grep is the one rtk filter that reports wrong results rather than just
-        # fewer of them — it swallows -h/-l/-m/-t, caps output at 25 rows per file
-        # while the header still claims the true match count, truncates lines at
-        # 80 chars, and returns the wrong lines through `| head`; the same classes
-        # of defect are open upstream (rtk-ai/rtk #2988, #4207). A wrong grep
-        # result silently misleads whoever reads it, which costs far more than
-        # the tokens this one filter saves. Native grep instead; every other
-        # command stays hooked.
+        # grep and rg are the rtk filters that report wrong results rather than
+        # just fewer of them — rg runs through the same filter as grep (per
+        # `rtk rg --help`), which swallows -h/-l/-m/-t, caps output at 25 rows
+        # per file while the header still claims the true match count,
+        # truncates lines at 80 chars, and returns the wrong lines through
+        # `| head`; the same classes of defect are open upstream (rtk-ai/rtk
+        # #2988, #3663, #4207). A wrong grep/rg result silently misleads
+        # whoever reads it, which costs far more than the tokens this filter
+        # saves. Native grep/rg instead; every other command stays hooked.
         "${configPath}".source = pkgs.writeText "rtk-config.toml" ''
           [hooks]
-          exclude_commands = ["grep"]
+          exclude_commands = ["grep", "rg"]
         '';
       };
 
