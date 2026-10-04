@@ -19,7 +19,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # TODO: remove it after nixos pkgs support GitNexus
+    # TODO: remove it after nixos pkgs support antigravity-cli
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
