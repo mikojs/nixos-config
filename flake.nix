@@ -19,12 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # TODO: remove it after nixos pkgs support GitNexus
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # FIXME: remove it after nixos upgrade > 26.05
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
