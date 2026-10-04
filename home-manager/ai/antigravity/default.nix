@@ -27,7 +27,7 @@ in
       };
 
     packages = with pkgs; [
-      llm-agents.antigravity-cli
+      antigravity-cli
     ];
   };
 
