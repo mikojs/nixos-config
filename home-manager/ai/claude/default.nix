@@ -43,6 +43,6 @@ in
   };
 
   programs.tmux.extraConfig = ''
-    bind-key A display-popup -E "${approvalList}/bin/claude-approval-list"
+    bind-key A display-popup -E -w 90% -h 90% "${approvalList}/bin/claude-approval-list"
   '';
 }
