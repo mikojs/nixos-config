@@ -3,30 +3,97 @@ pkgs.writeShellApplication {
   name = "claude-approval-list";
 
   text = ''
-    if [ ! -s /tmp/claude-approvals ]; then
-        ${pkgs.tmux}/bin/tmux display-message "No pending approvals"
-        exit 0
-    fi
+    agents() {
+        ${pkgs.claude-code}/bin/claude agents --json
+    }
 
-    mapfile -t lines < /tmp/claude-approvals
+    status_of() {
+        agents | ${pkgs.jq}/bin/jq -r --argjson p "$1" '.[] | select(.pid == $p) | .status'
+    }
 
-    # `|| :` keeps a cancelled picker (gum exits non-zero) from tripping errexit.
-    selected=$(printf '%s\n' "''${lines[@]}" \
-        | ${pkgs.gum}/bin/gum choose --header "⚡ Pending approvals — select to jump" --padding "0 1" || :)
+    # Walk up from the claude pid to the shell tmux started for the pane.
+    pane_of() {
+        local pid=$1 hit
 
-    if [ -n "$selected" ]; then
-        # Drop only the first match, so duplicate entries survive one jump each.
-        for i in "''${!lines[@]}"; do
-            if [ "''${lines[$i]}" = "$selected" ]; then
-                printf '%s\n' "''${lines[@]}" \
-                    | ${pkgs.gnused}/bin/sed "$((i + 1))d" > /tmp/claude-approvals.tmp
-                ${pkgs.coreutils}/bin/mv /tmp/claude-approvals.tmp /tmp/claude-approvals
-                break
+        while [ "$pid" -gt 1 ]; do
+            hit=$(${pkgs.tmux}/bin/tmux list-panes -a -F '#{pane_pid} #{session_name} #{window_index} #{pane_id} #{window_name}' |
+                ${pkgs.gawk}/bin/awk -v p="$pid" '$1 == p { print $2, $3, $4, $5; exit }')
+
+            if [ -n "$hit" ]; then
+                echo "$hit"
+                return
             fi
-        done
 
-        IFS=: read -r session window _ <<< "$selected"
-        ${pkgs.tmux}/bin/tmux switch-client -t "$session:$window"
-    fi
+            pid=$(${pkgs.procps}/bin/ps -o ppid= -p "$pid" | ${pkgs.coreutils}/bin/tr -d ' ')
+        done
+    }
+
+    tmp="approve-$$"
+    watcher=""
+
+    cleanup() {
+        if [ -n "$watcher" ]; then
+            kill "$watcher" 2>/dev/null || :
+        fi
+
+        ${pkgs.tmux}/bin/tmux kill-session -t "$tmp" 2>/dev/null || :
+    }
+    trap cleanup EXIT
+
+    # Return to the list after each answer; close once nothing is waiting.
+    first=1
+    while true; do
+        entries=()
+
+        while read -r pid name; do
+            read -r session window pane wname <<< "$(pane_of "$pid")" || continue
+            [ -n "''${pane:-}" ] || continue
+            entries+=("$session:$window:$wname  ($name)  pid=$pid pane=$pane")
+        done < <(agents | ${pkgs.jq}/bin/jq -r '.[] | select(.status == "waiting") | "\(.pid) \(.name)"')
+
+        if [ ''${#entries[@]} -eq 0 ]; then
+            if [ "$first" = 1 ]; then
+                echo "No agents waiting"
+                ${pkgs.coreutils}/bin/sleep 1
+            fi
+
+            exit 0
+        fi
+
+        first=0
+
+        # `|| :` keeps a cancelled picker (gum exits non-zero) from tripping errexit.
+        selected=$(printf '%s\n' "''${entries[@]}" |
+            ${pkgs.gum}/bin/gum choose --header "⚡ Waiting agents — select to answer" --padding "0 1" || :)
+        [ -n "$selected" ] || exit 0
+
+        pid=''${selected##*pid=}
+        pid=''${pid%% *}
+        pane=''${selected##*pane=}
+        target=''${selected%%  (*}
+        session=''${target%%:*}
+        window=''${target#*:}
+        window=''${window%%:*}
+
+        # A grouped session shares windows with the target but keeps its own
+        # current window, so other clients watching the target are not moved.
+        ${pkgs.tmux}/bin/tmux new-session -d -s "$tmp" -t "$session"
+        ${pkgs.tmux}/bin/tmux select-window -t "$tmp:$window"
+        ${pkgs.tmux}/bin/tmux select-pane -t "$pane"
+
+        # Detach from the agent once it stops waiting.
+        (
+            while [ "$(status_of "$pid")" = "waiting" ]; do
+                ${pkgs.coreutils}/bin/sleep 1
+            done
+
+            ${pkgs.tmux}/bin/tmux kill-session -t "$tmp" 2>/dev/null || :
+        ) &
+        watcher=$!
+
+        TMUX=''' ${pkgs.tmux}/bin/tmux attach-session -t "$tmp" || :
+        cleanup
+        watcher=""
+    done
   '';
 }
