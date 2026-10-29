@@ -2,11 +2,12 @@ inputs: final: prev:
 with prev;
 with prev.vimUtils;
 let
-  # claude-code and antigravity-cli are unfree; legacyPackages uses
+  # rtk, claude-code and antigravity-cli are unfree; legacyPackages uses
   # nixpkgs-unstable's own default config (allowUnfree = false), so they need
   # their own import with allowUnfree set rather than reusing legacyPackages.
   unstableUnfree = import inputs.nixpkgs-unstable {
     inherit (prev) system;
+
     config.allowUnfree = true;
   };
 in
@@ -20,7 +21,7 @@ in
   ntn = import ./ntn.nix prev;
 
   # FIXME: remove it after nixos upgrade > 26.05
-  rtk = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.rtk;
+  rtk = unstableUnfree.rtk;
   claude-code = unstableUnfree.claude-code;
   antigravity-cli = unstableUnfree.antigravity-cli;
 }
