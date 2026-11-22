@@ -84,6 +84,7 @@ with builtins;
               ./fish
               ./gh.nix
               ./glow.nix
+              ./herdr.nix
               ./initialize.nix
               ./jless.nix
               ./jq.nix
