@@ -69,6 +69,7 @@ with inputs;
     };
   };
 
+  # why: MesloLGS Nerd Font has no CJK glyphs and WSL ships no CJK font; macOS has its own
   fonts.packages = with pkgs; [
     noto-fonts-cjk-sans
   ];
