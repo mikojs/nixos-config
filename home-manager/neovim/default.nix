@@ -37,8 +37,6 @@ let
           ./mini-nvim.nix
           # Formatting
           ./conform-nvim
-          # AI
-          ./windsurf-nvim.nix
         ]
         ++ (filter pathExists (map (l: ./languages/${l.language}.nix) languages))
       )

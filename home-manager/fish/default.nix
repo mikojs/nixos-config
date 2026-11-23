@@ -9,7 +9,6 @@ let
   getConfig =
     miko.getConfig
       [
-        ./custom.nix
         ./nord.nix
         ./tide.nix
       ]

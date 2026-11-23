@@ -152,7 +152,6 @@ in
                   Array         = " ",
                   Boolean       = "󰨙 ",
                   Class         = " ",
-                  Codeium       = "󰘦 ",
                   Color         = " ",
                   Control       = " ",
                   Collapsed     = " ",

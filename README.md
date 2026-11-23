@@ -76,15 +76,6 @@ initialize
 
 Currently, only `antigravity` and `claude` are supported. Run the commands and authorize them manually according to your settings.
 
-### Codeium in nvim
-
-```nvim
-# If you encounter issues with the dressing UI, run this command:
-:lua require("dressing").setup({ select = { enabled = false }})
-
-:Codeium Auth
-```
-
 ## Using `mkSystem`
 
 `mkSystem` (defined in [`mkSystem.nix`](./mkSystem.nix)) builds a `nixosConfigurations`
