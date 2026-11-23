@@ -45,21 +45,6 @@ in
         Creates a Docker context for the host on first use.
       '';
     }
-    {
-      filePath = "tcoder";
-      docs = ''
-        # tcoder
-
-        Sync a git repository to/from a remote Tailscale node using `miko-coder`.
-
-        [Code](https://github.com/mikojs/nixos-config/tree/main/home-manager/tailscale.nix)
-
-        ```sh
-        tcoder <user>@<host> push <dir>
-        tcoder <user>@<host> pull <dir>
-        ```
-      '';
-    }
   ];
 
   home.packages = [
@@ -111,23 +96,6 @@ in
         fi
 
         exec ${pkgs.docker}/bin/docker -c "$host" "''${@:2}"
-      '';
-    })
-
-    (pkgs.writeShellApplication {
-      name = "tcoder";
-
-      text = ''
-        ${checkCommandStr "tcoder"}
-        if [[ "''${2:-}" != "push" && "''${2:-}" != "pull" ]]; then
-          echo "tcoder: usage: tcoder <username>@<hostname> <push|pull> <directory>" >&2
-          exit 2
-        fi
-
-        user="''${1%%@*}"
-        host="''${1#*@}"
-
-        exec ${pkgs.miko-coder}/bin/coder "$2" "ssh://$user@$(${pkgs.tailscale}/bin/tailscale ip -4 "$host")" "$3"
       '';
     })
   ];
