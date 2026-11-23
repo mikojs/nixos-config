@@ -1,5 +1,6 @@
 {
-  lib,
+  pkgs,
+  config,
   inputs,
   ...
 }:
@@ -12,123 +13,63 @@ with inputs;
   wsl = {
     enable = true;
     docker-desktop.enable = true;
+    useWindowsDriver = true;
   };
 
   programs.nix-ld.enable = true;
 
-  # why: mkAfter, so this wraps the herdr-desktop that overlays/patch sets rather than
-  # being replaced by it
-  nixpkgs.overlays = lib.mkAfter [
-    (final: prev: {
-      fcitx5-wsl = prev.qt6Packages.fcitx5-with-addons.override {
-        addons = [ prev.fcitx5-chewing ];
-        withConfigtool = false;
-      };
+  # why: useWindowsDriver puts the D3D12 libraries into /run/opengl-driver/lib, but Mesa's
+  # dozen (Vulkan on WSL) dlopens them by name, so that directory has to be on the path
+  environment.sessionVariables.LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ];
 
-      # why: /usr/lib/wsl/lib holds the D3D12 libraries Mesa's dozen (Vulkan on WSL) loads;
-      # gpui panics without XDG_RUNTIME_DIR, and WSL logins do not always set it.
-      # WSLg windows get no Windows IME input, so Chinese goes through fcitx5 over XIM, which
-      # gpui supports only on X11: WAYLAND_DISPLAY is unset to force X11 (WSLg's :0).
-      # fcitx5's wayland addons still find wayland-0, WSLg refuses them input_method, and
-      # fcitx5 exits on that error, so they are disabled. fcitx5-with-addons runs as
-      # .fcitx5-wrapped, so the running check matches the command line, not the name
-      herdr-desktop = prev.symlinkJoin {
-        inherit (prev.herdr-desktop) name meta;
+  # why: WSLg's Wayland (Weston 9) offers only text-input-v1, so no Wayland app gets an
+  # input method; without WAYLAND_DISPLAY, GUI apps use WSLg's X11 (:0), where fcitx5
+  # reaches them over XIM
+  environment.extraInit = ''
+    unset WAYLAND_DISPLAY
+  '';
 
-        paths = [ prev.herdr-desktop ];
-        nativeBuildInputs = [ prev.makeWrapper ];
+  # why: fish loads extraInit through fenv, which does not carry an unset over
+  programs.fish.shellInit = ''
+    set -e WAYLAND_DISPLAY
+  '';
 
-        postBuild = ''
-          wrapProgram $out/bin/herdr-app \
-            --run 'export XDG_RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"' \
-            --set-default DISPLAY :0 \
-            --unset WAYLAND_DISPLAY \
-            --set XMODIFIERS @im=fcitx \
-            --run '${prev.procps}/bin/pgrep -u "$(id -u)" -f ${final.fcitx5-wsl}/bin/fcitx5 >/dev/null || ${final.fcitx5-wsl}/bin/fcitx5 -d --disable=wayland,waylandim' \
-            --prefix LD_LIBRARY_PATH : /usr/lib/wsl/lib
-        '';
-      };
-    })
-  ];
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
 
-  home-manager.sharedModules = [
-    (
-      {
-        lib,
-        pkgs,
-        miko,
-        config,
-        ...
-      }:
-      {
-        home = {
-          file = miko.getDocs [
-            {
-              filePath = "herdr-desktop-wsl";
-              docs = ''
-                # Herdr desktop on WSL
+    fcitx5 = {
+      addons = with pkgs; [
+        fcitx5-chewing
+      ];
 
-                How Herdr desktop is set up to run through WSLg on WSL.
-
-                [Repository](https://github.com/herdrdev/herdr-app)
-
-                ## Support packages
-
-                - `fcitx5` with `fcitx5-chewing`: Chinese input. `herdr-app` starts fcitx5
-                  if it is not running. The profile at `~/.config/fcitx5/profile` is
-                  seeded once and is yours to change afterwards.
-                  [Repository](https://github.com/fcitx/fcitx5)
-                - `noto-fonts-cjk-sans`: CJK glyphs, which WSL and the app's bundled fonts
-                  lack. [Repository](https://github.com/notofonts/noto-cjk)
-
-                ## Keybindings
-
-                - Ctrl+Space toggles fcitx5 between the US keyboard and chewing.
-
-                ## Gotcha
-
-                - The app runs on WSLg's X11 server `:0`, not Wayland: WSLg windows get no
-                  Windows IME input, and fcitx5 reaches the app only over XIM, which it
-                  supports only on X11.
-                - Vulkan goes through Mesa's dozen over the Windows D3D12 libraries in
-                  `/usr/lib/wsl/lib`. dozen is not a conformant implementation, and
-                  llvmpipe (CPU) is the fallback.
-                - The first input after switching to chewing can lag for a moment, then
-                  settles.
-              '';
-            }
-          ];
-
-          packages = with pkgs; [
-            noto-fonts-cjk-sans
-          ];
-
-          # why: seeded, not linked: fcitx5 rewrites its profile, which a store symlink would block
-          activation.herdrDesktopFcitxProfile = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-            profile="${config.xdg.configHome}/fcitx5/profile"
-            if [ ! -e "$profile" ]; then
-              run mkdir -p "$(dirname "$profile")"
-              run install -m644 ${pkgs.writeText "fcitx5-profile" ''
-                [Groups/0]
-                Name=Default
-                Default Layout=us
-                DefaultIM=chewing
-
-                [Groups/0/Items/0]
-                Name=keyboard-us
-                Layout=
-
-                [Groups/0/Items/1]
-                Name=chewing
-                Layout=
-
-                [GroupOrder]
-                0=Default
-              ''} "$profile"
-            fi
-          '';
+      settings.inputMethod = {
+        "Groups/0" = {
+          Name = "Default";
+          "Default Layout" = "us";
+          DefaultIM = "chewing";
         };
-      }
-    )
+        "Groups/0/Items/0".Name = "keyboard-us";
+        "Groups/0/Items/1".Name = "chewing";
+        GroupOrder."0" = "Default";
+      };
+    };
+  };
+
+  # why: WSL has no desktop session to autostart fcitx5. Its wayland addons still find
+  # WSLg's socket, WSLg refuses them input_method, and fcitx5 exits on that error
+  systemd.user.services.fcitx5-wsl = {
+    description = "Fcitx5 for WSLg X11 apps";
+    wantedBy = [ "default.target" ];
+    environment.DISPLAY = ":0";
+
+    serviceConfig = {
+      ExecStart = "${config.i18n.inputMethod.package}/bin/fcitx5 --disable=wayland,waylandim";
+      Restart = "on-failure";
+    };
+  };
+
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk-sans
   ];
 }
