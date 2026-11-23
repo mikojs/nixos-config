@@ -69,8 +69,11 @@ with inputs;
     };
   };
 
-  # why: MesloLGS Nerd Font has no CJK glyphs and WSL ships no CJK font; macOS has its own
+  # why: MesloLGS Nerd Font has no CJK, emoji or some symbol glyphs (Claude Code's ⏵,
+  # U+23F5) and WSL ships no font for them; macOS has its own
   fonts.packages = with pkgs; [
     noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    (noto-fonts.override { variants = [ "NotoSansSymbols2" ]; })
   ];
 }
