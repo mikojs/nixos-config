@@ -95,12 +95,6 @@ else
     };
 
     programs = {
-      tmux.extraConfig = getConfig [
-        "programs"
-        "tmux"
-        "extraConfig"
-      ] "";
-
       fish.interactiveShellInit = ''
         ${getConfig [
           "programs"

@@ -100,7 +100,6 @@ with builtins;
               (import ./ai user)
               (import ./git.nix user)
               (import ./neovim user)
-              (import ./tmux user)
             ]
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages

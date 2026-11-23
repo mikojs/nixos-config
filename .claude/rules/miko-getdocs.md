@@ -16,8 +16,8 @@ where the real documentation lives, and what will bite them.
 2. One sentence saying what it is. Upstream's own tagline is fine.
 
 Both must be literal text, and so must the link. Interpolation belongs inside a
-`## <topic>` section — the generated alias lists in `home-manager/fish/default.nix`
-and `home-manager/tmux/default.nix` do exactly this. An entry whose title, sentence,
+`## <topic>` section — the generated alias list in `home-manager/fish/default.nix`
+does exactly this. An entry whose title, sentence,
 or link only appears on one branch of an `if` is a doc that silently changes shape
 per host.
 
