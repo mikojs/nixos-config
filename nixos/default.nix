@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   inputs,
   stateVersion,
   isMac,
@@ -29,4 +30,8 @@ with lib;
   };
 
   nixpkgs.config.allowUnfree = true;
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.meslo-lg
+  ];
 }
