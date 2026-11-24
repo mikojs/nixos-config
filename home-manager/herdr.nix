@@ -38,7 +38,7 @@
 
   # FIXME: default shell, https://github.com/nix-darwin/nix-darwin/issues/1237
   # herdr-core starts the $SHELL it was launched with, and on macOS that is the login shell
-  # (zsh), which nix-darwin leaves unchanged; kitty pins fish the same way
+  # (zsh), which nix-darwin leaves unchanged
   xdg.configFile."herdr-core/config.toml" = lib.mkIf pkgs.stdenv.isDarwin {
     text = ''
       shell = ["/etc/profiles/per-user/${config.home.username}/bin/fish"]

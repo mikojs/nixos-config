@@ -46,7 +46,7 @@ Some steps are required before installing NixOS.
 - Install [docker](https://www.docker.com/get-started).
 
 The macOS built-in terminal has some customization limitations, so it is not used.
-We use [Kitty](https://sw.kovidgoyal.net/kitty/) to replace it. Here is the [configuration](./home-manager/kitty.nix).
+We use [herdr desktop](https://github.com/herdrdev/herdr-app) to replace it. Here is the [configuration](./home-manager/herdr.nix).
 
 ## Installation
 

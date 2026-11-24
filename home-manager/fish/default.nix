@@ -38,18 +38,6 @@ in
                 Fish is a user-friendly command line shell.
 
                 [Repository](https://github.com/fish-shell/fish-shell)
-                ${
-                  if pkgs.stdenv.isDarwin then
-                    ''
-
-                      ## Gotcha
-
-                      - `ssh` is overridden to run `kitty +kitten ssh` on macOS instead of the
-                        plain OpenSSH client, needed for terminfo to work correctly over SSH.
-                    ''
-                  else
-                    ""
-                }
               '';
             }
             {
@@ -139,12 +127,9 @@ in
           "fish"
           "shellAliases"
         ]
-        (
-          {
-            dsd = "docker system df";
-            nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
-          }
-          // (optionalAttrs pkgs.stdenv.isDarwin { ssh = "kitty +kitten ssh"; })
-        );
+        {
+          dsd = "docker system df";
+          nsf = ''nix-shell --run "SHELL=$SHELL; fish"'';
+        };
   };
 }
