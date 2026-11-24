@@ -26,6 +26,8 @@ with builtins;
       {
         SHELL = "fish";
         EDITOR = "nvim";
+        # https://code.claude.com/docs/zh-TW/fullscreen#enable-fullscreen-rendering
+        CLAUDE_CODE_NO_FLICKER = "1";
       }
     else
       { }
