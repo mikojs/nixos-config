@@ -69,6 +69,13 @@ with inputs;
     };
   };
 
+  # why: WSL ships no cursor theme, so X11 apps fail to load resize cursors (row-resize)
+  # and fall back to left_ptr; without XCURSOR_THEME they look for a "default" theme
+  environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
+  ];
+  environment.sessionVariables.XCURSOR_THEME = "Adwaita";
+
   # why: MesloLGS Nerd Font has no CJK, emoji or some symbol glyphs (Claude Code's ⏵,
   # U+23F5) and WSL ships no font for them; macOS has its own
   fonts.packages = with pkgs; [
