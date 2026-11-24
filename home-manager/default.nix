@@ -26,9 +26,6 @@ with builtins;
       {
         SHELL = "fish";
         EDITOR = "nvim";
-        # https://code.claude.com/docs/zh-TW/fullscreen#enable-fullscreen-rendering
-        # kitty needs this to set up fullscreen
-        CLAUDE_CODE_NO_FLICKER = "1";
       }
     else
       { }
@@ -103,10 +100,7 @@ with builtins;
             ]
             ++ (map (l: import ./languages/${l.language}.nix { language = l; }) (
               filter (l: pathExists ./languages/${l.language}.nix) user.languages
-            ))
-            ++ (optionals isMac [
-              (import ./kitty.nix user)
-            ]);
+            ));
 
           home = {
             inherit stateVersion;
