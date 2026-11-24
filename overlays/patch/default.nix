@@ -24,7 +24,6 @@ in
   rtk = unstableUnfree.rtk;
   claude-code = unstableUnfree.claude-code;
   antigravity-cli = unstableUnfree.antigravity-cli;
-  herdr = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.herdr;
   herdr-core = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.herdr-core;
   herdr-desktop = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.herdr-desktop;
 }

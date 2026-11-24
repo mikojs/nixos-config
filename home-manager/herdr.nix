@@ -9,16 +9,6 @@
   home = {
     file = miko.getDocs [
       {
-        filePath = "herdr";
-        docs = ''
-          # Herdr
-
-          Herdr is a terminal multiplexer that shows the state of every running AI agent at a glance.
-
-          [Repository](https://github.com/herdrdev/herdr)
-        '';
-      }
-      {
         filePath = "herdr-desktop";
         docs = ''
           # Herdr desktop
@@ -34,9 +24,6 @@
 
           ## Gotcha
 
-          - The `herdr` TUI runs its own server and cannot see herdr-core's terminals
-            and agents, and neither can the TUI's saved machines. Start agents in
-            Herdr desktop or with `hc` for them to reach the mobile app.
           - On macOS, `~/.config/herdr-core/config.toml` pins new terminals to fish,
             because the login shell herdr-core would otherwise start is still zsh.
         '';
@@ -44,7 +31,6 @@
     ];
 
     packages = with pkgs; [
-      herdr
       herdr-core
       herdr-desktop
     ];
